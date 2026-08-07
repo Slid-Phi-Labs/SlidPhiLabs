@@ -3,72 +3,144 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Try Gate — Review or donate · unlock Slid Phi Labs tools</title>
-<meta name="description" content="Unlock Free Gate access to Zero Range Wave, CuNi Studio, and the Slid Phi Labs compression family. Leave a public review or make a small donation."/>
-<link rel="canonical" href="https://slidphilabs.vercel.app/try"/>
+<title>Try Gate $9 — Slid Phi Labs</title>
+<meta name="description" content="Try Gate evaluation seat for Compression module. Or free web demo. Suite quotes from $0.50."/>
+<meta name="lab-modules" content="compression,agent_platform"/>
+<meta name="lab-compression" content="SPL Codec,CDDG:Split"/>
+<meta name="lab-agent-platform" content="CuNi,Agent^Rider,Quikgater"/>
+
+<link rel="canonical" href="https://www.slidphilabs.com/try"/>
+
+<!-- Agentic commerce discovery (machine-readable) -->
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent" title="Agent commerce discovery"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/agents.json" title="agents.json"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/agents.txt" title="agents.txt"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
+<link rel="describedby" href="https://www.slidphilabs.com/.well-known/agentic-commerce.json"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/.well-known/agent-card.json" title="A2A agent card"/>
+<meta name="agent-commerce" content="x402"/>
+<meta name="agent-protocols" content="x402"/>
+<meta name="agent-networks" content="solana-mainnet-beta,eip155:8453"/>
+<meta name="agent-discovery" content="https://www.slidphilabs.com/api/agent"/>
+<meta name="agent-catalog" content="https://www.slidphilabs.com/api/x402-products"/>
+<meta name="agent-one-liner" content="Agent commerce: GET https://www.slidphilabs.com/api/agent then pay via x402 on Solana or Base mainnet (X-PAYMENT) on catalog POST."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Slid Phi Labs"/>
-<meta property="og:title" content="Try Gate — unlock Free Gate access"/>
-<meta property="og:description" content="Public review or small donation → ZRW Free key + links to CuNi and the compression family."/>
-<meta property="og:url" content="https://slidphilabs.vercel.app/try"/>
-<meta property="og:image" content="https://raw.githubusercontent.com/ceedot-rock/splabs-brand/main/assets/splabs-og.png"/>
+<meta property="og:title" content="Try Gate $9 — Slid Phi Labs"/>
+<meta property="og:description" content="Try Gate evaluation seat for Compression module. Or free web demo. Suite quotes from $0.50."/>
+<meta property="og:url" content="https://www.slidphilabs.com/try"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/slid-phi-labs-master.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="theme-color" content="#0a0c12"/>
+<meta name="twitter:title" content="Try Gate $9 — Slid Phi Labs"/>
+<meta name="twitter:description" content="Try Gate evaluation seat for Compression module. Or free web demo. Suite quotes from $0.50."/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/slid-phi-labs-master.jpg"/>
+<meta name="theme-color" content="#050b16"/>
 <meta name="robots" content="index,follow"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/jpeg" href="/assets/logos/logo-slid-phi-labs.jpg?v=6"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0a0c12;--panel:#12151e;--border:#1e2433;--text:#e8ecf4;--muted:#8b95a8;--accent:#5b8aff;--accent2:#3dd6c6;--good:#3ecf8e;--code:#0d1018;--warn:#fbbf24;--bad:#f87171}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
-a{color:var(--accent);text-decoration:none}.wrap{max-width:720px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;z-index:50;background:rgba(10,12,18,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-nav .inner{max-width:920px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.logo{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--text)}.logo span{color:var(--accent2)}
-.nav-links{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.nav-links a{color:var(--muted);font-size:.9rem}
+:root{
+  --bg:#050b16;--panel:#0c1524;--panel2:#122033;--border:rgba(61,214,198,.14);--border-gold:rgba(232,197,71,.35);
+  --text:#eef4fb;--muted:#8fa3b8;--accent:#5ba8ff;--teal:#3dd6c6;--teal-bright:#5ef0df;--gold:#e8c547;--gold-deep:#c9a227;
+  --gold-soft:rgba(232,197,71,.12);--code:#081018;--good:#3ecf8e;--bad:#f87171;--fire:#ff9a3c;
+  --poster:url("/assets/slid-phi-labs-master.jpg?v=3");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(61,214,198,.06), transparent 50%),
+    radial-gradient(ellipse 40% 30% at 90% 70%, rgba(255,154,60,.04), transparent 50%);
+}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--teal-bright)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+nav{position:sticky;top:0;z-index:50;background:rgba(5,11,22,.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,197,71,.18)}
+nav .inner{max-width:920px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:'Cinzel',serif;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.logo img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border-gold);box-shadow:0 0 16px rgba(61,214,198,.35),0 0 24px rgba(255,154,60,.12)}
+.logo span{color:var(--teal-bright)}
+.nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.nav-links a{color:var(--muted);font-size:.9rem}
+.nav-links a:hover{color:var(--gold)}
 .btn{display:inline-flex;padding:10px 16px;border-radius:8px;font-size:.9rem;font-weight:600;border:1px solid transparent;align-items:center;cursor:pointer;font-family:inherit}
-.btn-primary{background:var(--accent);color:#fff}.btn-teal{background:var(--accent2);color:#061018}.btn-ghost{background:transparent;color:var(--text);border-color:var(--border)}
+.btn-primary{background:linear-gradient(180deg,#6bb0ff,var(--accent));color:#fff}
+.btn-teal{background:linear-gradient(180deg,#5ef0df,var(--teal));color:#031018}
+.btn-gold{background:linear-gradient(180deg,#f5d76e,var(--gold),var(--gold-deep));color:#1a1200}
+.btn-ghost{background:transparent;color:var(--text);border-color:rgba(61,214,198,.25)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
-.hero{padding:48px 0 28px;border-bottom:1px solid var(--border)}
-.badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--accent2);background:rgba(61,214,198,.08);border:1px solid rgba(61,214,198,.25);padding:4px 10px;border-radius:999px;margin-bottom:16px}
+.hero{
+  padding:40px 0 28px;border-bottom:1px solid rgba(232,197,71,.2);
+  background:
+    linear-gradient(105deg, rgba(5,11,22,.94) 0%, rgba(5,11,22,.82) 48%, rgba(5,11,22,.45) 100%),
+    var(--poster) 78% 22%/cover no-repeat;
+}
+.hero-lock{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.hero-mini-poster{
+  width:110px;height:146px;border-radius:12px;object-fit:cover;object-position:center 18%;
+  border:1.5px solid rgba(232,197,71,.5);
+  box-shadow:0 0 24px rgba(61,214,198,.25),0 0 20px rgba(255,154,60,.12);
+  flex-shrink:0;
+}
+.badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--gold);background:var(--gold-soft);border:1px solid var(--border-gold);padding:4px 12px;border-radius:999px;margin-bottom:14px}
+.ribbon{font-family:'Cinzel',serif;color:var(--gold);font-weight:700;margin-bottom:12px;font-size:1.1rem;letter-spacing:.05em;text-shadow:0 0 32px rgba(232,197,71,.5)}
 h1{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:700;margin-bottom:12px}
 .lede{font-size:1.05rem;color:var(--muted);margin-bottom:8px}
-section{padding:28px 0;border-bottom:1px solid var(--border)}
-h2{font-size:1.15rem;font-weight:700;margin-bottom:12px}
-h3{font-size:1rem;font-weight:700;margin:14px 0 8px;color:var(--accent2)}
+section{padding:28px 0;border-bottom:1px solid rgba(61,214,198,.1);position:relative;z-index:1}
+h2{font-size:1.15rem;font-weight:700;margin-bottom:12px;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:.04em}
+h3{font-size:1rem;font-weight:700;margin:14px 0 8px;color:var(--teal-bright)}
 .note{color:var(--muted);font-size:.95rem;margin-bottom:12px}
 .paths{display:grid;gap:12px}@media(min-width:640px){.paths{grid-template-columns:1fr 1fr}}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px}
+.card{background:linear-gradient(165deg,var(--panel2),var(--panel));border:1px solid rgba(61,214,198,.18);border-radius:12px;padding:16px;box-shadow:inset 0 1px 0 rgba(232,197,71,.06)}
 .card ul{margin:8px 0 0 1.1rem;color:var(--muted);font-size:.9rem}
 .card li{margin:.35rem 0}
 label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin:12px 0 6px}
-input,select,textarea{width:100%;background:var(--code);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px 12px;font:inherit}
-input:focus,select:focus,textarea:focus{outline:1px solid var(--accent)}
+input,select,textarea{width:100%;background:var(--code);border:1px solid rgba(61,214,198,.2);border-radius:8px;color:var(--text);padding:10px 12px;font:inherit}
+input:focus,select:focus,textarea:focus{outline:1px solid var(--gold)}
 .row{display:grid;gap:10px}@media(min-width:560px){.row{grid-template-columns:1fr 1fr;gap:14px}}
 .hidden{display:none !important}
-.msg{margin-top:14px;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--panel);font-size:.95rem}
+.msg{margin-top:14px;padding:14px;border-radius:10px;border:1px solid rgba(61,214,198,.2);background:var(--panel);font-size:.95rem}
 .msg.ok{border-color:rgba(62,207,142,.4);background:rgba(62,207,142,.08)}
 .msg.err{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08)}
 .mono{font-family:'IBM Plex Mono',monospace;font-size:.88rem}
 .keybox{margin-top:10px;padding:12px;background:var(--code);border-radius:8px;border:1px solid rgba(61,214,198,.35);word-break:break-all}
-footer{padding:28px 0;color:var(--muted);font-size:.85rem}
-footer .inner{max-width:920px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer{padding:28px 0;color:var(--muted);font-size:.85rem;position:relative;z-index:1;border-top:1px solid rgba(232,197,71,.15)}
+footer .inner{max-width:920px;margin:0 auto;padding:0 20px}
+footer .lockup{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+footer .lockup img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--border-gold)}
+footer .tag{color:var(--gold);font-family:'Cinzel',serif;margin-bottom:4px}
+footer .contact-line{margin:8px 0 0;font-size:.88rem;line-height:1.5}
+footer .contact-line a{color:var(--teal-bright);font-weight:600}
+footer .legal{margin-top:14px;padding-top:12px;border-top:1px solid rgba(232,197,71,.12);font-size:.8rem;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+footer .legal img{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid rgba(232,197,71,.35)}
+footer .legal .copy{display:flex;align-items:center;gap:10px}
 .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 </style>
 </head>
 <body>
 <nav><div class="inner">
-  <a class="logo" href="/">Slid Phi <span>Labs</span></a>
+  <a class="logo" href="/"><img src="/assets/logos/logo-slid-phi-labs.jpg?v=6" width="36" height="36" alt=""/>Slid Phi <span>Labs</span></a>
   <div class="nav-links">
+    <a href="/#cddg-split">CDDG:Split</a>
     <a href="/#zrw">ZRW</a>
-    <a href="/#family">Packages</a>
-    <a href="/try">Try Gate</a>
-    <a href="https://cuni-studio.fly.dev/" target="_blank" rel="noopener">CuNi</a>
+    <a href="/#packages">Packages</a>
+    <a href="/pps">Pay Per Suite</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/demos">Demos</a>
+    <a href="/access">Access</a>
+    <a class="btn btn-teal" href="/try" style="padding:8px 12px;font-size:.85rem">Try Gate</a>
   </div>
 </div></nav>
 
 <section class="hero"><div class="wrap">
-  <div class="badge">Free Gate · limited seats</div>
-  <h1>Try the tools. Leave a public review — or chip in — and unlock access.</h1>
-  <p class="lede">Slid Phi Labs ships pure-JS compressors (Zero Range Wave, Blackjack, shard-zip, slid-phi) and CuNi Studio. Free evaluation seats are limited. Unlock yours in one of two ways.</p>
+  <div class="hero-lock">
+    <img class="hero-mini-poster" src="/assets/slid-phi-labs-master.jpg?v=3" width="110" height="146" alt="Slid Phi Labs master poster"/>
+    <div>
+      <div class="badge">FREE GATE · LIMITED SEATS · SEE FOR YOURSELF</div>
+      <p class="ribbon">Impressive Compression..... see for yourself</p>
+      <h1>Try Gate</h1>
+      <p class="lede">Unlock free evaluation. Leave a short public review that links to us, or chip in. When a seat is open, you’re in. Prefer a one-off project? <a href="/pps">SPL Pay Per Suite</a>. Prefer full access now? <a href="https://buy.stripe.com/14A4gA4B79lu71jdAQ6wE0f" target="_blank" rel="noopener">CDDG:Split · $199</a>.</p>
+    </div>
+  </div>
 </div></section>
 
 <section><div class="wrap">
@@ -79,7 +151,7 @@ footer .inner{max-width:920px;margin:0 auto;padding:0 20px;display:flex;justify-
       <p class="note">Post a short public note about trying our tools.</p>
       <ul>
         <li>X, LinkedIn, blog, HN, Reddit, Dev.to, etc.</li>
-        <li>Include a link to <a href="https://slidphilabs.vercel.app">slidphilabs.vercel.app</a></li>
+        <li>Include a link to <a href="https://www.slidphilabs.com">slidphilabs.com</a></li>
         <li>Paste the public URL of your post below</li>
         <li>Must be publicly visible and mention Slid Phi Labs / ZRW / Blackjack / CuNi / etc.</li>
       </ul>
@@ -123,7 +195,7 @@ footer .inner{max-width:920px;margin:0 auto;padding:0 20px;display:flex;justify-
     <div id="reviewFields">
       <label for="reviewUrl">Public post URL</label>
       <input id="reviewUrl" name="reviewUrl" type="url" maxlength="500" placeholder="https://…"/>
-      <p class="note" style="margin-top:8px">Must be public and include a link back to slidphilabs.vercel.app (or a product page).</p>
+      <p class="note" style="margin-top:8px">Must be public and include a link back to slidphilabs.com (or a product page).</p>
     </div>
 
     <div id="donateFields" class="hidden">
@@ -140,6 +212,7 @@ footer .inner{max-width:920px;margin:0 auto;padding:0 20px;display:flex;justify-
     <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px">
       <button class="btn btn-primary" type="submit" id="submitBtn">Get Free Gate access</button>
       <a class="btn btn-ghost" href="/">Back to lab</a>
+      <a class="btn btn-gold" href="https://buy.stripe.com/14A4gA4B79lu71jdAQ6wE0f" target="_blank" rel="noopener" style="padding:10px 14px;font-size:.85rem">Buy CDDG:Split $199</a>
     </div>
     <div id="msg" class="msg hidden" role="status"></div>
   </form>
@@ -152,16 +225,42 @@ footer .inner{max-width:920px;margin:0 auto;padding:0 20px;display:flex;justify-
     <ul style="margin:10px 0 0 1.1rem;color:var(--muted)">
       <li><strong>ZRW Free key</strong> — Free Gate limits (100k ops/mo, 10k ints/call, no livestream, non-commercial)</li>
       <li><a href="https://cuni-studio.fly.dev/" target="_blank" rel="noopener">CuNi Studio</a></li>
-      <li>Brand + codecs: <a href="https://slidphilabs.vercel.app">slidphilabs.vercel.app</a></li>
-      <li>npm: <code class="mono">zero-range-wave-compression</code> · <code class="mono">blackjack-compression</code> · <code class="mono">shard-zip</code> · <code class="mono">shard-tsdb</code> · <code class="mono">slid-phi</code></li>
+      <li>Full site: <a href="/">slidphilabs.com</a> · <a href="/#cddg-split">CDDG:Split</a></li>
+      <li>Product family: ZRW · Blackjack · shard-zip · shard-tsdb · slid-phi</li>
+      <li>Paid packages: <a href="/access">Access</a> after checkout</li>
     </ul>
   </div>
 </div></section>
 
 <footer><div class="inner">
-  <div>Slid Phi Labs Try Gate · Free seats limited · spam rejected</div>
-  <div><a href="/">Home</a> · <a href="mailto:ceedotrock@gmail.com">ceedotrock@gmail.com</a></div>
-</div></footer>
+  <div class="lockup">
+    <img src="/assets/logos/logo-slid-phi-labs.jpg?v=6" width="44" height="44" alt="Slid Phi Labs logo"/>
+    <div>
+      <div class="tag">Impressive Compression..... see for yourself</div>
+      <div><a href="/">Home</a> · <a href="/pps">Pay Per Suite</a> · <a href="/#cddg-split">CDDG:Split</a> · <a href="/access">Access</a></div>
+    </div>
+  </div>
+  <p class="contact-line">
+    Questions, concerns, or partnerships:
+    <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a>
+  </p>
+  <div class="legal">
+    <div class="copy">
+      <img src="/assets/logos/logo-slid-phi-labs.jpg?v=6" width="28" height="28" alt=""/>
+      <span>© 2026 Slid Phi Labs. All rights reserved.</span>
+    </div>
+  </div>
+</div>
+    <p class="note agentic-marketing" style="margin-top:12px;font-size:0.9rem">
+      <strong style="color:var(--teal-bright,#3dd6c6)">Agents:</strong>
+      <a href="/api/agent"><code>GET /api/agent</code></a>
+      · <a href="/agents.json">agents.json</a>
+      · <a href="/agents.txt">agents.txt</a>
+      · <a href="/llms.txt">llms.txt</a>
+      — x402 USDC on <strong>Solana</strong> or <strong>Base</strong> mainnet (<code>X-PAYMENT</code>).
+    </p>
+
+  </footer>
 
 <script>
 (function () {
