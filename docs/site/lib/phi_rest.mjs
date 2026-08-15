@@ -57,15 +57,43 @@ export const CALLED = Object.freeze([
 ]);
 
 const hot = new Map();
+let lastRoot = "";
 
-export function bootRest(root) {
+export function createRest({ root, called = [] } = {}) {
+  const map = new Map();
+  const absRoot = root ? path.resolve(root) : process.cwd();
+  function boot(extra = []) {
+    let n = 0;
+    let bytes = 0;
+    for (const rel of [...called, ...extra]) {
+      const file = path.isAbsolute(rel) ? rel : path.join(absRoot, rel);
+      if (!fs.existsSync(file) || !fs.statSync(file).isFile()) continue;
+      const resolved = path.resolve(file);
+      const opened = open(cloak(fs.readFileSync(resolved)));
+      map.set(resolved, opened);
+      n += 1;
+      bytes += opened.length;
+    }
+    return { n, bytes };
+  }
+  function from(filePath) {
+    if (!filePath) return null;
+    return map.get(path.resolve(filePath)) || null;
+  }
+  return { boot, from, hot: map };
+}
+
+export function bootRest(root, called = CALLED) {
+  lastRoot = path.resolve(root);
+  hot.clear();
   let n = 0;
   let bytes = 0;
-  for (const rel of CALLED) {
-    const file = path.join(root, rel);
-    if (!fs.existsSync(file)) continue;
-    const opened = open(cloak(fs.readFileSync(file)));
-    hot.set(file, opened);
+  for (const rel of called) {
+    const file = path.isAbsolute(rel) ? rel : path.join(lastRoot, rel);
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) continue;
+    const resolved = path.resolve(file);
+    const opened = open(cloak(fs.readFileSync(resolved)));
+    hot.set(resolved, opened);
     n += 1;
     bytes += opened.length;
   }
@@ -73,5 +101,6 @@ export function bootRest(root) {
 }
 
 export function fromRest(filePath) {
-  return hot.get(filePath) || null;
+  if (!filePath) return null;
+  return hot.get(path.resolve(filePath)) || null;
 }
