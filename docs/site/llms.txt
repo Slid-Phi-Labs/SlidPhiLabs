@@ -72,7 +72,7 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 | cuni-check | 0.05 | first 100 checks/month free |
 | quikgater | 0.02 | /pay?sku=quikgater · first 100 fetches/month free, cap default $10, alert at 80% |
 | gitdepot-seat | 15/150 | invite-only · mailto:corey@slidphilabs.com |
-| teachaid-student | 6/60 | student plan |
+| teachaid-student | 6/60 | student plan · $0.99 1-day trial at https://teachaid.fly.dev/pricing.html, then $6/month unless cancelled |
 | teachaid-pilot | 2500 | per campus per semester, up to 500 students |
 | unified-grant | 490 | $190 founding for first 10 grants; 3+ products $390 each |
 | acp-certification | 990 | 3 free pilot certifications, assessment criteria published |
@@ -111,7 +111,7 @@ Four doors onto one Shared Spine. What it is, then what you pay.
 - ExactOdds — provably fair rules, commit-reveal, same rules on the published runtimes. https://www.slidphilabs.com/exactodds
 - AwLPay — free tier 0.5% per payment, no fixed fee. https://www.slidphilabs.com/awlpay
 - Quikgater — POST /v1/fetch. $0.02 per fetch; first 100 fetches/month free; customer-set monthly cap (default $10), alert at 80%. https://www.slidphilabs.com/quikgater
-- TEACHAiD — personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. Live campus: https://teachaid.fly.dev . Teacher chat runs on Meta's Llama.
+- TEACHAiD — personal teacher that cites the textbook. Student $6/month or $60/year. Or try it for a day for $0.99; after that it's $6/month unless you cancel. Free: 1 course, text-only cited answers, no voice. Institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. Live campus: https://teachaid.fly.dev . Teacher chat runs on Meta's Llama.
 - Lab Pass — $495/yr. Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year. Parts sum $650 (24% off). PCC/compression out. No monthly version. https://www.slidphilabs.com/lab-pass
 - GitDepot — live and functional team artifact depot. $15/seat/month, $150/seat/year; 100 GB pooled storage included, then $0.10/GB/month overage. Free: 1 team, 3 seats, 10 GB, 30-day audit retention. Invite-only: mailto:corey@slidphilabs.com. https://www.slidphilabs.com/products
 - ACP — $0, open standard. ACP Conformant certification $990 one-time, listed with test framing: 3 free pilot certifications, assessment criteria published. https://www.slidphilabs.com/products
@@ -177,7 +177,7 @@ Q: What are the verses?
 A: Five monorepos from October 2026, histories kept. MemoryVerse is open source. WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D. https://github.com/ceedot-rock/MemoryVerse
 
 Q: What is TEACHAiD?
-A: The campus app. A personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. The teacher chat in the repository calls Meta Llama. https://teachaid.fly.dev
+A: The campus app. A personal teacher that cites the textbook. Student $6/month or $60/year. Or try it for a day for $0.99; after that it's $6/month unless you cancel. Free: 1 course, text-only cited answers, no voice. Institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. The teacher chat in the repository calls Meta Llama. https://teachaid.fly.dev
 
 ## ACN (Agent Commerce Network)
 

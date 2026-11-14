@@ -103,6 +103,9 @@
     "teachaid": {
       "student_month": 6,
       "student_year": 60,
+      "trial_usd": 0.99,
+      "trial_days": 1,
+      "trial_then": "student_month",
       "pilot_per_campus_per_semester": 2500,
       "url": "https://www.slidphilabs.com/teachaid"
     },
