@@ -1,6 +1,7 @@
 # TeachAid — LLM prompt pack (beta)
 
-Teaching assistant: cited answers per course. Student $6/month, $60/year.
+Teaching assistant: cited answers per course. Student $6/month or $60/year,
+or a $0.99 1-day trial that becomes $6/month unless cancelled.
 Free: 1 course, text-only cited answers, no voice. Institutional pilot
 $2,500 per campus per semester (up to 500 students, onboarding included).
 
