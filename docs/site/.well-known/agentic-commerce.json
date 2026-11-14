@@ -36,7 +36,10 @@
   "products": {
     "cuni": {
       "price": "$0",
-      "url": "https://cuni-studio.fly.dev/"
+      "grant_per_app_year": 490,
+      "check_usd": 0.05,
+      "free_checks_per_month": 100,
+      "url": "https://www.slidphilabs.com/cuni"
     },
     "chamber": {
       "month": 20,
@@ -75,13 +78,6 @@
       "alert_at_pct": 80,
       "url": "https://www.slidphilabs.com/pps"
     },
-    "cuni": {
-      "price": "$0",
-      "grant_per_app_year": 490,
-      "check_usd": 0.05,
-      "free_checks_per_month": 100,
-      "url": "https://www.slidphilabs.com/cuni"
-    },
     "gitdepot": {
       "seat_month": 15,
       "seat_year": 150,
@@ -103,11 +99,28 @@
     "teachaid": {
       "student_month": 6,
       "student_year": 60,
+      "student_voice_month": 12,
+      "student_voice_year": 120,
       "trial_usd": 0.99,
       "trial_days": 1,
       "trial_then": "student_month",
+      "classroom_semester": 599,
+      "classroom_seats": 30,
       "pilot_per_campus_per_semester": 2500,
-      "url": "https://www.slidphilabs.com/teachaid"
+      "pilot_seats": 80,
+      "pilot_onboarding_hours": 4,
+      "extra_seat": 25,
+      "school_per_student_semester": 20,
+      "school_min_seats": 30,
+      "district_per_student_semester": 16,
+      "district_min_seats": 300,
+      "school_district_checkout": "invoice",
+      "voice_pack_per_student_semester": 8,
+      "live_classroom_per_campus_semester": 200,
+      "contact": "corey@slidphilabs.com",
+      "url": "https://www.slidphilabs.com/teachaid",
+      "checkout": "https://teachaid.fly.dev/pricing.html",
+      "plain": "Free: one course, a cited text teacher (8 messages a day), on-device voices. A 1-day trial is $0.99 (12 messages), then Student at $6/month unless you cancel. Student is $6/month or $60/year (400 teacher messages a month, on-device voices). Student + Voice is $12/month or $120/year (the same teacher, plus 40,000 characters of spoken voice a month, then it falls back to the device). Classroom is $599 a semester for up to 30 students. A campus pilot is $2,500 a semester for up to 80 students, with 4 hours of setup included; extra seats are $25, and extra help after those 4 hours is $175 an hour. School is $20 per student per semester (30 student minimum). District is $16 per student per semester (300 student minimum), paid by invoice or bank debit. A spoken-voice pack is $8 per student per semester. A live classroom add-on is $200 per campus per semester. Email corey@slidphilabs.com for a school or district quote. Existing $9/month Pro subscribers and 7-day trial purchases keep what they paid for."
     },
     "lab_pass": {
       "year": 495,
