@@ -49,7 +49,7 @@
     <header class="spl-header" role="banner">
       <div class="bar">
         <a class="spl-brand" href="/" aria-label="Slid Phi Labs home">
-          <img src="/assets/logos/logo-slid-phi-labs.jpg?v=15" width="36" height="36" alt=""/>
+          <img src="/assets/wings/mark/slidphi-winged-mark.svg" width="48" height="38" alt=""/>
           <span>Slid Phi Labs</span>
         </a>
         <button class="spl-nav-toggle" type="button" aria-expanded="false" aria-label="Menu"></button>
@@ -110,7 +110,7 @@
         <a href="/refund-policy">Refunds</a>
       </div>
     </div>
-    <p class="legal">© Slid Phi Labs · Cherry Hill · corey@slidphilabs.com · © 2026 Slid Phi Labs, Inc</p>
+    <p class="legal">© Slid Phi Labs · Cherry Hill · corey@slidphilabs.com · Built with care, made to fly.</p>
   </footer>`;
   }
 

@@ -22,8 +22,6 @@ One-liner: Tools that check. Hosted calls are POST /v1/<name>. CuNi: check $0.05
   improved build's source is not in the lab's public tree, so never describe this figure
   as locally reproduced or locally verified. "Beats xz-9" travels only with this figure
   and this provenance note.
-- TNSSRC 0.1.0 locally reproduced: 48,541,366 bytes, 12/12 decode + SHA-256, byte-exact
-  round-trip. This is the figure the lab can reproduce from surviving source.
 - PCC: 51,498,645 bytes, 12/12, verified (not a #1 claim). pulsar 2.5.0: 55,745,438 bytes,
   12/12. champ: 50,541,135 bytes, 12/12. gzip-9: 67,631,990. bzip2-9: 54,506,769.
   xz-6 still ahead (~49.4M). AWARE+XZ1 47.7M is retired.
