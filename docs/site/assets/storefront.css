@@ -6,6 +6,7 @@
   --muted: #b7c4d4;
   --line: rgba(232, 197, 71, 0.28);
   --gold: #e8c547;
+  --ink-on-gold: #07111c;
   --teal: #5ef0df;
   --card: #102033;
   --max: 1120px;
@@ -100,9 +101,20 @@ h1 { font-size: clamp(2rem, 4vw + 1rem, 3.4rem); line-height: 1.05; margin: 0 0 
   text-decoration: none;
   font-weight: 700;
 }
-.btn-solid { background: var(--gold); color: #1a1200; }
+.btn-solid { background: var(--gold); color: var(--ink-on-gold); }
 .btn-line { border: 1px solid var(--teal); color: var(--teal); }
-.btn-solid:hover, .btn-line:hover { color: #1a1200; background: var(--teal); }
+.btn-solid:hover, .btn-line:hover { color: var(--ink-on-gold); background: var(--teal); }
+/* body.shop a { color: teal } is more specific than .btn-solid; keep labels navy on gold. */
+body.shop a.btn-solid,
+body.shop a.btn-solid:visited,
+body.shop a.btn-solid:hover,
+body.shop a.btn-solid:active,
+body.shop a.btn-solid:focus,
+body.shop a.btn-line:hover,
+body.shop a.btn-line:active,
+body.shop a.btn-line:focus {
+  color: var(--ink-on-gold);
+}
 
 .steps, .shelf, .band { padding-block: 1rem 2rem; }
 .steps ol, .buy-path {
