@@ -34,22 +34,30 @@ When Stripe lands on `/?purchase=PRODUCT` or `/?purchase=…&session=…`:
 
 ---
 
-## Hero
+## Hero (restructured 2026-11-15, Corey: top is who we are / vision / mission, then products)
+
+**Kicker:**
+Slid Phi Labs · Cherry Hill, New Jersey
 
 **H1:**
-Slid Phi Labs
+Tools that check.
 
-**Lede:**
-The cost of computing is the cost of everything now — data that takes too much room, agents that spend without proof, evidence that can't survive a dispute. We build the technology that removes those costs.
+**Lede (who we are):**
+We are a computation and AI company. The cost of computing is the cost of everything now — data that takes too much room, agents that spend without proof, evidence that can't survive a dispute. We build the technology that removes those costs.
 
-**Second paragraph:**
-We are a computation and AI company. Our compression engines shrink the data enterprises pay to store and move. Our agent infrastructure gives autonomous software a signed identity, a spending mandate it cannot exceed, and a receipt trail anyone can verify. Not dashboards about the problem — the layer that makes the problem stop costing money.
+**Our vision:**
+A machine-first world where every crossing is guarded: one conjoined encode-store-decode module, checked by agent oracles at every step, with exactness and receipts as primitives — not afterthoughts.
 
-**Hero actions:** Products (→ #products) · The evidence (→ #costs). No Invest action — there is no `/invest` route (checked `server.mjs` + `vercel.json` 2026-11-05); do not add one without a route.
+**Our mission:**
+To make every claim checkable: compression that restores exactly what it stored, agents with a signed name and a spending limit they cannot exceed, and a receipt for everything that happened. Proof before praise.
 
-**Homepage rule (Corey, 2026-10-22): NO price figures anywhere on the homepage.** The homepage sells the tech and funnels to product pages and /pricing; prices live there, never here.
+**Hero actions:** See the products (→ #products, primary) · How buying works (→ #how, secondary). No Invest action — there is no `/invest` route (checked `server.mjs` + `vercel.json` 2026-11-05); do not add one without a route.
 
-**Sections:** 01 The costs (pain → solution → financial-impact table: data-center overhead / TNSSRC+PCC; agents spending without authority / Warrant; no record that stands up / Agent-Rider+CuNi) · 02 The products (Compression, Agent-Rider, Warrant, CuNi — one sell line each, links to their pages) · 03 What it is. What it isn't. · 04 From code.
+**Research behind the structure (2026-11-15, Tavily basic, 3 queries, 15 pulls filed to the Slidphiclepedia):** hero = headline of a few impactful words stating the core value, subheading answering who/what/why, at most a primary + secondary CTA; below the hero, sections answer buyer questions in order (what is this, does it work, who else uses it, how much, how do I get started), one job per section. Full-text reads: Prismic hero guide (215 lines), Big Human SaaS design (267 lines).
+
+**Homepage rule (Corey, 2026-10-22): NO price figures anywhere on the homepage.** The homepage sells the tech and funnels to product pages and /pricing; prices live there, never here. **CONFLICT, flagged 2026-11-15:** the live storefront homepage (Nov 2026 "floor" redesign, origin/main d05c61f/890044a) lists prices on every product card, and Corey's 2026-11-15 restructure order keeps the product floor below the new top. The no-prices rule is NOT enforced on the floor until Corey rules — the 2026-11-15 edit changed only the top and left every price in place.
+
+**Sections (live floor order, unchanged 2026-11-15):** Hero (who / vision / mission) · How a purchase works · CuNi calls · The rest of the floor (product cards) · What stays free.
 
 ---
 
