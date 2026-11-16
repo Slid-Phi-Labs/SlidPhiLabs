@@ -1,5 +1,5 @@
 # lb is built on Debian 13 (glibc 2.39+). bookworm (2.36) cannot run it.
-FROM node:20-trixie-slim
+FROM node:26-trixie-slim
 WORKDIR /app
 # Engines ship via release URLs (docs/site/bin/ stays out of git); a 404 fails the build.
 COPY package.json ./
