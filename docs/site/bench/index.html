@@ -52,13 +52,45 @@
         <tbody></tbody>
       </table>
     </div>
+    <noscript>
+      <table class="spl-table">
+        <caption>Static snapshot of bench.json (2026-09-09, DECODE_OK 12/12) for crawlers and readers without JavaScript. Live numbers load above when JavaScript runs.</caption>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Raw</th>
+            <th>PCC</th>
+            <th>gzip-9</th>
+            <th>brotli-11</th>
+            <th>Method</th>
+            <th>Encode ms</th>
+            <th>OK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>40,000 zeros</td><td>40000</td><td>14</td><td>73</td><td>13</td><td>zeros</td><td>418</td><td>pass</td></tr>
+          <tr><td>1,000,000 zeros</td><td>1000000</td><td>14</td><td>1003</td><td>14</td><td>zeros</td><td>247</td><td>pass</td></tr>
+          <tr><td>Repeating English 256 KiB</td><td>262144</td><td>174</td><td>696</td><td>44</td><td>pulsar</td><td>615</td><td>pass</td></tr>
+          <tr><td>Repeating JSON 128 KiB</td><td>131072</td><td>330</td><td>470</td><td>61</td><td>pulsar</td><td>380</td><td>pass</td></tr>
+          <tr><td>uint32 ramp 256 KiB</td><td>262144</td><td>3546</td><td>90677</td><td>80874</td><td>pulsar</td><td>1167</td><td>pass</td></tr>
+          <tr><td>Zeros then text 256 KiB</td><td>262144</td><td>207</td><td>571</td><td>42</td><td>hosted</td><td>561</td><td>pass</td></tr>
+          <tr><td>Incompressible 64 KiB</td><td>65536</td><td>65542</td><td>65574</td><td>65540</td><td>store</td><td>521</td><td>pass</td></tr>
+          <tr><td>dickens first 1 MiB</td><td>1048576</td><td>293096</td><td>388949</td><td>305265</td><td>pulsar</td><td>10606</td><td>pass</td></tr>
+          <tr><td>xml first 1 MiB</td><td>1048576</td><td>110890</td><td>147473</td><td>119727</td><td>pulsar</td><td>3002</td><td>pass</td></tr>
+          <tr><td>ooffice first 1 MiB</td><td>1048576</td><td>526967</td><td>582532</td><td>488479</td><td>pulsar</td><td>18148</td><td>pass</td></tr>
+          <tr><td>mr first 1 MiB</td><td>1048576</td><td>245283</td><td>346418</td><td>271989</td><td>pulsar</td><td>15410</td><td>pass</td></tr>
+          <tr><td>dickens first 4 MiB</td><td>4194304</td><td>1218424</td><td>1579518</td><td>1194154</td><td>pulsar</td><td>105858</td><td>pass</td></tr>
+        </tbody>
+      </table>
+    </noscript>
     <p class="spl-note">Zeros become 8 bytes. Incompressible input is stored as-is so it does not grow. Full Silesia does not fit in one request.</p>
     <p class="spl-actions">
       <a class="spl-btn spl-btn-dark" href="/pcc">PCC</a>
       <a class="spl-btn spl-btn-line" href="/bench.json">bench.json</a>
       <a class="spl-btn spl-btn-line" href="/docs">API</a>
     </p>
-  </main>
+  <p class="spl-note"><span>© 2026 Slid Phi Labs, Inc. All rights reserved.</span></p>
+</main>
   <script src="/assets/chrome.js?v=41" defer></script>
   <script>
     function fmt(n) {
