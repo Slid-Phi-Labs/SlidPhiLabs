@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Security &amp; Compliance FAQ — Slid Phi Labs</title>
+<meta name="description" content="How Slid Phi Labs handles certifications, data processing, subprocessors, retention, authentication, receipts, uptime, and licensing. Plain answers for security reviews and procurement."/>
+<link rel="canonical" href="https://www.slidphilabs.com/security"/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:site_name" content="Slid Phi Labs"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Security &amp; Compliance FAQ — Slid Phi Labs"/>
+<meta property="og:description" content="Certifications, DPA, subprocessors, retention, auth, receipts, uptime, licensing — answered plainly."/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:url" content="https://www.slidphilabs.com/security"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Security &amp; Compliance FAQ — Slid Phi Labs"/>
+<meta name="twitter:description" content="Certifications, DPA, subprocessors, retention, auth, receipts, uptime, licensing — answered plainly."/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
+<link rel="stylesheet" href="/assets/site.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Security & Compliance FAQ — Slid Phi Labs","description":"How Slid Phi Labs handles certifications, data processing, subprocessors, retention, authentication, receipts, uptime, and licensing.","url":"https://www.slidphilabs.com/security","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is Slid Phi Labs SOC 2 or ISO 27001 certified?","acceptedAnswer":{"@type":"Answer","text":"Not yet. In place of a certificate we offer verifiable controls: ES256-signed agent identity, fail-closed verification, deterministic receipts, and public test suites. An independent Warrant/Chamber security review is in progress and its attestation letter will be published here."}},
+{"@type":"Question","name":"Do you sign a Data Processing Addendum (DPA)?","acceptedAnswer":{"@type":"Answer","text":"Yes, with enterprise and annual agreements. Write to corey@slidphilabs.com and we countersign before any production data flows."}},
+{"@type":"Question","name":"Who are your subprocessors?","acceptedAnswer":{"@type":"Answer","text":"Fly.io (hosting), Supabase (optional seat store), XPay on Base (USDC settlement), and Stripe (subscriptions). No other processor touches customer data."}},
+{"@type":"Question","name":"What data do you store, and for how long?","acceptedAnswer":{"@type":"Answer","text":"Seat registry entries, API-key hashes (never keys), revoked key IDs with timestamps, and the receipts/ledgers your own workflows create. API keys are shown once and never returned. Delete via the revoke endpoint plus seat rotation. We do not claim zero-retention on hosted paths."}},
+{"@type":"Question","name":"How does Agent-Rider authentication work?","acceptedAnswer":{"@type":"Answer","text":"Short-lived ES256 JWTs (issuer agentrider.dev), 15 minutes to 24 hours, verified against a published JWKS with a revocation list. A verifier that cannot reach the JWKS must refuse. Permanent credentials exist only for operator-designated agents and still end at revocation. Self-service issuance is capped at clearance L1."}},
+{"@type":"Question","name":"Can we verify receipts without trusting you?","acceptedAnswer":{"@type":"Answer","text":"Yes. Rider JWTs verify against https://agentrider.fly.dev/.well-known/jwks.json. Warrant checks kind, version, and chain monotonicity. Chamber receipts are attested, and the independent audit delivers a publishable attestation letter."}},
+{"@type":"Question","name":"What uptime SLA do you offer?","acceptedAnswer":{"@type":"Answer","text":"Self-serve is best-effort with no claimed uptime — our status page lists live hosts and nothing more. Uptime guarantees and incident-response windows are scoped inside enterprise agreements."}},
+{"@type":"Question","name":"How is the software licensed, and is IP indemnified?","acceptedAnswer":{"@type":"Answer","text":"AGPL-3.0-or-later or a commercial grant; closed use without sharing changes needs the commercial grant. IP indemnification is included in commercial agreements. Write to corey@slidphilabs.com for terms."}}
+]}</script>
+</head>
+<body>
+<main class="spl-page" id="main">
+<p class="spl-kicker">Security</p>
+<h1>Compliance answers, no sales call required.</h1>
+<p class="lede">Everything a security review or procurement form asks, answered the way our systems actually behave. Where we fall short of enterprise checklist items, it says so.</p>
+<section>
+<p class="sec-no">01 — Certifications</p>
+<h2>Are you SOC 2 / ISO 27001 certified?</h2>
+<p>No. What exists instead is verifiable rather than attested: ES256-signed agent identity, verification that fails closed, deterministic receipts, and public test suites. An independent review of Warrant and Chamber is in progress; its attestation letter will be published on this page. If your procurement needs a roadmap with dates, ask for one — <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a>.</p>
+</section>
+<section>
+<p class="sec-no">02 — Data processing</p>
+<h2>DPA, subprocessors, retention.</h2>
+<p>We sign a Data Processing Addendum with every enterprise and annual agreement — countersigned before production data flows.</p>
+<table class="meters">
+<tr><th>Processor</th><th>Role</th></tr>
+<tr><td>Fly.io</td><td>Hosting (agentrider.fly.dev, CuNi Studio, TeachAid demo)</td></tr>
+<tr><td>Supabase</td><td>Optional seat store (disk-store seats stay on the instance)</td></tr>
+<tr><td>XPay on Base</td><td>USDC settlement rail</td></tr>
+<tr><td>Stripe</td><td>Subscriptions</td></tr>
+</table>
+<p>Stored: seat registry entries, API-key <em>hashes</em> (never keys), revoked key IDs with timestamps, and the receipts and ledgers your workflows create. API keys are shown once at registration and never returned. Deletion is revocation plus seat rotation. We do not claim zero-data-retention on hosted paths.</p>
+</section>
+<section>
+<p class="sec-no">03 — Authentication</p>
+<h2>How Agent-Rider credentials work.</h2>
+<p>Rider JWTs are ES256, issuer <code>agentrider.dev</code>, lifetime 15 minutes to 24 hours chosen at mint (out-of-range requests fail with a 400, never silently adjusted). Verifiers check the published JWKS at <a href="https://agentrider.fly.dev/.well-known/jwks.json">agentrider.fly.dev/.well-known/jwks.json</a>, including its revocation list — and a verifier that cannot reach the JWKS must refuse. Renewal re-mints the <em>same</em> lifetime, so a stolen renewal token preserves but never escalates. Permanent credentials exist only for operator-designated agents and still end at revocation. Self-service issuance is capped at clearance L1; higher levels need a merchant key.</p>
+</section>
+<section>
+<p class="sec-no">04 — Auditability</p>
+<h2>Verify without trusting us.</h2>
+<p>Warrant checks kind, version, and chain monotonicity on every mandate, and keeps a signed-style append-only audit ledger. Chamber receipts are attested, and the independent audit delivers a publishable attestation letter in addition to its vulnerability report. Current suites: Warrant TypeScript and Python green, Chamber receipt suite green — the audit's gap analysis covers what the suites do not.</p>
+</section>
+<section>
+<p class="sec-no">05 — Availability</p>
+<h2>Uptime and support.</h2>
+<p>Self-serve is best-effort: our <a href="/status">status page</a> lists live hosts and claims no uptime. Uptime guarantees, incident-response windows, and escalation paths are scoped inside enterprise agreements. Support for every tier starts at <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a> — a human reads it.</p>
+</section>
+<section>
+<p class="sec-no">06 — Licensing and IP</p>
+<h2>What you may run, and who stands behind it.</h2>
+<p>License: AGPL-3.0-or-later <em>or</em> commercial (see <a href="/license">license</a>). Running lab software closed, without sharing changes, needs a commercial grant. Open-source utilities, npm packages, and gated hosted tools each keep their own boundary, stated in their repos. IP indemnification is included in commercial agreements — <a href="mailto:corey@slidphilabs.com">write to us</a> for terms.</p>
+</section>
+<footer class="spl-foot">
+<p>Hosted at www.slidphilabs.com (primary). License: AGPL-3.0-or-later OR commercial.</p>
+<nav><a href="/llms.txt">llms.txt</a><a href="/agents.json">agents.json</a><a href="/platform.json">platform.json</a><a href="/sitemap.xml">sitemap.xml</a></nav>
+<p data-spl-auth></p>
+</footer>
+</main>
+<script src="/assets/lab-auth.js" defer></script>
+</body>
+</html>
