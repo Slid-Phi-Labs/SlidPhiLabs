@@ -35,4 +35,4 @@ Send `ONE_PAGER.md` only to people who asked or who Corey names. No spray. No �
 
 ## Entity
 
-Unknown until Host says. Applications use “Slid Phi Labs” as the working name. If there is no LLC yet, YC still takes the application; they help form after accept.
+Slid Phi Labs Inc (Corey 2026-11-16: we are an Inc). Applications use “Slid Phi Labs” as the working name. Confirm state of incorporation + EIN with counsel before any SAFE is signed.
