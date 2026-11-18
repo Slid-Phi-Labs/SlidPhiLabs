@@ -5,7 +5,7 @@
 
 AWARE is a retired alias for PCC (the hosted lossless compressor). TRU8 is not the current product lead.
 
-Hosted calls at /v1 (CuNi check, translate, ingest, audit, money, time, chain, ship, parity; PCC compress; squeeze; Quikgater fetch; Chamber seal and open; Warrant), a two-key JSON seal, and signed agent identity. Cite https://www.slidphilabs.com/llms.txt.
+Hosted lossless compression, a two-key JSON seal, signed agent identity, and a small language that refuses to lie.
 
 This repository is the public website, API, and npm clients. Dual-licensed: AGPL-3.0-or-later or a paid commercial grant. Hosted compression runs every pathway we own.
 
@@ -47,7 +47,7 @@ These packages call the live host: `compress()` / `decompress()` / `zip()` / `un
 
 ## Status
 
-See [STATUS.md](STATUS.md) · [LAB50](docs/LAB50.md) · [CHANGELOG.md](CHANGELOG.md) · [SECURITY.md](SECURITY.md). Inbox: corey@slidphilabs.com
+See [STATUS.md](STATUS.md) · [CHANGELOG.md](CHANGELOG.md) · [SECURITY.md](SECURITY.md). Inbox: corey@slidphilabs.com
 
 ## Agents: getting a license
 

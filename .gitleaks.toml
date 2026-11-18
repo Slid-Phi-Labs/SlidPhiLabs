@@ -1,0 +1,46 @@
+# Gitleaks allowlist for SlidPhiLabs — justified historical findings.
+#
+# 2026-11-18 credential audit (gitleaks v8.30.1, fresh full-history scan):
+# 14 findings, ZERO live secrets. 11 were proven test fixtures (test-mode
+# Stripe keys, structured test-only HMAC/JWT secrets, sequential-hex fixture
+# keys, fake vendor-shaped scanner test data) and 3 were false positives
+# (a GitLab blob-URL commit SHA, env-var names in a doc comment, a product
+# SKU). The fixture VALUES were replaced with obvious placeholders in the
+# working tree (see the audit section file for per-item evidence, digests,
+# and the replacement made). This file exists so the historical commits —
+# which still contain the old fixture literals — scan clean once committed.
+#
+# Scope discipline: the commit list below suppresses EXACTLY those 9
+# historical commits and cannot hide a finding in any other commit. The
+# rule-scoped line entry covers exactly one doc-comment line that names
+# env-var identifiers (not values). No live credential is allowlisted.
+# Full per-item evidence:
+#   ~/workspace/security-audit/replacement-sections/worker-slidphilabs.md
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "2026-11-18 audit: the 9 historical commits whose ONLY gitleaks findings are proven test fixtures / false positives (15 findings, 0 live). Allowlisting by commit SHA cannot suppress anything in any other commit."
+commits = [
+  "375b76db33d6812b0526f46fdbdd05d6824577a9",
+  "8de073238323d33cfd913541edac94ff5ba505db",
+  "6d78f2daec59ce2511d812040e76575c3c31561a",
+  "039a3e5951d03bab5297663157c63cc9bda1943a",
+  "35d59eddf8e6317da4b5438ae46983dc7b64f9d4",
+  "46b0c790ea98fe36c54c120bbe3b7cd922ee30b3",
+  "e2ecb0a2a930778d8d0891a10dfd753f9154cff6",
+  "b5352643897ea3c7e9c14b8d602278344360ae2b",
+  # Added during verification: the remote HEAD commit 7483606 (PR #91, LAO
+  # trust batch) reintroduced the SAME workflow self-test probe value as
+  # 375b76db (identical digest) into .github/workflows/audited-checks.yml
+  # line 60. Same fixture, same evidence; the commit is listed so a history
+  # scan of the current remote HEAD is clean once this file is committed.
+  "7483606b1a2eb91f14fb4f00a976a6e8dc315d5b",
+]
+
+[[allowlists]]
+description = "x402-claim.mjs doc comment names the HMAC env-var fallback chain (identifiers read by the code, not secret values). Rule-scoped to generic-api-key and line-scoped to this exact comment line; it cannot suppress any other finding."
+targetRules = ["generic-api-key"]
+regexTarget = "line"
+regexes = ['''Secret: X402_CLAIM_SECRET''']

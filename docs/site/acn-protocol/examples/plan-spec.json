@@ -1,8 +1,0 @@
-{
-  "action": "compress",
-  "host": "www.slidphilabs.com",
-  "bytes": 10000000,
-  "product": "auto",
-  "op": "compress",
-  "demo": true
-}

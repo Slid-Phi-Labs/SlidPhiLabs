@@ -66,7 +66,7 @@ for (const k of ["LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET", "NEBIUS
 {
   process.env.LIVEKIT_URL = "wss://example.livekit.cloud";
   process.env.LIVEKIT_API_KEY = "APItestkey";
-  process.env.LIVEKIT_API_SECRET = "testsecret0123456789testsecret01";
+  process.env.LIVEKIT_API_SECRET = "test-livekit-secret";
   const t = await call(tokenHandler, { method: "POST", body: { identity: "probe", room: "tru8-guide" } });
   assert.equal(t.status, 200);
   assert.ok(t.json.ok);
@@ -88,7 +88,7 @@ for (const k of ["LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET", "NEBIUS
 {
   process.env.LIVEKIT_URL = "wss://example.livekit.cloud";
   process.env.LIVEKIT_API_KEY = "APItestkey";
-  process.env.LIVEKIT_API_SECRET = "testsecret0123456789testsecret01";
+  process.env.LIVEKIT_API_SECRET = "test-livekit-secret";
   const t = await call(tokenHandler, { method: "POST", body: { identity: "no spaces allowed!!" } });
   assert.equal(t.status, 400);
   assert.equal(t.json.error, "bad_name");

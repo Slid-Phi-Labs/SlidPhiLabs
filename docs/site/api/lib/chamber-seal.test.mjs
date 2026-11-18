@@ -8,7 +8,7 @@ import {
   CHAMBER_SEAL_VERSION,
 } from "./chamber-seal.mjs";
 
-const KEY = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+const KEY = "0000000000000000000000000000000000000000000000000000000000000000"; // test-only fixture key (all zeros; never a real key)
 const OTHER = "fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210";
 const OBJ = { sku: "chamber-year", usd: 200, note: "two-key JSON seal" };
 

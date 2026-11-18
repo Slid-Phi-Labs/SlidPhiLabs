@@ -85,6 +85,7 @@ export function createHttpRerankFn({
           try { ctrl?.abort(); } catch { /* ignore */ }
           reject(new Error("rerank_timeout"));
         }, ms);
+        if (timer && typeof timer.unref === "function") timer.unref();
       });
       let res = null;
       try {

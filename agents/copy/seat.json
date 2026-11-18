@@ -1,6 +1,0 @@
-{
-  "seat": "copy",
-  "allows": ["spl_catalog"],
-  "cap_usd": 0,
-  "network": "https://www.slidphilabs.com/api/mcp"
-}

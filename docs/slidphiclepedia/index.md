@@ -181,3 +181,9 @@ Full records in `pulls.jsonl`. Rule in `README.md`.
 - Runners: GitLab-hosted SaaS runners consume compute minutes (Linux/Windows/macOS, GPU premium burn faster); self-hosted runners FREE to register, consume ZERO minutes (BYO infra, incl self-managed); extra compute $10/1000min, extra storage $5/mo per 10GiB; Credits $1/credit for Duo Agent Platform beyond bundle
 - 2025-2026 changes: Ultimate list price REMOVED → custom quote (mid-2026); "CI minutes" renamed "compute minutes"; Duo AI rebundled as metered GitLab Credits ($12/$24 incl, limited-time promo); Free tier capped 5 users/top-level group + storage enforcement; Premium storage quota cited 500GiB in 2026 roundups (verify per-namespace) — see pulls.jsonl survey=gitlab-inventory
 
+
+## Agent-data compression methods pulls 2026-11-12 (50 records)
+
+- Tavily best-methods pass for the agent-data compression harness (Corey order 2026-11-12): 10 basic queries, 50 pulls, 12 full-text reads; synthesis in [corpora/agent-data-compression-methods-2026-11-12.md](corpora/agent-data-compression-methods-2026-11-12.md) — see pulls.jsonl 2026-11-12
+- Top methods: trained preset dictionary + schema shredding over zstd-19 (most promising; PMTiles 8 KB dict 13.3% over zstd; DebugBear prior-version dict 76.5% over zstd-19); cross-turn delta / prior-turn-as-dictionary (Cloudflare DCZ 272 KB → 2.6 KB, 97% smaller than gzip); DeLog-style pattern-grouped token encoding (1.09–1.45x over baselines); PPM/context mixing ratio ceiling (LTCB enwik9 cmix 108.0 MB vs xz 197.3 MB vs zstd 215.7 MB, at 20–50x xz time); small neural LM + arithmetic coding REJECTED (SMLL JSON 7.86x vs zstd 2.66x but 10,000x slower, 200 MB model, UUIDs 0.94x)
+- Rejected by scope: lossy history summarization (Koog/mem0/StateComp) — changes bytes, violates exact round-trip. Dropped snippet-only: BTH/Ericsson thesis numbers (PDF 403), Lemire Brotli 5–30% claim (absent from full text)

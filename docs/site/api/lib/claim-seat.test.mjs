@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import { seatFromClaimHeader, applyClaimSeat, claimAuthError } from "./claim-seat.mjs";
 import { signClaim } from "./x402-claim.mjs";
 
-process.env.X402_CLAIM_SECRET = "test-claim-secret-0123456789abcdef";
+process.env.X402_CLAIM_SECRET = "test-claim-secret";
 
 const bearer = (t) => ({ headers: { authorization: `Bearer ${t}` } });
 
