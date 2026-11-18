@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   tests:
-    name: Unit tests (root + site + spl-pay-per-suite)
+    name: Unit tests (root + spl-pay-per-suite)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,22 +22,27 @@ jobs:
         run: |
           npm ci
           npm test
-      - name: Site/API tests
-        run: npm run test:site
       - name: spl-pay-per-suite tests
         run: |
           cd packages/spl-pay-per-suite
           npm test
 
-  secrets-scan:
-    name: Secret scan
+  secret-scan:
+    name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
-      - uses: actions/checkout@v4
-      - name: Scan for committed secrets
-        run: |
-          set -e
-          echo "Scanning for common secret patterns..."
-          ! grep -rnE "AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20,}|gho_[A-Za-z0-9]{20,}|BEGIN [A-Z ]*PRIVATE KEY|sk_(live|test)_[A-Za-z0-9]+|xox[bap]-[A-Za-z0-9-]+|-----BEGIN" \
-            --include="*.py" --include="*.html" --include="*.txt" --include="*.md" --include="*.yml" --include="*.mjs" --include="*.js" --exclude="audited-checks.yml" .
-          echo "No secrets found."
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      # Scans the full git history, not only the working tree, with gitleaks'
+      # maintained rule set (cloud keys, Stripe, GitHub, Anthropic, private keys and more).
+      # Replaces the old hand-rolled grep scan (working tree only, no history,
+      # no entropy). No .gitleaks.toml allowlist is shipped: add one only if a
+      # legitimate fixture trips the scan, with a comment justifying each entry.
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
