@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import zlib from "node:zlib";
 import {
   phiSplit,
   phiJoin,
@@ -16,6 +17,7 @@ import {
   createRest,
   bootRest,
   fromRest,
+  fromRestGzip,
   walkCalled,
 } from "../src/phi_rest.mjs";
 
@@ -73,6 +75,19 @@ test("bootRest/fromRest serve the module-global hot map", () => {
   assert.equal(stats.n, 1);
   assert.deepEqual(fromRest(path.join(dir, "hot.txt")), Buffer.from("hot bytes"));
   assert.equal(fromRest(path.join(dir, "cold.txt")), null);
+});
+
+test("bootRest fills gzip map; gunzip restores plaintext", () => {
+  const dir = tmpDir();
+  const plain = "gzip me ".repeat(64);
+  fs.writeFileSync(path.join(dir, "g.txt"), plain);
+  const stats = bootRest(dir, ["g.txt"]);
+  assert.equal(stats.n, 1);
+  const gz = fromRestGzip(path.join(dir, "g.txt"));
+  assert.ok(Buffer.isBuffer(gz));
+  assert.deepEqual(zlib.gunzipSync(gz), Buffer.from(plain));
+  assert.equal(fromRestGzip(path.join(dir, "cold.txt")), null);
+  assert.equal(fromRestGzip(""), null);
 });
 
 test("walkCalled lists files relative to base", () => {

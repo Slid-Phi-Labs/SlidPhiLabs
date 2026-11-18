@@ -10,6 +10,7 @@ import { meterSnapshot } from "./lib/usage-meter.mjs";
 import { codexStamp, codexHeaders } from "./lib/codex-key.js";
 import { applyClaimSeat, claimAuthError } from "./lib/claim-seat.mjs";
 import { toolGate, toolOnly402 } from "./lib/tool-gate.mjs";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 
 const MAX_MEMBERS = 64;
 const MAX_TOTAL = 16 * 1024 * 1024;
@@ -63,7 +64,8 @@ export default async function handler(req, res) {
     const files = j && Array.isArray(j.files) ? j.files : null;
     if (!files || !files.length) return json(res, 400, { ok: false, error: "files required" });
     if (files.length > MAX_MEMBERS) return json(res, 400, { ok: false, error: "too_many_files" });
-    const entries = [];
+    // Pass 1: decode + validate + total input bytes (no encode work yet).
+    const raws = [];
     let total = 0;
     for (const f of files) {
       const name = f.path || f.name;
@@ -72,6 +74,13 @@ export default async function handler(req, res) {
       if (raw.length > MAX_RAW) return json(res, 400, { ok: false, error: "too_large", path: name });
       total += raw.length;
       if (total > MAX_TOTAL) return json(res, 400, { ok: false, error: "too_large_total" });
+      raws.push({ name, dir, raw, mtime: f.mtime || 0, mode: f.mode });
+    }
+    const blocked = usageGate(req, total);
+    if (blocked) return json(res, blocked.status, blocked.body);
+    // Pass 2: encode (metered above).
+    const entries = [];
+    for (const { name, dir, raw, mtime, mode } of raws) {
       let packed = raw;
       let stored = true;
       if (!dir && raw.length) {
@@ -86,12 +95,13 @@ export default async function handler(req, res) {
         crc32: crc32(raw),
         stored,
         dir,
-        mtime: f.mtime || 0,
-        mode: f.mode,
+        mtime,
+        mode,
       });
     }
     const archive = packArchive(entries);
     if (!isPccz(archive)) throw new Error("pack_fail");
+    recordMeteredBytes(req, total);
     return json(res, 200, {
       ok: true,
       plain: `Packed ${entries.length} files into a .pcc archive (${archive.length} bytes). Restore with POST /api/unarchive.`,

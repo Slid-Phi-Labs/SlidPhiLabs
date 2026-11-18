@@ -15,7 +15,7 @@ import { unpackMembers } from "./archive.js";
 const SITE = "https://www.slidphilabs.com";
 const MCP_VERSION = "1.21.0";
 
-const COMMERCE = [
+export const COMMERCE = [
   {
     name: "cuni_bank",
     description:

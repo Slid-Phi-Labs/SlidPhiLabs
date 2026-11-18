@@ -99,8 +99,16 @@
       "name": "PCC",
       "role": "compression",
       "url": "https://www.slidphilabs.com/pcc",
-      "price": "Metered $0.25/GB of input, first 1 GB/month free; Pro $25/month including 100 GB, then $0.20/GB",
-      "note": "Door 1 onto the Shared Spine. PCC = lossless compressor only. AWARE is a retired alias."
+      "price": "Metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
+      "note": "Door 1 onto the Shared Spine. lossless compressor only (not payment)"
+    },
+    {
+      "id": "pulsar",
+      "name": "pulsar 2.5.0",
+      "role": "compression",
+      "url": "https://www.slidphilabs.com/pulsar",
+      "price": "Free GPLv3 binary; closed embed $490/yr (SKU pulsar-exception)",
+      "note": "Door 4. Free lossless binary demo you run on your own machine."
     },
     {
       "id": "quikgater",
@@ -123,8 +131,16 @@
       "name": "PCC",
       "role": "compression",
       "url": "https://www.slidphilabs.com/pcc",
-      "price": "Metered $0.25/GB of input, first 1 GB/month free; Pro $25/month including 100 GB, then $0.20/GB",
+      "price": "Metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
       "note": "Door 1 onto the Shared Spine. lossless compressor only (not payment)"
+    },
+    {
+      "id": "pulsar",
+      "name": "pulsar 2.5.0",
+      "role": "compression",
+      "url": "https://www.slidphilabs.com/pulsar",
+      "price": "Free GPLv3 binary; closed embed $490/yr (SKU pulsar-exception)",
+      "note": "Door 4. Free lossless binary demo you run on your own machine."
     },
     {
       "id": "tnssrc",

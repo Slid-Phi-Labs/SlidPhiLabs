@@ -2,6 +2,7 @@
  * POST /api/json-decompress — inverse of /api/json-compress (JK01)
  */
 import { withProductBox } from "./lib/spl-box-gate.js";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 
 import { decompressJsonKeys, JSON_KEYS } from "../lab/json_residual/json_keys.mjs";
 
@@ -65,7 +66,10 @@ async function handler(req, res) {
     } else {
       packed = body.value;
     }
+    const blocked = usageGate(req, packed.length);
+    if (blocked) return json(res, blocked.status, blocked.body);
     const out = decompressJsonKeys(packed);
+    recordMeteredBytes(req, packed.length);
     return json(res, 200, {
       ok: true,
       value: out.value,

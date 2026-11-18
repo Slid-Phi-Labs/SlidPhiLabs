@@ -89,4 +89,44 @@
   <url><loc>https://www.slidphilabs.com/standings</loc><lastmod>2026-11-05</lastmod><changefreq>weekly</changefreq><priority>0.80</priority></url>
   <url><loc>https://www.slidphilabs.com/toys</loc><lastmod>2026-11-05</lastmod><changefreq>weekly</changefreq><priority>0.75</priority></url>
   <url><loc>https://www.slidphilabs.com/pricing.json</loc><lastmod>2026-11-05</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://www.slidphilabs.com/access</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/account</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.30</priority></url>
+  <url><loc>https://www.slidphilabs.com/aos-ring</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/codex</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/compression-savings-estimates</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/convert</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-agent-policy</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-audit-source</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-codecs</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-consensus</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-deterministic-builds</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-ffi-boundaries</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-money</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/cuni-stack-spine</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/datacenters</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/demos</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/dpa</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/drverified</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/duos</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/gc</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/ideas</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/index</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/intertwine</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/join</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/l33tsaas</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/lab-pass</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/ledger</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/login</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.30</priority></url>
+  <url><loc>https://www.slidphilabs.com/mcp-service</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/phone</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/privacy</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/proof</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/signup</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.30</priority></url>
+  <url><loc>https://www.slidphilabs.com/sios</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/suite</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/terms</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/tru8</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/updates</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/web</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://www.slidphilabs.com/weights-vs-files</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
 </urlset>

@@ -14,7 +14,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import { ACTIONS, cleanChain, fileReceipt, hostAllowed, issueWarrant, verifyWarrant } from "./warrant.mjs";
 import { computeQuote, capStatus } from "../suite-pricing.js";
-import { compressContext, compressContextAsync, verifyCompression, CONTEXT_VERSION } from "./context-compress.mjs";
+import { compressContext, compressContextAsync, verifyCompression, CONTEXT_VERSION, EXTRACTIVE_MODE } from "./context-compress.mjs";
 import { defaultProductionRerankFn } from "./rerank-http.mjs";
 import { runBenchhaus, BENCHHAUS_VERSION } from "./benchhaus.mjs";
 import { issueStandingRider, verifyStandingRider, safeguardsHash, STANDING_RIDER_VERSION, STANDING_WAIVER_VERSION } from "./standing-rider.mjs";
@@ -536,6 +536,8 @@ function planContextPreview(spec = {}) {
   const c = compressContext({
     text: spec.context.text,
     query: spec.context.query || "",
+    mode: spec.context.mode,
+    foldBudget: spec.context.foldBudget,
     targetRatio: spec.context.targetRatio,
     maxTokens: spec.context.maxTokens,
     reranker: spec.context.reranker,
@@ -543,7 +545,7 @@ function planContextPreview(spec = {}) {
     ...(typeof spec.context.rerankFn === "function" ? { rerankFn: spec.context.rerankFn } : {}),
   });
   if (!c || c.ok !== true || c.refused) return { refused: true, reason: (c && c.reason) || "compress_failed" };
-  return { refused: false, inTokens: c.inTokens, outTokens: c.outTokens, ratio: c.ratio, digest: c.digest, tool: "context-compress", toolVersion: CONTEXT_VERSION, reranker: c.reranker, rescored: c.rescored };
+  return { refused: false, inTokens: c.inTokens, outTokens: c.outTokens, ratio: c.ratio, digest: c.digest, tool: "context-compress", toolVersion: CONTEXT_VERSION, mode: c.mode || EXTRACTIVE_MODE, reranker: c.reranker, rescored: c.rescored };
 }
 
 /** Pure previews for the optional ACN stages. No disk, no network: ledger
@@ -1244,6 +1246,8 @@ export async function runAgenticRun(spec = {}, adapters = {}) {
       const c = await compressFn({
         text: input,
         query: spec.context.query || "",
+        mode: spec.context.mode,
+        foldBudget: spec.context.foldBudget,
         targetRatio: spec.context.targetRatio,
         maxTokens: spec.context.maxTokens,
         reranker: spec.context.reranker,
@@ -1258,7 +1262,7 @@ export async function runAgenticRun(spec = {}, adapters = {}) {
       if (!v.ok) return { ...fail("context", "verify_failed", { checks: v.checks }), receipts, memory };
       contextText = c.output;
       receipts.push({
-        stage: "context", ok: true, tool: "context-compress", toolVersion: CONTEXT_VERSION,
+        stage: "context", ok: true, tool: "context-compress", toolVersion: CONTEXT_VERSION, mode: c.mode || EXTRACTIVE_MODE,
         inTokens: c.inTokens, outTokens: c.outTokens, ratio: c.ratio, reranker: c.reranker, rescored: c.rescored,
         kept: c.kept.length, dropped: c.dropped.length, verified: true, digest: c.digest,
       });
@@ -1894,6 +1898,8 @@ export async function dispatchAgentic(name, args = {}, adapters = {}) {
     const c = await compressContextAsync({
       text: args.text ?? "",
       query: args.query || "",
+      mode: args.mode,
+      foldBudget: args.foldBudget,
       targetRatio: args.targetRatio,
       maxTokens: args.maxTokens,
       reranker: args.reranker,

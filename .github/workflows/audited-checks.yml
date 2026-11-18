@@ -9,13 +9,18 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     name: Unit tests (root + spl-pay-per-suite)
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
       - name: Root tests
@@ -40,8 +45,7 @@ jobs:
       # Scans the full git history, not only the working tree, with gitleaks'
       # maintained rule set (cloud keys, Stripe, GitHub, Anthropic, private keys and more).
       # Replaces the old hand-rolled grep scan (working tree only, no history,
-      # no entropy). No .gitleaks.toml allowlist is shipped: add one only if a
-      # legitimate fixture trips the scan, with a comment justifying each entry.
+      # no entropy). A .gitleaks.toml allowlist ships at the repo root; each entry carries a comment justifying it.
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:

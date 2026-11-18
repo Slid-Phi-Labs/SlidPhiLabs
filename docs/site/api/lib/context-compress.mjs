@@ -1,5 +1,5 @@
 /**
- * Context compressor 0.2.0 — extractive-first LLM context reduction.
+ * Context compressor 0.3.0 — extractive-first LLM context reduction.
  * Dual license: AGPL-3.0-or-later OR Slid Phi Labs Commercial. See /LICENSE.
  *
  * Build-order decisions (research-backed, 2026-11-05):
@@ -22,6 +22,12 @@
  * 5. Priced on input bytes through the suite meter (computeQuote), same
  *    lifetime free tier as compression: the buyer pays for what they sent,
  *    keeps what the compressor saved.
+ * 6. 0.3.0 adds opt-in fold mode (empty-start PERsiST-style folding):
+ *    same chunk/BM25/rerank pipeline and relevance-floor refusal, then
+ *    each kept chunk is skeletonized (structural + query-overlap lines)
+ *    and packed under foldBudget instead of filled whole to a ratio.
+ *    Output lines stay a subset of the input, so the subset proof and
+ *    verifyCompression hold unchanged. Default stays extractive.
  *
  * Route note (no direct public route, by design): compression is served
  * only through the metered ACN stage (opt-in context block on
@@ -33,11 +39,83 @@
  */
 import { createHash } from "node:crypto";
 
-export const CONTEXT_VERSION = "0.2.0";
+export const CONTEXT_VERSION = "0.3.0";
 export const DEFAULT_MAX_CHUNK_TOKENS = 200;
 export const DEFAULT_TARGET_RATIO = 0.35;
 export const RELEVANCE_FLOOR = 0.05;
 export const BM25_K = 1.2;
+export const EXTRACTIVE_MODE = "extractive";
+export const FOLD_MODE = "fold";
+export const DEFAULT_FOLD_BUDGET_TOKENS = 6000;
+
+/** Parse a context mode. Unknown modes return null (caller fails closed). */
+export function parseContextMode(v) {
+  const m = String(v ?? EXTRACTIVE_MODE).trim().toLowerCase();
+  if (m === FOLD_MODE) return FOLD_MODE;
+  if (m === EXTRACTIVE_MODE || m === "") return EXTRACTIVE_MODE;
+  return null;
+}
+
+/** Parse a fold token budget. Invalid values fall back to the default. */
+export function parseFoldBudget(v) {
+  const n = Math.floor(Number(v));
+  if (!Number.isFinite(n) || n < 1) return DEFAULT_FOLD_BUDGET_TOKENS;
+  return n;
+}
+
+const STRUCTURAL_RE = /^\s*(import\s|from\s|def\s|class\s|@|function\s|const\s|let\s|var\s|export\s|return\s|if\s|for\s|while\s|else\b|catch\s|throw\s|await\s|#+\s|[-*]\s|\d+[.)]\s|\{|\}|\/\/)/;
+
+/** Split a (possibly space-joined) chunk into foldable units. Chunk text
+ *  joins sentences with spaces, so units are sentences, not lines. */
+function splitUnits(text) {
+  return String(text ?? "").split(/(?<=[.!?;])\s+|\n+/).map((s) => s.trim()).filter(Boolean);
+}
+
+/** Condense one chunk to its skeleton: first unit (anchor), structural
+ *  units, and units sharing a word with the query. Whole units only.
+ *  verifyCompression accepts the result via its line-subset check plus
+ *  the substring fallback for reflowed sentences. */
+export function foldSkeleton(text, keepWords) {
+  const keep = keepWords instanceof Set ? keepWords : new Set();
+  const out = [];
+  let first = true;
+  for (const u of splitUnits(text)) {
+    if (first) { out.push(u); first = false; continue; }
+    if (STRUCTURAL_RE.test(u)) { out.push(u); continue; }
+    const words = u.toLowerCase().match(/[a-z0-9_]+/g) || [];
+    if (words.some((w) => keep.has(w))) out.push(u);
+  }
+  return out.join("\n");
+}
+
+/** Pack ranked chunks as skeletons under foldBudget. Unlike the
+ *  extractive fill (which stops at the first over-budget chunk), fold
+ *  skips it and keeps packing smaller later chunks: strictly better
+ *  recall under the same budget, same determinism. */
+export function foldToBudget({ unique, ranked, scores, bm25, dupDropped, inTokens, terms, foldBudget, canonical, rescored }) {
+  const keep = new Set(terms);
+  const kept = [];
+  const dropped = [];
+  let used = 0;
+  for (const c of ranked) {
+    const skel = foldSkeleton(c.text, keep);
+    const skelTokens = estimateTokens(skel);
+    if (!skelTokens) { dropped.push({ i: c.i, reason: "fold_empty", score: scores.get(c.i), bm25: bm25.get(c.i) }); continue; }
+    if (used + skelTokens > foldBudget && kept.length) { dropped.push({ i: c.i, reason: "over_fold_budget", score: scores.get(c.i), bm25: bm25.get(c.i) }); continue; }
+    kept.push({ i: c.i, text: skel, tokens: skelTokens, folded: true, orig_tokens: c.tokens, score: scores.get(c.i), bm25: bm25.get(c.i) });
+    used += skelTokens;
+  }
+  kept.sort((a, b) => a.i - b.i);
+  const output = kept.map((c) => c.text).join("\n");
+  const outTokens = estimateTokens(output);
+  return {
+    ok: true, refused: false, output, mode: FOLD_MODE, foldBudget,
+    kept: kept.map((c) => ({ i: c.i, tokens: c.tokens, orig_tokens: c.orig_tokens, folded: true, score: c.score, bm25: c.bm25 })),
+    dropped: dropped.concat(dupDropped), inTokens, outTokens,
+    ratio: inTokens ? outTokens / inTokens : 0, digest: sha256hex(output),
+    reranker: canonical, rescored,
+  };
+}
 
 /** Second-stage reranker tiers. MiniLM-L-6-v2 is the default scorer;
  *  bge-reranker-v2-gemma is the opt-in quality tier (explicit option +
@@ -174,7 +252,7 @@ export function scoreChunks(chunks, query) {
  * Full pipeline: chunk → dedup → query-score → budget to targetRatio →
  * order-preserving emit + drop report. Pure, deterministic.
  */
-export function compressContext({ text, query = "", targetRatio = DEFAULT_TARGET_RATIO, maxTokens = DEFAULT_MAX_CHUNK_TOKENS, reranker = RERANKER_DEFAULT, rerankFn = null, rerankTopK = null } = {}) {
+export function compressContext({ text, query = "", targetRatio = DEFAULT_TARGET_RATIO, maxTokens = DEFAULT_MAX_CHUNK_TOKENS, reranker = RERANKER_DEFAULT, rerankFn = null, rerankTopK = null, mode = EXTRACTIVE_MODE, foldBudget = DEFAULT_FOLD_BUDGET_TOKENS } = {}) {
   const input = String(text ?? "");
   const inTokens = estimateTokens(input);
   if (!normalizeChunk(input)) {
@@ -183,6 +261,10 @@ export function compressContext({ text, query = "", targetRatio = DEFAULT_TARGET
   const canonical = normalizeReranker(reranker);
   if (!canonical) {
     return { ...badRerank("unknown_reranker", "unknown reranker " + JSON.stringify(String(reranker))), supported: [...RERANKER_TIERS] };
+  }
+  const contextMode = parseContextMode(mode);
+  if (!contextMode) {
+    return { ...badRerank("unknown_mode", "unknown context mode " + JSON.stringify(String(mode))), supported: [EXTRACTIVE_MODE, FOLD_MODE] };
   }
   const target = Math.min(1, Math.max(0.01, Number(targetRatio) || DEFAULT_TARGET_RATIO));
   const chunks = chunkText(input, { maxTokens });
@@ -203,6 +285,9 @@ export function compressContext({ text, query = "", targetRatio = DEFAULT_TARGET
       inTokens, outTokens: 0, ratio: 0, digest: sha256hex(""),
       reranker: canonical, rescored: stage.rescored,
     };
+  }
+  if (contextMode === FOLD_MODE) {
+    return foldToBudget({ unique, ranked, scores, bm25, dupDropped, inTokens, terms, foldBudget: parseFoldBudget(foldBudget), canonical, rescored: stage.rescored });
   }
   const kept = [];
   let used = 0;
@@ -338,7 +423,7 @@ async function secondStageAsync({ query, candidates, bm25, reranker, rerankFn })
 /** Async pipeline: same stages as compressContext, awaits
  *  Promise-returning rerankFn adapters (e.g. a hosted MiniLM or
  *  bge-reranker-v2-gemma scorer). */
-export async function compressContextAsync({ text, query = "", targetRatio = DEFAULT_TARGET_RATIO, maxTokens = DEFAULT_MAX_CHUNK_TOKENS, reranker = RERANKER_DEFAULT, rerankFn = null, rerankTopK = null } = {}) {
+export async function compressContextAsync({ text, query = "", targetRatio = DEFAULT_TARGET_RATIO, maxTokens = DEFAULT_MAX_CHUNK_TOKENS, reranker = RERANKER_DEFAULT, rerankFn = null, rerankTopK = null, mode = EXTRACTIVE_MODE, foldBudget = DEFAULT_FOLD_BUDGET_TOKENS } = {}) {
   const input = String(text ?? "");
   const inTokens = estimateTokens(input);
   if (!normalizeChunk(input)) {
@@ -347,6 +432,10 @@ export async function compressContextAsync({ text, query = "", targetRatio = DEF
   const canonical = normalizeReranker(reranker);
   if (!canonical) {
     return { ...badRerank("unknown_reranker", "unknown reranker " + JSON.stringify(String(reranker))), supported: [...RERANKER_TIERS] };
+  }
+  const contextMode = parseContextMode(mode);
+  if (!contextMode) {
+    return { ...badRerank("unknown_mode", "unknown context mode " + JSON.stringify(String(mode))), supported: [EXTRACTIVE_MODE, FOLD_MODE] };
   }
   const target = Math.min(1, Math.max(0.01, Number(targetRatio) || DEFAULT_TARGET_RATIO));
   const chunks = chunkText(input, { maxTokens });
@@ -367,6 +456,9 @@ export async function compressContextAsync({ text, query = "", targetRatio = DEF
       inTokens, outTokens: 0, ratio: 0, digest: sha256hex(""),
       reranker: canonical, rescored: stage.rescored,
     };
+  }
+  if (contextMode === FOLD_MODE) {
+    return foldToBudget({ unique, ranked, scores, bm25, dupDropped, inTokens, terms, foldBudget: parseFoldBudget(foldBudget), canonical, rescored: stage.rescored });
   }
   const kept = [];
   let used = 0;
@@ -442,9 +534,14 @@ export async function rerankDocsAsync({ query = "", docs, reranker = RERANKER_DE
  */
 export function verifyCompression({ input, output, query = "" } = {}) {
   const checks = [];
-  const inLines = new Set(normalizeChunk(input).split("\n").map((l) => l.trim()).filter(Boolean));
-  const outLines = normalizeChunk(output).split("\n").map((l) => l.trim()).filter(Boolean);
-  const subset = outLines.every((l) => inLines.has(l) || [...inLines].some((il) => il.includes(l)));
+  // Subset proof, fixed 0.3.0: every output LINE must occur somewhere in the
+  // whole normalized input. The old check normalized first (collapsing all
+  // newlines) and then compared whole blobs, which rejected every honest
+  // multi-chunk assembly — extractive included. Per-line containment keeps
+  // the moon-cheese negative green while accepting gapped outputs.
+  const inHay = normalizeChunk(input);
+  const outLines = String(output ?? "").split("\n").map((l) => normalizeChunk(l).trim()).filter(Boolean);
+  const subset = outLines.every((l) => inHay.includes(l));
   checks.push({ name: "subset", ok: subset });
   const terms = queryTerms(query);
   const hay = normalizeChunk(output);

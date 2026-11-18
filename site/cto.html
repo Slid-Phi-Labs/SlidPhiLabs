@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>For CTOs — Cap Agent Spend, Keep Every Receipt — Slid Phi Labs</title>
+<meta name="description" content="Warrant caps what your agents may spend before they act. PERsiST cuts the context tokens you pay for. Chamber and Agent-Rider keep a signed receipt for all of it. For CTOs and risk owners."/>
+<link rel="canonical" href="https://www.slidphilabs.com/cto"/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:site_name" content="Slid Phi Labs"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="For CTOs — Cap Agent Spend, Keep Every Receipt — Slid Phi Labs"/>
+<meta property="og:description" content="Mandates that refuse over-ceiling calls. Memory that folds context instead of re-sending it. Receipts that verify without trusting us."/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:url" content="https://www.slidphilabs.com/cto"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="For CTOs — Cap Agent Spend, Keep Every Receipt — Slid Phi Labs"/>
+<meta name="twitter:description" content="Mandates that refuse over-ceiling calls. Memory that folds context instead of re-sending it. Receipts that verify without trusting us."/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
+<link rel="stylesheet" href="/assets/site.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"For CTOs — Cap Agent Spend, Keep Every Receipt — Slid Phi Labs","description":"Warrant caps agent spend, PERsiST cuts context tokens, Chamber and Agent-Rider keep signed receipts. For CTOs and risk owners.","url":"https://www.slidphilabs.com/cto","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+</head>
+<body>
+<main class="spl-page" id="main">
+<p class="spl-kicker">For CTOs</p>
+<h1>Your agents have a budget. Enforce it.</h1>
+<p class="lede">Three questions keep engineering leaders up at night: what can an agent spend, what does the context bill look like, and can we prove what happened. One control answers each.</p>
+<section>
+<p class="sec-no">01 — Liability</p>
+<h2>Warrant refuses over-ceiling calls.</h2>
+<p>Every mandate carries a ceiling that is checked — kind, version, chain — <em>before</em> the call runs, not after the invoice arrives. Over ceiling means refused with a machine-readable reason, and the refusal itself lands in an append-only audit ledger. Set the ceiling per workflow; the agent cannot negotiate with it.</p>
+</section>
+<section>
+<p class="sec-no">02 — Spend</p>
+<h2>PERsiST stops re-sending context you already paid for.</h2>
+<p>Instead of concatenating full files into every prompt, context starts empty and folds forward under a token budget. Fewer input tokens per turn, same task completed — measured per run by our evaluation harness, not estimated.</p>
+</section>
+<section>
+<p class="sec-no">03 — Proof</p>
+<h2>Chamber and Agent-Rider keep signed receipts.</h2>
+<p>Identity is a short-lived ES256 credential; every gated action leaves a receipt that verifies against a public key list — including the revocations. Your auditors check the receipts, not our word. The full control list is on the <a href="/security">security page</a>, with a DPA for enterprise agreements.</p>
+</section>
+<section>
+<p class="sec-no">04 — Start</p>
+<h2>A 30-day pilot on one workflow.</h2>
+<p>Pick the workflow that scares you most. We scope it, you run it in shadow or production, and at the end you keep every measurement. Pricing is metered usage (<a href="/pricing-usage">usage</a>); pilots are free. <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a> — a human replies.</p>
+</section>
+<footer class="spl-foot">
+<p>Hosted at www.slidphilabs.com (primary). License: AGPL-3.0-or-later OR commercial.</p>
+<nav><a href="/llms.txt">llms.txt</a><a href="/agents.json">agents.json</a><a href="/platform.json">platform.json</a><a href="/sitemap.xml">sitemap.xml</a></nav>
+<p data-spl-auth></p>
+</footer>
+</main>
+<script src="/assets/lab-auth.js" defer></script>
+</body>
+</html>

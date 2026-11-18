@@ -80,6 +80,10 @@ export function createHttpRerankFn({
       const docs = list.map((c) => ({ id: c?.id ?? c?.i, text: String(c?.text ?? "") }));
       const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
       let timer = null;
+      // NOTE: the timer must stay ref'd. An unref'd timeout lets the event
+      // loop drain while a hanging fetch is still pending, so the timeout
+      // never fires (node:test fails with "event loop has already
+      // resolved"). The timer is always cleared in the finally below.
       const timeoutP = new Promise((_, reject) => {
         timer = setTimeout(() => {
           try { ctrl?.abort(); } catch { /* ignore */ }

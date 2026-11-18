@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /docs/site
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/phi-rest
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/spl-model-pay
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/spl-pay-per-suite
+    schedule:
+      interval: weekly
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /docs/site
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /lab-store
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

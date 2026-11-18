@@ -8,6 +8,7 @@ import { meterSnapshot } from "./lib/usage-meter.mjs";
 import { codexStamp, codexHeaders } from "./lib/codex-key.js";
 import { applyClaimSeat, claimAuthError } from "./lib/claim-seat.mjs";
 import { toolGate, toolOnly402 } from "./lib/tool-gate.mjs";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -59,7 +60,10 @@ export default async function handler(req, res) {
       return json(res, 400, { ok: false, error: "packed_b64 required" });
     }
     if (!isPccz(packed)) return json(res, 400, { ok: false, error: "not_pcc_archive" });
+    const blocked = usageGate(req, packed.length);
+    if (blocked) return json(res, blocked.status, blocked.body);
     const files = await unpackMembers(packed);
+    recordMeteredBytes(req, packed.length);
     return json(res, 200, {
       ok: true,
       plain: `Restored ${files.length} files from a .pcc archive.`,

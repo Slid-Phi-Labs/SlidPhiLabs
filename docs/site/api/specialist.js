@@ -8,6 +8,7 @@ import { runHostedEncode } from "./lib/hosted-job.mjs";
 import { meterSnapshot } from "./lib/usage-meter.mjs";
 import { applyClaimSeat, claimAuthError } from "./lib/claim-seat.mjs";
 import { toolGate, toolOnly402 } from "./lib/tool-gate.mjs";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -84,7 +85,10 @@ export default async function handler(req, res) {
           ? Buffer.from(body.value)
           : null;
       if (!frame || !frame.length) return json(res, 400, { ok: false, error: "empty_body" });
+      const blocked = usageGate(req, frame.length);
+      if (blocked) return json(res, blocked.status, blocked.body);
       const raw = await decodeFrame(frame);
+      recordMeteredBytes(req, frame.length);
       return json(res, 200, {
         ok: true,
         raw_bytes: raw.length,
