@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TNSSRC / Pulsar — Metered Compression — Slid Phi Labs</title>
+<meta name="description" content="TNSSRC/Pulsar: lossless compression run on our machines, metered per GB after the free allowance. Benchmarked single-core against zstd, xz, and lz4."/>
+<link rel="canonical" href="https://www.slidphilabs.com/pulsar"/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:site_name" content="Slid Phi Labs"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="TNSSRC / Pulsar — Metered Compression — Slid Phi Labs"/>
+<meta property="og:description" content="Lossless compression as a metered job. Per-GB billing, reproducible benchmark inside."/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:url" content="https://www.slidphilabs.com/pulsar"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="TNSSRC / Pulsar — Metered Compression — Slid Phi Labs"/>
+<meta name="twitter:description" content="Lossless compression as a metered job. Per-GB billing, reproducible benchmark inside."/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
+<link rel="stylesheet" href="/assets/site.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"TNSSRC / Pulsar — Metered Compression — Slid Phi Labs","description":"Lossless compression run on lab machines, metered per GB after the free allowance.","url":"https://www.slidphilabs.com/pulsar","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+</head>
+<body>
+<main class="spl-page" id="main">
+<p class="spl-kicker">Pulsar</p>
+<h1>Compression as a metered job.</h1>
+<p class="lede">Send bytes, get smaller bytes back with a receipt. You pay per GB after the free allowance — nothing else.</p>
+<section>
+<p class="sec-no">01 — How you pay</p>
+<h2>One rail: metered usage on your lab account.</h2>
+<p>Compression jobs meter per GB (see <a href="/pricing-usage">usage</a>). Card billing runs through Stripe; every charge carries the standard 24-hour refund window (see <a href="/refund-policy">refunds</a>). Unpaid calls refuse with a machine-readable payment-required error — free paths are never silently metered. Enterprise volume goes through an annual agreement: <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a>.</p>
+<p>Premium: the binary stays free GPLv3. Closed use ships under a commercial grant — terms on request.</p>
+</section>
+<section>
+<p class="sec-no">02 — Proof before purchase</p>
+<h2>Run the benchmark yourself.</h2>
+<p>Our throughput harness pins every run to one core, verifies SHA-256 on every round trip, and prints a paste-ready table against zstd, xz, and lz4. Ask for it and we send the scripts before you spend anything.</p>
+<table class="meters">
+<tr><th>Codec</th><th>Silesia 12 files (~202 MB raw)</th><th>Note</th></tr>
+<tr><td>TNSSRC 0.1.0</td><td>43,724,575</td><td>Local engine, closed grant</td></tr>
+<tr><td>xz-6</td><td>~49.4M</td><td>Frontier size, slow</td></tr>
+<tr><td>champ</td><td>50,541,135</td><td>Hosted</td></tr>
+<tr><td>PCC</td><td>51,498,645</td><td>Hosted</td></tr>
+<tr><td>bzip2-9</td><td>54,506,769</td><td>Opponent</td></tr>
+<tr><td><strong>pulsar 2.5.0</strong></td><td><strong>55,745,438</strong></td><td>Free binary, DECODE_OK 12/12</td></tr>
+<tr><td>gzip-9</td><td>67,631,990</td><td>Opponent</td></tr>
+</table>
+<p>Full 12-file totals, DECODE_OK 12/12 throughout, measured 2026-09-11. Slices run live on <a href="/bench">bench</a> and <a href="/silesia">silesia</a>.</p>
+</section>
+<footer class="spl-foot">
+<p>Hosted at www.slidphilabs.com (primary). License: AGPL-3.0-or-later OR commercial.</p>
+<nav><a href="/llms.txt">llms.txt</a><a href="/agents.json">agents.json</a><a href="/platform.json">platform.json</a><a href="/sitemap.xml">sitemap.xml</a></nav>
+<p data-spl-auth></p>
+</footer>
+</main>
+<script src="/assets/lab-auth.js" defer></script>
+</body>
+</html>

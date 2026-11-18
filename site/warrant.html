@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Warrant — Spend Mandates for Agents — Slid Phi Labs</title>
+<meta name="description" content="Warrant: machine-enforced spending mandates. Over-ceiling calls are refused before they run, and every refusal lands in an audit ledger."/>
+<link rel="canonical" href="https://www.slidphilabs.com/warrant"/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:site_name" content="Slid Phi Labs"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Warrant — Spend Mandates for Agents — Slid Phi Labs"/>
+<meta property="og:description" content="Ceilings checked before the call runs. Refusals land in an append-only ledger."/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:url" content="https://www.slidphilabs.com/warrant"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Warrant — Spend Mandates for Agents — Slid Phi Labs"/>
+<meta name="twitter:description" content="Ceilings checked before the call runs. Refusals land in an append-only ledger."/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
+<link rel="stylesheet" href="/assets/site.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Warrant — Spend Mandates for Agents — Slid Phi Labs","description":"Machine-enforced spending mandates with an append-only audit ledger.","url":"https://www.slidphilabs.com/warrant","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+</head>
+<body>
+<main class="spl-page" id="main">
+<p class="spl-kicker">Warrant</p>
+<h1>Give every agent a ceiling.</h1>
+<p class="lede">A mandate states what an agent may spend. Kind, version, and chain are checked before the call runs — over ceiling means refused, and the refusal is ledgered.</p>
+<section>
+<p class="sec-no">01 — How you pay</p>
+<h2>Two rails: metered calls, merchant keys at scale.</h2>
+<p>Verification calls meter by usage on your lab account (see <a href="/pricing-usage">usage</a>), billed by card through Stripe with the standard 24-hour refund window (see <a href="/refund-policy">refunds</a>). High-volume desks move to a merchant key with higher clearance and volume terms under an annual agreement: <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a>. Unpaid calls refuse machine-readably — never silently.</p>
+<p>Premium: Warrant rides Rider seats, and enterprise moves mandates to scoped per-call terms under agreement.</p>
+</section>
+<section>
+<p class="sec-no">02 — Proof before purchase</p>
+<h2>Verify a mandate without trusting us.</h2>
+<p>Kind, version, and chain-monotonicity checks run locally against the same rules our hosts enforce, and the TypeScript and Python test suites live open in the repo. An independent security review covering ceiling bypass and race conditions is in progress; its report and attestation letter publish here — the audit's gap analysis covers whatever the suites miss.</p>
+</section>
+<footer class="spl-foot">
+<p>Hosted at www.slidphilabs.com (primary). License: AGPL-3.0-or-later OR commercial.</p>
+<nav><a href="/llms.txt">llms.txt</a><a href="/agents.json">agents.json</a><a href="/platform.json">platform.json</a><a href="/sitemap.xml">sitemap.xml</a></nav>
+<p data-spl-auth></p>
+</footer>
+</main>
+<script src="/assets/lab-auth.js" defer></script>
+</body>
+</html>

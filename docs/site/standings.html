@@ -230,6 +230,8 @@ footer a{color:var(--gold)}
         </thead>
         <tbody id="scorebody"></tbody>
       </table>
+<noscript><table><caption>Static snapshot of standings.json scorecard (v1.2.2, 2026-08-12) for crawlers and readers without JavaScript.</caption><thead><tr><th>Metric</th><th>Lab</th><th>Lab value</th><th>Field</th><th>Rank</th><th>Status</th><th>As of</th></tr></thead><tbody><tr><td>Web asset size (pick min brotli-11 / gzip-9 after prep)</td><td>SPL Web Codec</td><td>equals best of brotli-11 &amp; gzip-9 on payload</td><td>web data (html/css/js/json)</td><td>1</td><td>leading</td><td>2026-08-07</td></tr><tr><td>Size on zeros_10k (int32 raw 40KB)</td><td>ZRW</td><td>8 B</td><td>structured integers</td><td>1</td><td>leading</td><td>2026-08-10</td></tr><tr><td>Size on ramp_10k (int32 raw 40KB)</td><td>ZRW</td><td>8 B</td><td>structured integers</td><td>1</td><td>leading</td><td>2026-08-07</td></tr><tr><td>Size on zeros_1k</td><td>ZRW</td><td>8 B</td><td>structured integers</td><td>1</td><td>record</td><td>2026-08-07</td></tr><tr><td>Size on ramp_1k vs brotli</td><td>ZRW</td><td>8 B (~141× smaller than brotli 1132 B)</td><td>structured integers</td><td>1</td><td>record</td><td>2026-08-07</td></tr><tr><td>Size on walk_10k s1 (pack generator)</td><td>ZRW</td><td>128 B</td><td>structured integers</td><td>1</td><td>record</td><td>2026-08-07</td></tr><tr><td>Size on walk_10k s5 (pack generator)</td><td>ZRW</td><td>420 B</td><td>structured integers</td><td>1</td><td>record</td><td>2026-08-07</td></tr><tr><td>Residual reduction vs pure discrete baseline</td><td>CDDG:Split / ZRQC residual</td><td>~64–84% residual cut class</td><td>residual process</td><td>1</td><td>leading</td><td>2026-08-04</td></tr><tr><td>Quality vs pure-360</td><td>CDDG + Mirrored Cost</td><td>~2.05×–2.09× quality class</td><td>residual process</td><td>1</td><td>leading</td><td>2026-08-04</td></tr><tr><td>Size on zeros_1M (int32 raw 4 MB)</td><td>ZRW</td><td>10 B</td><td>structured integers</td><td>1</td><td>record</td><td>2026-08-09</td></tr><tr><td>Silesia total compressed size (12 files, ~202 MB raw)</td><td>OmniWave (SPL Codec)</td><td>lossless freeze ~3.13–3.60× · float path diagnostic (not crown)</td><td>mixed corpus (Silesia)</td><td></td><td>close</td><td>2026-08-10</td></tr><tr><td>Primary host product live (DNS→Fly)</td><td>Platform ops</td><td>www.slidphilabs.com 200 product APIs</td><td>domain supremacy</td><td>1</td><td>record</td><td>2026-08-09</td></tr><tr><td>Dual doors green (human + agent)</td><td>Platform ops</td><td>Pub Facing + Agentic Minded on primary host</td><td>commerce surfaces</td><td>1</td><td>leading</td><td>2026-08-09</td></tr></tbody></table></noscript>
+      <!-- noscript snapshot ends -->
     </div>
   </section>
 
@@ -241,6 +243,8 @@ footer a{color:var(--gold)}
         <thead><tr><th>#</th><th>Codec / class</th><th>Role</th><th>Strength</th></tr></thead>
         <tbody id="industry"></tbody>
       </table>
+<noscript><table><caption>Static industry-field snapshot for crawlers and readers without JavaScript.</caption><thead><tr><th>#</th><th>Codec / class</th><th>Role</th><th>Strength</th></tr></thead><tbody><tr><td>1</td><td>zstd</td><td>Best default general-purpose</td><td>Speed × ratio balance</td></tr><tr><td>2</td><td>brotli</td><td>Web / static assets</td><td>Strong ratio on text/HTML/JSON</td></tr><tr><td>3</td><td>gzip / deflate</td><td>Ubiquitous baseline</td><td>Compatibility</td></tr><tr><td>4</td><td>lz4</td><td>Wire / real-time</td><td>Highest throughput</td></tr><tr><td>5</td><td>snappy</td><td>In-memory / analytics stacks</td><td>Very fast, modest ratio</td></tr><tr><td>6</td><td>bzip2</td><td>Legacy archives</td><td>Better ratio than gzip, slow</td></tr><tr><td>7</td><td>xz / lzma</td><td>Max offline ratio</td><td>Strong size, slow</td></tr><tr><td>8</td><td>zlib</td><td>Deflate library form</td><td>Same family as gzip</td></tr><tr><td>9</td><td>lzo</td><td>Embedded / legacy fast</td><td>Fast, modest ratio</td></tr><tr><td>10</td><td>High-ratio knobs (zstd-19 / brotli-q11)</td><td>Size-at-all-costs</td><td>Best GP size, expensive CPU</td></tr><tr><td>11</td><td>Columnar (Parquet/ORC + zstd/snappy)</td><td>Analytics containers</td><td>Domain packaging</td></tr><tr><td>12</td><td>Integer specialists (Delta, Gorilla, FastPFor, StreamVByte…)</td><td>Structured integers / TS</td><td>Beat GP on int patterns — lab lane</td></tr></tbody></table></noscript>
+      <!-- noscript snapshot ends -->
     </div>
   </section>
 
@@ -250,6 +254,7 @@ footer a{color:var(--gold)}
     <h3 style="font-family:'Cinzel',serif;color:var(--gold);font-size:.95rem;margin-top:16px">Next re-runs</h3>
     <ul id="next" style="color:var(--muted);margin:8px 0 0 1.1rem;font-size:.9rem"></ul>
   </section>
+<p class="spl-note"><span>© 2026 Slid Phi Labs, Inc. All rights reserved.</span></p>
 </main>
 
 <footer>

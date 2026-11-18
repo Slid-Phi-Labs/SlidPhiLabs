@@ -6,6 +6,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const zlib = require("zlib");
 const { createCipheriv, createDecipheriv, randomBytes } = require("crypto");
 
 const PHI = (1 + Math.sqrt(5)) / 2;
@@ -45,6 +46,7 @@ function open(sealed) {
 }
 
 const hot = new Map();
+const hotGz = new Map();
 let lastRoot = "";
 
 function createRest({ root, called = [] } = {}) {
@@ -82,6 +84,7 @@ function bootRest(root, called = []) {
     const resolved = path.resolve(file);
     const opened = open(cloak(fs.readFileSync(resolved)));
     hot.set(resolved, opened);
+    hotGz.set(resolved, zlib.gzipSync(opened, { level: 9 }));
     n += 1;
     bytes += opened.length;
   }
@@ -91,6 +94,11 @@ function bootRest(root, called = []) {
 function fromRest(filePath) {
   if (!filePath) return null;
   return hot.get(path.resolve(filePath)) || null;
+}
+
+function fromRestGzip(filePath) {
+  if (!filePath) return null;
+  return hotGz.get(path.resolve(filePath)) || null;
 }
 
 function walkCalled(dir, base = dir) {
@@ -112,5 +120,6 @@ module.exports = {
   createRest,
   bootRest,
   fromRest,
+  fromRestGzip,
   walkCalled,
 };

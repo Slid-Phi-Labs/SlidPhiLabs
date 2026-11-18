@@ -101,7 +101,7 @@
       "role": "compression",
       "url": "https://www.slidphilabs.com/pcc",
       "price": "Metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
-      "note": "Door 1 onto the Shared Spine. PCC = lossless compressor only. AWARE is a retired alias."
+      "note": "Door 1 onto the Shared Spine. PCC = lossless compressor only. AWARE is a retired alias. 51,498,645 Silesia bytes, 12/12 DECODE_OK."
     },
     {
       "id": "quikgater",
@@ -125,7 +125,15 @@
       "role": "compression",
       "url": "https://www.slidphilabs.com/pcc",
       "price": "Metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
-      "note": "Door 1 onto the Shared Spine. lossless compressor only (not payment)"
+      "note": "Door 1 onto the Shared Spine. lossless compressor only (not payment). 51,498,645 Silesia bytes, 12/12 DECODE_OK."
+    },
+    {
+      "id": "pulsar",
+      "name": "pulsar 2.5.0",
+      "role": "compression",
+      "url": "https://www.slidphilabs.com/pulsar",
+      "price": "Free GPLv3 binary; closed embed $490/yr (SKU pulsar-exception)",
+      "note": "Door 4. Free lossless binary demo you run on your own machine. 55,745,438 Silesia bytes, 12/12 DECODE_OK."
     },
     {
       "id": "tnssrc",

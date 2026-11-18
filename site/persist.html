@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PERsiST — Memory That Folds — Slid Phi Labs</title>
+<meta name="description" content="PERsiST: agent memory that starts empty and folds context under a token budget, so you stop re-paying for context you already sent. Metered usage."/>
+<link rel="canonical" href="https://www.slidphilabs.com/persist"/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:site_name" content="Slid Phi Labs"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="PERsiST — Memory That Folds — Slid Phi Labs"/>
+<meta property="og:description" content="Empty-start context folding under a token budget. Pay for the tokens you use, not the ones you repeat."/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:url" content="https://www.slidphilabs.com/persist"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="PERsiST — Memory That Folds — Slid Phi Labs"/>
+<meta name="twitter:description" content="Empty-start context folding under a token budget. Pay for the tokens you use, not the ones you repeat."/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
+<link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
+<link rel="stylesheet" href="/assets/site.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"PERsiST — Memory That Folds — Slid Phi Labs","description":"Agent memory that folds context under a token budget. Metered usage.","url":"https://www.slidphilabs.com/persist","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+</head>
+<body>
+<main class="spl-page" id="main">
+<p class="spl-kicker">PERsiST</p>
+<h1>Stop re-paying for context.</h1>
+<p class="lede">Full-context retrieval re-sends entire files every turn. PERsiST starts empty and folds what matters under a token budget — fewer input tokens per turn, same task done.</p>
+<section>
+<p class="sec-no">01 — How you pay</p>
+<h2>One rail: metered usage on your lab account.</h2>
+<p>Memory calls meter by usage (see <a href="/pricing-usage">usage</a>). Card billing runs through Stripe with the standard 24-hour refund window (see <a href="/refund-policy">refunds</a>). Unpaid calls refuse with a machine-readable payment-required error. There is no self-serve SKU yet: memory runs on pilot and annual agreements — 30 days free on one workflow, then scoped terms: <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a>.</p>
+</section>
+<section>
+<p class="sec-no">02 — Proof before purchase</p>
+<h2>The leaderboard is the pitch.</h2>
+<p>Our SWE-bench Lite harness scores baseline retrieval against PERsiST folding on the same agent and prints pass rate, average input tokens, token-reduction percent, and median latency. Pilot it on one workflow free for 30 days and keep every measurement — the leaderboard numbers are yours to publish.</p>
+</section>
+<footer class="spl-foot">
+<p>Hosted at www.slidphilabs.com (primary). License: AGPL-3.0-or-later OR commercial.</p>
+<nav><a href="/llms.txt">llms.txt</a><a href="/agents.json">agents.json</a><a href="/platform.json">platform.json</a><a href="/sitemap.xml">sitemap.xml</a></nav>
+<p data-spl-auth></p>
+</footer>
+</main>
+<script src="/assets/lab-auth.js" defer></script>
+</body>
+</html>

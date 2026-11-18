@@ -10,6 +10,9 @@
  * on public synthetic slices so visitors verify before they pay.
  */
 import { withProductBox } from "./lib/spl-box-gate.js";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
+import { logInternal } from "./lib/http-fail.mjs";
+import { paidCors } from "./lib/cors.mjs";
 
 import zlib from "zlib";
 import fs from "fs";
@@ -35,11 +38,9 @@ const BROTLI_OPTS = {
   },
 };
 
-function cors(res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  for (const [k, v] of Object.entries(codexHeaders())) res.setHeader(k, v);
+function cors(req, res) {
+  paidCors(req, res, "GET, POST, OPTIONS", "Content-Type", codexHeaders());
+
 }
 
 function nowMs() {
@@ -393,7 +394,7 @@ function parseOpts(req, url) {
 }
 
 async function handler(req, res) {
-  cors(res);
+  cors(req, res);
   if (req.method === "OPTIONS") {
     res.statusCode = 204;
     return res.end();
@@ -412,7 +413,7 @@ async function handler(req, res) {
     } catch (e) {
       res.statusCode = 500;
       res.setHeader("Content-Type", "application/json; charset=utf-8");
-      return res.end(JSON.stringify({ ok: false, error: String(e.message || e) }));
+      return res.end(JSON.stringify({ ok: false, error: "internal", request_id: logInternal(req, "bench", e) }));
     }
   }
 
@@ -461,6 +462,17 @@ async function handler(req, res) {
 
   const opts = parseOpts(req, url);
   const tAll = nowMs();
+  // Synthetic corpus has no customer input bytes; meter the fixed
+  // benchmark budget (size x classes) so runs count against allowance.
+  const benchBytes = Math.max(0, Number(opts.size) || 0) *
+    (Array.isArray(opts.classes) ? opts.classes.length : 1);
+  const benchBlocked = usageGate(req, benchBytes);
+  if (benchBlocked) {
+    res.statusCode = benchBlocked.status;
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store");
+    return res.end(JSON.stringify(benchBlocked.body));
+  }
 
   if (opts.stream) {
     res.statusCode = 200;
@@ -495,6 +507,7 @@ async function handler(req, res) {
         note: "First 1 GB free once per IP, then 25¢/GB — proof is above.",
       },
     });
+    recordMeteredBytes(req, benchBytes);
     return res.end();
   }
 
@@ -503,6 +516,7 @@ async function handler(req, res) {
   for (const c of opts.classes) {
     results.push(await runClass(c, opts.size, null));
   }
+  recordMeteredBytes(req, benchBytes);
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");

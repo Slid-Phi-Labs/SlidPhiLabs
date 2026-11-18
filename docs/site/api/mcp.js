@@ -27,7 +27,7 @@ import {
 const SITE = "https://www.slidphilabs.com";
 const MCP_VERSION = "1.22.0";
 
-const COMMERCE = [
+export const COMMERCE = [
   {
     name: "cuni_bank",
     description:
