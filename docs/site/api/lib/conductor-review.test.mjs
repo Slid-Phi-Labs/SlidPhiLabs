@@ -42,7 +42,7 @@ test("TODO/FIXME warns to review", () => {
 
 test("secret patterns block", () => {
   const cases = [
-    "+ key = sk-abcdefgh12345678\n",
+    "+ key = sk-AAAAAAAA\n",
     "+ token ghp_abcdefgh12345678\n",
     "+ id AKIAIOSFODNN7EXAMPLE\n",
     "+ -----BEGIN PRIVATE KEY-----\n",
@@ -56,7 +56,7 @@ test("secret patterns block", () => {
 });
 
 test("block wins over warn", () => {
-  const r = reviewChanges({ diff: "+ // TODO: rotate\n+ sk-abcdefgh12345678\n" });
+  const r = reviewChanges({ diff: "+ // TODO: rotate\n+ sk-AAAAAAAA\n" });
   assert.equal(r.verdict, "block");
 });
 
@@ -72,7 +72,7 @@ test("sync llm hook can escalate but never downgrade a block", () => {
   const up = reviewChanges({ diff: "+ tiny\n" }, { llmHook: () => ({ verdict: "review", findings: [{ rule: "style", severity: "warn", message: "nit" }] }) });
   assert.equal(up.verdict, "review");
   assert.ok(up.findings.some((f) => f.rule === "style"));
-  const down = reviewChanges({ diff: "+ sk-abcdefgh12345678\n" }, { llmHook: () => ({ verdict: "approve", findings: [] }) });
+  const down = reviewChanges({ diff: "+ sk-AAAAAAAA\n" }, { llmHook: () => ({ verdict: "approve", findings: [] }) });
   assert.equal(down.verdict, "block");
 });
 
@@ -100,8 +100,8 @@ test("second-wave secret shapes block", () => {
     ["secret_aws_secret", "+ aws_secret_access_key = EXAMPLE\n"],
     ["secret_github_pat", "+ token = github_pat_ABCDEFGHIJKLMNOP\n"],
     ["secret_slack", "+ hook = xoxb-123456789012-ABCDEFGHIJKL\n"],
-    ["secret_stripe", "+ key = sk_test_ABCDEFGHIJKLMNOP\n"],
-    ["secret_api_key", "+ api_key: ABCDEFGH12345678\n"],
+    ["secret_stripe", "+ key = sk_test_AAAAAAAA\n"],
+    ["secret_api_key", "+ api_key: AAAAAAAA\n"],
   ];
   for (const [rule, diff] of cases) {
     const r = reviewChanges({ diff });
@@ -116,7 +116,7 @@ test("entropy tripwire blocks long random tokens, spares hex digests", () => {
   const hot = reviewChanges({ diff: "+ bearer k7Qz9mX2vB4nP8wL3jH6tY5rU1oI0eA9sD7fG2hJ\n" });
   assert.equal(hot.verdict, "block");
   assert.ok(hot.findings.some((f) => f.rule === "secret_high_entropy"));
-  const cold = reviewChanges({ diff: "+ digest 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\n" });
+  const cold = reviewChanges({ diff: "+ digest 0000000000000000000000000000000000000000000000000000000000000000\n" });
   assert.ok(!cold.findings.some((f) => f.rule === "secret_high_entropy"), JSON.stringify(cold.findings));
   assert.deepEqual(entropyFindings(" context line with k7Qz9mX2vB4nP8wL3jH6tY5rU1oI0eA9sD7fG2hJ\n"), []);
 });

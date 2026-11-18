@@ -8,7 +8,7 @@ import { deflateSync, inflateSync } from "node:zlib";
 
 export const MAGIC = "CHMB1";
 const APP_SALT = "ofa-chamber-splabs-v1";
-const FIXTURE_KEY_HEX = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+const FIXTURE_KEY_HEX = "0000000000000000000000000000000000000000000000000000000000000000"; // test-only fixture key (all zeros; never a real key)
 
 function te() {
   return new TextEncoder();

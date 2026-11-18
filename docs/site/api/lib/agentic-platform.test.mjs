@@ -654,7 +654,7 @@ test("depot-store plans and publishes through the adapter", async () => {
 });
 
 test("chamber-seal plans and seals through the adapter key", async () => {
-  const keyHex = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+  const keyHex = "0000000000000000000000000000000000000000000000000000000000000000"; // test-only fixture key (all zeros; never a real key)
   const adapters = { chamberSeal: { keyHex } };
   const spec = { demo: true, action: "invoke", host: "h.test", chamberSeal: { seal: { sku: "chamber-year", usd: 200 } } };
   const p = planAgenticRun(spec, adapters);

@@ -4,7 +4,7 @@
  * Env (server-side only): LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET.
  * Until those exist the endpoint reports stub status (503 livekit_unconfigured)
  * instead of inventing credentials. Tokens are dependency-free HS256 JWTs in
- * the LiveKit AccessToken shape: join+publish+subscribe on one room, 6h TTL.
+ * the LiveKit AccessToken shape: header.payload.signature on one room, 6h TTL.
  * Public surface only — no keys, no guide internals.
  */
 
