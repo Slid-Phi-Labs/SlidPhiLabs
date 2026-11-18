@@ -14,12 +14,10 @@ import { withProductBox } from "./lib/spl-box-gate.js";
 
 import zlib from "zlib";
 import { promisify } from "util";
-import {
-  omniCompressLossless,
-  omniDecompress,
-  omniBench,
-  isOmniFrame,
-} from "./lib/omniwave.js";
+const omniMod = await import("./lib/omniwave.js").catch(() => null);
+const { omniCompressLossless, omniDecompress, omniBench, isOmniFrame } = omniMod || {};
+const omniMissing = (res) => json(res, 501, { error: "engine_unavailable", engine: "omniwave" });
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 
 const gzip = promisify(zlib.gzip);
 const gunzip = promisify(zlib.gunzip);
@@ -185,9 +183,12 @@ async function handler(req, res) {
       const type = detectType(text, body.type);
       const { text: prepped, notes } = prep(text, type);
       const buf = Buffer.from(prepped, "utf8");
+      const blockedCompress = usageGate(req, buf.length);
+      if (blockedCompress) return json(res, blockedCompress.status, blockedCompress.body);
 
       if (engine === "classic") {
         const result = await compressBuffer(buf);
+        recordMeteredBytes(req, buf.length);
         return json(res, 200, {
           ok: true,
           op: "compress",
@@ -209,11 +210,13 @@ async function handler(req, res) {
         });
       }
 
+      if (typeof omniCompressLossless !== "function") return omniMissing(res);
       const r = await omniCompressLossless(buf, {
         creator_counsel: body.creator_counsel !== false,
         creator: body.creator || undefined,
       });
       const classic = await compressBuffer(buf);
+      recordMeteredBytes(req, buf.length);
       return json(res, 200, {
         ok: true,
         op: "compress",
@@ -258,9 +261,13 @@ async function handler(req, res) {
       if (buf.length > 3_000_000) {
         return json(res, 413, { error: "Payload too large" });
       }
+      const blockedDecompress = usageGate(req, buf.length);
+      if (blockedDecompress) return json(res, blockedDecompress.status, blockedDecompress.body);
 
+      if (engine !== "classic" && typeof omniDecompress !== "function") return omniMissing(res);
       if (engine !== "classic" && isOmniFrame(buf)) {
         const out = await omniDecompress(buf);
+        recordMeteredBytes(req, buf.length);
         return json(res, 200, {
           ok: true,
           op: "decompress",
@@ -273,6 +280,7 @@ async function handler(req, res) {
       }
 
       const out = await decompressBuffer(buf, method === "auto" ? undefined : method);
+      recordMeteredBytes(req, buf.length);
       return json(res, 200, {
         ok: true,
         op: "decompress",
@@ -295,6 +303,8 @@ async function handler(req, res) {
       const type = detectType(text, body.type);
       const { text: prepped, notes } = prep(text, type);
       const buf = Buffer.from(prepped, "utf8");
+      const blockedBench = usageGate(req, buf.length);
+      if (blockedBench) return json(res, blockedBench.status, blockedBench.body);
 
       if (engine === "classic") {
         const t0 = Date.now();
@@ -303,6 +313,7 @@ async function handler(req, res) {
         const t1 = Date.now();
         const round = await decompressBuffer(result.packed, result.method);
         const decMs = Date.now() - t1;
+        recordMeteredBytes(req, buf.length);
         return json(res, 200, {
           ok: true,
           op: "bench",
@@ -323,7 +334,9 @@ async function handler(req, res) {
         });
       }
 
+      if (typeof omniBench !== "function") return omniMissing(res);
       const b = await omniBench(buf);
+      recordMeteredBytes(req, buf.length);
       return json(res, 200, {
         ok: true,
         op: "bench",

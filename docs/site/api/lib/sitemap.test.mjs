@@ -55,7 +55,7 @@ test("same-site links resolve", () => {
     const html = readFileSync(join(site, f), "utf8");
     for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) {
       const path = m[1];
-      if (/^\/(api|mcp)(\/|$)/.test(path)) continue; // live routes, not files
+      if (/^\/(api|mcp|v1)(\/|$)/.test(path)) continue; // live routes, not files
       if (/\.[a-z0-9]+$/i.test(path) && !/\.(html?|txt|json|xml|css|js|png|jpg|svg|webmanifest|md)$/i.test(path)) continue;
       const slug = path.replace(/^\//, "").replace(/\/$/, "").replace(/\.html?$/, "");
       if (rewriteSrc.has(path) || ROUTES.includes(path)) continue;

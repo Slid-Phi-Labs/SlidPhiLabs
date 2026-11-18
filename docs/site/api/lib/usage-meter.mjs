@@ -223,3 +223,41 @@ export function meterSnapshot(req, extraBytes = 0) {
     over: projected > included,
   };
 }
+
+const PAY_LINKS = {
+  gc_month: "https://www.slidphilabs.com/pay?sku=gc-month",
+  gc_year: "https://www.slidphilabs.com/pay?sku=gc-year",
+};
+
+/**
+ * Usage gate for every hosted compression route (encode AND decode).
+ * Returns null when the call may proceed, else { status, body } carrying
+ * the 429 quota or 402 paywall envelope.
+ *
+ * Every metered byte of INPUT counts, fill frames included: the book prices
+ * input bytes, not the operation. Charging (addUsage) happens only on
+ * success via recordMeteredBytes, so failed jobs never bill.
+ */
+export function usageGate(req, inputBytes) {
+  const gate = quotaCheck(req);
+  if (!gate.allowed) return { status: gate.status, body: gate.body };
+  const bytes = Math.max(0, Number(inputBytes) || 0);
+  const usage = meterSnapshot(req, bytes);
+  if (usage.over && usage.would_charge && !usage.would_charge.free) {
+    return {
+      status: 402,
+      body: {
+        ok: false,
+        error: "paywall",
+        plain: usage.would_charge.plain,
+        usage,
+        buy: { ...PAY_LINKS },
+      },
+    };
+  }
+  return null;
+}
+
+export function recordMeteredBytes(req, n) {
+  return addUsage(identityFromReq(req).key, n);
+}

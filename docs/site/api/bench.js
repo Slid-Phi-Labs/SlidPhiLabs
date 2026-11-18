@@ -10,6 +10,7 @@
  * on public synthetic slices so visitors verify before they pay.
  */
 import { withProductBox } from "./lib/spl-box-gate.js";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 import { logInternal } from "./lib/http-fail.mjs";
 import { paidCors } from "./lib/cors.mjs";
 
@@ -461,6 +462,17 @@ async function handler(req, res) {
 
   const opts = parseOpts(req, url);
   const tAll = nowMs();
+  // Synthetic corpus has no customer input bytes; meter the fixed
+  // benchmark budget (size x classes) so runs count against allowance.
+  const benchBytes = Math.max(0, Number(opts.size) || 0) *
+    (Array.isArray(opts.classes) ? opts.classes.length : 1);
+  const benchBlocked = usageGate(req, benchBytes);
+  if (benchBlocked) {
+    res.statusCode = benchBlocked.status;
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store");
+    return res.end(JSON.stringify(benchBlocked.body));
+  }
 
   if (opts.stream) {
     res.statusCode = 200;
@@ -495,6 +507,7 @@ async function handler(req, res) {
         note: "First 1 GB free once per IP, then 25¢/GB — proof is above.",
       },
     });
+    recordMeteredBytes(req, benchBytes);
     return res.end();
   }
 
@@ -503,6 +516,7 @@ async function handler(req, res) {
   for (const c of opts.classes) {
     results.push(await runClass(c, opts.size, null));
   }
+  recordMeteredBytes(req, benchBytes);
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");

@@ -21,7 +21,7 @@ const DOC = [
   "Sourdough starter needs daily feeding with flour and warm water.",
 ].join("\n\n");
 
-test("version pinned", () => assert.equal(CONTEXT_VERSION, "0.2.0"));
+test("version pinned", () => assert.equal(CONTEXT_VERSION, "0.3.0"));
 
 test("token estimate deterministic", () => {
   assert.equal(estimateTokens(DOC), estimateTokens(DOC));
@@ -127,7 +127,7 @@ test("run compresses then meters shipped bytes", async () => {
   const ctx = r.receipts.find((s) => s.stage === "context");
   assert.equal(ctx.ok, true);
   assert.equal(ctx.verified, true);
-  assert.equal(ctx.toolVersion, "0.2.0");
+  assert.equal(ctx.toolVersion, "0.3.0");
   const pcc = r.receipts.find((s) => s.stage === "pcc");
   assert.ok(pcc.bytes > 0);
   assert.ok(pcc.bytes < Buffer.byteLength(DOC));

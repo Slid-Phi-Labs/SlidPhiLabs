@@ -6,6 +6,7 @@
  * Returns: packed_b64, meta, keys, publish_delta
  */
 import { withProductBox } from "./lib/spl-box-gate.js";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 import { paidCors } from "./lib/cors.mjs";
 
 import {
@@ -107,7 +108,10 @@ async function handler(req, res) {
         keys: JSON_KEYS,
       });
     }
+    const blocked = usageGate(req, canonicalBytes(input).length);
+    if (blocked) return json(res, blocked.status, blocked.body);
     const { packed, meta } = compressJsonKeys(input);
+    recordMeteredBytes(req, meta.sizes.raw);
     return json(res, 200, {
       ok: true,
       packed_b64: packed.toString("base64"),

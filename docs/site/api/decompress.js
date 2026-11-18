@@ -9,6 +9,7 @@ import { isPccz } from "./lib/pccz.mjs";
 import { codexStamp, codexHeaders } from "./lib/codex-key.js";
 import { applyClaimSeat, claimAuthError } from "./lib/claim-seat.mjs";
 import { toolGate, toolOnly402 } from "./lib/tool-gate.mjs";
+import { usageGate, recordMeteredBytes } from "./lib/usage-meter.mjs";
 
 function cors(req, res) {
   paidCors(req, res, "GET, POST, OPTIONS", "Content-Type, Authorization", codexHeaders());
@@ -103,7 +104,10 @@ export default async function handler(req, res) {
     if (!packed || !packed.length) {
       return json(res, 400, { ok: false, error: "empty" });
     }
+    const blocked = usageGate(req, packed.length);
+    if (blocked) return json(res, blocked.status, blocked.body);
     const { raw, path } = await decodeAny(packed);
+    recordMeteredBytes(req, packed.length);
     return json(res, 200, {
       ok: true,
       path,
