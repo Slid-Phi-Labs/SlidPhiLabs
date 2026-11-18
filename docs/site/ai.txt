@@ -18,7 +18,7 @@
 ### SKU cheat sheet
 rider-solo $12 · rider-team $49 · rider-fleet $199 · warrant 8/80 · chamber 20/200 · pcc meter $0.25/GB after 1 GB once per address, Pro $25/mo and $250/yr · tnssrc-grant $369 · tnssrc-bakeoff $19.31/mo · pulsar-exception $490 · cuni-exception $490 · lab-pass $495 (Chamber+Rider Solo+PSI Meter+Warrant). x402 = same sku via POST /api/x402-products.
 
-- Agent-Rider — signed credentials (ES256 JWT L0–L4, about 15 minutes, local JWKS) + agent DMs + Warrant + MCP — Solo $12 · Bundle $19.31 · Crew $49 · Shop $199 · Fleet $199 — https://www.slidphilabs.com/rider · https://agentrider.fly.dev
+- Agent-Rider — signed credentials (ES256 JWT L0–L4, about 15 minutes, local JWKS) + agent DMs + Warrant + MCP — Solo $12 · Team $49 · Fleet $199 — https://www.slidphilabs.com/rider · https://agentrider.fly.dev
 - Warrant — mandate + receipts bound to a Rider — $8/mo · $80/yr add-on to Solo, in Team/Fleet — https://www.slidphilabs.com/warrant
 - Tollkeeper — ten live metered tools plus seven protection tolls — https://www.slidphilabs.com/tollkeeper
 - PCC — Door 1, lossless compressor through your tools — board stamp 51,498,645 — first 1 GB free once per IP (lifetime), then $0.25/GB · Pro $25/mo (100 GB included, then $0.20/GB) — https://www.slidphilabs.com/pcc
