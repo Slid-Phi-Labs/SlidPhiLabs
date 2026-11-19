@@ -1,5 +1,83 @@
 {
   "_note": "Saved Stripe recurring Price ids per mode (Slid Phi Labs, Inc.). Not secrets. Filled after the products and prices are created; empty means one-time checkout fallback.",
-  "test": {},
+  "test": {
+    "chamber-month": {
+      "price": "price_1UdYhvLehTFD59CGKBywOwAP",
+      "product": "spl_chamber",
+      "amount": 2000,
+      "interval": "month",
+      "lookup_key": "spl_chamber_month"
+    },
+    "chamber-year": {
+      "price": "price_1UdYhxLehTFD59CGcUiIWnVv",
+      "product": "spl_chamber",
+      "amount": 20000,
+      "interval": "year",
+      "lookup_key": "spl_chamber_year"
+    },
+    "pcc-pro": {
+      "price": "price_1UdYi4LehTFD59CG0ClpVbV4",
+      "product": "spl_pcc_pro",
+      "amount": 2500,
+      "interval": "month",
+      "lookup_key": "spl_pcc_pro"
+    },
+    "pcc-pro-year": {
+      "price": "price_1UdYi6LehTFD59CGV6rp1X90",
+      "product": "spl_pcc_pro",
+      "amount": 25000,
+      "interval": "year",
+      "lookup_key": "spl_pcc_pro_year"
+    },
+    "psi-meter": {
+      "price": "price_1UdYiKLehTFD59CGzRmZpKKf",
+      "product": "spl_psi_meter",
+      "amount": 2500,
+      "interval": "month",
+      "lookup_key": "spl_psi_meter"
+    },
+    "psi-meter-year": {
+      "price": "price_1UdYiKLehTFD59CG9ls51aO1",
+      "product": "spl_psi_meter",
+      "amount": 25000,
+      "interval": "year",
+      "lookup_key": "spl_psi_meter_year"
+    },
+    "psi-org": {
+      "price": "price_1UdYiLLehTFD59CGEHkvEDbq",
+      "product": "spl_psi_org",
+      "amount": 7900,
+      "interval": "month",
+      "lookup_key": "spl_psi_org"
+    },
+    "rider-solo": {
+      "price": "price_1UdYi0LehTFD59CGNW2ivDaz",
+      "product": "spl_rider_solo",
+      "amount": 1200,
+      "interval": "month",
+      "lookup_key": "spl_rider_solo"
+    },
+    "rider-solo-year": {
+      "price": "price_1UdYi2LehTFD59CGgnhVCVi4",
+      "product": "spl_rider_solo",
+      "amount": 12000,
+      "interval": "year",
+      "lookup_key": "spl_rider_solo_year"
+    },
+    "warrant-addon": {
+      "price": "price_1UdYiKLehTFD59CGanpg514A",
+      "product": "spl_warrant_addon",
+      "amount": 800,
+      "interval": "month",
+      "lookup_key": "spl_warrant_addon"
+    },
+    "warrant-addon-year": {
+      "price": "price_1UdYiULehTFD59CGwlufJ6yS",
+      "product": "spl_warrant_addon",
+      "amount": 8000,
+      "interval": "year",
+      "lookup_key": "spl_warrant_addon_year"
+    }
+  },
   "live": {}
 }
