@@ -10,6 +10,8 @@ import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { attachNca, ncaBindApp, ncaHeaders, ncaReport } from "./lib/nca_infra.mjs";
 import { bootRest, fromRest, fromRestGzip } from "./lib/phi_rest.mjs";
+import { sweep, realFs } from "./api/lib/log-rotate.mjs";
+import { siteRewrite, TOLL_TOOLS, tollUrl } from "./api/lib/call-doors.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
@@ -234,7 +236,7 @@ function sendFile(res, filePath, req) {
       ? "no-store"
       : base === "index.html"
         ? "no-cache, max-age=0, must-revalidate"
-      : ext === ".html"
+      : ext === ".html" || ext === ".txt" || ext === ".md" || ext === ".json"
         ? "public, max-age=60"
         : "public, max-age=3600";
   const via = gz ? "open-gzip" : rested ? "open" : "disk";
@@ -442,15 +444,93 @@ const server = http.createServer(async (req, res) => {
       });
       return res.end();
     }
-    if (
-      url.pathname === "/v1/check" ||
-      url.pathname === "/v1/translate" ||
-      url.pathname === "/v1/squeeze" ||
-      url.pathname === "/v1/deposit" ||
-      url.pathname === "/v1/replicate" ||
-      url.pathname.startsWith("/v1/deposit/")
-    ) {
-      const store = (process.env.LAB_AGENT_URL || "https://spl-lab-agent.fly.dev").replace(/\/$/, "");
+    const rewritten = siteRewrite(url.pathname);
+    if (rewritten) {
+      url.pathname = rewritten;
+      await handleApi(req, res, url);
+      return;
+    }
+    const tollName = url.pathname.startsWith("/v1/") ? url.pathname.slice(4) : "";
+    if (TOLL_TOOLS.includes(tollName)) {
+      const chunks = [];
+      for await (const c of req) chunks.push(c);
+      const raw = Buffer.concat(chunks);
+      const hopIn = {};
+      for (const name of [
+        "content-type",
+        "authorization",
+        "x-merchant-key",
+        "payment-signature",
+        "x-payment",
+        "x-agent-rider",
+        "x-agent-warrant",
+      ]) {
+        if (req.headers[name]) hopIn[name] = req.headers[name];
+      }
+      if (!hopIn["content-type"]) hopIn["content-type"] = "application/json";
+      let up;
+      try {
+        up = await fetch(tollUrl(tollName), {
+          method: req.method,
+          headers: hopIn,
+          body: req.method === "POST" ? raw : undefined,
+          signal: AbortSignal.timeout(90000),
+        });
+      } catch (err) {
+        res.writeHead(502, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
+        res.end(JSON.stringify({ ok: false, error: "upstream_unreachable", tool: tollName, detail: String(err.message || err) }));
+        return;
+      }
+      const buf = Buffer.from(await up.arrayBuffer());
+      const hop = {
+        "Content-Type": up.headers.get("content-type") || "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+      };
+      for (const name of ["payment-required", "x-payment-required", "payment-response", "x-payment-response"]) {
+        const value = up.headers.get(name);
+        if (value) hop[name] = value;
+      }
+      res.writeHead(up.status, hop);
+      res.end(buf);
+      return;
+    }
+    const classicVerbs = ["/v1/check", "/v1/translate", "/v1/squeeze", "/v1/deposit", "/v1/replicate"];
+    const callVerbs = ["/v1/ingest", "/v1/audit", "/v1/money", "/v1/time", "/v1/chain", "/v1/ship", "/v1/parity"];
+    const verbCard = {
+      "/v1/check": ["0.05", "First 100 a month free."],
+      "/v1/translate": ["0.10", "Hosted translate. The Studio paste stays free."],
+      "/v1/ingest": ["0.10", ""],
+      "/v1/money": ["0.25", ""],
+      "/v1/time": ["0.25", ""],
+      "/v1/parity": ["0.25", ""],
+      "/v1/chain": ["0.50", ""],
+      "/v1/ship": ["0.50", ""],
+      "/v1/audit": ["1.00", ""],
+      "/v1/squeeze": ["0.10", "One call. Separate from the PCC gigabyte meter."],
+    };
+    if ((classicVerbs.includes(url.pathname) || callVerbs.includes(url.pathname)) && req.method !== "POST") {
+      const card = verbCard[url.pathname] || [null, ""];
+      res.writeHead(405, {
+        Allow: "POST",
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+      });
+      res.end(JSON.stringify({
+        ok: false,
+        refuse: "use POST",
+        method: "POST",
+        path: url.pathname,
+        usd: card[0],
+        note: card[1],
+      }));
+      return;
+    }
+    if (classicVerbs.includes(url.pathname) || callVerbs.includes(url.pathname) || url.pathname.startsWith("/v1/deposit/")) {
+      const classicStore = (process.env.LAB_AGENT_URL || "https://spl-lab-agent.fly.dev").replace(/\/$/, "");
+      const callStore = (process.env.LAB_CALLS_URL || "https://spl-lab-agent2.fly.dev").replace(/\/$/, "");
+      const store = callVerbs.includes(url.pathname) ? callStore : classicStore;
       const chunks = [];
       for await (const c of req) chunks.push(c);
       const raw = Buffer.concat(chunks);
@@ -465,11 +545,16 @@ const server = http.createServer(async (req, res) => {
         signal: AbortSignal.timeout(90000),
       });
       const buf = Buffer.from(await up.arrayBuffer());
-      res.writeHead(up.status, {
+      const hop = {
         "Content-Type": up.headers.get("content-type") || "application/json",
         "Access-Control-Allow-Origin": "*",
         ...ncaHeaders(),
-      });
+      };
+      for (const name of ["payment-required", "x-payment-required", "payment-response", "x-payment-response"]) {
+        const value = up.headers.get(name);
+        if (value) hop[name] = value;
+      }
+      res.writeHead(up.status, hop);
       res.end(buf);
       return;
     }
@@ -553,7 +638,21 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+// Daily log rotation sweep (LAB50 step 36): money ledgers snapshotted, never
+// truncated; operational logs rotated; archives older than 90d deleted.
+const LOG_DIR = process.env.AUTH_DIR || "/data";
+function sweepLogs() {
+  try {
+    for (const r of sweep(LOG_DIR, realFs())) {
+      if (r.action !== "keep") console.log(`[slidphilabs] log-rotate ${r.file}: ${r.action} (${r.reason || ""})`);
+    }
+  } catch (e) {
+    console.error(`[slidphilabs] log-rotate failed: ${String((e && e.message) || e)}`);
+  }
+}
 const rest = bootRest(ROOT);
 server.listen(PORT, HOST, () => {
   console.log(`[slidphilabs] fly host http://${HOST}:${PORT} root=${ROOT} phi-rest=${rest.n}/${rest.bytes}`);
+  sweepLogs();
+  setInterval(sweepLogs, 24 * 3600 * 1000).unref();
 });
