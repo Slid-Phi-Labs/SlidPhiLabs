@@ -16,6 +16,7 @@ import {
   manualCryptoInstructions,
   siteOrigin,
   contactEmail,
+  x402ChainsLabel,
 } from "./lib/payments-rails.js";
 import { paidCors } from "./lib/cors.mjs";
 import { logInternal } from "./lib/http-fail.mjs";
@@ -191,7 +192,7 @@ export default async function handler(req, res) {
         url: `${origin}/api/x402-products`,
         body: { sku, email: email || undefined },
       },
-      note: "POST buy without payment → 402 accepts[] (Solana + Base USDC). Pay exact, retry with X-PAYMENT.",
+      note: `POST buy without payment → 402 accepts[] (${x402ChainsLabel()}). Pay exact, retry with X-PAYMENT.`,
     });
   }
 

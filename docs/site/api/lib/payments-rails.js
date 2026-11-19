@@ -2,7 +2,7 @@
  * Dual license: AGPL-3.0-or-later OR Slid Phi Labs Commercial. See /LICENSE.
  * Universal payment rails for Slid Phi Labs.
  * Humans → Stripe Checkout (card, wallets, bank, BNPL when Stripe enables them) + invoice/wire.
- * Agents → x402 (Solana USDC + Base USDC).
+ * Agents → x402 (Base USDC; Solana only when PAY_SOLANA_ADDRESS / X402_PAY_TO is set).
  * Anyone → manual crypto addresses + invoice email.
  *
  * Env (optional overrides):
@@ -772,6 +772,14 @@ export function evmPayTo() {
   ).trim();
 }
 
+/** Plain label for the x402 chains that actually have a pay-to address. */
+export function x402ChainsLabel() {
+  const chains = [];
+  if (solanaPayTo()) chains.push("Solana USDC");
+  if (evmPayTo()) chains.push("Base USDC");
+  return chains.length ? chains.join(" + ") : "not configured";
+}
+
 export function siteOrigin(req) {
   if (process.env.PUBLIC_SITE_ORIGIN) return process.env.PUBLIC_SITE_ORIGIN.replace(/\/$/, "");
   const proto = req?.headers?.["x-forwarded-proto"] || "https";
@@ -852,7 +860,7 @@ export function buildPaymentsMatrix(req) {
       note: "Checkout sessions from POST /api/checkout. No static Payment Links on the public catalog.",
       how: { use: "product.human_payment_link or GET /api/payments?sku=…" },
     },
-    {
+    sol && {
       id: "x402_solana_usdc",
       name: "x402 · Solana mainnet USDC",
       audience: ["agents"],
@@ -880,7 +888,7 @@ export function buildPaymentsMatrix(req) {
         buy: `POST ${origin}/api/x402-products { "sku": "…" }`,
       },
     },
-    {
+    sol && {
       id: "crypto_manual_solana",
       name: "Manual crypto · Solana (USDC or SOL)",
       audience: ["humans", "agents"],
@@ -944,7 +952,7 @@ export function buildPaymentsMatrix(req) {
       agent: `POST ${origin}/api/x402-suite`,
       ui: `${origin}/pps`,
     },
-  ];
+  ].filter(Boolean); // Solana rows only show once a Solana address is set.
 
   const configured = rails.filter((r) => r.configured).map((r) => r.id);
   const missing = rails.filter((r) => !r.configured).map((r) => r.id);
@@ -978,7 +986,7 @@ export function buildPaymentsMatrix(req) {
       agent: evm || sol ? (evm ? "x402_base_usdc" : "x402_solana_usdc") : "stripe_checkout",
       enterprise: "wire_invoice_ach",
     },
-    note: "Payment Links and Checkout Sessions settle in USD on Stripe. Agents: x402 Solana USDC + Base USDC, auto-claim ON (claim_token on paid POST). Notion order log needs NOTION_TOKEN on Fly.",
+    note: `Payment Links and Checkout Sessions settle in USD on Stripe. Agents: x402 ${x402ChainsLabel()}, auto-claim ON (claim_token on paid POST). Notion order log needs NOTION_TOKEN on Fly.`,
   };
 }
 
