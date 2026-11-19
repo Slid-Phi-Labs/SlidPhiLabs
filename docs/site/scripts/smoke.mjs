@@ -60,7 +60,7 @@ function check(name, cond, detail = "") {
 
 const health = await get("/api/health");
 check("health 200", health.status === 200, `got ${health.status}`);
-check("health contract", !!health.json && typeof health.json.status === "string",
+check("health contract", !!health.json && typeof health.json.ok === "boolean",
   health.text);
 
 const agent = await get("/api/agent");
