@@ -23,6 +23,6 @@ Allow: GET /.well-known/agent-card.json
 Allow: GET /.well-known/ai-catalog.json
 Allow: GET /SKILL.md
 
-Payment: x402 USDC Solana + Base (X-PAYMENT). Humans: Stripe.
+Payment: x402 USDC on Base (X-PAYMENT). Humans: Stripe.
 MCP: https://www.slidphilabs.com/mcp
 npx: npx -y spl-pay-per-suite mcp

@@ -17,7 +17,7 @@ bytes → Shared Spine (row / 4 KiB tile / file) → Head A (structure: runs, ze
 ## Agent Quickstart
 1. Discover: GET https://www.slidphilabs.com/api/agent · GET /.well-known/mcp/server-card.json · GET /llms.txt
 2. MCP: npx -y spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
-3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC Solana/Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
+3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
 4b. After Stripe pays, the buyer lands on /rider/claim?session_id=... — the page mints the signed name via POST /api/rider/claim {"session_id"} → {"ok","jwt","expires_in"}. The SKU comes from Stripe metadata on the session. Credential renders on slidphilabs.com.
 5. Rider: issue L0–L4 credential (about 15 minutes, ES256); peers verify via JWKS at https://agentrider.fly.dev/.well-known/jwks.json; revocation at /.well-known/rider-revocation.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider. Renewal tokens use the rrt_ prefix, rotate, and a reuse revokes the chain.
@@ -148,7 +148,7 @@ Q: What is TRU8?
 A: All-zero data → 8 bytes. Free at /specialist.
 
 Q: How do agents pay?
-A: POST /api/x402-products {sku} → HTTP 402 with Solana USDC and Base USDC. Pay, retry with X-PAYMENT → claim_token. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight. Humans use Stripe POST /api/checkout or /pay?sku=.
+A: POST /api/x402-products {sku} → HTTP 402 with Base USDC. Pay, retry with X-PAYMENT → claim_token. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight. Humans use Stripe POST /api/checkout or /pay?sku=.
 
 Q: How does an agent use its claim_token with the npm packages?
 A: The claim_token IS the API key. Pass it as apiKey: compress(buf, { apiKey: "<claim_token>" }) sends Authorization: Bearer spl1.… — /api/compress and /api/decompress verify the claim and meter against the seat's included bytes (Pro 100 GB/month included, then $0.20/GB; meter: first 1 GB free once per IP, lifetime, then $0.25/GB of input). No key: first 1 GB free once per IP address (lifetime, no monthly reset) on the anonymous tier. Expired/forged claim: HTTP 401 invalid_claim, never a silent downgrade.

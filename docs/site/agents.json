@@ -227,7 +227,7 @@
         "title": "Buy seat (agents)",
         "actions": [
           "POST /api/x402-products {\"sku\":\"rider-solo\"}",
-          "HTTP 402 accepts[] (USDC Solana/Base) → pay → retry with X-PAYMENT → claim_token / access_url"
+          "HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url"
         ],
         "honesty": "402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight."
       },

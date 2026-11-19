@@ -552,9 +552,11 @@ function catalogResponse() {
     configured: rails.length > 0,
     products,
     aliases: ALIASES,
-    client_compat:
-      "x402 exact · Solana SPL (serialized tx) and/or Base USDC (tx hash after EIP-3009/transfer)",
-    note: "Stripe for humans. Agents: POST sku → 402 accepts[] (Solana + Base) → pay → X-PAYMENT → claim_token + entitlement. Open access_url or GET /api/access-verify?claim=spl1.…",
+    client_compat: [
+      sol.enabled && "x402 exact · Solana SPL (serialized tx)",
+      base.enabled && "Base USDC (tx hash after EIP-3009/transfer)",
+    ].filter(Boolean).join(" · ") || "x402 not configured",
+    note: `Stripe for humans. Agents: POST sku → 402 accepts[] (${[sol.enabled && "Solana", base.enabled && "Base"].filter(Boolean).join(" + ") || "none configured"}) → pay → X-PAYMENT → claim_token + entitlement. Open access_url or GET /api/access-verify?claim=spl1.…`,
     product_face: "Slid Phi Labs",
     x402_access_autoclaim: true,
     access_claim: "GET /api/access-verify?claim=<claim_token>&product=<sku>",

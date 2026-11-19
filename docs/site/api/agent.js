@@ -5,6 +5,7 @@
  * NCA coat attached at discovery (infra process point).
  */
 import { attachNca, ncaHeaders } from "./lib/nca_infra.mjs";
+import { solanaPayTo, evmPayTo } from "./lib/payments-rails.js";
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -439,10 +440,10 @@ export default async function handler(req, res) {
           "klarna",
           "affirm",
           "afterpay",
-          "x402_solana_usdc",
-          "x402_base_usdc",
+          solanaPayTo() && "x402_solana_usdc",
+          evmPayTo() && "x402_base_usdc",
           "invoice_wire",
-        ],
+        ].filter(Boolean),
         policy: "Humans: Stripe Checkout. Teams: invoice. Agents: x402. Claim Access after payment.",
       },
       human: {
@@ -457,7 +458,7 @@ export default async function handler(req, res) {
         surface: "https://www.slidphilabs.com/agents",
         protocol: "x402",
         payment_header: "X-PAYMENT",
-        client_compat: "x402-client payFetch (Solana exact SPL + Base USDC)",
+        client_compat: `x402-client payFetch (${[solanaPayTo() && "Solana exact SPL", evmPayTo() && "Base USDC"].filter(Boolean).join(" + ") || "not configured"})`,
         catalog: "GET https://www.slidphilabs.com/api/x402-products",
         buy_product: "POST https://www.slidphilabs.com/api/x402-products",
         suite_job: "POST https://www.slidphilabs.com/api/x402-suite",

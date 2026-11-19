@@ -105,7 +105,7 @@ export const CATALOGS = [
     title: "How to pay",
     entries: [
       { id: "stripe", name: "Stripe", note: "Humans. Card, Link, Cash App, ACH, Klarna.", url: SITE + "/pay" },
-      { id: "x402", name: "x402", note: "Agents. USDC on Solana or Base. X-PAYMENT header.", url: SITE + "/api/x402-products" },
+      { id: "x402", name: "x402", note: "Agents. USDC on Base. X-PAYMENT header.", url: SITE + "/api/x402-products" },
     ],
   },
   {

@@ -22,10 +22,9 @@
   "llms_txt": "https://www.slidphilabs.com/llms.txt",
   "skill": "https://www.slidphilabs.com/SKILL.md",
   "signup": "https://www.slidphilabs.com/signup",
-  "network": "solana-mainnet-beta + eip155:8453",
+  "network": "eip155:8453",
   "asset": "USDC",
   "networks": [
-    "solana-mainnet-beta",
     "eip155:8453"
   ],
   "ecosystem": {
