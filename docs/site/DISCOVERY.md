@@ -23,7 +23,7 @@ Tool engines (MCP): `/.well-known/mcp.json` · `/.well-known/agent.json` · `/.w
 - PCC meter: first 1 GB free once per IP (lifetime), then $0.25/GB. Pro $25/mo (100 GB included, then $0.20/GB, sku pcc-pro). Encoder not in npm.
 - AwLPay free tier: 0.5% per payment, no fixed fee. Pro $39/mo. L33t $799/mo. Hosted quote: POST /v1/awlpay-quote at $0.005.
 - Chamber: seats $20/mo and $200/yr. POST /v1/seal, POST /v1/open. Tollkeeper chamber-seal is $0.02 and is a different door.
-- CuNi keeper: https://github.com/ceedot-rock/CuNIverse . Studio https://cuni-studio.fly.dev/ stays free. cuni_bank is POST /v1/translate at $0.10.
+- CuNi keeper: https://github.com/ceedot-rock/CuNIverse . Studio https://spl-cuni-studio.fly.dev/ stays free. cuni_bank is POST /v1/translate at $0.10.
 - Official Silesia 12: TNSSRC 43,724,575 · PCC pcc-0.12.1 51,498,645 · pulsar 55,745,438. Cite silesia.json. xz-6 still ahead (~49.4M). Not a #1 claim.
 - Verses: MemoryVerse is open source. WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D.
 - Rider MCP: https://agentrider.fly.dev/api/mcp (Vercel 402 is a dead door)

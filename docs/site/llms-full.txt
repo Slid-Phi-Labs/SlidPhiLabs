@@ -71,7 +71,7 @@ One-liner: Tools that check. Hosted calls are POST /v1/<name>. CuNi: check $0.05
 
 ## External hosts referenced (not this tree)
 - Agent-Rider: https://agentrider.fly.dev (llms.txt, agents.txt, agents.json, agent.json, jwks.json)
-- CuNi Studio: https://cuni-studio.fly.dev (llms.txt, bank, cuni-protocol.json)
+- CuNi Studio: https://spl-cuni-studio.fly.dev (llms.txt, bank, cuni-protocol.json)
 - Quikgater worker: https://quikgater-worker.ceedotrock.workers.dev
 - Source: https://github.com/ceedot-rock/pulsar-best · https://github.com/ceedot-rock/cuni
   · https://github.com/ceedot-rock/Agent-Rider · https://github.com/ceedot-rock/SlidPhiLabs

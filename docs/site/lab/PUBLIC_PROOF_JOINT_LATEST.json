@@ -32,13 +32,13 @@
   "agent": {
     "module": "CuNi + Quikgater (+ Rider MCP) joint live",
     "cuni": {
-      "studio": "https://cuni-studio.fly.dev/",
+      "studio": "https://spl-cuni-studio.fly.dev/",
       "health": {
-        "url": "https://cuni-studio.fly.dev/api/health",
+        "url": "https://spl-cuni-studio.fly.dev/api/health",
         "http": 200,
         "ok": true
       },
-      "agents_json": "https://cuni-studio.fly.dev/agents.json",
+      "agents_json": "https://spl-cuni-studio.fly.dev/agents.json",
       "github": "https://github.com/ceedot-rock/cuni"
     },
     "quikgater": {
@@ -78,7 +78,7 @@
     "compression": "BASE=https://www.slidphilabs.com bash docs/site/scripts/curl_zrw_10k.sh",
     "joint_json": "/lab/PUBLIC_PROOF_JOINT_LATEST.json",
     "process": "POST https://www.slidphilabs.com/api/process",
-    "cuni_health": "GET https://cuni-studio.fly.dev/api/health",
+    "cuni_health": "GET https://spl-cuni-studio.fly.dev/api/health",
     "quikgater": "GET https://quikgater-worker.ceedotrock.workers.dev/ (expect MISSING_URL when alive)"
   },
   "intention_x_grade": {

@@ -23,7 +23,7 @@ Nine calls: `check` `translate` `ingest` `audit` `money` `time` `chain` `ship` `
 | audit | `cuni audit` | `/v1/audit` | 1.00 |
 
 Keeper: https://github.com/ceedot-rock/CuNIverse  
-Studio (free playground): https://cuni-studio.fly.dev/  
+Studio (free playground): https://spl-cuni-studio.fly.dev/  
 Lab (the meter): https://www.slidphilabs.com/v1/check  
 Python: `from cuni_exactness import check, translate, money` — HTTP 402 raises `PaymentRequired`.
 
@@ -37,7 +37,7 @@ Paste N, get X, prove or refuse. `cuni translate` is this call. `cuni bank paste
 cuni bank paste examples/bank/add.py --from py --to c
 ```
 
-Studio bank stays free: https://cuni-studio.fly.dev/bank  
+Studio bank stays free: https://spl-cuni-studio.fly.dev/bank  
 Metered translate: POST https://www.slidphilabs.com/v1/translate  SKU `lab-translate` $0.10  
 Metered check: POST https://www.slidphilabs.com/v1/check  SKU `lab-check` $0.05  
 

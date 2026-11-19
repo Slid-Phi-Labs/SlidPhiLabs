@@ -9,7 +9,7 @@ export const CATALOGS = [
     id: "sku",
     title: "Prices",
     entries: [
-      { id: "cuni", name: "CuNi Studio", price: "$0", note: "CLI v0.10.0. One program, 53 targets. Python, Go, and JS must match, or it refuses. Bank arm: paste N get X. Free playground.", url: "https://cuni-studio.fly.dev/", related: ["license", "cuni"] },
+      { id: "cuni", name: "CuNi Studio", price: "$0", note: "CLI v0.10.0. One program, 53 targets. Python, Go, and JS must match, or it refuses. Bank arm: paste N get X. Free playground.", url: "https://spl-cuni-studio.fly.dev/", related: ["license", "cuni"] },
       { id: "cuni-exception", name: "CuNi closed-app grant", price: "$490/yr", note: "Pay $490/year to ship CuNi inside one closed product. Public tree is AGPL-3.0-or-later.", url: SITE + "/pay?sku=cuni-exception", related: ["license"] },
       { id: "pulsar-exception", name: "pulsar closed-embed grant", price: "$490/yr", note: "Pay $490/year to embed pulsar in one closed product for one year. pulsar source stays GPLv3.", url: SITE + "/pay?sku=pulsar-exception", related: ["license", "pulsar"] },
       { id: "chamber-month", name: "Chamber month", price: "$20/mo", note: "Two-key JSON seal. License to seal new secrets. Open existing seals with both keys, no extra payment.", url: SITE + "/chamber", related: ["chamber", "box"] },
@@ -41,7 +41,7 @@ export const CATALOGS = [
     title: "Where to use them",
     entries: [
       { id: "lab", name: "www.slidphilabs.com", url: SITE, note: "Public site, checkout, and APIs." },
-      { id: "studio", name: "cuni-studio.fly.dev", url: "https://cuni-studio.fly.dev/", note: "Free CuNi playground. Write once, print many languages. Python, Go, and JS must match, or refuse. Bank: /bank." },
+      { id: "studio", name: "spl-cuni-studio.fly.dev", url: "https://spl-cuni-studio.fly.dev/", note: "Free CuNi playground. Write once, print many languages. Python, Go, and JS must match, or refuse. Bank: /bank." },
       { id: "rider", name: "agentrider.fly.dev", url: "https://agentrider.fly.dev/", note: "Signed agent identity. Solo $12/mo · Team $49/mo · Fleet $199/mo." },
       { id: "teachaid", name: "teachaid.fly.dev", url: "https://www.slidphilabs.com/products", note: "Campus rollout. Teacher chat in the repository calls Meta Llama. The Fly app is stopped." },
       { id: "mcp", name: "/mcp", url: SITE + "/mcp", note: "This server. Catalog, prices, and quotes." },
@@ -51,10 +51,10 @@ export const CATALOGS = [
     id: "cuni",
     title: "CuNi",
     entries: [
-      { id: "law", name: "Exactness law", note: "One program. Python, Go, and JS print the same thing, or it refuses to compile. Playground is free.", url: "https://cuni-studio.fly.dev/" },
+      { id: "law", name: "Exactness law", note: "One program. Python, Go, and JS print the same thing, or it refuses to compile. Playground is free.", url: "https://spl-cuni-studio.fly.dev/" },
       { id: "check", name: "cuni check", note: "The gate: nothing publishes on FAIL.", url: "https://github.com/ceedot-rock/cuni" },
-      { id: "spend", name: "spend-control.cuni", note: "Flagship example loaded in the free Studio.", url: "https://cuni-studio.fly.dev/" },
-      { id: "bank", name: "CuNi Bank", note: "Arm of CuNi. Paste N, get X. Exactness or refuse. v1 from Python. POST /api/bank.", url: "https://cuni-studio.fly.dev/bank" },
+      { id: "spend", name: "spend-control.cuni", note: "Flagship example loaded in the free Studio.", url: "https://spl-cuni-studio.fly.dev/" },
+      { id: "bank", name: "CuNi Bank", note: "Arm of CuNi. Paste N, get X. Exactness or refuse. v1 from Python. POST /api/bank.", url: "https://spl-cuni-studio.fly.dev/bank" },
     ],
   },
   {

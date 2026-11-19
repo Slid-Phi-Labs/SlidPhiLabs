@@ -11,7 +11,7 @@ xz-6/gzip-9 values differ from verified totals.
 |-----|------|---------|---------------|-----|
 | D0 | Nov 9 | X thread | Security week: credit-spend guards + referral-code hardening land as draft PRs | repo links after merge |
 | D1 | Nov 10 | X | TeachAid voice update: Cartesia Sonic default, LiveKit live classroom | teachaid.fly.dev |
-| D2 | Nov 11 | Blog/X | CuNi packaging: cargo install path (PACKAGING.md) | cuni-studio.fly.dev |
+| D2 | Nov 11 | Blog/X | CuNi packaging: cargo install path (PACKAGING.md) | spl-cuni-studio.fly.dev |
 | D3 | Nov 12 | X | spl-acn client: safe retry + endpoint allowlist in 0.3.x | npm @slidphi/spl-acn |
 | D4 | Nov 13 | X | Platform: CuNi, Rider, Quikgater as one module | site #ecosystem |
 | D5 | Nov 14 | X | Agent-Rider MCP tools highlight | /api/mcp |

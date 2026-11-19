@@ -146,8 +146,8 @@
       "note": "Vercel Deployment Paused (DEPLOYMENT_DISABLED / HTTP 402). Do not delete the URL."
     },
     "cuni_studio": {
-      "url": "https://cuni-studio.fly.dev/",
-      "health": "https://cuni-studio.fly.dev/api/health",
+      "url": "https://spl-cuni-studio.fly.dev/",
+      "health": "https://spl-cuni-studio.fly.dev/api/health",
       "status": "live",
       "note": "GET /api/health returned ok:true."
     },
@@ -168,7 +168,7 @@
     "engines_coefficients_process": "do not publish"
   },
   "sisters": {
-    "cuni": "https://cuni-studio.fly.dev/",
+    "cuni": "https://spl-cuni-studio.fly.dev/",
     "agent_rider": "https://agentrider.fly.dev/",
     "quikgater": "https://github.com/ceedot-rock/quikgater",
     "quikgater_worker": "https://quikgater-worker.ceedotrock.workers.dev",

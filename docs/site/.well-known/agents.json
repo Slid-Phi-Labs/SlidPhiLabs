@@ -72,7 +72,7 @@
       "id": "cuni",
       "name": "CuNi Studio",
       "role": "language",
-      "url": "https://cuni-studio.fly.dev/",
+      "url": "https://spl-cuni-studio.fly.dev/",
       "protocol": "https://www.slidphilabs.com/cuni-protocol.json",
       "price": "$0",
       "note": "CLI v0.10.0. 53 targets. Same stdout or refuse. Matching gate py/go/js. Bank: paste N get X. Protocol: https://www.slidphilabs.com/cuni-protocol.json"

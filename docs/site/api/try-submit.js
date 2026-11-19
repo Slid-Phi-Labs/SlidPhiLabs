@@ -223,7 +223,7 @@ async function handler(req, res) {
       limits:
         "100k ops/mo, 10k ints/call, no livestream, non-commercial evaluation",
       products: {
-        cuni: "https://cuni-studio.fly.dev/",
+        cuni: "https://spl-cuni-studio.fly.dev/",
         site: "https://www.slidphilabs.com",
         npm: "zero-range-wave-compression",
       },

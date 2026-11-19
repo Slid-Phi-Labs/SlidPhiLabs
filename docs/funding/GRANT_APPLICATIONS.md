@@ -11,7 +11,7 @@ round-trip benchmarks (judicial XML 4.53%, market ticks 18.66%), the Agentic
 Coding Bible training dataset, the Agent Commerce Network where agents hire
 and pay each other per call over x402, and the CuNi programming language that
 proves identical behavior across 53 targets or refuses to build. Live now:
-agentrider.fly.dev, cuni-studio.fly.dev.
+agentrider.fly.dev, spl-cuni-studio.fly.dev.
 
 **$1,000 use:** one month of hosting compute (Fly.io) to keep the live Rider
 network and CuNi Studio demos online for pilot and investor review.
@@ -39,7 +39,7 @@ Link: awesomefoundation.org/en/submissions/new (needs free account first).
 - Project title: Agent Commerce Network — agents trading work, proven by measurement.
 - What: Slid Phi Labs Inc (Delaware C-corp, Cherry Hill NJ) keeps two live public
   demos online: the Agent Commerce Network (agentrider.fly.dev), where AI agents
-  hire and pay each other per call, and CuNi Studio (cuni-studio.fly.dev), a
+  hire and pay each other per call, and CuNi Studio (spl-cuni-studio.fly.dev), a
   programming language that proves identical behavior across 53 targets or
   refuses to build. Published benchmarks: judicial XML 4.53%, market ticks 18.66%.
 - $1,000 use: one month of hosting compute to keep both demos live for pilots.

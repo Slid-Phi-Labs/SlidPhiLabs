@@ -188,7 +188,7 @@ add({
     S("get", "What you receive", `<p>You receive either identical stdout on the seats you asked for, or a refusal that names why the path stopped. You receive a free Studio, a Bank, and a protocol document. A closed-app grant for one product is a separate license.</p>`),
     S("price", "Price", `<p>CuNi and Studio are free. The closed-app grant is $490 a year for one app under the unified grant: $490 a year for one product, $190 for the first 10 grants, $390 each for 3 or more products. Written, human-fulfilled, one product and one year, renewal at the then-current price. Per-check API: the first 100 checks a month are free, then $0.05 per check, with a customer-set monthly cap and an alert at 80% of the cap. The open license is AGPL-3.0-or-later.</p>`),
     S("with", "Works with", `<p>Put the receipt beside a <a href="/wiki/agent-rider">Rider</a> job when you want proof the program matched. <a href="/wiki/exactodds">ExactOdds</a> is the same rule on five seats and a pair of dice. Toll 5 on <a href="/wiki/tollkeeper">Tollkeeper</a> is the listed price of selling that check.</p>`),
-    S("open", "Open it", `<p><a href="/cuni">CuNi page</a> · <a href="https://cuni-studio.fly.dev/">Studio</a> · <a href="https://cuni-studio.fly.dev/bank">Bank</a> · <a href="https://www.slidphilabs.com/cuni-protocol.json">Protocol</a></p>`),
+    S("open", "Open it", `<p><a href="/cuni">CuNi page</a> · <a href="https://spl-cuni-studio.fly.dev/">Studio</a> · <a href="https://spl-cuni-studio.fly.dev/bank">Bank</a> · <a href="https://www.slidphilabs.com/cuni-protocol.json">Protocol</a></p>`),
   ],
 });
 

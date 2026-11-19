@@ -70,7 +70,7 @@ GET https://www.slidphilabs.com/warrant
 
 npx -y json-chamber-mcp
 npx -y spl-pay-per-suite mcp
-GET https://cuni-studio.fly.dev/llms.txt
+GET https://spl-cuni-studio.fly.dev/llms.txt
 brew tap ceedot-rock/cuni && brew install cuni
 
 Rate limits: not published in this tree — do not quote a number; the live service may enforce fair use. x402 Solana+Base USDC · Stripe https://www.slidphilabs.com/pay

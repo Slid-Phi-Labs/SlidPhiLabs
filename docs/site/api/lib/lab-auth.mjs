@@ -11,7 +11,7 @@ const ORIGINS = [
   "https://slidphilabs.fly.dev",
   "https://agentrider.fly.dev",
   "https://agentrider.fly.dev",
-  "https://cuni-studio.fly.dev",
+  "https://spl-cuni-studio.fly.dev",
   "https://l33tsaas.fly.dev",
   "https://overlord-eye.fly.dev",
   "https://teachaid.fly.dev",
@@ -87,7 +87,7 @@ export function publicUser(u) {
     created: u.created,
     has_passkey: Array.isArray(u.passkeys) && u.passkeys.length > 0,
     doors: {
-      studio: "https://cuni-studio.fly.dev/",
+      studio: "https://spl-cuni-studio.fly.dev/",
       rider: "https://agentrider.fly.dev/",
       chamber: "https://www.slidphilabs.com/chamber",
       box: "https://www.slidphilabs.com/box",
