@@ -9,7 +9,7 @@ Canonical public sentence lives in README.md. If a page disagrees, the page is w
 | Brand domain | www.slidphilabs.com | Served from Fly app `slidphilabs`. Custom domain. |
 | Fly host | slidphilabs.fly.dev | Live prod for site |
 | Rider | agentrider.fly.dev | Live. Fly-only — `agentrider.vercel.app` is 402-dead |
-| CuNi Studio | cuni-studio.fly.dev | Live |
+| CuNi Studio | spl-cuni-studio.fly.dev | Live |
 | Combined GC measurements | github.com/ceedot-rock/combined-gc-view | Public |
 | Combined GC engine | github.com/ceedot-rock/combined-gc | Private |
 | Storefront | slidphi-storefront | Measurements + pay |

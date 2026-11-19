@@ -37,8 +37,8 @@
 - corey@slidphilabs.com
 
 ## Ecosystem platforms (same lab)
-- CuNi Studio (exact multi-runtime): https://cuni-studio.fly.dev/
-- CuNi agents.json: https://cuni-studio.fly.dev/agents.json
+- CuNi Studio (exact multi-runtime): https://spl-cuni-studio.fly.dev/
+- CuNi agents.json: https://spl-cuni-studio.fly.dev/agents.json
 - Agent^Rider (identity · trust · MCP): https://agentrider.fly.dev/
 - Agent^Rider manifest: https://agentrider.fly.dev/.well-known/agent.json
 - Agent^Rider discovery: https://agentrider.fly.dev/api/discovery

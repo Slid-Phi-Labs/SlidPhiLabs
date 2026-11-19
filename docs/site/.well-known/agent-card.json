@@ -200,8 +200,8 @@
         "note": "2026-08-12: Vercel Deployment Paused (DEPLOYMENT_DISABLED / HTTP 402)."
       },
       "cuni_studio": {
-        "url": "https://cuni-studio.fly.dev/",
-        "health": "https://cuni-studio.fly.dev/api/health",
+        "url": "https://spl-cuni-studio.fly.dev/",
+        "health": "https://spl-cuni-studio.fly.dev/api/health",
         "status": "live",
         "note": "2026-08-12: GET /api/health returned ok:true."
       },

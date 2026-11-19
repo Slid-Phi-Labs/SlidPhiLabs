@@ -89,7 +89,7 @@
             "name": "What is CuNi Bank?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Paste Python, emit another language, same stdout. Studio: https://cuni-studio.fly.dev/bank"
+              "text": "Paste Python, emit another language, same stdout. Studio: https://spl-cuni-studio.fly.dev/bank"
             }
           }
         ]

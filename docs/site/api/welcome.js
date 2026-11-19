@@ -92,7 +92,7 @@ export default async function handler(req, res) {
     product: "TRU8",
     x402_access_autoclaim: false,
     ecosystem: {
-      cuni: "https://cuni-studio.fly.dev/",
+      cuni: "https://spl-cuni-studio.fly.dev/",
       agent_rider: "https://agentrider.fly.dev/",
       agent_rider_status: "paused",
       quikgater: "https://github.com/ceedot-rock/quikgater",

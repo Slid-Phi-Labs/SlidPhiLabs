@@ -85,7 +85,7 @@ x402 resource = same sku via POST /api/x402-products.
 - **Warrant** — mandate + receipts bound to a Rider. https://www.slidphilabs.com/warrant
 - **Tollkeeper** — seven protection tolls on the road, plus ten live metered tools: pcc-compress ($0.01/MB), pcc-verify ($0.02), attest-notarize ($0.01), attest-exactness ($0.05), exactodds-draw ($0.01), exactodds-resolve ($0.02), cuni-proof ($0.10), trustream-pack ($0.01/MB), chamber-seal ($0.02), awlpay-quote ($0.005). Page: https://www.slidphilabs.com/tollkeeper · schema: https://agentrider.fly.dev/api/toll/schema
 - Chamber — two-key JSON seal/open. stdio MCP: `npx -y json-chamber-mcp`. Manifest: https://www.slidphilabs.com/.well-known/mcp.json · product: https://www.slidphilabs.com/chamber · npm: `@slidphi/json-chamber-mcp` · registry: io.github.ceedot-rock/json-chamber-mcp
-- CuNi — nine hosted calls: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Keeper: https://github.com/ceedot-rock/CuNIverse · Studio free: https://cuni-studio.fly.dev/ · calls: https://www.slidphilabs.com/v1/ · protocol: https://www.slidphilabs.com/cuni-protocol.json · catalog still cites 53 targets. cuni_bank is translate.
+- CuNi — nine hosted calls: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Keeper: https://github.com/ceedot-rock/CuNIverse · Studio free: https://spl-cuni-studio.fly.dev/ · calls: https://www.slidphilabs.com/v1/ · protocol: https://www.slidphilabs.com/cuni-protocol.json · catalog still cites 53 targets. cuni_bank is translate.
 - **AwLPay** — quote a payment across rails, or refuse. Free tier 0.5% per payment, no fixed fee. Pro $39/mo. L33t $799/mo. https://www.slidphilabs.com/awlpay · repo: https://github.com/ceedot-rock/awlpay
 - **Quikgater** — pay-per-fact fetch. https://www.slidphilabs.com/quikgater
 - **TEACHAiD** — campus app. Teacher chat in the repo calls Meta Llama. Rollout: https://teachaid.fly.dev
@@ -108,7 +108,7 @@ Four doors onto one Shared Spine. What it is, then what you pay.
 - Agent-Rider — signed identity + agent DMs (ES256 JWT L0–L4, about 15 minutes, local JWKS, `POST /api/dm`). Solo $12/mo ($120/yr, 1 identity, 500 verifications/month) · Team $49/mo ($490/yr, 10 identities, 5,000 verifications/month, Warrant included) · Fleet $199/mo ($1,990/yr, 100 identities, 50,000 verifications/month, Warrant + fleet watch included). Overage $0.02 per verification, customer-set monthly cap (default 2× plan price), alert at 80%. Free: 1 identity, 100 verifications/month, no L3/L4 attestation. https://www.slidphilabs.com/rider · https://agentrider.fly.dev/llms.txt
 - Warrant — signed mandate + receipts bound to a Rider. $8/month add-on to Rider Solo ($80/year); included in Team and Fleet. No per-issue fee. POST /v1/warrant/issue|verify|receipt|revoke|reserve|release. https://www.slidphilabs.com/warrant
 - Tollkeeper — caller pays. The ten tools also answer at POST /v1/<name> on this site, which proxies the Rider route. https://www.slidphilabs.com/tollkeeper
-- CuNi — nine calls on the keeper https://github.com/ceedot-rock/CuNIverse . check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Playground $0. Closed-app grant $490/yr, SKU cuni-exception. cuni_bank is translate. https://www.slidphilabs.com/cuni · https://www.slidphilabs.com/v1/check · https://cuni-studio.fly.dev/
+- CuNi — nine calls on the keeper https://github.com/ceedot-rock/CuNIverse . check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Playground $0. Closed-app grant $490/yr, SKU cuni-exception. cuni_bank is translate. https://www.slidphilabs.com/cuni · https://www.slidphilabs.com/v1/check · https://spl-cuni-studio.fly.dev/
 - ExactOdds — provably fair rules, commit-reveal, same rules on the published runtimes. https://www.slidphilabs.com/exactodds
 - AwLPay — free tier 0.5% per payment, no fixed fee. https://www.slidphilabs.com/awlpay
 - Quikgater — POST /v1/fetch. $0.02 per fetch; first 100 fetches/month free; customer-set monthly cap (default $10), alert at 80%. https://www.slidphilabs.com/quikgater
@@ -157,10 +157,10 @@ Q: Where is the lab?
 A: Cherry Hill, New Jersey. Corey Tasz. corey@slidphilabs.com.
 
 Q: What is CuNi?
-A: Nine hosted calls on https://www.slidphilabs.com/v1/ . check $0.05 (first 100 a month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. The keeper is https://github.com/ceedot-rock/CuNIverse . Studio at https://cuni-studio.fly.dev/ is free. The closed-app grant is $490/yr. A local binary is unmetered.
+A: Nine hosted calls on https://www.slidphilabs.com/v1/ . check $0.05 (first 100 a month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. The keeper is https://github.com/ceedot-rock/CuNIverse . Studio at https://spl-cuni-studio.fly.dev/ is free. The closed-app grant is $490/yr. A local binary is unmetered.
 
 Q: What is CuNi Bank?
-A: The old name for translate. POST /v1/translate is $0.10 and returns 402 until paid. The Studio playground at https://cuni-studio.fly.dev/bank stays free.
+A: The old name for translate. POST /v1/translate is $0.10 and returns 402 until paid. The Studio playground at https://spl-cuni-studio.fly.dev/bank stays free.
 
 Q: What is Agent-Rider?
 A: Open ride. Any agent can register, mint a short-lived signed rider (about 15 minutes), DM peers, and verify locally on JWKS. ES256 JWT L0–L4. Seats: Solo $12/mo, Team $49/mo, Fleet $199/mo. MCP: https://agentrider.fly.dev/api/mcp. File sharing is the next seat feature and is not live. A signed credential is not KYC.

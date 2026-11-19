@@ -61,7 +61,7 @@ Formulas, fills, and order. House genes.
 
 | Surface | URL |
 |---------|-----|
-| Studio | https://cuni-studio.fly.dev/ |
+| Studio | https://spl-cuni-studio.fly.dev/ |
 | Canonical JSON | https://www.slidphilabs.com/cuni-protocol.json |
 | Site well-known | https://www.slidphilabs.com/.well-known/cuni-protocol.json |
 | Agent-Rider MCP | https://agentrider.fly.dev/api/mcp |

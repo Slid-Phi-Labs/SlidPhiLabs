@@ -20,7 +20,7 @@
   },
   "products": [
     { "name": "Agent Rider", "url": "https://agentrider.fly.dev" },
-    { "name": "CuNi Studio", "url": "https://cuni-studio.fly.dev/" },
+    { "name": "CuNi Studio", "url": "https://spl-cuni-studio.fly.dev/" },
     { "name": "TeachAid", "url": "https://teachaid.fly.dev" }
   ],
   "discovery": [

@@ -348,7 +348,7 @@ async function callTool(name, args = {}, req) {
     return {
       lead_product: "rider",
       cash_product: "chamber",
-      studio: "https://cuni-studio.fly.dev/",
+      studio: "https://spl-cuni-studio.fly.dev/",
       rider: "https://agentrider.fly.dev/",
       chamber: SITE + "/chamber",
       signup: SITE + "/signup",

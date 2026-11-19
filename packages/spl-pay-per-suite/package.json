@@ -92,7 +92,7 @@
     "agents_json": "https://www.slidphilabs.com/agents.json",
     "one_liner": "First 1 GB free (once per IP), then 25\u00a2/GB. zip() builds a .pcc. Pay: https://www.slidphilabs.com/pay \u00b7 GET https://www.slidphilabs.com/api/agent",
     "agent_platform": {
-      "cuni": "https://cuni-studio.fly.dev/",
+      "cuni": "https://spl-cuni-studio.fly.dev/",
       "agent_rider": "https://agentrider.fly.dev/",
       "quikgater": "https://github.com/ceedot-rock/quikgater"
     },

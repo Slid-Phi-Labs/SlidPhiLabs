@@ -29,14 +29,14 @@
     "eip155:8453"
   ],
   "ecosystem": {
-    "cuni_studio": "https://cuni-studio.fly.dev/",
+    "cuni_studio": "https://spl-cuni-studio.fly.dev/",
     "agent_rider": "https://agentrider.fly.dev/",
     "quikgater_worker": "https://quikgater-worker.ceedotrock.workers.dev"
   },
   "products": {
     "cuni": {
       "price": "$0",
-      "url": "https://cuni-studio.fly.dev/"
+      "url": "https://spl-cuni-studio.fly.dev/"
     },
     "chamber": {
       "month": 20,

@@ -6,7 +6,7 @@
 
 ## Products
 - [Agent Rider](https://agentrider.fly.dev): signed agent names, Warrant permissions, receipts. Register POST /api/agents, issue POST /api/rider/issue, verify POST /api/rider/verify.
-- [CuNi / CuNIverse](https://cuni-studio.fly.dev/): one program, 53 targets, byte-identical stdout or refuse. Tap install.
+- [CuNi / CuNIverse](https://spl-cuni-studio.fly.dev/): one program, 53 targets, byte-identical stdout or refuse. Tap install.
 - [TeachAid](https://teachaid.fly.dev): chapter-by-chapter text and voice learning.
 - Hosted suite + PCC: metered jobs. Free allowance: TBD.
 - spl-acn client: claim-token access to https://www.slidphilabs.com/api/mcp

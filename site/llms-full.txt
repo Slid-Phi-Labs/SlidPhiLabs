@@ -12,7 +12,7 @@ Funded riders settle; sandbox riders are read/verify-only (funded settle returns
 Verify via /.well-known/jwks.json or POST /api/rider/verify.
 Refusals: {error, issue_url, docs_url} plus a Rider challenge.
 
-## CuNi / CuNIverse (https://cuni-studio.fly.dev/)
+## CuNi / CuNIverse (https://spl-cuni-studio.fly.dev/)
 One program, 53 targets, byte-identical stdout or the run refuses. CuNIverse: four organs.
 Install: brew install slidphilabs/tap/cuni (as documented; no version claimed here).
 

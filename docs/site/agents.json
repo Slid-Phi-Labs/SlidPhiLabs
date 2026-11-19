@@ -82,7 +82,7 @@
       "id": "cuni",
       "name": "CuNi Studio",
       "role": "language",
-      "url": "https://cuni-studio.fly.dev/",
+      "url": "https://spl-cuni-studio.fly.dev/",
       "protocol": "https://www.slidphilabs.com/cuni-protocol.json",
       "price": "$0",
       "calls": "https://www.slidphilabs.com/v1/",
