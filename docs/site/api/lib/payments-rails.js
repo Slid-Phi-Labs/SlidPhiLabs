@@ -15,6 +15,9 @@
  *   PAYMENTS_CONTACT         default corey@slidphilabs.com
  */
 
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
 export const USDC_SOLANA_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 export const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
 export const BASE_NETWORK = "eip155:8453";
@@ -82,25 +85,31 @@ function parked(name, blurb) {
 
 export const PRODUCT_CATALOG = {
   "chamber-month": {
+    recurring: "month",
+    lookup_key: "spl_chamber_month",
     name: "Chamber · monthly cloak license",
     amount_cents: 2000,
     stripe: "https://www.slidphilabs.com/pay?sku=chamber-month",
     kind: "chamber",
     list: true,
-    blurb: "License to seal new JSON for 30 days. Open already-sealed blobs with both keys.",
+    blurb: "License to seal new JSON, billed monthly until you cancel. Open already-sealed blobs with both keys.",
   },
   "chamber-year": {
+    recurring: "year",
+    lookup_key: "spl_chamber_year",
     name: "Chamber · annual cloak license",
     amount_cents: 20000,
     stripe: "https://www.slidphilabs.com/pay?sku=chamber-year",
     kind: "chamber",
     list: true,
-    blurb: "License to seal new JSON for 365 days. Ciphertext does not expire.",
+    blurb: "License to seal new JSON, billed yearly until you cancel. Ciphertext does not expire.",
   },
   "gc-day": retired("suite", "PCC · 24-hour seat (legacy → PCC meter)"),
   "gc-month": retired("pcc-pro", "PCC Pro · monthly (legacy → PCC Pro $25/mo)"),
   "gc-year": retired("pcc-pro-year", "PCC Pro · 12 months prepaid (legacy → PCC Pro annual)"),
   "pcc-pro": {
+    recurring: "month",
+    lookup_key: "spl_pcc_pro",
     name: "PCC Pro · monthly",
     amount_cents: 2500,
     stripe: "https://www.slidphilabs.com/pay?sku=pcc-pro",
@@ -110,6 +119,8 @@ export const PRODUCT_CATALOG = {
     meter: { unit: "GB input", included_gb: 100, overage_cents_per_gb: 20, alert_fraction: 0.8 },
   },
   "pcc-pro-year": {
+    recurring: "year",
+    lookup_key: "spl_pcc_pro_year",
     name: "PCC Pro · 12 months prepaid",
     amount_cents: 25000,
     stripe: "https://www.slidphilabs.com/pay?sku=pcc-pro-year",
@@ -119,6 +130,8 @@ export const PRODUCT_CATALOG = {
     meter: { unit: "GB input", included_gb: 100, overage_cents_per_gb: 20, alert_fraction: 0.8 },
   },
     "psi-meter": {
+    recurring: "month",
+    lookup_key: "spl_psi_meter",
     name: "PSI Meter, monthly spend log",
     amount_cents: 2500,
     stripe: "https://www.slidphilabs.com/pay?sku=psi-meter",
@@ -128,9 +141,11 @@ export const PRODUCT_CATALOG = {
     meter: { unit: "logged calls", included: 250000, overage_cents_per_100k: 200, alert_fraction: 0.8 },
   },
   "psi-org": {
+    recurring: "month",
+    lookup_key: "spl_psi_org",
     name: "PSI Org, monthly audits plus enforcement",
     amount_cents: 7900,
-    stripe: "https://www.slidphilabs.com/pay?sku=psi-team",
+    stripe: "https://www.slidphilabs.com/pay?sku=psi-org",
     kind: "psi",
     list: true,
     blurb: "Team seats, quarterly audits, enforced caps and cache discipline. First audit free.",
@@ -154,6 +169,8 @@ export const PRODUCT_CATALOG = {
     blurb: "Unified closed-use grant: use, modify, and deploy psi in one closed product for one year. Written grant, human-fulfilled. No redistribution of psi source.",
   },
   "psi-meter-year": {
+    recurring: "year",
+    lookup_key: "spl_psi_meter_year",
     name: "PSI Meter · annual, per seat",
     amount_cents: 25000,
     stripe: "https://www.slidphilabs.com/pay?sku=psi-meter-year",
@@ -244,6 +261,8 @@ export const PRODUCT_CATALOG = {
     blurb: "One squeeze. x402 on the verb.",
   },
   "rider-solo": {
+    recurring: "month",
+    lookup_key: "spl_rider_solo",
     name: "Rider · Solo seat",
     amount_cents: 1200,
     stripe: "https://www.slidphilabs.com/pay?sku=rider-solo",
@@ -274,6 +293,8 @@ export const PRODUCT_CATALOG = {
     meter: { unit: "verification", included: 50000, overage_cents: 2, cap_default_cents: 39800, alert_fraction: 0.8 },
   },
   "rider-solo-year": {
+    recurring: "year",
+    lookup_key: "spl_rider_solo_year",
     name: "Rider · Solo seat, annual",
     amount_cents: 12000,
     stripe: "https://www.slidphilabs.com/pay?sku=rider-solo-year",
@@ -319,6 +340,8 @@ export const PRODUCT_CATALOG = {
   "warrant-month": retired("warrant-addon", "Warrant · monthly mandate seat (retired → Warrant add-on)"),
   "warrant-year": retired("warrant-addon-year", "Warrant · annual mandate seat (retired → Warrant add-on, annual)"),
   "warrant-addon": {
+    recurring: "month",
+    lookup_key: "spl_warrant_addon",
     name: "Warrant · add-on to Rider Solo",
     amount_cents: 800,
     stripe: "https://www.slidphilabs.com/pay?sku=warrant-addon",
@@ -327,6 +350,8 @@ export const PRODUCT_CATALOG = {
     blurb: "Signed mandates and receipts bound to a Rider identity, added to a Solo account. Included in Rider Team and Fleet.",
   },
   "warrant-addon-year": {
+    recurring: "year",
+    lookup_key: "spl_warrant_addon_year",
     name: "Warrant · add-on to Rider Solo, annual",
     amount_cents: 8000,
     stripe: "https://www.slidphilabs.com/pay?sku=warrant-addon-year",
@@ -679,6 +704,48 @@ export function stripeSecret() {
   );
 }
 
+/**
+ * Subscriptions. A catalog item with `recurring` is sold as a Stripe
+ * subscription when a saved recurring Price id exists for the key's mode
+ * (test or live). Lookup order: env STRIPE_PRICE_<SKU> (e.g.
+ * STRIPE_PRICE_CHAMBER_MONTH), then stripe-prices.json [mode][sku]. With no
+ * saved price id the item falls back to the old one-time checkout, so a
+ * missing config never breaks a sale.
+ */
+
+export function stripeKeyMode(key = stripeSecret()) {
+  return /^(sk|rk)_test_/.test(String(key || "")) ? "test" : "live";
+}
+
+let _priceBook = null;
+export function stripePriceBook() {
+  if (_priceBook) return _priceBook;
+  try {
+    const url = new URL("./stripe-prices.json", import.meta.url);
+    _priceBook = JSON.parse(readFileSync(fileURLToPath(url), "utf8"));
+  } catch {
+    _priceBook = {};
+  }
+  return _priceBook;
+}
+
+export function subscriptionPriceId(sku, mode = stripeKeyMode()) {
+  const p = PRODUCT_CATALOG[sku];
+  if (!p || !p.recurring) return null;
+  const envKey = "STRIPE_PRICE_" + String(sku).toUpperCase().replace(/[^A-Z0-9]/g, "_");
+  const fromEnv = (process.env[envKey] || "").trim();
+  if (/^price_[A-Za-z0-9]+$/.test(fromEnv)) return fromEnv;
+  const id = stripePriceBook()?.[mode]?.[sku]?.price;
+  return typeof id === "string" && /^price_[A-Za-z0-9]+$/.test(id) ? id : null;
+}
+
+export function subscriptionInterval(sku) {
+  return PRODUCT_CATALOG[sku]?.recurring || null;
+}
+
+export const SUBSCRIPTION_SKUS = () =>
+  Object.keys(PRODUCT_CATALOG).filter((k) => PRODUCT_CATALOG[k].recurring);
+
 export function contactEmail() {
   return process.env.PAYMENTS_CONTACT || "corey@slidphilabs.com";
 }
@@ -926,6 +993,7 @@ export async function createStripeCheckoutSession({
   metadata = {},
   successPath = "/access",
   cancelPath = "/pay?cancel=1",
+  priceId = null,
 }) {
   const key = stripeSecret();
   if (!key) {
@@ -933,28 +1001,35 @@ export async function createStripeCheckoutSession({
     err.code = "stripe_unconfigured";
     throw err;
   }
-  if (!amountCents || amountCents < 50) {
+  const subscription = typeof priceId === "string" && priceId.startsWith("price_");
+  if (!subscription && (!amountCents || amountCents < 50)) {
     const err = new Error("amount_cents must be ≥ 50 ($0.50)");
     err.code = "amount_too_small";
     throw err;
   }
 
   const params = new URLSearchParams();
-  params.set("mode", "payment");
+  params.set("mode", subscription ? "subscription" : "payment");
   params.set(
     "success_url",
     `${origin}${successPath}?paid=1&product=${encodeURIComponent(sku || "custom")}&session_id={CHECKOUT_SESSION_ID}`
   );
   params.set("cancel_url", `${origin}${cancelPath}`);
   params.set("line_items[0][quantity]", "1");
-  params.set("line_items[0][price_data][currency]", "usd");
-  params.set("line_items[0][price_data][unit_amount]", String(Math.round(amountCents)));
-  params.set("line_items[0][price_data][product_data][name]", String(name || "Slid Phi Labs").slice(0, 200));
-  if (description) {
-    params.set(
-      "line_items[0][price_data][product_data][description]",
-      String(description).slice(0, 500)
-    );
+  if (subscription) {
+    params.set("line_items[0][price]", priceId);
+    params.set("subscription_data[metadata][sku]", String(sku || "custom").slice(0, 40));
+    params.set("subscription_data[metadata][source]", "spl_universal_checkout");
+  } else {
+    params.set("line_items[0][price_data][currency]", "usd");
+    params.set("line_items[0][price_data][unit_amount]", String(Math.round(amountCents)));
+    params.set("line_items[0][price_data][product_data][name]", String(name || "Slid Phi Labs").slice(0, 200));
+    if (description) {
+      params.set(
+        "line_items[0][price_data][product_data][description]",
+        String(description).slice(0, 500)
+      );
+    }
   }
   // NOTE (2026-11-04): Stripe retired payment_method_types; enabled
   // methods now come from Dashboard settings > payment methods.
@@ -965,7 +1040,7 @@ export async function createStripeCheckoutSession({
     params.set(`metadata[${k}]`, String(v).slice(0, 500));
   }
   if (email) params.set("customer_email", String(email).slice(0, 120));
-  params.set("submit_type", "pay");
+  if (!subscription) params.set("submit_type", "pay");
   params.set("billing_address_collection", "auto");
   params.set("allow_promotion_codes", "true");
 

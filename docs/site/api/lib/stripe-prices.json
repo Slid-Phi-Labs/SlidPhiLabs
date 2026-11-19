@@ -1,0 +1,5 @@
+{
+  "_note": "Saved Stripe recurring Price ids per mode (Slid Phi Labs, Inc.). Not secrets. Filled after the products and prices are created; empty means one-time checkout fallback.",
+  "test": {},
+  "live": {}
+}

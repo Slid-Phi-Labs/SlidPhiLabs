@@ -11,6 +11,8 @@ import {
   resolveSku,
   PRODUCT_CATALOG,
   createStripeCheckoutSession,
+  subscriptionPriceId,
+  subscriptionInterval,
   manualCryptoInstructions,
   siteOrigin,
   contactEmail,
@@ -207,9 +209,13 @@ export default async function handler(req, res) {
     });
   }
 
-  // default: stripe multi-method session
+  // default: stripe multi-method session. Plans with a saved recurring
+  // Price id check out as real subscriptions (renew until cancelled).
+  const priceId = sku ? subscriptionPriceId(sku) : null;
+  const interval = priceId ? subscriptionInterval(sku) : null;
   try {
     const session = await createStripeCheckoutSession({
+      priceId,
       amountCents: amount_cents,
       name: `Slid Phi Labs — ${name}`,
       description: `${kind} · lab seat`,
@@ -225,7 +231,9 @@ export default async function handler(req, res) {
     });
     return json(res, 200, {
       ok: true,
-      mode: "stripe_checkout",
+      mode: priceId ? "stripe_subscription" : "stripe_checkout",
+      renews: interval || null,
+      manage: priceId ? `${origin}/api/billing-portal?session_id=${encodeURIComponent(session.id)}` : null,
       url: session.url,
       session_id: session.id,
       payment_method_types: session.payment_method_types,
