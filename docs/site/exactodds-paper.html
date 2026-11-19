@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ExactOdds paper · Slid Phi Labs</title>
+  <meta name="description" content="The ExactOdds paper: fair outcomes through commit-reveal, plus provably identical game rules on every runtime. With the operator one-pager."/>
+  <link rel="canonical" href="https://www.slidphilabs.com/exactodds-paper"/>
+  <link rel="icon" type="image/jpeg" href="/assets/logos/logo-slid-phi-labs.jpg?v=14"/>
+  <meta property="og:title" content="ExactOdds: Fair Outcomes, Provably Identical Rules"/>
+  <meta property="og:url" content="https://www.slidphilabs.com/exactodds-paper"/>
+  <meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta property="og:description" content="The ExactOdds paper: fair outcomes through commit-reveal, plus provably identical game rules on every runtime. With the operator one-pager."/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="stylesheet" href="/assets/chrome.css?v=38"/>
+</head>
+<body>
+  <main class="spl-page" id="main">
+    <p class="spl-kicker">ExactOdds · paper</p>
+    <h1>ExactOdds: Fair Outcomes, Provably Identical Rules</h1>
+    <p class="spl-actions">
+      <a class="spl-btn spl-btn-dark" href="https://www.npmjs.com/package/exactodds">Get it on npm</a>
+      <a class="spl-btn spl-btn-line" href="/exactodds">Back to ExactOdds</a>
+      <a class="spl-btn spl-btn-line" href="#operator-one-pager">Operator one-pager</a>
+    </p>
+    <section class="spl-prose spl-full" id="paper">
+<h2>ExactOdds: Fair Outcomes, Provably Identical Rules</h2>
+<p><strong>Slid Phi Labs — 26 September 2026</strong></p>
+<hr />
+<h3>1. What "provably fair" proves today — and what it doesn't</h3>
+<p>Every provably-fair casino in operation works the same way. Before you bet,
+the house publishes a commitment — usually SHA-256 of a secret server seed.
+You supply a client seed. After the bet, the house reveals the server seed,
+and you can re-run the math yourself: the outcome was decided before your
+bet, so the house couldn't have rigged that particular roll against you.</p>
+<p>That half works. It is genuinely provable.</p>
+<p>Here is the half that isn't. You verified the <em>outcome</em>. You did not verify
+the <em>rules</em>. The program that ran on the house's server — the one that turns
+seeds into a roll, a card, a flip — is a black box. The house can show one
+ruleset to an auditor and run a different one in production, and no amount of
+seed math will catch it. Players verify the dice; nobody verifies the table.</p>
+<p>ExactOdds closes that gap. It makes the rules themselves provable: the exact
+same game program, running identically, on every machine that runs it — or
+the program is refused outright.</p>
+<h3>2. The protocol</h3>
+<p>ExactOdds has two halves, and both have to hold for a game to be called fair.</p>
+<p><strong>Half 1 — commit-reveal (the outcome is provable).</strong> Standard practice,
+unchanged:</p>
+<ol>
+<li>The house publishes <code>commit = SHA-256(server_seed)</code> before any bet.</li>
+<li>The player provides a client seed (or accepts a random one, recorded).</li>
+<li>After the round, the house reveals <code>server_seed</code>.</li>
+<li>The player checks that <code>SHA-256(server_seed)</code> matches the published
+   commitment. If it doesn't, the house cheated and the proof is public.</li>
+</ol>
+<p><strong>Half 2 — exactness (the rules are provable).</strong> This is the new part:</p>
+<ol>
+<li>Every game is written once, in one source file (the reference games live
+   in <code>games/</code> in this repository).</li>
+<li>That source compiles to every target seat — Python, JavaScript,
+   TypeScript, C, C++ — and every seat must produce <strong>byte-identical
+   output</strong> for the same inputs. Not "equivalent". Byte-identical.</li>
+<li>If any seat disagrees, or if a program can't be compiled exactly, the
+   compiler <strong>refuses</strong> the program. There is no "close enough" mode.</li>
+<li>The gate writes a <strong>source-hash receipt</strong>: SHA-256 of the exact source
+   that was gated, the pass/fail verdict, and per-seat emit/run status.</li>
+</ol>
+<p>The consequence: an auditor reads one short program, gates it, and knows
+that the program the house runs in production is the same program — because
+any change to the source changes the source hash, and any behavior change
+that differs across seats fails the gate. One ruleset for the audit is the
+only ruleset there is.</p>
+<h4>Why byte-identical, not just equivalent</h4>
+<p>Floating point, integer overflow, string encoding, and modulo on negatives
+all differ across languages and platforms. A game that is "equivalent"
+everywhere is a game whose edge cases someone gets to choose. Byte-identical
+output removes the choice. The reference games use only integer arithmetic
+with explicit modulus (the Park-Miller step, <code>state = (48271 * mixed) mod
+2147483647</code>), so there is no platform-dependent behavior to hide behind.</p>
+<h4>What the program contains — and doesn't</h4>
+<p>The program is deterministic: seeds go in, the result comes out. There is no
+randomness inside the program. The seeds <em>are</em> the randomness, and they come
+from the commit-reveal half. This separation is deliberate: randomness you
+can audit (revealed seeds) stays outside; rules you can audit (the program)
+stay inside. Nothing about the outcome is left to the machine's mood.</p>
+<h3>3. The reference games</h3>
+<p>Three games ship in this repository, all gated 2026-09-26 on the five-seat
+matrix (py, js, ts, c, cpp). All passed: every seat byte-identical.</p>
+<h4>Game 1 — Dice (<code>games/provably-fair-dice.exactodds</code>)</h4>
+<p>Mixes <code>server_seed</code>, <code>client_seed</code>, and <code>round</code> with a Park-Miller step,
+then takes the roll as <code>(state % 6) + 1</code>. Also exposes a 0–99 roll.</p>
+<p>Audited outputs (same seeds, every seat, 9 bytes total):</p>
+<pre><code>3
+4
+1
+84
+</code></pre>
+<p>Source SHA-256: <code>795a43fa1864c30565d436e302ac0011662b01a45dc4c023c5af37f76ccdbb44</code>
+Stdout SHA-256: <code>a79a72f0b7987fab1a4e54c85f617a723f5d2b25aa1d3b2f2fc3a2a470ba5f8b</code></p>
+<h4>Game 2 — Coin flip (<code>games/provably-fair-coin-flip.exactodds</code>)</h4>
+<p>Same derivation shape as the dice game (seed mix + Park-Miller step); the
+flip is heads when the state is even, tails when odd. Also exposes the raw
+0/1 bit for payout math.</p>
+<p>Audited outputs (same seeds, every seat, 52 bytes total):</p>
+<pre><code>heads
+tails
+heads
+tails
+heads
+heads
+tails
+tails
+0
+1
+</code></pre>
+<p>Source SHA-256: <code>04783043adaf23b7880977bfaacc4324eb02d8d77bf41991f7dfd6037510c3d0</code>
+Stdout SHA-256: <code>da48a6ba509f0840da7040eaa51961e9506334e043601253c534437a091202b7</code></p>
+<h4>Game 3 — European roulette (<code>games/provably-fair-roulette.exactodds</code>)</h4>
+<p>Same derivation shape (seed mix + Park-Miller step); the winning number is
+<code>(state % 37)</code> — a European wheel, 0–36. Color, odd/even, and high/low are
+derived deterministically from the number under the standard European layout
+(reds: 1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36; 0 is green and takes
+neither odd/even nor high/low). One of the seven audited spins lands on 0,
+exercising the green path.</p>
+<p>Audited outputs (same seeds, every seat, 180 bytes total):</p>
+<pre><code>spin 1: 31 black odd high
+spin 2: 34 red even high
+spin 3: 0 green neither neither
+spin 1: 6 black even low
+spin 2: 9 red odd low
+spin 7: 23 red odd high
+spin 13: 2 black even low
+</code></pre>
+<p>Source SHA-256: <code>1eaac333fa3d25c23224a0d649a52471e3e38077c406d4913212271d79c9cc9c</code>
+Stdout SHA-256: <code>f3cc95467f2d41d7f96cccb08ba84bd95f53adc0bcb6a5752a7f1e6cab71fe70</code></p>
+<h4>Worked verification — follow along (players and operators)</h4>
+<p>You need only Python 3 (or node, gcc — any one seat) and the game's source.</p>
+<ol>
+<li><strong>Get the source.</strong> Download <code>games/provably-fair-coin-flip.exactodds</code> from
+   this repository, or from the house's published copy.</li>
+<li><strong>Check the source hash.</strong> Run <code>sha256sum</code> on the file. It must equal the
+   source hash in the receipt (<code>receipts/provably-fair-coin-flip.receipt.json</code>)
+   and the hash the house published with its game listing. If it doesn't
+   match, stop — that's a different game.</li>
+<li><strong>Get the revealed seeds.</strong> After your round, the house reveals its
+   <code>server_seed</code>. Check <code>SHA-256(server_seed)</code> against the commitment it
+   published before you bet.</li>
+<li><strong>Re-run the round.</strong> Plug the revealed server seed, your client seed,
+   and the round number into the program's <code>flip</code> function (any seat — the
+   gate guarantees they all agree). The output must match what the house
+   reported for your round.</li>
+<li><strong>Check the receipt.</strong> The receipt in this repository records the gated
+   verdict and per-seat results. An independent auditor can re-run
+   <code>./gate/run-gate.sh</code> and reproduce the same PASS.</li>
+</ol>
+<p>If every step checks out, two facts hold: the outcome was fixed before your
+bet (commit-reveal), and the rules that produced it are the audited rules
+(exactness). Either half failing is a caught cheat.</p>
+<h3>4. Source-hash receipts</h3>
+<p>A receipt (<code>receipts/*.receipt.json</code>) is a small signed-by-math artifact:</p>
+<ul>
+<li><code>path</code> — which program was gated</li>
+<li><code>source_hash</code> — SHA-256 of the exact bytes that were gated</li>
+<li><code>exact</code> / <code>summary</code> — the verdict (<code>exactness: PASS (5 langs)</code>)</li>
+<li><code>langs</code> / <code>seats</code> — per-seat emit and run status</li>
+</ul>
+<p>Receipts are how a house answers "prove you're running the audited game":
+publish the receipt alongside the source hash. A player hashes the source,
+compares, and knows. An auditor re-runs the gate and reproduces the verdict.
+The receipt is not trust — it's a checkable claim.</p>
+<h3>5. What this is NOT</h3>
+<p>Plainly, so there's no confusion:</p>
+<ul>
+<li><strong>Not a casino.</strong> ExactOdds is a protocol and two reference games. It takes
+  no bets, holds no funds, and operates no tables.</li>
+<li><strong>Not a license.</strong> Nothing here grants or implies a gaming license in any
+  jurisdiction. Operators are responsible for their own compliance.</li>
+<li><strong>No custody of funds.</strong> There is no wallet, no escrow, no token. Money
+  movement is entirely outside this protocol.</li>
+<li><strong>Not a randomness source.</strong> The protocol consumes seeds; it does not
+  generate them. Seed generation and commitment handling are the operator's
+  job, and they must be done honestly — the math only catches cheating, it
+  doesn't prevent a dishonest setup.</li>
+<li><strong>Three games, not a platform.</strong> Dice, coin flip, and roulette demonstrate
+  the pattern. Blackjack, slots — each new game needs its own source, its own
+  gate pass, its own receipt. The pattern scales; the games don't write
+  themselves.</li>
+</ul>
+<h3>6. For operators: what you get</h3>
+<ul>
+<li><strong>A defense against your own worst incident.</strong> A rigged-rules scandal ends
+  a casino. Exactness makes "we ran different code in production"
+  technically checkable by anyone, which is the strongest form of "we
+  didn't."</li>
+<li><strong>Audits that mean something.</strong> An auditor gates one short program instead
+  of reviewing your whole stack. The receipt is the audit artifact.</li>
+<li><strong>Player trust you can point at.</strong> Every verification step above is
+  something a player can actually do, tonight, with free tools.</li>
+</ul>
+<p>Start with <code>OPERATOR_ONEPAGER.md</code> (one page), then this paper, then
+<code>gate/run-gate.sh</code>.</p>
+<hr />
+<p><em>Reference implementation and gate by Slid Phi Labs, Cherry Hill, NJ.
+Protocol: commit-reveal seeds + exactness law (same program, every seat,
+byte-identical or refused). License: AGPL-3.0, commercial licenses available.</em></p>
+    </section>
+    <section class="spl-prose spl-full" id="operator-one-pager">
+<h2>ExactOdds — one page for casino operators</h2>
+<p><strong>Fair outcomes you can prove. Rules you can prove. Both, or neither.</strong></p>
+<h3>The gap in today's "provably fair"</h3>
+<p>Your casino already proves outcomes: commit-reveal seeds, the player
+re-runs the math, the roll wasn't rigged. That half works.</p>
+<p>The half that doesn't: the <em>rules</em>. The program on your server that turns
+seeds into results is a black box. Show one ruleset to an auditor, run
+another in production — no seed math catches that. Players verify the dice.
+Nobody verifies the table.</p>
+<h3>What ExactOdds adds</h3>
+<p>One law: <strong>the same game program, byte-identical output on every machine —
+or the program is refused.</strong> Your game is written once, compiled to Python,
+JavaScript, TypeScript, C, and C++ seats, and every seat must produce the
+exact same bytes for the same seeds. Any disagreement, any seat, and the
+game doesn't ship.</p>
+<p>What that buys you:</p>
+<ul>
+<li><strong>One ruleset, everywhere.</strong> The program the auditor gates is the only
+  program that can pass. Change a line and the source hash changes; change
+  behavior and the gate fails. "Different code in production" becomes
+  checkable by anyone.</li>
+<li><strong>Audits that fit in a receipt.</strong> The gate writes a source-hash receipt:
+  SHA-256 of the exact source, the pass verdict, per-seat results. That's
+  your audit artifact — publish it next to the source hash.</li>
+<li><strong>Verification players can actually do.</strong> Get the source, hash it, check
+  the revealed seed against the pre-bet commitment, re-run the round in any
+  language, compare. Five steps, free tools, tonight.</li>
+</ul>
+<h3>The reference games</h3>
+<p>Three games ship gated and receipted (2026-09-26, all five seats PASS,
+byte-identical):</p>
+<ul>
+<li><strong>Dice</strong> — Park-Miller mix of server seed + client seed + round, roll is
+  <code>(state % 6) + 1</code>. Source <code>795a43fa…ccdbb44</code>.</li>
+<li><strong>Coin flip</strong> — same derivation, heads on even state, tails on odd.
+  Source <code>04783043…7510c3d0</code>.</li>
+<li><strong>Roulette</strong> — same derivation, winning number <code>(state % 37)</code> on a European
+  wheel; color, odd/even, high/low derived from the number. Source
+  <code>1eaac333…79c9cc9c</code>.</li>
+</ul>
+<p>Each new game (blackjack, roulette, slots) follows the same pattern: one
+source, one gate pass, one receipt.</p>
+<h3>What it is not</h3>
+<p>Not a casino. Not a gaming license. No custody of funds — no wallets, no
+escrow, no tokens. Your compliance and your money handling stay yours.</p>
+<h3>Next step</h3>
+<p>Read <code>paper/PAPER.md</code> (the full protocol), then run <code>./gate/run-gate.sh</code>
+to reproduce the PASS yourself. The gate either passes everywhere or the
+game is refused — that's the whole pitch.</p>
+<p><em>Slid Phi Labs — AGPL-3.0, or commercial license at $2,500/yr per operator. Contact Corey@slidphilabs.com.</em></p>
+    </section>
+  </main>
+  <script src="/assets/chrome.js?v=41" defer></script>
+</body>
+</html>
