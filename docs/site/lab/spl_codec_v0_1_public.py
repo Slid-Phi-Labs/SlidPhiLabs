@@ -3,7 +3,6 @@
 #
 # Flagship product seat (int32 zeros×10k → 8 B) is NOT this file:
 #   POST /api/process {n:10000, corpus:"zeros"}
-#   or: git clone https://github.com/ceedot-rock/slidphi && make local && make verify
 #
 # This sketch: sparse residual (exact zeros + non-zero values) + zlib/brotli if present.
 # Cadence 33·66·999 · residual only · no universal #1
@@ -99,7 +98,6 @@ def main() -> None:
             "claim": "ZRW zeros×10k → 8 B",
             "field": {"gzip9": 73, "brotli11": 13},
             "verify": "POST https://www.slidphilabs.com/api/process",
-            "local": "https://github.com/ceedot-rock/slidphi  make local && make verify",
             "standings": "https://www.slidphilabs.com/standings#zrw-public-path",
         },
         "law": "residual only · domain-honest · no universal #1",

@@ -73,7 +73,6 @@ async function handler(req, res) {
     zeros_corpus: "/zeros10k.bin",
     harness_ledger: "/lab/ZRW_VERIFY_HARNESS_LATEST.json",
     flagship_bench: "/lab/ZRW_ZEROS_10K_BENCH_LATEST.json",
-    local: "https://github.com/ceedot-rock/slidphi  make local && make verify",
     outsider: "curl -sS https://www.slidphilabs.com/zrw_verify.py | python3 -  # or download zeros10k.bin",
     motto: "In His name we code · through it we live",
     at: new Date().toISOString(),

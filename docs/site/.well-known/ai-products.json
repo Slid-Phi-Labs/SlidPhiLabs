@@ -29,7 +29,6 @@
     {
       "id": "squeeze",
       "name": "PCCX",
-      "repo": "https://github.com/ceedot-rock/pccx",
       "post": "/v1/squeeze",
       "pin": "e72528b"
     }

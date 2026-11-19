@@ -17,7 +17,6 @@
       "brotli11": 13
     },
     "verify": "POST https://www.slidphilabs.com/api/process",
-    "local": "https://github.com/ceedot-rock/slidphi  make local && make verify",
     "standings": "https://www.slidphilabs.com/standings#zrw-public-path"
   },
   "law": "residual only \u00b7 domain-honest \u00b7 no universal #1",
