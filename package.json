@@ -139,6 +139,7 @@
   },
   "scripts": {
     "test": "node --test test/",
+    "test:site": "node --test docs/site/api/*.test.mjs docs/site/api/lib/*.test.mjs",
     "mcp": "node mcp-shim.js"
   },
   "bin": {

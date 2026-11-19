@@ -39,7 +39,7 @@ jobs:
           npm run test:site
       - name: Deploy existing Fly app
         working-directory: docs/site
-        run: flyctl deploy --remote-only --config fly.toml --app spl-slidphilabs
+        run: flyctl deploy --remote-only --config fly.toml --app spl-slidphilabs --env GIT_SHA=${{ github.sha }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -47,7 +47,7 @@ jobs:
         working-directory: docs/site
         run: |
           for i in $(seq 1 12); do
-            if node scripts/smoke.mjs https://slidphilabs.fly.dev; then
+            if node scripts/smoke.mjs https://spl-slidphilabs.fly.dev; then
               exit 0
             fi
             echo "smoke attempt $i/12 failed; waiting 20s for rollout..."

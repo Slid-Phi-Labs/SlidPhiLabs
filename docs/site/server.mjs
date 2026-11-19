@@ -473,6 +473,16 @@ const server = http.createServer(async (req, res) => {
       res.end(buf);
       return;
     }
+    if (url.pathname === "/api/version" || url.pathname === "/version") {
+      res.writeHead(200, { "Content-Type": "application/json", "Cache-Control": "no-store" });
+      res.end(JSON.stringify({
+        app: process.env.FLY_APP_NAME || "spl-slidphilabs",
+        git_sha: process.env.GIT_SHA || null,
+        machine_version: process.env.FLY_MACHINE_VERSION || null,
+        image: process.env.FLY_IMAGE_REF || null,
+      }));
+      return;
+    }
     if (url.pathname === "/healthz" || url.pathname === "/api/healthz") {
       const body = attachNca(
         { ok: true, host: "fly", app: process.env.FLY_APP_NAME || "slidphilabs", at: new Date().toISOString() },
