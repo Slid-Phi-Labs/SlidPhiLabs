@@ -43,7 +43,6 @@
     },
     "quikgater": {
       "worker": "https://quikgater-worker.ceedotrock.workers.dev",
-      "github": "https://github.com/ceedot-rock/quikgater",
       "live": {
         "url": "https://quikgater-worker.ceedotrock.workers.dev/",
         "http": 400,

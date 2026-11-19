@@ -28,7 +28,6 @@
     "production_residual": "TRU8 Day / Month / Year (commercially licensed; not a public dump). TRU8 Year also includes Chamber.",
     "continuous_1088_strong": "licensed with a TRU8 production plan; not a public dump",
     "license_email": "corey@slidphilabs.com",
-    "github_demo": "https://github.com/ceedot-rock/TRU8",
     "site": "https://www.slidphilabs.com/",
     "demos": "https://www.slidphilabs.com/demos",
     "license_page": "https://www.slidphilabs.com/license",
@@ -170,7 +169,7 @@
   "sisters": {
     "cuni": "https://spl-cuni-studio.fly.dev/",
     "agent_rider": "https://agentrider.fly.dev/",
-    "quikgater": "https://github.com/ceedot-rock/quikgater",
+    "quikgater": "https://www.slidphilabs.com/quikgater",
     "quikgater_worker": "https://quikgater-worker.ceedotrock.workers.dev",
     "team_mesh": "https://spl-team-mesh.fly.dev"
   },

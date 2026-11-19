@@ -4,7 +4,6 @@
 #
 # Flagship domain: structured-int zeros×10k → 8 B (live product rail)
 #   POST /api/process { "n": 10000, "corpus": "zeros" }
-#   local: git clone https://github.com/ceedot-rock/slidphi && make local && make verify
 #
 # This file also ships a pure-zero BYTE residual RLE for education.
 # All-zero byte buffer packs as 9 B here (u64 count + 0x00) — not the 8 B int seat.
@@ -117,7 +116,6 @@ def flagship_int32_claim() -> Dict[str, Any]:
         "field": {"gzip9_B": 73, "brotli11_B": 13},
         "claim": "ZRW zeros×10k → 8 B (beats field on this domain)",
         "verify_live": "POST https://www.slidphilabs.com/api/process {\"n\":10000,\"corpus\":\"zeros\"}",
-        "verify_local": "git clone https://github.com/ceedot-rock/slidphi && cd slidphi && make local && make verify",
         "stand": "https://www.slidphilabs.com/stand",
         "standings": "https://www.slidphilabs.com/standings#zrw-public-path",
         "suite_freemium_GB": FREE_GB,

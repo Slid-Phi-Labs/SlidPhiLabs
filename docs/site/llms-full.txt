@@ -74,7 +74,7 @@ One-liner: Tools that check. Hosted calls are POST /v1/<name>. CuNi: check $0.05
 - CuNi Studio: https://spl-cuni-studio.fly.dev (llms.txt, bank, cuni-protocol.json)
 - Quikgater worker: https://quikgater-worker.ceedotrock.workers.dev
 - Source: https://github.com/ceedot-rock/pulsar-best · https://github.com/ceedot-rock/cuni
-  · https://github.com/ceedot-rock/Agent-Rider · https://github.com/ceedot-rock/SlidPhiLabs
+  · https://github.com/Slid-Phi-Labs/RiderVerse · https://github.com/ceedot-rock/SlidPhiLabs
   · https://github.com/ceedot-rock/json-chamber-sdk · https://github.com/ceedot-rock/json-chamber-mcp
 
 ## Official project list
