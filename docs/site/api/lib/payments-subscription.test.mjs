@@ -60,3 +60,16 @@ test("checkout: subscription mode with saved price, payment mode without", async
   assert.equal(sent[1].get("mode"), "payment");
   assert.equal(sent[1].get("line_items[0][price_data][unit_amount]"), "49500");
 });
+
+test("saved price book: test ids resolve for every recurring sku; live stays empty (checkout stays one-time in prod)", async () => {
+  const m = await import("./payments-rails.js");
+  const book = m.stripePriceBook();
+  assert.deepEqual(book.live, {});
+  for (const sku of m.SUBSCRIPTION_SKUS()) {
+    const envKey = "STRIPE_PRICE_" + sku.toUpperCase().replace(/[^A-Z0-9]/g, "_");
+    if (process.env[envKey]) continue;
+    assert.match(m.subscriptionPriceId(sku, "test") || "", /^price_[A-Za-z0-9]+$/, sku);
+    assert.equal(book.test[sku].lookup_key, m.PRODUCT_CATALOG[sku].lookup_key, sku);
+    assert.equal(m.subscriptionPriceId(sku, "live"), null, sku);
+  }
+});
