@@ -321,56 +321,7 @@
         "tokens_folded_per_day": 5000,
         "plain": "First 5,000 tokens/day folded via spl-heart are free, no plan."
       },
-      "plans": {
-        "solo": {
-          "sku": "psi-solo",
-          "usd": 13.31,
-          "usd_year": 99,
-          "seats": 1,
-          "includes": [
-            "local spl-heart engine",
-            "BASE-start memory built from a scan of your work",
-            "Warrant gate",
-            "CuNi receipts",
-            "10 GB PCC compression/month"
-          ],
-          "stripe": "https://www.slidphilabs.com/pay?sku=psi-solo"
-        },
-        "crew": {
-          "sku": "psi-crew",
-          "usd": 39,
-          "seats": 6,
-          "includes": [
-            "shared heart.cae built from the crew's shared work",
-            "slice loading per seat",
-            "Warrant + CuNi receipts for all 6 seats",
-            "200 GB PCC compression/month"
-          ],
-          "stripe": "https://www.slidphilabs.com/pay?sku=psi-crew"
-        },
-        "team": {
-          "sku": "psi-team",
-          "usd": 49,
-          "seats": 10,
-          "includes": [
-            "priority SLA",
-            "policy customization",
-            "SOC2/SIEM audit export",
-            "dedicated Warrant ledger"
-          ],
-          "stripe": "https://www.slidphilabs.com/pay?sku=psi-team"
-        },
-        "lab_pass": {
-          "sku": "psi-lab-pass",
-          "usd": 490,
-          "includes": [
-            "Chamber year",
-            "PCC year",
-            "psi Crew"
-          ],
-          "stripe": "https://www.slidphilabs.com/pay?sku=psi-lab-pass"
-        }
-      }
+      "status": "Not on sale yet. Checkout does not take PERsiST plans. PSI Meter ($25/seat/mo, $250/yr) and PSI Org ($79/mo) are on sale."
     },
     "unified_grant": {
       "name": "Unified closed-use grant",
@@ -452,11 +403,15 @@
         },
         "school_pilot": {
           "percent_off": 33.3,
-          "includes": ["text teacher", "spoken voice and Talk", "live classroom"],
+          "includes": [
+            "text teacher",
+            "spoken voice and Talk",
+            "live classroom"
+          ],
           "trial_days": 7,
           "usd_per_student_school": 18.68,
           "usd_per_student_district": 16.01,
-          "usd_live_classroom_per_campus": 133.40,
+          "usd_live_classroom_per_campus": 133.4,
           "checkout": "https://teachaid.fly.dev/pricing"
         }
       },
@@ -479,11 +434,7 @@
     "alert_at_pct": 80,
     "included_gb": {
       "unpaid": 1,
-      "pcc-pro": 100,
-      "psi-solo": 10,
-      "psi-crew": 200,
-      "psi-team": 200,
-      "psi-lab-pass": 2000
+      "pcc-pro": 100
     },
     "page": "https://www.slidphilabs.com/pcc"
   },
@@ -494,8 +445,8 @@
     "gate-year": "pcc-pro-year",
     "zrw": "pcc-pro-year",
     "trustream": "pcc-pro-year",
-    "psi": "psi-crew",
-    "persist": "psi-crew",
+    "psi": "psi-meter",
+    "persist": "psi-meter",
     "cddg": "consulting",
     "support-integration": "consulting",
     "slid-phi": "consulting",

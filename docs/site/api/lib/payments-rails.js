@@ -365,7 +365,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=cuni-exception",
     kind: "exception",
     list: true,
-    blurb: "Written grant for one closed app, one year. CuNi itself is free. Covers CuNi 0.10.0.",
+    blurb: "Written grant for one closed app, one year. CuNi itself is free. Covers CuNi 0.10.2.",
   },
   "pulsar-exception": {
     name: "pulsar · closed-embed grant (one product, one year)",

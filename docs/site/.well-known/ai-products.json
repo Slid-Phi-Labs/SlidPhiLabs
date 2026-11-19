@@ -7,7 +7,7 @@
   "store": "https://www.slidphilabs.com",
   "store_status": "live",
   "live": "https://www.slidphilabs.com/cuni",
-  "note": "Hosted calls are POST https://www.slidphilabs.com/v1/<name>. An unpaid POST returns 402. CLI v0.10.0, 53 targets. Studio stays free.",
+  "note": "Hosted calls are POST https://www.slidphilabs.com/v1/<name>. An unpaid POST returns 402. CLI v0.10.2, 53 targets. Studio stays free.",
   "license": "https://www.slidphilabs.com/licensing.json",
   "pay": "https://www.slidphilabs.com/api/agent",
   "verbs": ["check", "translate", "ingest", "audit", "money", "time", "chain", "ship", "parity", "squeeze"],
