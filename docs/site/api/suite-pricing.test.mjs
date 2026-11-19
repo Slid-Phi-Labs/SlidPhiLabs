@@ -94,7 +94,7 @@ assert.equal(price("gitdepot"), 1500);
 assert.equal(price("gitdepot-year"), 15000);
 assert.equal(price("teachaid-student"), 600);
 assert.equal(price("teachaid-student-year"), 6000);
-assert.equal(price("teachaid-pilot"), 250000);
+assert.equal(PRODUCT_CATALOG["teachaid-pilot"].sell, false); // per student, sold in the TEACHAiD app
 assert.equal(price("acp-certification"), 99000);
 assert.equal(price("grant-founding"), 19000);
 assert.equal(price("grant-volume"), 39000);

@@ -423,13 +423,13 @@ const SEATS = {
     does_not_include: ["Textbook-citation rights clearance"],
   },
   "teachaid-pilot": {
-    name: "TeachAid · campus pilot, per semester",
+    name: "TeachAid · campus pilot, per semester (legacy receipts)",
     list_usd: 2500,
     unit: "semester",
     amount_cents: 250000,
     product: "teachaid",
     stack: "teachaid",
-    includes: ["One campus, one semester, up to 500 students, onboarding included"],
+    includes: ["Legacy flat pilot. New pilots are per student in the TEACHAiD app"],
     does_not_include: ["Textbook-citation rights clearance"],
   },
   "acp-certification": {

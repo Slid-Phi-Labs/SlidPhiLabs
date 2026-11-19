@@ -74,7 +74,7 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 | quikgater | 0.02 | /pay?sku=quikgater · first 100 fetches/month free, cap default $10, alert at 80% |
 | gitdepot-seat | 15/150 | invite-only · mailto:corey@slidphilabs.com |
 | teachaid-student | 6/60 | student plan |
-| teachaid-pilot | 2500 | per campus per semester, up to 500 students |
+| teachaid-school | 20 per student | per semester, 30 minimum; district 300+ $16; pilot 33.3% off at teachaid.fly.dev/pricing |
 | unified-grant | 490 | $190 founding for first 10 grants; 3+ products $390 each |
 | acp-certification | 990 | 3 free pilot certifications, assessment criteria published |
 | lab-pass | 495 | Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year · /pay?sku=lab-pass |
@@ -112,7 +112,7 @@ Four doors onto one Shared Spine. What it is, then what you pay.
 - ExactOdds — provably fair rules, commit-reveal, same rules on the published runtimes. https://www.slidphilabs.com/exactodds
 - AwLPay — free tier 0.5% per payment, no fixed fee. https://www.slidphilabs.com/awlpay
 - Quikgater — POST /v1/fetch. $0.02 per fetch; first 100 fetches/month free; customer-set monthly cap (default $10), alert at 80%. https://www.slidphilabs.com/quikgater
-- TEACHAiD — personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. Campus rollout at https://teachaid.fly.dev . Teacher chat in the repository calls Meta Llama.
+- TEACHAiD — personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Schools $20 per student per semester (30 minimum); districts of 300+ students $16 per student, by invoice. School pilot: the full package (text teacher, spoken voice, live classroom) at 33.3% off the semester, with a private trial week first: $18.68 per student for a school, $16.01 for a district, plus $133.40 per campus for the live classroom. Pay on teachaid.fly.dev/pricing. Campus rollout at https://teachaid.fly.dev . Teacher chat in the repository calls Meta Llama.
 - Lab Pass — $495/yr. Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year. Parts sum $650 (24% off). PCC/compression out. No monthly version. https://www.slidphilabs.com/lab-pass
 - GitDepot — live and functional team artifact depot. $15/seat/month, $150/seat/year; 100 GB pooled storage included, then $0.10/GB/month overage. Free: 1 team, 3 seats, 10 GB, 30-day audit retention. Invite-only: mailto:corey@slidphilabs.com. https://www.slidphilabs.com/products
 - ACP — $0, open standard. ACP Conformant certification $990 one-time, listed with test framing: 3 free pilot certifications, assessment criteria published. https://www.slidphilabs.com/products
@@ -178,7 +178,7 @@ Q: What are the verses?
 A: Five monorepos from October 2026, histories kept. MemoryVerse is open source. WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D. https://github.com/ceedot-rock/MemoryVerse
 
 Q: What is TEACHAiD?
-A: The campus app. A personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. The teacher chat in the repository calls Meta Llama. https://teachaid.fly.dev
+A: The campus app. A personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Schools $20 per student per semester (30 minimum); districts of 300+ students $16 per student, by invoice. School pilot: the full package (text teacher, spoken voice, live classroom) at 33.3% off the semester, with a private trial week first: $18.68 per student for a school, $16.01 for a district, plus $133.40 per campus for the live classroom. Pay on teachaid.fly.dev/pricing. The teacher chat in the repository calls Meta Llama. https://teachaid.fly.dev
 
 ## ACN (Agent Commerce Network)
 
