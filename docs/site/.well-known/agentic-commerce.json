@@ -5,7 +5,7 @@
   "site": "https://www.slidphilabs.com",
   "lead_product": "rider",
   "cash_product": "pcc-pro-year",
-  "one_liner": "Tools that check. Rider Solo $12–Fleet $199. CuNi 0.10.0, 53 targets, Studio $0. Warrant $8/$80 add-on. Tollkeeper meters ten live tools. PCC metered $0.25/GB, Pro $25/mo (board 51,498,645). TNSSRC 0.1.0. Chamber $20/$200. AwLPay 0.5% with no fixed fee. Stripe / x402.",
+  "one_liner": "Tools that check. Rider Solo $12–Fleet $199. CuNi 0.10.2, 53 targets, Studio $0. Warrant $8/$80 add-on. Tollkeeper meters ten live tools. PCC metered $0.25/GB, Pro $25/mo (board 51,498,645). TNSSRC 0.1.0. Chamber $20/$200. AwLPay 0.5% with no fixed fee. Stripe / x402.",
   "protocols": [
     "x402"
   ],
@@ -103,7 +103,10 @@
     "teachaid": {
       "student_month": 6,
       "student_year": 60,
-      "pilot_per_campus_per_semester": 2500,
+      "school_per_student_per_semester": 20,
+      "district_per_student_per_semester": 16,
+      "pilot_discount_pct": 33.3,
+      "pilot_note": "Per-student pilot at 33.3% off, private trial week first. Checkout runs in the TEACHAiD app.",
       "url": "https://www.slidphilabs.com/teachaid"
     },
     "lab_pass": {

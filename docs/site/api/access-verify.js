@@ -207,7 +207,7 @@ const SEATS = {
     amount_cents: 49000,
     product: "exception",
     stack: "exception",
-    includes: ["Written grant for one closed app, one year. Covers CuNi 0.10.0."],
+    includes: ["Written grant for one closed app, one year. Covers CuNi 0.10.2."],
     does_not_include: ["Engine source", "Chamber", "Agent-Rider"],
   },
   "rider-ops-month": {

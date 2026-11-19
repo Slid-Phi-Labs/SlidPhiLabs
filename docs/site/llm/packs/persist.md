@@ -1,12 +1,11 @@
 # PERsiST — LLM prompt pack (beta)
 
 Persistent memory: psi + spl-heart engine (LZMA-9 + PCC-CAE) + Warrant gate
-+ CuNi receipts. Free: first 5,000 tokens/day folded, no plan. Solo $13.31/
-month ($99/year: local engine, BASE-start memory from a scan of your work,
-Warrant gate, CuNi receipts, 10 GB PCC compression/month, sku `psi-solo`).
-Crew $39/month (6 seats, shared heart, 200 GB/month, sku `psi-crew`). Team
-$49/month (10 seats, SLA, audit export, sku `psi-team`).
-Buy: https://www.slidphilabs.com/pay?sku=psi-solo
++ CuNi receipts. Free: first 5,000 tokens/day folded, no plan. PERsiST
+plans are not on sale yet; checkout does not take them. For metering LLM
+spend today: PSI Meter $25/seat/month ($250/year, sku `psi-meter`) or PSI
+Org $79/month (sku `psi-org`).
+Buy: https://www.slidphilabs.com/pay?sku=psi-meter
 
 An LLM with PERsiST: fold at day end, load BASE at session start, gate
 writes behind Warrant, and attach CuNi receipts to restores. A restore
