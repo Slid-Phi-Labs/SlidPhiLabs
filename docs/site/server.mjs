@@ -473,6 +473,16 @@ const server = http.createServer(async (req, res) => {
       res.end(buf);
       return;
     }
+    // /v1/* is the canonical API prefix; /api/* is a supported alias
+    // resolving to the same handlers. The five lab-agent verbs above proxy
+    // upstream first; any other /v1/<name> dispatches through the same
+    // handleApi() loader as /api/<name> (including subdir handlers such
+    // as /v1/warrant/issue -> api/warrant/issue.js).
+    if (url.pathname.startsWith("/v1/")) {
+      url.pathname = "/api/" + url.pathname.slice(4);
+      await handleApi(req, res, url);
+      return;
+    }
     if (url.pathname === "/healthz" || url.pathname === "/api/healthz") {
       const body = attachNca(
         { ok: true, host: "fly", app: process.env.FLY_APP_NAME || "slidphilabs", at: new Date().toISOString() },

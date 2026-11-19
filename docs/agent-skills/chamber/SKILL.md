@@ -22,4 +22,4 @@ sealed = cloak_json({"api_key": "sk-live-...", "webhook": "https://example.com/h
 
 ## Pay
 
-$9/mo SKU `chamber-month` · $99/yr SKU `chamber-year`. Agents: POST `/api/x402-products`. Humans: `/pay`. Dual license AGPL-3.0-or-later or commercial grant.
+$20/mo SKU `chamber-month` · $200/yr SKU `chamber-year`. Agents: POST `/api/x402-products`. Humans: `/pay`. Dual license AGPL-3.0-or-later or commercial grant.

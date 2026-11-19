@@ -1,6 +1,6 @@
 ---
 name: cuni
-description: Use CuNi exactness and CuNi Bank. One .cuni program, 144 languages, same stdout or refuse. Bank paste N get X. Studio, cuni check, lab-agent /v1/check and /v1/translate. Use when translating code losslessly, proving identical output, or writing portable agent policy.
+description: Use CuNi exactness and CuNi Bank. One .cuni program, 53 targets, same stdout or refuse. Bank paste N get X. Studio, cuni check, lab-agent /v1/check and /v1/translate. Use when translating code losslessly, proving identical output, or writing portable agent policy.
 version: 1.0.0
 ---
 
@@ -18,14 +18,14 @@ Native seats: Python, Go, JavaScript, TypeScript, C, C++, Rust. Other catalog id
 
 ## Bank
 
-Paste N, get X, prove or refuse. Ingest is Python subset or `.cuni` — not 119 ingest parsers. 144 langs = `cuni check` after ingest.
+Paste N, get X, prove or refuse. Ingest is Python subset or `.cuni` — not 119 ingest parsers. 53 targets = `cuni check` after ingest.
 
 ```bash
 cuni bank paste examples/bank/add.py --from py --to c
 ```
 
 Studio bank: https://cuni-studio.fly.dev/bank  
-Lab: POST https://spl-lab-agent.fly.dev/v1/check  SKU `lab-check` $0.10  
+Lab: POST https://spl-lab-agent.fly.dev/v1/check  SKU `lab-check` $0.05  
 Lab: POST https://spl-lab-agent.fly.dev/v1/translate  SKU `lab-translate` $0.10  
 
 Receipt fields: `verb`, `ok`, `source_hash`, `pin`.

@@ -37,12 +37,12 @@ curl -sL https://www.slidphilabs.com/.well-known/mcp/server-card.json
 
 | Product | It is | Pay |
 |---------|-------|-----|
-| PCC | Hosted lossless compressor. Send a file, restore every byte. Dual-licensed. | Pro $49/mo (face `pcc-month`, checkout sku `gc-month`, 200 GB then 8¢/GB) **or** usage first 2 GB/mo free then 8¢/GB (SKU `suite`) |
+| PCC | Hosted lossless compressor. Send a file, restore every byte. Dual-licensed. | Metered $0.25/GB, first 1 GB free once per IP (lifetime, no monthly reset), SKU `suite` **or** Pro $25/mo (100 GB included, then $0.20/GB), checkout sku `pcc-pro` |
 | TRUSTREAM | Live residual pipe for logs/SIEM on a PCC seat | Included with PCC |
-| Chamber | Two-key JSON seal. AES-256-GCM. One share is useless. | $9/mo · $99/yr |
-| Agent-Rider | Signed agent identity, trust, credits, MCP. Official remote is Fly. | $79/mo · $790/yr |
-| Warrant | Mandate + receipts bound to a Rider | $29/mo · $290/yr |
-| CuNi | One program, 144 langs, same stdout or refuse. Bank paste N get X. | Studio $0 · closed-app $490/yr |
+| Chamber | Two-key JSON seal. AES-256-GCM. One share is useless. | $20/mo · $200/yr |
+| Agent-Rider | Signed agent identity, trust, credits, MCP. Official remote is Fly. | Solo $12/mo ($120/yr) · Team $49/mo ($490/yr) · Fleet $199/mo ($1,990/yr) |
+| Warrant | Mandate + receipts bound to a Rider | $8/mo · $80/yr add-on to Solo, included in Team/Fleet |
+| CuNi | One program, 53 targets, same stdout or refuse. Bank paste N get X. | Studio $0 · closed-app $490/yr |
 
 Official Silesia 12 (211,938,580, DECODE_OK): pulsar 2.5.0 **55,745,438** · PCC pcc-0.12.1 **51,498,645**. gzip-9 67,631,990. xz-6 still smaller. Not a #1 claim.
 
@@ -54,7 +54,7 @@ Official Silesia 12 (211,938,580, DECODE_OK): pulsar 2.5.0 **55,745,438** · PCC
 
 Humans: POST `/api/checkout` `{"sku":"...","rail":"stripe"}`.
 
-Lab verbs $0.10 each: `lab-check`, `lab-translate`, `lab-squeeze`.
+Lab verbs: `lab-check` $0.05, `lab-translate` $0.10, `lab-squeeze` $0.10.
 
 ## Install
 

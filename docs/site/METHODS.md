@@ -22,10 +22,10 @@ SoT methods (this file)
 
 ## Gate
 
-- Unpaid: **2 GB per calendar month**. Then **8¢/GB**, **$1** minimum on card.
+- Unpaid: **first 1 GB free once per IP (lifetime, no monthly reset)**. Then **$0.25/GB**, **$1** minimum on card.
 - Humans: /pay Stripe (team secrets).
 - Robots: x402 POST /api/x402-products, header X-PAYMENT. Same PAY_TO_ADDRESS as quikgater.
-- MCP / npm / Fly / git copy this file. Do not say 6.9 GB / 3 h unpaid. The live meter is 2 GB/month then 8¢/GB.
+- MCP / npm / Fly / git copy this file. Do not say 6.9 GB / 3 h unpaid. The live meter is first 1 GB free once per IP, then $0.25/GB.
 
 ## Doors
 

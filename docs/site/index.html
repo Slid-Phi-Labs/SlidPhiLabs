@@ -32,7 +32,7 @@
     "address": { "@type": "PostalAddress", "addressLocality": "Cherry Hill", "addressRegion": "NJ", "addressCountry": "US" }
   }
   </script>
-  <link rel="stylesheet" href="/assets/storefront.css?v=1"/>
+  <link rel="stylesheet" href="/assets/chrome.css?v=38"/>
 </head>
 <body class="shop">
 <a class="skip" href="#main">Skip to content</a>
@@ -77,6 +77,7 @@
 
   <section class="wrap" id="calls" aria-labelledby="cuni-title">
     <h2 id="cuni-title">CuNi calls</h2>
+    <p class="section-lead">Core infrastructure &amp; agent rails — CuNi calls are the first seat in this tier; the cards below are the rest of it.</p>
     <p class="section-lead">One program has to print the same result in every language you name, or CuNi refuses. Businesses use it to stop a port from shipping a silent number bug. A person uses it to prove a paste before they trust it.</p>
     <ul class="calls">
       <li><strong>check · $0.05</strong><span>First 100 a month free. The matching gate.</span></li>
@@ -96,33 +97,9 @@
   </section>
 
   <section class="wrap shelf" id="products" aria-labelledby="shelf-title">
-    <h2 id="shelf-title">The rest of the floor</h2>
-    <p class="section-lead">Each card is one purchase. The heading opens the product. The gold button is the checkout.</p>
+    <h2 id="shelf-title">Core infrastructure &amp; agent rails</h2>
+    <p class="section-lead">Each card is one purchase. The heading opens the product. The gold button is the checkout. CuNi calls above are part of this tier.</p>
     <div class="shelf-grid">
-      <article class="card">
-        <h3><a class="card-link" href="/pcc">PCC compress</a></h3>
-        <div class="body">
-          <p><span class="label">The problem</span> Storage and transfer bills grow because files are larger than they need to be, and a restore that fails is worse than no savings.</p>
-          <p><span class="label">Why it pays</span> You send bytes in and get a smaller restore-safe copy. The first 1 GB is free once per address. After that the meter is $0.25 per GB. Pro is $25 a month for 100 GB, then $0.20 per GB.</p>
-          <p class="price">$0.25/GB after 1 GB</p>
-        </div>
-        <footer>
-          <a class="btn btn-solid" href="/pay?sku=pcc-pro">Buy Pro · $25/mo</a>
-          <a href="/pcc">How compress works</a>
-        </footer>
-      </article>
-      <article class="card">
-        <h3><a class="card-link" href="/chamber">Chamber</a></h3>
-        <div class="body">
-          <p><span class="label">The problem</span> A secret in a shared system can be opened by anyone who gets one key, or it can be locked so tightly the owner cannot get it back.</p>
-          <p><span class="label">Why it pays</span> Two keys seal a JSON secret. Opening stays free once both keys meet. A business buys the seat so new seals are licensed. A person keeps the envelope and both keys.</p>
-          <p class="price">$20/mo · $200/yr</p>
-        </div>
-        <footer>
-          <a class="btn btn-solid" href="/pay?sku=chamber-month">Buy a month</a>
-          <a href="/pay?sku=chamber-year">Buy a year</a>
-        </footer>
-      </article>
       <article class="card">
         <h3><a class="card-link" href="/rider">Agent-Rider</a></h3>
         <div class="body">
@@ -148,18 +125,6 @@
         </footer>
       </article>
       <article class="card">
-        <h3><a class="card-link" href="/quikgater">Quikgater</a></h3>
-        <div class="body">
-          <p><span class="label">The problem</span> An agent that fetches the public web with no meter will wander, and you will not know which fetch cost money.</p>
-          <p><span class="label">Why it pays</span> One URL in, one fetch out, $0.02 after the first 100 fetches in a month. The worker refuses with HTTP 402 when the fetch is unpaid. The cap defaults to $10.</p>
-          <p class="price">$0.02 per fetch</p>
-        </div>
-        <footer>
-          <a class="btn btn-solid" href="/quikgater">Open Quikgater</a>
-          <a href="/quikgater">$0.02 per fetch</a>
-        </footer>
-      </article>
-      <article class="card">
         <h3><a class="card-link" href="/tollkeeper">Tollkeeper</a></h3>
         <div class="body">
           <p><span class="label">The problem</span> A crossing between agents needs a price and a receipt, or the caller and the road argue later about what was owed.</p>
@@ -172,6 +137,30 @@
         </footer>
       </article>
       <article class="card">
+        <h3><a class="card-link" href="/chamber">Chamber</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> A secret in a shared system can be opened by anyone who gets one key, or it can be locked so tightly the owner cannot get it back.</p>
+          <p><span class="label">Why it pays</span> Two-of-two AES-256-GCM secret sealing and custody-stamped envelopes, with opening sealed blobs free forever. JSON secret locking and attested signing are both modes of the same two-key vault. A business buys the seat so new seals are licensed. A person keeps the envelope and both keys.</p>
+          <p class="price">$20/mo · $200/yr</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="/pay?sku=chamber-month">Buy a month</a>
+          <a href="/pay?sku=chamber-year">Buy a year</a>
+        </footer>
+      </article>
+      <article class="card">
+        <h3><a class="card-link" href="/quikgater">Quikgater</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> An agent that fetches the public web with no meter will wander, and you will not know which fetch cost money.</p>
+          <p><span class="label">Why it pays</span> One URL in, one fetch out, $0.02 after the first 100 fetches in a month. The worker refuses with HTTP 402 when the fetch is unpaid. The cap defaults to $10.</p>
+          <p class="price">$0.02 per fetch</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="/quikgater">Open Quikgater</a>
+          <a href="/quikgater">$0.02 per fetch</a>
+        </footer>
+      </article>
+      <article class="card">
         <h3><a class="card-link" href="/lab-pass">Lab Pass</a></h3>
         <div class="body">
           <p><span class="label">The problem</span> Buying Chamber, Rider, a meter seat, and Warrant one at a time costs more and is harder to explain to a budget owner.</p>
@@ -181,6 +170,81 @@
         <footer>
           <a class="btn btn-solid" href="/pay?sku=lab-pass">Buy the pass</a>
           <a href="/lab-pass">What is in the bundle</a>
+        </footer>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="wrap shelf" aria-labelledby="lab-rd-title">
+    <h2 id="lab-rd-title">Lab R&amp;D &amp; specialized apps</h2>
+    <p class="section-lead">Research instruments and single-purpose apps from the lab bench. Each card is one product; the heading opens it.</p>
+    <div class="shelf-grid">
+      <article class="card">
+        <h3><a class="card-link" href="/awlpay">AwLPay</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> A payment can start in any token on any chain, and the receiver still needs a verifiable price — or the payment should be refused, not given a bad rate.</p>
+          <p><span class="label">Why it pays</span> ChainRelay plus a hasValue() price check: anything with verifiable value is accepted and converted across chains through CuNi. Live rails: Tron USDT, Bitcoin, Lightning, Stellar XLM, BSC. $1 minimum send.</p>
+          <p class="price">Free 0.5% · Pro $39/mo · L33t $799/mo</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="/awlpay">Open AwLPay</a>
+          <a href="/wiki/awlpay">Read the docs</a>
+        </footer>
+      </article>
+      <article class="card">
+        <h3><a class="card-link" href="/aos-ring">aos-ring</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> Ordinary storage is a thing — a magnetized spot, a trapped charge — and things can be forensically recovered after you delete them.</p>
+          <p><span class="label">Why it pays</span> Write data as sustained laser interference patterns. Read it back bit-identical. Query by similarity. Delete by killing the pattern.</p>
+          <p class="price">Experimental</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="https://aos-ring.fly.dev">Open the Ring</a>
+          <a href="https://github.com/ceedot-rock/aos-ring">Source on GitHub</a>
+        </footer>
+      </article>
+      <article class="card">
+        <h3><a class="card-link" href="/exactodds">ExactOdds</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> An online game runs the same code on many platforms, and players have to trust that the house didn't tilt the odds on any one of them.</p>
+          <p><span class="label">Why it pays</span> A provably-fair casino rule library: commit-reveal outcomes plus CuNi-proven identical game rules on every runtime — Python, JavaScript, TypeScript, C, and C++ print byte-identical results.</p>
+          <p class="price">Open source · AGPL-3.0 + commercial</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="https://github.com/ceedot-rock/exactodds">Source on GitHub</a>
+          <a href="https://github.com/ceedot-rock/exactodds/blob/main/PAPER.md">Read the paper</a>
+        </footer>
+      </article>
+      <article class="card">
+        <h3><a class="card-link" href="/teachaid">TEACHAiD</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> A campus app needs a personal teacher that cites the textbook, builds curriculum, and speaks it aloud — at each student's pace.</p>
+          <p><span class="label">Why it pays</span> Certified teachers unlock chapters by mastery. Chat and curriculum run on the textbook; every answer traces back to the book.</p>
+          <p class="price">Student $6/mo · $60/yr</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="https://teachaid.fly.dev">Open the live campus</a>
+          <a href="/teachaid">Open TEACHAiD</a>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap shelf" aria-labelledby="more-title">
+    <h2 id="more-title">More from the lab</h2>
+    <p class="section-lead">Compression and calls that sit outside the two tiers above. Each card is one purchase; the heading opens the product.</p>
+    <div class="shelf-grid">
+      <article class="card">
+        <h3><a class="card-link" href="/pcc">PCC compress</a></h3>
+        <div class="body">
+          <p><span class="label">The problem</span> Storage and transfer bills grow because files are larger than they need to be, and a restore that fails is worse than no savings.</p>
+          <p><span class="label">Why it pays</span> You send bytes in and get a smaller restore-safe copy. The first 1 GB is free once per address. After that the meter is $0.25 per GB. Pro is $25 a month for 100 GB, then $0.20 per GB.</p>
+          <p class="price">$0.25/GB after 1 GB</p>
+        </div>
+        <footer>
+          <a class="btn btn-solid" href="/pay?sku=pcc-pro">Buy Pro · $25/mo</a>
+          <a href="/pcc">How compress works</a>
         </footer>
       </article>
       <article class="card">
@@ -217,8 +281,6 @@
   <a href="/silesia">Silesia numbers</a>
   <a href="/wiki">Wiki</a>
   <a href="/about">About</a>
-  <a href="/privacy">Privacy</a>
-  <a href="/terms">Terms</a>
   <a href="/refund-policy">Refunds</a>
 
 </footer>

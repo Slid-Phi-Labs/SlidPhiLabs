@@ -20,55 +20,71 @@ const NAV = [
   ["/pricing", "Pricing"],
 ];
 
-const FOOT = [
-  ["/wiki", "SlidWiki"],
-  ["/rcrc", "Previous home"],
-  ["/rider", "Rider"],
-  ["/cuni", "CuNi"],
-  ["/warrant", "Warrant"],
-  ["/tollkeeper", "Tollkeeper"],
-  ["/chamber", "Chamber"],
-  ["/aos-ring", "Ring"],
-  ["/x402", "x402"],
-  ["/pay", "Pay"],
-  ["/awlpay", "AwLPay"],
-  ["/pcc", "PCC"],
-  ["/trustream", "TRUSTREAM"],
-  ["/silesia", "TNSSRC"],
-  ["/pulsar", "pulsar"],
-  ["/exactodds", "ExactOdds"],
-  ["/quikgater", "Quikgater"],
-  ["/specialist", "TRU8"],
-  ["/agents", "Agents"],
-  ["/humans", "Humans"],
-  ["/products", "Products"],
-  ["/pricing", "Pricing"],
-  ["/docs", "Docs"],
-  ["/about", "About"],
-  ["/npm", "npm"],
-  ["/mcp-service", "MCP"],
-  ["/box", "Try"],
-  ["/bench", "Bench"],
-  ["/press", "Press"],
-  ["/blog", "Blog"],
-  ["/toys", "Experiments"],
-  ["/lab-pass", "Lab Pass"],
-  ["/license", "License"],
-  ["/compare", "Compare"],
-  ["/standings", "Standings"],
-  ["/demos", "Demos"],
-  ["/olympiad", "Olympiad"],
-  ["/archive", "Archive"],
-  ["/updates", "Updates"],
-  ["/pps", "PPS"],
-  ["/signup", "Sign up"],
-  ["/access", "Access"],
-  ["/llms.txt", "llms.txt"],
-  ["/ai.txt", "ai.txt"],
-  ["/agents.txt", "agents.txt"],
-  ["/SKILL.md", "SKILL.md"],
-  ["/CUNI-PROTOCOL.md", "CuNi protocol"],
-  ["/status", "Status"],
+// Footer links grouped by pillar. Order inside each pillar preserves the
+// original FOOT order. No product appears in two pillars: Chamber is
+// Memory & Secrets only; TRUSTREAM/TNSSRC/PCC/pulsar and everything with no
+// other pillar home sit under Lab Bench. /rcrc ("Previous home") sits under
+// Lab Bench in the Archive sub-group.
+const FOOT_GROUPS = [
+  { h: "Platform", links: [
+    ["/wiki", "SlidWiki"],
+    ["/rider", "Rider"],
+    ["/cuni", "CuNi"],
+    ["/warrant", "Warrant"],
+    ["/tollkeeper", "Tollkeeper"],
+    ["/agents", "Agents"],
+    ["/humans", "Humans"],
+    ["/products", "Products"],
+    ["/docs", "Docs"],
+    ["/about", "About"],
+    ["/npm", "npm"],
+    ["/mcp-service", "MCP"],
+    ["/llms.txt", "llms.txt"],
+    ["/ai.txt", "ai.txt"],
+    ["/agents.txt", "agents.txt"],
+    ["/SKILL.md", "SKILL.md"],
+    ["/CUNI-PROTOCOL.md", "CuNi protocol"],
+    ["/status", "Status"],
+  ] },
+  { h: "Pay", links: [
+    ["/x402", "x402"],
+    ["/pay", "Pay"],
+    ["/awlpay", "AwLPay"],
+    ["/quikgater", "Quikgater"],
+    ["/pricing", "Pricing"],
+    ["/lab-pass", "Lab Pass"],
+    ["/license", "License"],
+  ] },
+  { h: "Memory &amp; Secrets", links: [
+    ["/chamber", "Chamber"],
+    ["/aos-ring", "Ring"],
+  ] },
+  { h: "Verification", links: [
+    ["/exactodds", "ExactOdds"],
+    ["/specialist", "TRU8"],
+    ["/bench", "Bench"],
+  ] },
+  { h: "Lab Bench", links: [
+    ["/pcc", "PCC"],
+    ["/trustream", "TRUSTREAM"],
+    ["/silesia", "TNSSRC"],
+    ["/pulsar", "pulsar"],
+    ["/box", "Try"],
+    ["/press", "Press"],
+    ["/blog", "Blog"],
+    ["/toys", "Experiments"],
+    ["/compare", "Compare"],
+    ["/standings", "Standings"],
+    ["/demos", "Demos"],
+    ["/olympiad", "Olympiad"],
+    ["/updates", "Updates"],
+    ["/pps", "PPS"],
+    ["/signup", "Sign up"],
+    ["/access", "Access"],
+  ], sub: { h: "Archive", links: [
+    ["/rcrc", "Previous home"],
+    ["/archive", "Archive"],
+  ] } },
 ];
 
 function esc(s) {
@@ -94,7 +110,14 @@ function chrome(here) {
 }
 
 function foot() {
-  return `<footer class="pf-foot">${FOOT.map(([h, l]) => `<a href="${h}">${l}</a>`).join("")}<p>Slid Phi Labs · Cherry Hill · <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a> · © 2026 Slid Phi Labs, Inc</p></footer>`;
+  const cols = FOOT_GROUPS.map((g) => {
+    const links = g.links.map(([h, l]) => `<a href="${h}">${l}</a>`).join("");
+    const sub = g.sub
+      ? `<h3>${g.sub.h}</h3>${g.sub.links.map(([h, l]) => `<a href="${h}">${l}</a>`).join("")}`
+      : "";
+    return `<div class="pf-foot-col"><h2>${g.h}</h2>${links}${sub}</div>`;
+  }).join("");
+  return `<footer class="pf-foot"><nav aria-label="Footer">${cols}</nav><p>Slid Phi Labs · Cherry Hill · <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a> · © 2026 Slid Phi Labs, Inc</p></footer>`;
 }
 
 function head({ title, desc, path }) {
@@ -240,10 +263,10 @@ add({
   title: "Chamber",
   kicker: "Secrets",
   h1: "Two keys. One seal. You keep the blob.",
-  lede: "Chamber seals JSON with AES-256-GCM and a two-of-two split. Opening takes both shares. The ciphertext stays with you.",
+  lede: "Chamber is a two-key vault: two-of-two AES-256-GCM secret sealing and custody-stamped envelopes, with opening sealed blobs free forever. JSON secret locking and attested signing are both modes of the same vault ($20/mo or $200/yr). The ciphertext stays with you.",
   summary: "Two shares. You store the blob. $20 or $200.",
   sections: [
-    S("is", "What it is", `<p>Chamber is the seal for structured secrets: API keys, webhook URLs, configuration. The cipher is AES-256-GCM. The key is split two-of-two. One share stays sealed. Both shares together open the JSON. You store the blob in your own files. The license you buy is the right to seal new secrets. A blob you already sealed still opens when both keys are present.</p>`),
+    S("is", "What it is", `<p>Chamber is the seal for structured secrets: API keys, webhook URLs, configuration. The cipher is AES-256-GCM. The key is split two-of-two. One share stays sealed. Both shares together open the JSON. You store the blob in your own files. The license you buy is the right to seal new secrets. A blob you already sealed still opens when both keys are present. Attested signing is the same vault's second mode: Chamber signs an envelope with a custody-stamped key so a verifier knows how much trust to place in it.</p>`),
     S("how", "How it works", `<ol><li>Bring the JSON and both shares to the seal.</li><li>Store the shares apart: two people, or a person and a vault.</li><li>Store the blob wherever you already keep backups.</li><li>Open it when both shares are in the same room again.</li></ol><p>Install <code>@slidphi/json-chamber-mcp</code> or the Python package <a href="https://pypi.org/project/json-chamber/">json-chamber</a>. The older unscoped npm name still installs and points here.</p>`),
     S("get", "What you receive", `<p>You receive a ciphertext you can back up, and two shares that only work as a pair. You receive a license to seal new secrets for the month or the year you bought.</p>`),
     S("price", "Price", `<p>$20 a month or $200 a year. Sealing is not metered. A 24-hour try is free; opening already-sealed blobs is free forever. SKUs <code>chamber-month</code> and <code>chamber-year</code>.</p>`),

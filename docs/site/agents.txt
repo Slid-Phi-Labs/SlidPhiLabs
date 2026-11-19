@@ -7,12 +7,12 @@
 # Coming next: file sharing between agents — same signed seats (not live). A signed credential is not KYC.
 
 ## Agent Quickstart
-1. Discover: GET https://www.slidphilabs.com/api/agent · GET https://www.slidphilabs.com/.well-known/mcp/server-card.json
+1. Discover: GET https://www.slidphilabs.com/v1/agent · GET https://www.slidphilabs.com/.well-known/mcp/server-card.json
 2. MCP: npx -y spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
-3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC Solana/Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
+3. Buy seat (agents): POST /v1/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC Solana/Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
 5. Rider: issue L0–L4; JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider.
-6. Warrant: /warrant · skus warrant-month/year.
+6. Warrant: /warrant · sku warrant-addon ($8/mo, $80/yr add-on to Solo; included in Team/Fleet). warrant-month/year retired → warrant-addon.
 7. Tollkeeper: GET https://www.slidphilabs.com/tollkeeper · GET https://agentrider.fly.dev/api/toll/schema
 8. CuNi: brew tap ceedot-rock/cuni && brew install cuni  (CLI v0.10.0, 53 targets)
 9. Coming next: file sharing between agents (same signed seats) — not live.
@@ -20,20 +20,22 @@
 ### SKU cheat sheet
 | sku | usd | human |
 | rider-solo | 12 | /pay?sku=rider-solo |
-| rider-bundle | 19.31 | /pay?sku=rider-bundle |
-| rider-crew | 49 | /pay?sku=rider-crew |
-| rider-shop | 199 | /pay?sku=rider-shop |
+| rider-team | 49 | /pay?sku=rider-team |
 | rider-fleet | 199 | /pay?sku=rider-fleet |
-| warrant-addon/addon-year | 8/80 | /pay?sku=warrant-addon · warrant-addon-year |
+| rider-bundle | retired → rider-team | /pay?sku=rider-team |
+| rider-crew | retired → rider-team | /pay?sku=rider-team |
+| rider-shop | retired → rider-fleet | /pay?sku=rider-fleet |
+| warrant-addon | 8/80 | /pay?sku=warrant-addon · warrant-month/year retired → warrant-addon |
 | chamber-month/year | 20/200 | /pay?sku=chamber-month · chamber-year |
-| pcc-day/month/year | 9/37/369 | PCC seats |
+| pcc-meter | 0.25/GB | /pps · first 1 GB free once per IP (lifetime), cap default $25 |
+| pcc-pro/pro-year | 25/250 | /pay?sku=pcc-pro · /pay?sku=pcc-pro-year · gc-day/month/year retired → pcc-meter / pcc-pro / pcc-pro-year |
 | tnssrc-grant | 369 | /pay?sku=tnssrc-grant |
 | tnssrc-bakeoff | 19.31 | /pay?sku=tnssrc-bakeoff |
 | pulsar-exception | 490 | /pay?sku=pulsar-exception |
 | cuni-exception | 490 | /pay?sku=cuni-exception |
 | lab-pass | 495 | Chamber+Rider Solo+PSI Meter+Warrant |
-| foundry-plus | — | Lab Pass+TNSSRC grant+Rider Crew |
-x402 resource = same sku via POST /api/x402-products.
+| foundry-plus | — (retired) | Lab Pass+TNSSRC grant+Rider Team |
+x402 resource = same sku via POST /v1/x402-products.
 
 # --- Agent-Rider (centerpiece) ---
 GET https://www.slidphilabs.com/rider
@@ -51,11 +53,11 @@ POST https://agentrider.fly.dev/api/mcp
 
 # --- Lab ---
 GET https://www.slidphilabs.com/.well-known/mcp.json
-GET https://www.slidphilabs.com/api/agent
+GET https://www.slidphilabs.com/v1/agent
 GET https://www.slidphilabs.com/mcp
 POST https://www.slidphilabs.com/mcp
-POST https://www.slidphilabs.com/api/auth
-POST https://www.slidphilabs.com/api/x402-products
+POST https://www.slidphilabs.com/v1/auth
+POST https://www.slidphilabs.com/v1/x402-products
 GET https://www.slidphilabs.com/SKILL.md
 GET https://www.slidphilabs.com/.well-known/mcp/server-card.json
 GET https://www.slidphilabs.com/.well-known/ai-catalog.json
