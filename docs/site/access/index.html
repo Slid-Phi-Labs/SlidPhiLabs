@@ -425,7 +425,7 @@ footer .legal img{width:28px;height:28px;border-radius:50%;object-fit:cover;bord
     truchamber: 'chamber-year',
   };
   if (aliases[product]) product = aliases[product];
-  const session = params.get('session') || params.get('checkout_session_id') || '';
+  const session = params.get('session') || params.get('session_id') || params.get('checkout_session_id') || '';
   const claim = params.get('claim') || params.get('x402_claim') || params.get('token') || '';
 
   if (!product && !session && !claim) return;
@@ -639,6 +639,10 @@ footer .legal img{width:28px;height:28px;border-radius:50%;object-fit:cover;bord
               '">Support</a>' +
               '<a class="btn btn-ghost" href="/demos">Demos</a>';
           }
+          if (j.subscription && j.subscription.manage) {
+            act +=
+              '<a class="btn btn-ghost" href="' + j.subscription.manage + '">Manage or cancel</a>';
+          }
           act += '<a class="btn btn-ghost" href="/">Lab home</a>';
           actions.innerHTML = act;
 
@@ -657,6 +661,14 @@ footer .legal img{width:28px;height:28px;border-radius:50%;object-fit:cover;bord
               URL.revokeObjectURL(a.href);
             });
           }
+        } else if (j && j.ok && !j.paid && j.subscription && j.subscription.status === 'canceled') {
+          label.textContent = 'Plan cancelled';
+          title.textContent = info ? info.name : 'Your plan';
+          body.textContent = 'This plan was cancelled, so access has ended. You will not be charged again.';
+          deliver.innerHTML = info && info.buy
+            ? '<a class="btn btn-gold" href="' + info.buy + '" target="_blank" rel="noopener">Start it again</a>'
+            : '';
+          actions.innerHTML = '<a class="btn btn-ghost" href="/#pricing">Pricing</a>';
         } else if (j && j.ok && !j.paid) {
           label.textContent = 'Payment not complete';
           title.textContent = info ? info.name : 'Checkout open';
