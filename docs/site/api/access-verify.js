@@ -21,6 +21,7 @@ import { verifyClaim } from "./lib/x402-claim.mjs";
 import { reportPurchase } from "./lib/ga4.mjs";
 import { recordSale, hasOrderId } from "./lib/sales-ledger.mjs";
 import { paidCors } from "./lib/cors.mjs";
+import { lookupBySession, lookupBySub, hasAccess, publicView } from "./lib/stripe-subscriptions.mjs";
 
 const FULFILL_EMAIL = "corey@slidphilabs.com";
 const BASE = "https://www.slidphilabs.com";
@@ -1105,8 +1106,27 @@ export default async function handler(req, res) {
       });
     }
 
-    const paid =
+    let paid =
       body.payment_status === "paid" || body.status === "complete";
+    // Subscriptions: the webhook-fed access book is the source of truth once
+    // it knows this subscription (renewals extend it, cancels revoke it).
+    let subscription = null;
+    if (body.mode === "subscription") {
+      const subId = typeof body.subscription === "string" ? body.subscription : body.subscription?.id;
+      let rec = null;
+      try {
+        rec = (await lookupBySession(body.id)) || (subId ? await lookupBySub(subId) : null);
+      } catch {
+        rec = null;
+      }
+      if (rec) {
+        subscription = publicView(rec);
+        if (!hasAccess(rec)) paid = false;
+      } else {
+        subscription = { sub_id: subId || null, status: paid ? "active" : "incomplete", access: paid, access_until: null, pending_webhook: true };
+      }
+      subscription.manage = `${BASE}/api/billing-portal?session_id=${encodeURIComponent(body.id)}`;
+    }
     const amountTotal = body.amount_total;
     const currency = body.currency;
     const email =
@@ -1141,6 +1161,11 @@ export default async function handler(req, res) {
       currency,
     });
 
+    if (subscription && subscription.access_until && deliverable && deliverable.entitlement) {
+      deliverable.entitlement.valid_until = subscription.access_until;
+      deliverable.entitlement.renews = true;
+    }
+
     if (paid) {
       void reportPurchase({
         sku,
@@ -1152,7 +1177,9 @@ export default async function handler(req, res) {
       // authoritative recorder (fail-closed with retries); this backstop
       // records only when the order is absent, and records anyway when the
       // ledger cannot be read.
-      if (!(await hasOrderId(body.id).catch(() => false))) {
+      // Subscriptions are recorded by the webhook per paid invoice (in_…), so
+      // the redirect-back must not add a second line under the cs_ id.
+      if (body.mode !== "subscription" && !(await hasOrderId(body.id).catch(() => false))) {
         await recordSale({
           sku,
           amountCents: amountTotal,
@@ -1174,6 +1201,7 @@ export default async function handler(req, res) {
       email,
       product_hint: sku,
       mode: body.mode,
+      subscription,
       deliverable,
     });
   } catch (e) {

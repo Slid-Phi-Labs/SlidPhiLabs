@@ -93,3 +93,38 @@ test("ignored events ack 200 and leave an audit line outside the ledger", async 
   assert.equal(last.kind, "webhook_ignored");
   assert.equal(last.reason, "unhandled_type");
 });
+
+test("subscription events: grant, month-2 renewal extends and records once, cancel revokes", async () => {
+  const { mkdtemp: mk } = await import("node:fs/promises");
+  const SUBS = join(await mk(join(tmpdir(), "whs-")), "subs.json");
+  process.env.STRIPE_SUBS_PATH = SUBS;
+  const { lookupBySession, hasAccess } = await import("./lib/stripe-subscriptions.mjs");
+  const now = Math.floor(Date.now() / 1000);
+  const r1 = await post({ id: "evt_s1", type: "checkout.session.completed", data: { object: { id: "cs_test_sub", mode: "subscription", subscription: "sub_w", customer: "cus_w", payment_status: "paid", metadata: { sku: "rider-solo" } } } });
+  assert.equal(r1.status, 200);
+  assert.equal(r1.body.action, "granted");
+  const inv = (id, end, reason) => ({ id, type: "invoice.paid", data: { object: { id: "in_" + id, subscription: "sub_w", customer: "cus_w", amount_paid: 1200, currency: "usd", billing_reason: reason, lines: { data: [{ period: { end } }] } } } });
+  await post(inv("evt_s2", now + 30 * 86400, "subscription_create"));
+  const r3 = await post(inv("evt_s3", now + 60 * 86400, "subscription_cycle"));
+  assert.equal(r3.body.action, "renewed");
+  const again = await post(inv("evt_s3", now + 60 * 86400, "subscription_cycle"));
+  assert.equal(again.body.action, "duplicate_event");
+  let rec = await lookupBySession("cs_test_sub");
+  assert.equal(rec.access_until, now + 60 * 86400);
+  assert.ok(hasAccess(rec));
+  const ledger = await readFile(LEDGER, "utf8");
+  assert.equal((ledger.match(/in_evt_s3/g) || []).length, 1);
+  const r4 = await post({ id: "evt_s4", type: "customer.subscription.deleted", data: { object: { id: "sub_w", status: "canceled", customer: "cus_w" } } });
+  assert.equal(r4.body.action, "revoked");
+  rec = await lookupBySession("cs_test_sub");
+  assert.ok(!hasAccess(rec));
+});
+
+test("rotation: a second comma-separated signing secret is accepted", async () => {
+  process.env.STRIPE_WEBHOOK_SECRET = "whsec_old_one," + SECRET;
+  const raw = Buffer.from(JSON.stringify({ id: "evt_rot", type: "ping", data: { object: {} } }));
+  const res = fakeRes();
+  await handler({ method: "POST", headers: { "stripe-signature": sign(raw) }, rawBody: raw, body: {} }, res);
+  assert.equal(res.statusCode, 200);
+  process.env.STRIPE_WEBHOOK_SECRET = SECRET;
+});

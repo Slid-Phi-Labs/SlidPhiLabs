@@ -353,7 +353,13 @@ function discovery() {
       asset,
       payTo: payTo || null,
       decimals,
-      configured: !!payTo,
+      configured: !!payTo || baseConfig().enabled,
+      base: {
+        network: BASE_NETWORK,
+        asset: baseConfig().asset,
+        payTo: baseConfig().payTo || null,
+        configured: baseConfig().enabled,
+      },
     },
     client: {
       npm_hint: "use x402-client payFetch against this URL",
@@ -480,7 +486,8 @@ export default async function handler(req, res) {
   const quote = computeQuote({ product, dataClass, op, bytes });
   const requirements = buildAccepts(quote);
   const accept0 = requirements.accepts?.[0];
-  const { payTo } = networkConfig();
+  // Either rail is enough to take payment: Solana (X402_PAY_TO) or Base (X402_PAY_TO_BASE).
+  const payTo = networkConfig().payTo || (baseConfig().enabled ? baseConfig().payTo : "");
 
   // Free showcase — first 1 GB free once per IP, no x402 payment
   if (quote.free || quote.amount_cents === 0) {
@@ -505,7 +512,7 @@ export default async function handler(req, res) {
     if (!payTo && process.env.X402_DEV_BYPASS !== "1") {
       return json(res, 503, {
         error: "Agentic x402 not configured",
-        hint: "Set X402_PAY_TO (Solana address) on Vercel. Humans use https://www.slidphilabs.com/pps",
+        hint: "Set X402_PAY_TO (Solana) or X402_PAY_TO_BASE (Base 0x) as a Fly secret on spl-slidphilabs. Humans use https://www.slidphilabs.com/pps",
         quote,
         discovery: discovery(),
       });

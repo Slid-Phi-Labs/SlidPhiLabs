@@ -676,7 +676,7 @@ export default async function handler(req, res) {
     if (!sol.enabled && !base.enabled && process.env.X402_DEV_BYPASS !== "1") {
       return json(res, 503, {
         error: "Agentic x402 not configured",
-        hint: "Set X402_PAY_TO (Solana) and/or X402_PAY_TO_BASE (EVM 0x) on Vercel",
+        hint: "Set X402_PAY_TO (Solana) and/or X402_PAY_TO_BASE (EVM 0x) as Fly secrets on spl-slidphilabs",
         sku,
       product: publicProduct(sku),
         human_stripe: p.stripe,

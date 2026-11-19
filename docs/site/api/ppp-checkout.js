@@ -27,13 +27,22 @@ function siteOrigin(req) {
   return `${proto}://${host}`;
 }
 
+/** Job size for the Stripe line item, e.g. "20 GB" or "512 MB". */
+export function sizeLabel(bytes) {
+  const b = Number(bytes) || 0;
+  const gb = b / 1e9;
+  if (gb >= 1) return `${gb >= 10 ? Math.round(gb) : Math.round(gb * 10) / 10} GB`;
+  const mb = b / 1e6;
+  return `${mb >= 1 ? Math.round(mb) : Math.round(mb * 100) / 100} MB`;
+}
+
 async function createCheckoutSession({ amountCents, quote, email, origin }) {
   try {
     const { createStripeCheckoutSession } = await import("./lib/payments-rails.js");
     return await createStripeCheckoutSession({
       amountCents,
       name: `SPL Pay Per Suite — ${quote.breakdown.op} · ${quote.breakdown.product}`,
-      description: `${quote.breakdown.mb} MB · ${quote.breakdown.data_class} · Suite meter`,
+      description: `${sizeLabel(quote.breakdown.bytes)} · ${quote.breakdown.data_class} · Suite meter`,
       sku: "ppp",
       email,
       origin,
@@ -67,7 +76,7 @@ async function createCheckoutSession({ amountCents, quote, email, origin }) {
   );
   params.set(
     "line_items[0][price_data][product_data][description]",
-    `${quote.breakdown.mb} MB · ${quote.breakdown.data_class} · SPL Pay Per Suite`
+    `${sizeLabel(quote.breakdown.bytes)} · ${quote.breakdown.data_class} · SPL Pay Per Suite`
   );
   [
     "card",

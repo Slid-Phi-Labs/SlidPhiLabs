@@ -21,6 +21,7 @@ const RATE = new Map(); // ip -> { count, windowStart }
 const MINTED = new Map(); // session_id -> { ok, jwt, expires_in } | { ok:false, ... }
 
 import fs from "node:fs";
+import { lookupBySession, hasAccess } from "../lib/stripe-subscriptions.mjs";
 import path from "node:path";
 
 const DATA_DIR = process.env.AUTH_DIR || "/data";
@@ -179,11 +180,26 @@ export default async function handler(req, res) {
     });
   }
 
+  // Subscriptions: once the webhook has recorded a cancel, a session from a
+  // cancelled plan no longer claims.
+  if (session.mode === "subscription") {
+    let rec = null;
+    try { rec = await lookupBySession(session.id || sessionId); } catch { rec = null; }
+    if (rec && !hasAccess(rec)) {
+      return json(res, 200, {
+        ok: false,
+        message: "This Rider plan was cancelled.",
+        detail: "Start a new plan from /rider to get a fresh name.",
+      });
+    }
+  }
+
   // The SKU must come from verified Stripe metadata — set server-side when the
   // checkout session was created, never from the caller's request body.
   // A paid non-Rider session must never mint a Rider credential.
   const RIDER_SKUS = new Set([
     "rider-solo",
+    "rider-solo-year",
     "rider-bundle",
     "rider-crew",
     "rider-shop",
