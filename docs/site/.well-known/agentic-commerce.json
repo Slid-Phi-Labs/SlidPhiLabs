@@ -1,7 +1,7 @@
 {
   "name": "Slid Phi Labs",
   "version": "1.23.0",
-  "updated": "2026-10-15",
+  "updated": "2026-11-14",
   "site": "https://www.slidphilabs.com",
   "lead_product": "rider",
   "cash_product": "pcc-pro-year",
@@ -44,9 +44,9 @@
     },
     "pcc": {
       "name": "PCC",
-      "alias": "AWARE (retired)",
       "meter_usd_per_gb": 0.25,
-      "free_gb_per_month": 1,
+      "free_gb_once_per_address": 1,
+      "free_window": "lifetime",
       "pro_month": 25,
       "pro_year": 250,
       "url": "https://www.slidphilabs.com/pcc"
@@ -68,18 +68,11 @@
     },
     "suite": {
       "unpaid_gb": 1,
-      "window": "calendar_month",
+      "window": "lifetime",
       "usd_per_gb": 0.25,
       "cap_default_usd": 25,
       "alert_at_pct": 80,
       "url": "https://www.slidphilabs.com/pps"
-    },
-    "cuni": {
-      "price": "$0",
-      "grant_per_app_year": 490,
-      "check_usd": 0.05,
-      "free_checks_per_month": 100,
-      "url": "https://www.slidphilabs.com/cuni"
     },
     "gitdepot": {
       "seat_month": 15,
@@ -115,7 +108,7 @@
   },
   "suite_pricing": {
     "free_cap_gb": 1,
-    "window": "calendar_month",
+    "window": "lifetime",
     "usd_per_gb_after_free": 0.25,
     "min_paid_usd": 1,
     "cap_default_usd": 25,
