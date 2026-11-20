@@ -1,7 +1,7 @@
 {
   "id": "/games",
-  "name": "SPLabs Games",
-  "short_name": "SPLabs",
+  "name": "Slid Phi Labs Games",
+  "short_name": "Slid Phi Labs",
   "description": "Slid Phi Labs Game Division — play on any screen.",
   "start_url": "/games",
   "scope": "/games",

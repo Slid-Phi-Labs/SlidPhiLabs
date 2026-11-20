@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
+
     <loc>https://www.slidphilabs.com/blog/2026-09-21-abb-infinitus-rack-heat</loc>
     <lastmod>2026-09-30</lastmod>
-  </url>
-    <url>
+  
+
     <loc>https://www.slidphilabs.com/blog/2026-09-17-agents-talk-rider-delivers</loc>
     <lastmod>2026-09-30</lastmod>
   </url>
@@ -19,6 +19,7 @@
   <url><loc>https://www.slidphilabs.com/pricing</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
   <url><loc>https://www.slidphilabs.com/trustream</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
   <url><loc>https://www.slidphilabs.com/chamber</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://www.slidphilabs.com/rcrc</loc><lastmod>2026-11-19</lastmod><changefreq>monthly</changefreq><priority>0.40</priority></url>
   <url><loc>https://www.slidphilabs.com/rider</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.88</priority></url>
   <url><loc>https://www.slidphilabs.com/warrant</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.88</priority></url>
   <url><loc>https://www.slidphilabs.com/cuni</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.86</priority></url>
@@ -44,7 +45,6 @@
   <url><loc>https://www.slidphilabs.com/blog/2026-09-05-pulsar-250</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.60</priority></url>
   <url><loc>https://www.slidphilabs.com/blog/2026-09-17-pcc-beats-xz-weights</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
   <url><loc>https://www.slidphilabs.com/wiki</loc><lastmod>2026-10-15</lastmod></url>
-  <url><loc>https://www.slidphilabs.com/rcrc</loc><lastmod>2026-10-15</lastmod></url>
   <url><loc>https://www.slidphilabs.com/wiki/agent-rider</loc><lastmod>2026-10-15</lastmod></url>
   <url><loc>https://www.slidphilabs.com/wiki/cuni</loc><lastmod>2026-10-15</lastmod></url>
   <url><loc>https://www.slidphilabs.com/wiki/warrant</loc><lastmod>2026-10-15</lastmod></url>

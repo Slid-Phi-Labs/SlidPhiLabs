@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13",
+  "updated": "2026-11-14",
   "inbox": "corey@slidphilabs.com",
   "site": "https://www.slidphilabs.com",
   "methods": "https://www.slidphilabs.com/METHODS.md",
@@ -54,7 +54,18 @@
     "grant_founding": 190,
     "grant_3plus": 390,
     "consulting_hour": 175,
-    "oss_support_year": 199
+    "oss_support_year": 199,
+    "teachaid_student_year": 60,
+    "teachaid_student_voice": 12,
+    "teachaid_student_voice_year": 120,
+    "teachaid_trial": 0.99,
+    "teachaid_classroom": 599,
+    "teachaid_pilot_seats": 80,
+    "teachaid_extra_seat": 25,
+    "teachaid_school": 20,
+    "teachaid_district": 16,
+    "teachaid_voice_pack": 8,
+    "teachaid_live_classroom": 200
   },
   "products": {
     "pcc": {
@@ -383,14 +394,32 @@
       "plain": "No direct price ($0, open standard). ACP Conformant certification $990 one-time."
     },
     "teachaid": {
-      "name": "TeachAid",
+      "name": "TEACHAiD",
       "page": "https://www.slidphilabs.com/teachaid",
+      "checkout": "https://teachaid.fly.dev/pricing.html",
+      "contact": "corey@slidphilabs.com",
       "plans": {
+        "free": {
+          "usd": 0,
+          "messages_per_day": 8,
+          "voice": "on-device"
+        },
+        "trial": {
+          "usd": 0.99,
+          "days": 1,
+          "messages_per_day": 12,
+          "then": "student_month",
+          "checkout": "https://teachaid.fly.dev/pricing.html"
+        },
         "student_month": {
-          "usd": 6
+          "usd": 6,
+          "messages_per_month": 400,
+          "voice": "on-device"
         },
         "student_year": {
-          "usd": 60
+          "usd": 60,
+          "messages_per_month": 400,
+          "voice": "on-device"
         },
         "school": {
           "usd_per_student_semester": 20,

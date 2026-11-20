@@ -11,7 +11,7 @@
 3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
 5. Rider: issue L0–L4; JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider.
-6. Warrant: /warrant · warrant-month/year.
+6. Warrant: /warrant · $8/mo add-on to Rider Solo ($80/yr), SKU warrant-addon or warrant-addon-year. Included in Team and Fleet.
 7. Tollkeeper: https://www.slidphilabs.com/tollkeeper · schema https://agentrider.fly.dev/api/toll/schema
 8. Coming next: file sharing between agents (same signed seats) — not live.
 
@@ -33,7 +33,7 @@ rider-solo $12 · rider-team $49 · rider-fleet $199 · warrant 8/80 · chamber 
 - AwLPay — 0.5% per payment, no fixed fee — Pro $39/mo — L33t $799/mo — https://www.slidphilabs.com/awlpay
 - Quikgater — pay per fetch — https://www.slidphilabs.com/quikgater
 - ExactOdds — provably fair rules — https://www.slidphilabs.com/exactodds
-- TEACHAiD — campus rollout, teacher chat calls Meta Llama — https://teachaid.fly.dev
+- TEACHAiD — campus app, live; teacher chat runs on Meta's Llama — https://teachaid.fly.dev
 - MemoryVerse — open-source verse — https://github.com/ceedot-rock/MemoryVerse
 - Pricing — https://www.slidphilabs.com/pricing.json
 - Silesia board — https://www.slidphilabs.com/silesia.json

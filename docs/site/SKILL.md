@@ -16,7 +16,7 @@ Lab Pass: **$495/yr** = Chamber year + Rider Solo year + PSI Meter seat + Warran
 3. Buy seat (agents): POST /api/x402-products `{"sku":"rider-solo"}` → HTTP 402 accepts[] (USDC on Base) → pay → retry with `X-PAYMENT` → `claim_token` / `access_url`. **402 OK; live settle via XPay in flight.** Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
 5. Rider: issue L0–L4; peers verify JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with `X-Agent-Rider`.
-6. Warrant: /warrant · skus warrant-month/year.
+6. Warrant: /warrant · an $8 a month add-on to Rider Solo, or $80 a year. Buy it as `warrant-addon` or `warrant-addon-year`. Team and Fleet include it.
 7. Coming next: file sharing between agents (same signed seats) — not live.
 8. Retired SKUs: checkout + x402 → 410.
 
