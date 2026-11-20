@@ -51,8 +51,19 @@ a { color:#58a6ff; }</style>
 <body>
 <div class="wrap">
   <h1>Slid Phi Labs — System status</h1>
-  <p class="sub">Live health of the lab's hosted services, checked every 15 minutes.</p>
-  <div class="note">Monitoring began 2026-09-22. Earlier days show as no data — that is honest, not missing. Badges reflect the latest monitored days shown below; the most recent check in this file is 2026-09-27 — treat rows as stale until the monitor runs again.</div>
+  <p class="sub">The chart in this file stopped on 2026-09-27. It is a history, not a live board.</p>
+  <div class="note" id="live-health">Checking /api/health…</div>
+  <script>
+    fetch("/api/health").then(function (r) { return r.json(); }).then(function (j) {
+      var el = document.getElementById("live-health");
+      var ok = j && j.ok;
+      el.textContent = ok
+        ? "Live check ok at " + (j.at || "just now") + ". The chart below is history and ends 2026-09-27."
+        : "Live check did not return ok. The chart below is history and ends 2026-09-27.";
+    }).catch(function () {
+      document.getElementById("live-health").textContent = "Live check failed. The chart below is history and ends 2026-09-27.";
+    });
+  </script>
   
   <div class="svc">
     <div class="svc-head">

@@ -141,6 +141,18 @@ const REWRITES = {
   "/lab-pass/": "/lab-pass.html",
   "/cuni": "/cuni.html",
   "/cuni/": "/cuni.html",
+  "/acp": "/subs/acp/index.html",
+  "/acp/": "/subs/acp/index.html",
+  "/gitdepot": "/subs/gitdepot/index.html",
+  "/gitdepot/": "/subs/gitdepot/index.html",
+  "/psi": "/persist.html",
+  "/psi/": "/persist.html",
+  "/acn": "/acn-protocol/index.html",
+  "/acn/": "/acn-protocol/index.html",
+  "/consulting": "/consulting.html",
+  "/consulting/": "/consulting.html",
+  "/contact": "/contact.html",
+  "/contact/": "/contact.html",
   "/rider": "/rider.html",
   "/rider/": "/rider.html",
   "/warrant": "/warrant.html",
@@ -412,6 +424,14 @@ const server = http.createServer(async (req, res) => {
         Location: "https://www.slidphilabs.com" + url.pathname + url.search,
         "Cache-Control": "no-store",
       });
+      return res.end();
+    }
+    const external = {
+      "/cuni-studio": "https://spl-cuni-studio.fly.dev/",
+      "/cuni-studio/": "https://spl-cuni-studio.fly.dev/",
+    };
+    if (external[url.pathname]) {
+      res.writeHead(302, { Location: external[url.pathname], "Cache-Control": "no-store" });
       return res.end();
     }
     // Product subdomains: <product>.slidphilabs.com/ serves that product's
