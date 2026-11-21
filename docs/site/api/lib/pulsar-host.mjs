@@ -3,14 +3,16 @@
  */
 import { execFile } from "node:child_process";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { platform, tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
 
 const execFileP = promisify(execFile);
 
 export function pulsarBin() {
-  return process.env.PULSAR_BIN || join(process.cwd(), "bin", "pulsar");
+  if (process.env.PULSAR_BIN) return process.env.PULSAR_BIN;
+  const name = platform() === "win32" ? "pulsar.exe" : "pulsar";
+  return join(process.cwd(), "bin", name);
 }
 
 export async function pulsarEncode(raw, { timeoutMs = 60_000 } = {}) {
