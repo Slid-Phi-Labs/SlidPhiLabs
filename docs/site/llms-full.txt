@@ -7,7 +7,7 @@
 
 ## Identity
 Name: Slid Phi Labs
-Public author: Corey Tasz
+Public author: Corey Ptaszenski
 Public catalog: Agent-Rider · CuNi · Warrant · Tollkeeper · PCC · TNSSRC · TRUSTREAM · pulsar · Chamber · AwLPay · ExactOdds · TEACHAiD · Lab Pass
 Commercial: corey@slidphilabs.com
 Humans: https://www.slidphilabs.com/humans

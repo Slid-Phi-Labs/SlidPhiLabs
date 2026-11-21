@@ -32,7 +32,7 @@
         "name": "Slid Phi Labs",
         "url": "https://www.slidphilabs.com/",
         "email": "corey@slidphilabs.com",
-        "founder": { "@type": "Person", "name": "Corey Tasz" },
+        "founder": { "@type": "Person", "name": "Corey Ptaszenski" },
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Cherry Hill",
@@ -81,7 +81,7 @@
             "name": "Where is the lab?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Slid Phi Labs is in Cherry Hill, New Jersey. Corey Tasz. Inbox corey@slidphilabs.com."
+              "text": "Slid Phi Labs is in Cherry Hill, New Jersey. Corey Ptaszenski. Inbox corey@slidphilabs.com."
             }
           },
           {

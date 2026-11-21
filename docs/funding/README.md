@@ -1,7 +1,7 @@
 # Seed packet · Slid Phi Labs
 
 **Date:** 2026-09-06  
-**Founder:** Corey Tasz · Cherry Hill, NJ · corey@slidphilabs.com · https://www.slidphilabs.com  
+**Founder:** Corey Ptaszenski · Cherry Hill, NJ · corey@slidphilabs.com · https://www.slidphilabs.com  
 **Legal:** Host fills entity / EIN / Stripe totals. Do not invent revenue.
 
 This folder is the lab’s public-honest seed kit. No “#1 compressor.” The private encoder stays private. Public product is **PCC**. pulsar is the public GPLv3 cousin.

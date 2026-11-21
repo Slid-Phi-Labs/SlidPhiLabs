@@ -56,7 +56,7 @@ async function main() {
       x: 0.7, y: 4.7, w: 10, h: 0.4,
       fontFace: "Calibri", fontSize: 18, color: C.mute, margin: 0,
     });
-    s.addText("Corey Tasz    Cherry Hill, New Jersey    slidphilabs.com    corey@slidphilabs.com", {
+    s.addText("Corey Ptaszenski    Cherry Hill, New Jersey    slidphilabs.com    corey@slidphilabs.com", {
       x: 0.7, y: 6.55, w: 12, h: 0.3,
       fontFace: "Calibri", fontSize: 14, color: "7E948C", margin: 0,
     });
@@ -435,7 +435,7 @@ async function main() {
       x: 0.95, y: 4.0, w: 11.2, h: 0.85,
       fontFace: "Calibri", fontSize: 18, color: C.ink, margin: 0,
     });
-    s.addText("Slid Phi Labs LLC    New Jersey    formed 16 Oct 2026    entity 0451545324\nCorey Tasz    corey@slidphilabs.com    slidphilabs.com    TeachAid is live", {
+    s.addText("Slid Phi Labs LLC    New Jersey    formed 16 Oct 2026    entity 0451545324\nCorey Ptaszenski    corey@slidphilabs.com    slidphilabs.com    TeachAid is live", {
       x: 0.7, y: 5.45, w: 11.5, h: 0.7,
       fontFace: "Calibri", fontSize: 15, color: C.mute, margin: 0,
     });

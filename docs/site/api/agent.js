@@ -338,7 +338,7 @@ export default async function handler(req, res) {
     product: "PCC",
     legal: {
       trade_name: "Slid Phi Labs",
-      public_author: "Corey Tasz",
+      public_author: "Corey Ptaszenski",
       legal_name_manuscript: "Corey Robert Ptaszenski",
       entity_claimed: "Slid Phi Labs, Inc. — Delaware corporation",
       roles: ["author", "founder", "copyright holder", "inventor"],

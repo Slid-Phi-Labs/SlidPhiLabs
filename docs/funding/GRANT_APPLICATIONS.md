@@ -16,7 +16,7 @@ agentrider.fly.dev, spl-cuni-studio.fly.dev.
 **$1,000 use:** one month of hosting compute (Fly.io) to keep the live Rider
 network and CuNi Studio demos online for pilot and investor review.
 
-**Founder:** Corey Tasz, solo founder, Cherry Hill NJ. Pre-seed, bootstrapped,
+**Founder:** Corey Ptaszenski, solo founder, Cherry Hill NJ. Pre-seed, bootstrapped,
 raising $100k angel on an MFN SAFE.
 
 ## Queue
@@ -43,7 +43,7 @@ Link: awesomefoundation.org/en/submissions/new (needs free account first).
   programming language that proves identical behavior across 53 targets or
   refuses to build. Published benchmarks: judicial XML 4.53%, market ticks 18.66%.
 - $1,000 use: one month of hosting compute to keep both demos live for pilots.
-- About you: Corey Tasz, solo founder. Bootstrapped, raising $100k angel.
+- About you: Corey Ptaszenski, solo founder. Bootstrapped, raising $100k angel.
 - Your clicks: create account, pick Philadelphia chapter, paste, submit. Repeat
   for the Disability chapter (accessible tooling angle: plain-English CLI).
 

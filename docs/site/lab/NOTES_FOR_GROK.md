@@ -5,7 +5,7 @@ Public product is **PCC**. AWARE is a retired alias. Combined GC 1.19.2 is a pri
 
 ## Who / doors
 
-- Owner: Corey Tasz · ceedot-rock · corey@slidphilabs.com · @slidphilabs
+- Owner: Corey Ptaszenski · ceedot-rock · corey@slidphilabs.com · @slidphilabs
 - Canonical store: https://www.slidphilabs.com/
   `/pcc` `/pay` `/access` `/agents` `/products` `/pricing` `/pricing.json` `/llms.txt` `/silesia` `/api/x402-products`
 - Fly `slidphilabs.fly.dev` is an alias, not a second shop.

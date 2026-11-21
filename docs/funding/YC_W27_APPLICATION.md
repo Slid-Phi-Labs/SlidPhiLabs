@@ -67,20 +67,20 @@ There are many file compressors. We are not “the 20th codec.” We are a **mea
 ## Equity / funding
 
 - Prior funding: **none** (Host correct if wrong).  
-- Cap table: Corey Tasz 100% until a round.  
+- Cap table: Corey Ptaszenski 100% until a round.  
 - Entity: `[ENTITY]`.
 
 ---
 
 ## Founders
 
-**Corey Tasz** — founder, builds the lab. Location: Cherry Hill, NJ. Email: corey@slidphilabs.com. X: @slidphilabs / @ceedotrock.
+**Corey Ptaszenski** — founder, builds the lab. Location: Cherry Hill, NJ. Email: corey@slidphilabs.com. X: @slidphilabs / @ceedotrock.
 
 **Why solo:** One person shipped site, codec benches, MCP, Stripe, x402, and npm. A co-founder is a hire after money, not a name on an NJIF form. Skill gap: outbound sales. That is the first hire in USE_OF_FUNDS.
 
 **Video (Host):** 60 seconds, webcam, no music. Script:
 
-> I’m Corey Tasz. Slid Phi Labs is in Cherry Hill. We host a lossless compressor you can pay for, and we publish a smaller GPLv3 cousin so you can measure us. One million zeros become eight bytes and come back. On Silesia, pulsar beats gzip and loses to xz — we say that out loud. Agents pay in USDC; humans use Stripe. I’m applying because I am one person and the product is already live.
+> I’m Corey Ptaszenski. Slid Phi Labs is in Cherry Hill. We host a lossless compressor you can pay for, and we publish a smaller GPLv3 cousin so you can measure us. One million zeros become eight bytes and come back. On Silesia, pulsar beats gzip and loses to xz — we say that out loud. Agents pay in USDC; humans use Stripe. I’m applying because I am one person and the product is already live.
 
 ---
 
