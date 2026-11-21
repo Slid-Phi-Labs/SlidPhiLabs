@@ -6,7 +6,7 @@ version: 1.1.0
 
 # Slid Phi Labs
 
-Cherry Hill, NJ. Corey Tasz. Inbox corey@slidphilabs.com.
+Cherry Hill, NJ. Corey Ptaszenski. Inbox corey@slidphilabs.com.
 
 Co-lead for agents: **Agent-Rider + settle + MCP**, alongside **PCC** (lossless compressor only). Storefront: Rider, Warrant, PCC, TRUSTREAM, Chamber, CuNi.
 

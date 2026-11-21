@@ -1,6 +1,6 @@
 # Commercial license — Slid Phi Labs
 
-Owner: Corey Tasz / Slid Phi Labs  
+Owner: Corey Ptaszenski / Slid Phi Labs  
 Inbox: corey@slidphilabs.com  
 Machine-readable: https://www.slidphilabs.com/licensing.json  
 Public specialist machine: https://www.slidphilabs.com/specialist

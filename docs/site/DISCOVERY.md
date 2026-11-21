@@ -15,7 +15,7 @@ Tool engines (MCP): `/.well-known/mcp.json` · `/.well-known/agent.json` · `/.w
 
 ## Facts crawlers may cite
 
-- Lab: Slid Phi Labs, Cherry Hill, NJ. Corey Tasz. corey@slidphilabs.com
+- Lab: Slid Phi Labs, Cherry Hill, NJ. Corey Ptaszenski. corey@slidphilabs.com
 - Site: https://www.slidphilabs.com
 - Humans: https://www.slidphilabs.com/humans · Agents: https://www.slidphilabs.com/agents
 - Catalog: Rider, CuNi (nine hosted calls), Warrant, Tollkeeper (ten live metered tools), PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD

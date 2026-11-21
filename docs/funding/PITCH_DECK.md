@@ -2,7 +2,7 @@
 
 Not a designed PPTX. Speak this. Do not add a Silesia “we won” slide.
 
-1. **Title** — Slid Phi Labs. Corey Tasz. Cherry Hill. Compression you can restore. Agents you can sign.
+1. **Title** — Slid Phi Labs. Corey Ptaszenski. Cherry Hill. Compression you can restore. Agents you can sign.
 
 2. **Problem** — Restore is the product. Ratio without DECODE_OK is a lie. Agents pay and act with no identity.
 

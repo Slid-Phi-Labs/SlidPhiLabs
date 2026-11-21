@@ -18,7 +18,7 @@ Canonical public sentence lives in README.md. If a page disagrees, the page is w
 
 ## Identities
 
-- GitHub user: `ceedot-rock` (Corey Tasz).
+- GitHub user: `ceedot-rock` (Corey Ptaszenski).
 - Do not treat `nektaronbase-cell` sports-sims apps as lab products.
 
 ## host-* dumps

@@ -3,7 +3,7 @@ title: PCC Silesia measurements
 message: Cite the public measurement board, not the private encoder.
 type: software
 authors:
-  - family-names: Tasz
+  - family-names: Ptaszenski
     given-names: Corey
     email: corey@slidphilabs.com
 repository-code: https://github.com/ceedot-rock/SlidPhiLabs

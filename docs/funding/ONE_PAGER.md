@@ -2,7 +2,7 @@
 
 **Lossless compression you can measure. Agent identity and pay rails that actually settle.**
 
-Cherry Hill, NJ · Corey Tasz (solo) · https://www.slidphilabs.com · corey@slidphilabs.com
+Cherry Hill, NJ · Corey Ptaszenski (solo) · https://www.slidphilabs.com · corey@slidphilabs.com
 
 ## What we sell
 
