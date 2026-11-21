@@ -76,14 +76,12 @@ Source: `~/.slidphi/heart-index.json` — verified `355/355` shards, `2.93x` com
 
 ## Pricing (Match Your Existing `SlidPhiLabs` Ladder)
 
-| Tier | Price | Includes |
-|---|---:|---|
-| psi Solo | $13.31/mo · $99/yr | 1 seat, 1 agent identity, local `spl-heart`, Warrant, 10 GB PCC/mo |
-| **psi Crew** (most popular) | **$39/mo** | 6 seats, shared `heart.cae`, shared `COMMS.md`, 200 GB PCC |
-| psi Team | $49/mo | Up to 10 seats, SLA, SOC2/SIEM |
-| psi Lab Pass | $490/yr | Chamber year + PCC year + psi Crew |
+| Charge | Rate | What it counts |
+|---|---|---|
+| Session | Not set | One fee each time a task runs against that user's folded memory |
+| Token saved | Not set | Naive-load tokens minus the tokens in the loaded slice |
 
-**Free tier:** first `5,000` tokens/day folded via `spl-heart`.
+**Free tier:** first `5,000` tokens/day folded via `spl-heart`. Checkout does not collect until both rates are in `docs/site/pricing.json`. PSI Meter stays $25 a seat a month, or $250 a year.
 
 ---
 
