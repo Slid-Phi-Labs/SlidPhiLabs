@@ -1,7 +1,8 @@
 # Slid Phi Labs public site on Fly.io
 # Deploy:  export FLY_API_TOKEN=… && fly deploy --remote-only
 # App URL: https://slidphilabs.fly.dev
-# Custom domain: fly certs add www.slidphilabs.com  (after DNS)
+# Custom domains: fly certs add www.slidphilabs.com
+#                 fly certs add persist.slidphilabs.com
 
 app = "spl-slidphilabs"
 primary_region = "iad"
