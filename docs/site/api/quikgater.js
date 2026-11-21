@@ -1,8 +1,13 @@
+/** A worker is live only when a missing URL is 400, an unpaid URL is 402, and the render box answers. */
+export function quikgaterLive({ missing, unpaid, health }) {
+  return missing?.status === 400 && unpaid?.status === 402 && health?.ok === true;
+}
+
 /** GET /api/quikgater — live status of the fetch worker + render box. */
 const WORKER = "https://quikgater-worker.ceedotrock.workers.dev";
 const RENDER = "https://quikgater-browser-worker.fly.dev";
 
-async function ping(url, init) {
+export async function ping(url, init) {
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), 4000);
   try {
@@ -15,7 +20,7 @@ async function ping(url, init) {
   }
 }
 
-export default async function handler(req, res) {
+export async function handleQuikgater(req, res, pingFn = ping) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
@@ -28,11 +33,11 @@ export default async function handler(req, res) {
     return res.end(JSON.stringify({ ok: false, error: "GET only" }));
   }
   const [missing, unpaid, health] = await Promise.all([
-    ping(WORKER + "/"),
-    ping(WORKER + "/?url=" + encodeURIComponent("https://example.com")),
-    ping(RENDER + "/health"),
+    pingFn(WORKER + "/"),
+    pingFn(WORKER + "/?url=" + encodeURIComponent("https://example.com")),
+    pingFn(RENDER + "/health"),
   ]);
-  const live = missing.status === 400 && unpaid.status === 402 && health.ok;
+  const live = quikgaterLive({ missing, unpaid, health });
   res.statusCode = 200;
   res.end(
     JSON.stringify({
@@ -50,4 +55,8 @@ export default async function handler(req, res) {
       page: "https://www.slidphilabs.com/quikgater",
     }),
   );
+}
+
+export default function handler(req, res) {
+  return handleQuikgater(req, res);
 }

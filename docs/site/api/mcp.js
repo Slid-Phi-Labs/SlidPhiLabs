@@ -417,7 +417,7 @@ async function callTool(name, args = {}, req) {
     return out.ok ? { valid: true, warrant: out.warrant } : { valid: false, reason: out.reason };
   }
   if (name === "spl_warrant_reserve") {
-    return reserveWarrant({ token: args.warrant, host: args.host, action: args.action, usd: args.usd });
+    return reserveWarrant({ token: args.warrant, host: args.host, action: args.action, usd: args.usd, idempotency_key: args.idempotency_key });
   }
   if (name === "spl_warrant_release") {
     return releaseReservation(args.reservation_id || args.reservation);

@@ -1,0 +1,7 @@
+{
+  "description": "Re-exports the lab identity issuer and the CuNi silent-error rules.",
+  "name": "@slidphi/sdk",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs"
+}

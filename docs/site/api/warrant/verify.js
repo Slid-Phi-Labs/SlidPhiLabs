@@ -1,4 +1,4 @@
-import { verifyWarrant } from "../lib/warrant.mjs";
+import { notifyBreach, verifyWarrant } from "../lib/warrant.mjs";
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -30,5 +30,6 @@ export default function handler(req, res) {
   body = body || {};
   const token = String(req.headers["x-agent-warrant"] || body.warrant || body.token || "").trim();
   const out = verifyWarrant(token, { host: body.host, action: body.action, actor: body.actor, delegation_mode: body.delegation_mode, usd: body.usd });
+  if (!out.ok) notifyBreach(out.reason, { host: body.host || null, action: body.action || null });
   return json(res, out.ok ? 200 : 401, out.ok ? { valid: true, warrant: out.warrant } : { valid: false, reason: out.reason, warrant: out.warrant || null });
 }

@@ -16,6 +16,7 @@ const {
   revokeWarrant,
   getWarrant,
   listReceipts,
+  reserveWarrant,
 } = await import("./warrant.mjs");
 
 test("host allowlist", () => {
@@ -189,6 +190,30 @@ test("pre-spend cap: verify with usd + reserve/settle/release", async () => {
   assert.equal(rel.warrant.reserved_usd, 0);
 });
 
+test("five 0.20 reserves then the sixth is refused for budget, not calls", () => {
+  const issued = issueWarrant({ demo: true, max_usd: 1, max_calls: 10, ttl_seconds: 900 });
+  assert.equal(issued.ok, true);
+  for (let i = 0; i < 5; i++) {
+    const rsv = reserveWarrant({ token: issued.token, host: "www.slidphilabs.com", action: "invoke", usd: 0.2 });
+    assert.equal(rsv.ok, true, `reserve ${i}`);
+  }
+  const sixth = reserveWarrant({ token: issued.token, host: "www.slidphilabs.com", action: "invoke", usd: 0.2 });
+  assert.equal(sixth.ok, false);
+  assert.equal(sixth.reason, "usd_exhausted");
+  assert.equal(sixth.warrant.remaining_calls, 10);
+});
+
+test("an expired warrant is refused before a host check matters", () => {
+  const issued = issueWarrant({ demo: true, max_usd: 1, max_calls: 10, ttl_seconds: 900 });
+  const file = path.join(dir, "warrants", `${issued.warrant.id}.json`);
+  const rec = JSON.parse(fs.readFileSync(file, "utf8"));
+  rec.exp = Math.floor(Date.now() / 1000) - 5;
+  fs.writeFileSync(file, JSON.stringify(rec));
+  const v = verifyWarrant(issued.token, { host: "www.slidphilabs.com", action: "invoke" });
+  assert.equal(v.ok, false);
+  assert.equal(v.reason, "expired");
+});
+
 test("verifyRiderToken uses the configurable URL adapter (no network in tests)", async () => {
   const { verifyRiderToken } = await import("./warrant.mjs");
   assert.deepEqual(await verifyRiderToken(null), { valid: false, reason: "missing_rider" });
@@ -217,4 +242,83 @@ test("verifyRiderToken uses the configurable URL adapter (no network in tests)",
   });
   assert.equal(down.valid, false);
   assert.equal(down.reason, "rider_unreachable");
+});
+
+test("two processes cannot both reserve 0.60 of a 1.00 budget", async () => {
+  const { spawn } = await import("node:child_process");
+  const issued = issueWarrant({ demo: true, max_usd: 1, max_calls: 10, ttl_seconds: 900 });
+  const mod = new URL("./warrant.mjs", import.meta.url).href;
+  const code = `
+    import { reserveWarrant } from ${JSON.stringify(mod)};
+    const out = reserveWarrant({ token: process.env.TOK, host: "www.slidphilabs.com", action: "invoke", usd: 0.6 });
+    process.stdout.write(JSON.stringify({ ok: !!out.ok, reason: out.reason || "" }));
+  `;
+  function once() {
+    return new Promise((resolve, reject) => {
+      const child = spawn(process.execPath, ["--input-type=module", "-e", code], {
+        env: {
+          ...process.env,
+          TOK: issued.token,
+          WARRANT_DIR: dir,
+          WARRANT_SECRET: process.env.WARRANT_SECRET,
+        },
+      });
+      let buf = "";
+      let err = "";
+      child.stdout.on("data", (d) => { buf += d; });
+      child.stderr.on("data", (d) => { err += d; });
+      child.on("close", (status) => {
+        if (status !== 0) reject(new Error(err || buf || String(status)));
+        else resolve(JSON.parse(buf));
+      });
+    });
+  }
+  const pair = await Promise.all([once(), once()]);
+  assert.equal(pair.filter((row) => row.ok).length, 1);
+  assert.equal(pair.filter((row) => row.reason === "usd_exhausted").length, 1);
+});
+
+test("the same idempotency key reserves once", () => {
+  const issued = issueWarrant({ demo: true, max_usd: 1, max_calls: 10, ttl_seconds: 900 });
+  const first = reserveWarrant({
+    token: issued.token, host: "www.slidphilabs.com", action: "invoke", usd: 0.2, idempotency_key: "job-1",
+  });
+  const again = reserveWarrant({
+    token: issued.token, host: "www.slidphilabs.com", action: "invoke", usd: 0.2, idempotency_key: "job-1",
+  });
+  assert.equal(first.ok, true);
+  assert.equal(again.ok, true);
+  assert.equal(again.idempotent, true);
+  assert.equal(again.reservation.id, first.reservation.id);
+  assert.equal(again.warrant.remaining_usd, 0.8);
+  assert.equal(again.warrant.reserved_usd, 0.2);
+});
+
+test("a breach webhook posts the reason and stays quiet when unset", async () => {
+  const { notifyBreach } = await import("./warrant.mjs");
+  const previous = process.env.WARRANT_WEBHOOK_URL;
+  delete process.env.WARRANT_WEBHOOK_URL;
+  assert.deepEqual(await notifyBreach("usd_exhausted"), { sent: false });
+  process.env.WARRANT_WEBHOOK_URL = "https://hooks.test/warrant";
+  let seen = null;
+  const sent = await notifyBreach("usd_exhausted", { host: "www.slidphilabs.com" }, async (url, init) => {
+    seen = { url, body: JSON.parse(init.body) };
+    return { ok: true };
+  });
+  assert.equal(sent.sent, true);
+  assert.equal(seen.url, "https://hooks.test/warrant");
+  assert.equal(seen.body.event, "warrant.breach");
+  assert.equal(seen.body.reason, "usd_exhausted");
+  assert.equal(seen.body.token, undefined);
+  if (previous === undefined) delete process.env.WARRANT_WEBHOOK_URL;
+  else process.env.WARRANT_WEBHOOK_URL = previous;
+});
+
+test("a counterparty sees only valid, invalid, expired, or revoked", async () => {
+  const { classifyCounterparty } = await import("./warrant.mjs");
+  assert.equal(classifyCounterparty({ valid: true, rider: { agent_id: "a" } }).verdict, "valid");
+  assert.equal(classifyCounterparty({ valid: false, reason: "invalid_rider" }).verdict, "invalid");
+  assert.equal(classifyCounterparty({ valid: false, reason: "expired" }).verdict, "expired");
+  assert.equal(classifyCounterparty({ valid: false, reason: "revoked_kid" }).verdict, "revoked");
+  assert.equal(classifyCounterparty(null).verdict, "invalid");
 });

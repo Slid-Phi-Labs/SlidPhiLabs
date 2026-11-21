@@ -23,6 +23,8 @@
     "payment-required": "examples/payment-required.json",
     "plan-spec": "examples/plan-spec.json",
     "quote-args": "examples/quote-args.json",
-    "research-args": "examples/research-args.json"
+    "research-args": "examples/research-args.json",
+    "claim-token": "examples/claim-token.json",
+    "error": "examples/error.json"
   }
 }

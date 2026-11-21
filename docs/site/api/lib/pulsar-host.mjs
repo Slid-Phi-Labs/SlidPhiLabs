@@ -3,14 +3,16 @@
  */
 import { execFile } from "node:child_process";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { platform, tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
 
 const execFileP = promisify(execFile);
 
 export function pulsarBin() {
-  return process.env.PULSAR_BIN || join(process.cwd(), "bin", "pulsar");
+  if (process.env.PULSAR_BIN) return process.env.PULSAR_BIN;
+  const name = platform() === "win32" ? "pulsar.exe" : "pulsar";
+  return join(process.cwd(), "bin", name);
 }
 
 export async function pulsarEncode(raw, { timeoutMs = 60_000 } = {}) {
@@ -49,8 +51,15 @@ export async function pulsarDecode(blob, { timeoutMs = 60_000 } = {}) {
   }
 }
 
-export function looksPulsar(buf) {
-  if (!buf || buf.length < 4) return false;
+const PULSAR_MAGICS = new Set(["BW23", "BW22", "OZL2", "PZ22"]);
+
+/** Four-byte pulsar magic, or null when the buffer is short or not a magic. */
+export function magicOf(buf) {
+  if (!buf || buf.length < 4) return null;
   const m = buf.subarray(0, 4).toString("latin1");
-  return m === "BW23" || m === "BW22" || m === "OZL2" || m === "PZ22";
+  return PULSAR_MAGICS.has(m) ? m : null;
+}
+
+export function looksPulsar(buf) {
+  return magicOf(buf) !== null;
 }

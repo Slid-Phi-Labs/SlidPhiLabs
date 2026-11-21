@@ -1,0 +1,7 @@
+{
+  "description": "Workspace package that issues an Ed25519 agent identity for the lab.",
+  "name": "@slidphi/rider-api",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test.mjs" }
+}

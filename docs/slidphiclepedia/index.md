@@ -172,6 +172,11 @@ Full records in `pulls.jsonl`. Rule in `README.md`.
 - Secret scanning: NO native scanner/push-protection in Gitea/Forgejo/SourceHut/Radicle — wire Gitleaks (MIT, 150+ types, fast, CI-speed pick) or TruffleHog (entropy+verification, forensics pick) into Actions/Woodpecker/builds manifests; GitHub Advanced Security comparison only
 - Federation/licenses verify: Forgejo ActivityPub federation EXPERIMENTAL (May 2026 report; enabling may void future cross-software federation), GPL-3.0-or-later (AGPL variants debated); SourceHut suite AGPLv3 per Tavily answer; Radicle/heartwood license NOT confirmed in pulls (unresolved) — see pulls.jsonl notes=Superforges-inventory
 
+## Nassau Street meeting-prep pulls 2026-11-18 (8 records)
+
+- NYC (Financial District): pedestrian mall John-to-Spruce weekday lunches + old stamp-dealer row (Forgotten New York); Pisillo Italian Panini at 97 Nassau (MTA guide); 14 Wall / Bankers Trust pyramid at Nassau corner (walking tour); street framed as one of FiDi's most historically significant commercial rows (real-estate history blog) — see pulls.jsonl note=nassau-nyc-meeting-prep
+- Princeton: town-gown main street, students as business lifeline vs Route 1/online, luxury+tradition mix (Daily Princetonian 2025-09); Experience Princeton directory (Aspendos 182 Nassau etc.); Thomas Sweet 179 Nassau; 236 Nassau Street LLC restaurant group (Blue Point Grill / Witherspoon Grill) — see pulls.jsonl note=nassau-princeton-meeting-prep
+
 ## GitLab git-product inventory pulls 2026-11-05 (8 records)
 
 - SaaS tiers (about.gitlab.com/pricing, verified live): Free $0 (5 users/top-level group, 400 compute-min/mo, 10GiB adjustable storage, SAST); Premium $29/u/mo billed annually ($348/u/yr; self-managed ~$19.80/u/mo per Vendr) incl 10,000 compute-min/mo + $12/u/mo GitLab Credits; Ultimate CUSTOM/quote-only (was $99/u/mo list) incl 50,000 compute-min/mo + $24/u/mo Credits

@@ -1,0 +1,187 @@
+openapi: 3.1.0
+info:
+  title: Slid Phi Labs Warrant
+  version: "1"
+  summary: The live warrant routes. Prices stay on the public pricing page.
+servers:
+  - url: https://www.slidphilabs.com
+paths:
+  /api/warrant/issue:
+    post:
+      operationId: issueWarrant
+      summary: Issue a warrant
+      parameters:
+        - $ref: "#/components/parameters/Rider"
+        - $ref: "#/components/parameters/Seat"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                demo:
+                  type: boolean
+                rider:
+                  type: string
+                actions:
+                  type: array
+                  items:
+                    type: string
+                allow_hosts:
+                  type: array
+                  items:
+                    type: string
+                max_usd:
+                  type: number
+                max_calls:
+                  type: integer
+                ttl_seconds:
+                  type: integer
+                chain:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        "201":
+          description: Warrant issued
+        "401":
+          description: Rider missing or invalid
+        "402":
+          description: Free issue cap
+  /api/warrant/verify:
+    post:
+      operationId: verifyWarrant
+      summary: Check a warrant
+      parameters:
+        - $ref: "#/components/parameters/Warrant"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Check"
+      responses:
+        "200":
+          description: Allowed
+        "401":
+          description: Refused. A configured webhook may receive the reason.
+  /api/warrant/reserve:
+    post:
+      operationId: reserveWarrant
+      summary: Hold the cost before the job
+      parameters:
+        - $ref: "#/components/parameters/Warrant"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Check"
+                - type: object
+                  properties:
+                    idempotency_key:
+                      type: string
+                      maxLength: 80
+      responses:
+        "201":
+          description: Reservation created
+        "200":
+          description: Same idempotency key returned the existing reservation
+        "400":
+          description: Refused
+  /api/warrant/release:
+    post:
+      operationId: releaseReservation
+      summary: Refund a reservation the job did not use
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reservation_id:
+                  type: string
+      responses:
+        "200":
+          description: Released
+        "400":
+          description: Unknown, settled, or already released
+  /api/warrant/receipt:
+    post:
+      operationId: fileReceipt
+      summary: File the receipt and consume one call
+      parameters:
+        - $ref: "#/components/parameters/Warrant"
+        - $ref: "#/components/parameters/Seat"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Check"
+                - type: object
+                  properties:
+                    reservation_id:
+                      type: string
+                    request_sha256:
+                      type: string
+                    result_sha256:
+                      type: string
+                    note:
+                      type: string
+                    actor:
+                      type: string
+                    evidence_ids:
+                      type: array
+                      items:
+                        type: string
+                    parent_receipt:
+                      type: string
+      responses:
+        "200":
+          description: Receipt filed
+        "400":
+          description: Refused
+  /api/warrant/revoke:
+    post:
+      operationId: revokeWarrant
+      summary: Revoke a warrant
+      parameters:
+        - $ref: "#/components/parameters/Warrant"
+      responses:
+        "200":
+          description: Revoked
+        "400":
+          description: Unknown warrant
+components:
+  parameters:
+    Rider:
+      name: X-Agent-Rider
+      in: header
+      schema:
+        type: string
+    Warrant:
+      name: X-Agent-Warrant
+      in: header
+      schema:
+        type: string
+    Seat:
+      name: X-Spl-Seat
+      in: header
+      schema:
+        type: string
+  schemas:
+    Check:
+      type: object
+      properties:
+        host:
+          type: string
+        action:
+          type: string
+        usd:
+          type: number
+        actor:
+          type: string
+        delegation_mode:
+          type: string

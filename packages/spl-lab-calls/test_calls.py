@@ -24,6 +24,13 @@ def test_paths_and_prices():
     assert "seal" not in lab.PRICES_USD
 
 
+def test_base_url_and_endpoint_contain_name():
+    name = "fetch"
+    url = lab.endpoint(name, base=lab.base_url())
+    assert url.startswith("http")
+    assert name in url
+
+
 def test_402_raises():
     class Handler(BaseHTTPRequestHandler):
         def do_POST(self):

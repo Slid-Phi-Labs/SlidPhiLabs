@@ -31,3 +31,6 @@ data/warrant/secret.txt
 # Project-local Python envs (voice-agent/.venv)
 .venv/
 .env
+
+lab-board/cuni-parse/target/
+
