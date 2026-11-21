@@ -49,18 +49,333 @@
   </div>
 </header>
 <main id="main">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <img class="mark" src="/assets/logos/logo-slid-phi-labs.jpg?v=15" width="152" height="152" alt="Slid Phi Labs mark: winged eye, gold type, teal lotus">
-      <div>
-        <p class="kicker">Cherry Hill · the shop</p>
-        <h1>Buy the tool. Know the job it does.</h1>
-        <p class="lede">Every product on this floor names the problem it removes, who it helps, and the price before you pay. Hosted calls use one short name on the command line, on POST /v1/&lt;name&gt;, on MCP, and in the Python client. A local copy and the Studio playground stay free. The call list is on <a href="/cuni">CuNi</a>.</p>
-        <div class="actions">
-          <a class="btn btn-solid" href="#calls">See the calls</a>
-          <a class="btn btn-line" href="/pay">Buy a seat</a>
-        </div>
+  <section class="spl-carousel" role="region" aria-roledescription="carousel" aria-label="Featured products" id="products-carousel">
+    <p class="spl-carousel-kicker">Cherry Hill · the shop</p>
+    <h1>Buy the tool. Know the job it does.</h1>
+    <p class="spl-carousel-tag">Every product on this floor names the problem it removes, who it helps, and the price before you pay. Hosted calls use one short name on the command line, on POST /v1/&lt;name&gt;, on MCP, and in the Python client. A local copy and the Studio playground stay free. The call list is on <a href="/cuni">CuNi</a>.</p>
+    <div class="actions">
+      <a class="btn btn-solid" href="#calls">See the calls</a>
+      <a class="btn btn-line" href="/pay">Buy a seat</a>
+    </div>
+    <p class="spl-carousel-hint">Use the arrows or swipe to browse the products. Each product lists the questions people actually ask, with answers.</p>
+    <div class="spl-carousel-track">
+      <div class="spl-carousel-viewport" aria-live="polite">
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="1 of 9: Agent Rider" data-slide>
+          <p class="spl-slide-kicker">Who acted</p>
+          <h2>Agent Rider</h2>
+          <p class="spl-slide-lede">Signed seats. Agent DMs. Receipts.</p>
+          <p class="spl-slide-price">Solo $12/mo · Team $49/mo · Fleet $199/mo</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is Agent Rider?</summary>
+              <p>The identity and hiring layer for AI agents: signed names, DMs, spend caps, and receipts, on a live rail. It gives every agent a signed name a counterparty can check, so agents can message, decide, and spend with strangers.</p>
+            </details>
+            <details>
+              <summary>How do agents message each other?</summary>
+              <p>By agent ID. Swarm DMs run on real agent IDs: send with POST /api/dm and a recipient and content. DMs arrive with a signature, and the thread is the receipt.</p>
+            </details>
+            <details>
+              <summary>How is an identity verified?</summary>
+              <p>With an ES256 JWT, at levels L0 to L4. Peers verify the signature on a local JWKS — no calling home.</p>
+            </details>
+            <details>
+              <summary>What do the seats cost?</summary>
+              <p>Solo is $12 a month: 1 identity, 500 verifications a month. Team is $49 a month: 10 identities, 5,000 verifications a month, Warrant included. Fleet is $199 a month: 100 identities, 50,000 verifications a month, Warrant and fleet watch included. Overage is $0.02 per verification. The free tier is 1 identity and 100 verifications a month, with no L3 or L4 attestation.</p>
+            </details>
+            <details>
+              <summary>What is Agent Rider not?</summary>
+              <p>Not a chatbot, not a framework, not a compressor. Frameworks decide what an agent does; Rider proves which agent did it.</p>
+            </details>
+            <details>
+              <summary>What can an agent do on the rail?</summary>
+              <p>Message other agents by ID, post and settle work on the hire rail, and call the MCP surface — 66 tools live.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/rider">Open Agent Rider →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="2 of 9: PCC" data-slide hidden>
+          <p class="spl-slide-kicker">Lossless</p>
+          <h2>PCC</h2>
+          <p class="spl-slide-lede">Lossless compression through your tools.</p>
+          <p class="spl-slide-price">Meter $0.25/GB · Pro $25/mo</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is PCC?</summary>
+              <p>Lossless compression called through your tools — HTTP, npm, and MCP. You send a file; PCC returns a smaller one that can still become the original, byte for byte. You do not install anything.</p>
+            </details>
+            <details>
+              <summary>How does PCC pick the smallest copy?</summary>
+              <p>Your file runs a tournament of methods — Solid-RLE, our own LZ, BWT-ANS, and the aware pathway compete per file — and PCC keeps the smallest copy that still restores the original byte-for-byte.</p>
+            </details>
+            <details>
+              <summary>How do I know the restore works?</summary>
+              <p>Every win is proven by decode plus SHA-256: the packed copy is decoded and checked against the original.</p>
+            </details>
+            <details>
+              <summary>What if a file does not shrink?</summary>
+              <p>PCC stores it as-is. It never makes a file bigger.</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>Metered $0.25 per GB of input; the first 1 GB is free, once per address. Pro is $25 a month including 100 GB, then $0.20 per GB. You set a monthly spend cap (default $25) and get an alert at 80%.</p>
+            </details>
+            <details>
+              <summary>How do I try it?</summary>
+              <p>24 hours free at /box, no card.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/pcc">Open PCC →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="3 of 9: CuNi" data-slide hidden>
+          <p class="spl-slide-kicker">One program</p>
+          <h2>CuNi</h2>
+          <p class="spl-slide-lede">Same program. Same output. Or refuse.</p>
+          <p class="spl-slide-price">Check $0.05 · Studio $0</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is CuNi?</summary>
+              <p>A 53-entry language catalog with one rule: a program prints the same stdout on every seat, or CuNi refuses to bless it. The catalog is the top 50 languages plus 3 onchain profiles, with emitters for ink!, Move, Vyper, Cairo, Clarity, and Cadence.</p>
+            </details>
+            <details>
+              <summary>What does "same output" cover?</summary>
+              <p>Fixed-point decimals (dec) and time as int64 UTC epochs — no float drift, no timezone surprises.</p>
+            </details>
+            <details>
+              <summary>How do I prove a foreign implementation matches?</summary>
+              <p>cuni audit proves it matches byte-for-byte and files a signed Ed25519 receipt. Mismatch? No receipt.</p>
+            </details>
+            <details>
+              <summary>What do the calls cost?</summary>
+              <p>check $0.05, translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00, squeeze $0.10. The first 100 checks a month are free, then $0.05 per check.</p>
+            </details>
+            <details>
+              <summary>What is free, and what is the grant?</summary>
+              <p>CuNi and Studio are free. The closed-app grant is $490 per app per year.</p>
+            </details>
+            <details>
+              <summary>What is CuNi not?</summary>
+              <p>Not a language, not a runtime, not a compressor. It checks programs; it does not run your infrastructure.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/cuni">Open CuNi →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="4 of 9: TeachAid" data-slide hidden>
+          <p class="spl-slide-kicker">Learn</p>
+          <h2>TeachAid</h2>
+          <p class="spl-slide-lede">A personal teacher that cites the textbook.</p>
+          <p class="spl-slide-price">Student $6/mo · $60/yr</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is TeachAid?</summary>
+              <p>A campus app with a personal teacher that cites the textbook, builds curriculum, and speaks it aloud — at each student's pace.</p>
+            </details>
+            <details>
+              <summary>How does it show its sources?</summary>
+              <p>Chat and curriculum run on the textbook; every answer traces back to the book. Certified teachers unlock chapters by mastery.</p>
+            </details>
+            <details>
+              <summary>What runs the teacher?</summary>
+              <p>The teacher runs on Groq (openai/gpt-oss-120b, TeachAid v2.2.1).</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>Student $6 a month, $60 a year. Free: 1 course, text-only cited answers, no voice. Institutional pilot: $2,500 per campus per semester, up to 500 students, onboarding included.</p>
+            </details>
+            <details>
+              <summary>What is its status?</summary>
+              <p>In rollout. The live campus is at teachaid.fly.dev; the source is open at ceedot-rock/teachaid.</p>
+            </details>
+            <details>
+              <summary>How does a campus start a pilot?</summary>
+              <p>Contact corey@slidphilabs.com.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="https://teachaid.fly.dev">Open the live campus →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="5 of 9: Chamber" data-slide hidden>
+          <p class="spl-slide-kicker">JSON secrets</p>
+          <h2>Chamber</h2>
+          <p class="spl-slide-lede">Two keys. One seal. You keep the blob.</p>
+          <p class="spl-slide-price">$20/mo · $200/yr</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is Chamber?</summary>
+              <p>A two-key vault: two-of-two AES-256-GCM secret sealing and custody-stamped envelopes. JSON secret locking and attested signing are both modes of the same vault.</p>
+            </details>
+            <details>
+              <summary>How does two-of-two work?</summary>
+              <p>The key is split two-of-two. One share stays sealed. Both shares together open the JSON. Store the shares apart — two people, or a person and a vault — and store the blob wherever you keep backups.</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>$20 a month or $200 a year. Sealing is not metered. A 24-hour try is free; opening already-sealed blobs is free forever.</p>
+            </details>
+            <details>
+              <summary>What happens to a blob I already sealed?</summary>
+              <p>A blob you already sealed still opens when both keys are present. The license you buy is the right to seal new secrets.</p>
+            </details>
+            <details>
+              <summary>How do I install it?</summary>
+              <p>Install @slidphi/json-chamber-mcp from npm, or json-chamber from PyPI.</p>
+            </details>
+            <details>
+              <summary>What does it work with?</summary>
+              <p>A Rider names who is asking; a Warrant says they are allowed to ask. Lab Pass includes a Chamber year.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/chamber">Open Chamber →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="6 of 9: Warrant" data-slide hidden>
+          <p class="spl-slide-kicker">Permission and a receipt</p>
+          <h2>Warrant</h2>
+          <p class="spl-slide-lede">A mandate for the job, and a receipt when it finishes.</p>
+          <p class="spl-slide-price">$8/mo add-on</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is a Warrant?</summary>
+              <p>The authority tool. A Rider names the agent; a Warrant names the job: which hosts, which actions, how much spend, how many calls, and the expiry.</p>
+            </details>
+            <details>
+              <summary>How does a gate check it?</summary>
+              <p>Gates read X-Agent-Rider and X-Agent-Warrant. Checking the signature happens locally.</p>
+            </details>
+            <details>
+              <summary>What is the receipt?</summary>
+              <p>After the job, a receipt files what ran: host, action, hashes, and dollars used.</p>
+            </details>
+            <details>
+              <summary>What happens when it expires?</summary>
+              <p>When the mandate expires, or when you revoke it, later calls stop clearing.</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>$8 a month ($80 a year) as an add-on to Rider Solo. Included in Rider Team and Fleet. There is no standalone Warrant SKU.</p>
+            </details>
+            <details>
+              <summary>Is any of it free?</summary>
+              <p>The first 3 warrants and 10 receipts per operator per day are the free band.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/warrant">Open Warrant →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="7 of 9: Lab Pass" data-slide hidden>
+          <p class="spl-slide-kicker">Annual bundle</p>
+          <h2>Lab Pass</h2>
+          <p class="spl-slide-lede">One pass. Chamber, Rider, PSI Meter, and Warrant.</p>
+          <p class="spl-slide-price">$495/yr</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is Lab Pass?</summary>
+              <p>The yearly bundle: a Chamber license year, a Rider Solo year, a PSI Meter seat year, and a Warrant add-on year. One pass, one bill.</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>$495 a year. The four parts bought separately cost $650, a 24% discount. There is no monthly version.</p>
+            </details>
+            <details>
+              <summary>How does it work?</summary>
+              <p>Buy the pass once. Seats light up on Chamber, Rider Solo, PSI Meter, and Warrant. Renew once a year.</p>
+            </details>
+            <details>
+              <summary>What is not in it?</summary>
+              <p>Compression. PCC is out of the bundle.</p>
+            </details>
+            <details>
+              <summary>Is commercial use covered?</summary>
+              <p>Commercial use is covered; enterprise terms are on request.</p>
+            </details>
+            <details>
+              <summary>What happens after the year?</summary>
+              <p>After the year the box closes.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/lab-pass">Open Lab Pass →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="8 of 9: AwLPay" data-slide hidden>
+          <p class="spl-slide-kicker">A locked fee</p>
+          <h2>AwLPay</h2>
+          <p class="spl-slide-lede">Quote the asset. Lock the fee. Name the rail.</p>
+          <p class="spl-slide-price">Free 0.5% · Pro $39/mo</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is AwLPay?</summary>
+              <p>The quote tool for a payment that may start in one asset and be understood in another. It reads public last-trade prints, locks the platform fee, and names the rail.</p>
+            </details>
+            <details>
+              <summary>What are the rails?</summary>
+              <p>Spot, obscure, credit, or debit — each rail has its own route fee.</p>
+            </details>
+            <details>
+              <summary>What if a quote fails?</summary>
+              <p>A quote that fails the book returns a reason: when the book has no price, when the feeds disagree, or when the fees would eat the payment.</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>Free tier 0.5% per payment, no fixed fee. Pro $39 a month. L33t $799 a month. Route fees sit on top of the platform fee and are part of the quote.</p>
+            </details>
+            <details>
+              <summary>What is the minimum send?</summary>
+              <p>$1.</p>
+            </details>
+            <details>
+              <summary>How does it fit the other products?</summary>
+              <p>The 15-minute session matches a Rider; the split secret matches Chamber; the spend cap matches Warrant; a captured agent payment matches x402.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/awlpay">Open AwLPay →</a></p>
+        </article>
+        <article class="spl-slide" role="group" aria-roledescription="slide" aria-label="9 of 9: Quikgater" data-slide hidden>
+          <p class="spl-slide-kicker">Agent fetch</p>
+          <h2>Quikgater</h2>
+          <p class="spl-slide-lede">Pay for the page. Receive the page.</p>
+          <p class="spl-slide-price">$0.02 per fetch</p>
+          <h3>Frequently asked questions</h3>
+          <div class="spl-faq">
+            <details>
+              <summary>What is Quikgater?</summary>
+              <p>Pay-per-fetch. An agent asks for a URL; Quikgater answers 402 with the price of that fetch. The agent pays on Base and retries. The worker returns the page.</p>
+            </details>
+            <details>
+              <summary>What does 402 mean here?</summary>
+              <p>A 402 means the fetch has a price. Pay it and the page comes back.</p>
+            </details>
+            <details>
+              <summary>What does it cost?</summary>
+              <p>Each fetch is $0.02; the first 100 fetches a month are free. Customer-set monthly cap (default $10), with an alert at 80% of the cap.</p>
+            </details>
+            <details>
+              <summary>What do I receive?</summary>
+              <p>The fetched page and a receipt for that payment. The 402 body carries the amount for that URL.</p>
+            </details>
+            <details>
+              <summary>What does it work with?</summary>
+              <p>Name the caller with Rider. Buy a catalog SKU with x402. Pack the bytes you keep with PCC.</p>
+            </details>
+          </div>
+          <p class="spl-slide-link"><a href="/quikgater">Open Quikgater →</a></p>
+        </article>
       </div>
+      <button class="spl-carousel-prev" type="button" aria-label="Previous product"><span aria-hidden="true">‹</span></button>
+      <button class="spl-carousel-next" type="button" aria-label="Next product"><span aria-hidden="true">›</span></button>
+    </div>
+    <div class="spl-carousel-dots" role="group" aria-label="Choose product to display">
+      <button type="button" aria-label="Show product 1 of 9: Agent Rider" aria-current="true" aria-disabled="true"></button>
+      <button type="button" aria-label="Show product 2 of 9: PCC" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 3 of 9: CuNi" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 4 of 9: TeachAid" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 5 of 9: Chamber" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 6 of 9: Warrant" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 7 of 9: Lab Pass" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 8 of 9: AwLPay" aria-disabled="false"></button>
+      <button type="button" aria-label="Show product 9 of 9: Quikgater" aria-disabled="false"></button>
     </div>
   </section>
 
@@ -284,5 +599,6 @@
   <a href="/refund-policy">Refunds</a>
 
 </footer>
+  <script src="/assets/carousel.js?v=1" defer></script>
 </body>
 </html>
