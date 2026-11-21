@@ -91,6 +91,76 @@ function saveJson(p, obj) {
   fs.writeFileSync(p, JSON.stringify(obj, null, 2));
 }
 
+function withLock(name, fn) {
+  const safe = String(name || "x").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 80) || "x";
+  const dir = path.join(dataDir(), "locks");
+  fs.mkdirSync(dir, { recursive: true });
+  const lock = path.join(dir, safe + ".lock");
+  const start = Date.now();
+  for (;;) {
+    try {
+      const fd = fs.openSync(lock, "wx");
+      fs.closeSync(fd);
+      break;
+    } catch (e) {
+      if (e.code !== "EEXIST") throw e;
+      if (Date.now() - start > 3000) {
+        try { fs.unlinkSync(lock); } catch { /* stale lock replaced on the next try */ }
+        continue;
+      }
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 10);
+    }
+  }
+  try {
+    return fn();
+  } finally {
+    try { fs.unlinkSync(lock); } catch { /* the next waiter treats a missing lock as free */ }
+  }
+}
+
+function findIdempotent(warrant, key) {
+  if (!key) return null;
+  for (const id of warrant.reservations || []) {
+    const row = loadJson(reservationPath(id), null);
+    if (row && row.idempotency_key === key) return row;
+  }
+  return null;
+}
+
+const BREACH_REASONS = new Set([
+  "usd_exhausted",
+  "calls_exhausted",
+  "host_not_allowed",
+  "action_not_allowed",
+  "revoked",
+  "expired",
+]);
+
+/** POST a refusal when WARRANT_WEBHOOK_URL is set. No token is included. */
+export async function notifyBreach(reason, extra = {}, fetchImpl = globalThis.fetch) {
+  const url = String(process.env.WARRANT_WEBHOOK_URL || "").trim();
+  if (!url || !BREACH_REASONS.has(reason)) return { sent: false };
+  try {
+    const res = await fetchImpl(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ event: "warrant.breach", reason, ...extra }),
+    });
+    return { sent: res.ok === true };
+  } catch {
+    return { sent: false };
+  }
+}
+
+/** Map a rider verify result to the four answers a counterparty is allowed to show. */
+export function classifyCounterparty(result) {
+  if (result && result.valid === true) return { verdict: "valid", rider: result.rider || null };
+  const reason = String((result && result.reason) || "");
+  if (/expired/i.test(reason)) return { verdict: "expired", reason };
+  if (/revoked/i.test(reason)) return { verdict: "revoked", reason };
+  return { verdict: "invalid", reason: reason || "invalid" };
+}
+
 function dayKey(d = new Date()) {
   return d.toISOString().slice(0, 10);
 }
@@ -318,49 +388,89 @@ export function verifyWarrant(token, { host, action, actor, delegation_mode, usd
 // settles it without deducting twice, and releaseReservation refunds it if
 // the job never runs. remaining_calls is only consumed at receipt time, so
 // a failed or cancelled job does not burn a call.
-export function reserveWarrant({ token, host, action, usd = 0 } = {}) {
-  const check = verifyWarrant(token, { host, action, usd });
-  if (!check.ok) return check;
-  const w = check.warrant;
-  const cost = Math.max(0, Number(usd) || 0);
-  const id = "rsv_" + randomBytes(8).toString("hex");
-  const reservation = {
-    v: 1,
-    id,
-    warrant_id: w.id,
-    agent_id: w.agent_id,
-    operator_id: w.operator_id,
-    action: String(action || "invoke").toLowerCase(),
-    host: String(host || "").toLowerCase(),
-    usd: cost,
-    settled: false,
-    released: false,
-    ts: new Date().toISOString(),
-  };
-  w.remaining_usd = Math.max(0, +(w.remaining_usd - cost).toFixed(6));
-  w.reserved_usd = +( (w.reserved_usd || 0) + cost ).toFixed(6);
-  w.reservations = [...(w.reservations || []), id];
-  saveJson(warrantPath(w.id), w);
-  saveJson(reservationPath(id), reservation);
-  return { ok: true, reservation, warrant: publicWarrant(w) };
+export function reserveWarrant({ token, host, action, usd = 0, idempotency_key } = {}) {
+  const parsed = parseToken(token);
+  if (!parsed.ok) return parsed;
+  const warrantId = parsed.payload && parsed.payload.id;
+  if (!warrantId) return { ok: false, reason: "unknown_warrant" };
+  const key = idempotency_key ? String(idempotency_key).trim().slice(0, 80) : "";
+  return withLock("w-" + warrantId, () => {
+    const got = readWarrant(token);
+    if (!got.ok) return got;
+    const prior = findIdempotent(got.warrant, key);
+    if (prior) return { ok: true, idempotent: true, reservation: prior, warrant: publicWarrant(got.warrant) };
+    const check = verifyWarrant(token, { host, action, usd });
+    if (!check.ok) return check;
+    const w = check.warrant;
+    const cost = Math.max(0, Number(usd) || 0);
+    const id = "rsv_" + randomBytes(8).toString("hex");
+    const reservation = {
+      v: 1,
+      id,
+      warrant_id: w.id,
+      agent_id: w.agent_id,
+      operator_id: w.operator_id,
+      action: String(action || "invoke").toLowerCase(),
+      host: String(host || "").toLowerCase(),
+      usd: cost,
+      idempotency_key: key || null,
+      settled: false,
+      released: false,
+      ts: new Date().toISOString(),
+    };
+    w.remaining_usd = Math.max(0, +(w.remaining_usd - cost).toFixed(6));
+    w.reserved_usd = +( (w.reserved_usd || 0) + cost ).toFixed(6);
+    w.reservations = [...(w.reservations || []), id];
+    saveJson(warrantPath(w.id), w);
+    saveJson(reservationPath(id), reservation);
+    return { ok: true, idempotent: false, reservation, warrant: publicWarrant(w) };
+  });
 }
 
 export function releaseReservation(reservationId) {
-  const r = loadJson(reservationPath(String(reservationId || "")), null);
-  if (!r) return { ok: false, reason: "unknown_reservation" };
-  if (r.settled) return { ok: false, reason: "reservation_settled" };
-  if (r.released) return { ok: false, reason: "reservation_released" };
-  const w = loadJson(warrantPath(r.warrant_id), null);
-  if (!w) return { ok: false, reason: "unknown_warrant" };
-  r.released = true;
-  w.remaining_usd = +( (w.remaining_usd || 0) + r.usd ).toFixed(6);
-  w.reserved_usd = Math.max(0, +( (w.reserved_usd || 0) - r.usd ).toFixed(6));
-  saveJson(warrantPath(w.id), w);
-  saveJson(reservationPath(r.id), r);
-  return { ok: true, reservation: r, warrant: publicWarrant(w) };
+  const peek = loadJson(reservationPath(String(reservationId || "")), null);
+  if (!peek) return { ok: false, reason: "unknown_reservation" };
+  return withLock("w-" + peek.warrant_id, () => {
+    const r = loadJson(reservationPath(peek.id), null);
+    if (!r) return { ok: false, reason: "unknown_reservation" };
+    if (r.settled) return { ok: false, reason: "reservation_settled" };
+    if (r.released) return { ok: false, reason: "reservation_released" };
+    const w = loadJson(warrantPath(r.warrant_id), null);
+    if (!w) return { ok: false, reason: "unknown_warrant" };
+    r.released = true;
+    w.remaining_usd = +( (w.remaining_usd || 0) + r.usd ).toFixed(6);
+    w.reserved_usd = Math.max(0, +( (w.reserved_usd || 0) - r.usd ).toFixed(6));
+    saveJson(warrantPath(w.id), w);
+    saveJson(reservationPath(r.id), r);
+    return { ok: true, reservation: r, warrant: publicWarrant(w) };
+  });
 }
 
 export function fileReceipt({
+  token,
+  action,
+  host,
+  usd = 0,
+  reservation_id,
+  request_sha256,
+  result_sha256,
+  note,
+  paid = false,
+  actor,
+  evidence_ids,
+  parent_receipt,
+} = {}) {
+  const parsed = parseToken(token);
+  if (!parsed.ok) return parsed;
+  const warrantId = parsed.payload && parsed.payload.id;
+  if (!warrantId) return { ok: false, reason: "unknown_warrant" };
+  return withLock("w-" + warrantId, () => fileReceiptLocked({
+    token, action, host, usd, reservation_id, request_sha256, result_sha256,
+    note, paid, actor, evidence_ids, parent_receipt,
+  }));
+}
+
+function fileReceiptLocked({
   token,
   action,
   host,

@@ -1,4 +1,4 @@
-import { reserveWarrant } from "../lib/warrant.mjs";
+import { notifyBreach, reserveWarrant } from "../lib/warrant.mjs";
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -34,7 +34,11 @@ export default function handler(req, res) {
     host: body.host,
     action: body.action,
     usd: body.usd,
+    idempotency_key: body.idempotency_key,
   });
-  if (!out.ok) return json(res, 400, { error: out.reason, warrant: out.warrant || null });
-  return json(res, 201, { ok: true, reservation: out.reservation, warrant: out.warrant });
+  if (!out.ok) {
+    notifyBreach(out.reason, { host: body.host || null, action: body.action || null });
+    return json(res, 400, { error: out.reason, warrant: out.warrant || null });
+  }
+  return json(res, out.idempotent ? 200 : 201, { ok: true, idempotent: !!out.idempotent, reservation: out.reservation, warrant: out.warrant });
 }

@@ -1,0 +1,7 @@
+{
+  "description": "Workspace package for CuNi silent-error rules on money, time, and crypto amounts.",
+  "name": "@slidphi/cuni-api",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test.mjs" }
+}

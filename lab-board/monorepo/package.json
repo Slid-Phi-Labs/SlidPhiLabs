@@ -1,0 +1,9 @@
+{
+  "description": "pnpm and Turborepo workspace for rider-api, cuni-api, the sdk, and the identity schema.",
+  "name": "slid-phi-labs-workspace",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "test": "pnpm -r test"
+  }
+}

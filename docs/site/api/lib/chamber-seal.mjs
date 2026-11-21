@@ -12,6 +12,7 @@ import {
   createHash,
   createCipheriv,
   createDecipheriv,
+  hkdfSync,
   randomBytes,
 } from "node:crypto";
 import { deflateSync, inflateSync } from "node:zlib";
@@ -43,13 +44,31 @@ function sha256hex(buf) {
   return createHash("sha256").update(buf).digest("hex");
 }
 
+/** One AES key from both seat keys. One key alone is not this key. */
+function deriveTwoKey(keyHex, keyHex2) {
+  const ikm = Buffer.concat([
+    Buffer.from(keyHex, "hex"),
+    Buffer.from(keyHex2, "hex"),
+  ]);
+  return Buffer.from(hkdfSync(
+    "sha256",
+    ikm,
+    Buffer.from("ACNCH1"),
+    Buffer.from("chamber-seal-v2"),
+    32
+  ));
+}
+
 /**
  * Seal any JSON-serializable value. Returns the envelope, or null when the
  * key is bad, the value is not serializable, or the payload is out of range.
  */
 export function sealEnvelope(obj, opts = {}) {
   const keyHex = opts ? opts.keyHex : null;
+  const keyHex2 = opts ? opts.keyHex2 : null;
+  const twoKey = keyHex2 != null;
   if (!validKeyHex(keyHex)) return null;
+  if (twoKey && !validKeyHex(keyHex2)) return null;
   let raw;
   try {
     const text = JSON.stringify(obj);
@@ -64,7 +83,7 @@ export function sealEnvelope(obj, opts = {}) {
   const packed = deflateSync(raw, { level: 9 });
   const compressed = packed.byteLength < raw.byteLength;
   const body = compressed ? packed : raw;
-  const key = Buffer.from(keyHex, "hex");
+  const key = twoKey ? deriveTwoKey(keyHex, keyHex2) : Buffer.from(keyHex, "hex");
   const iv = randomBytes(12);
   let ct;
   let tag;
@@ -77,7 +96,7 @@ export function sealEnvelope(obj, opts = {}) {
   }
   return {
     magic: CHAMBER_MAGIC,
-    v: 1,
+    v: twoKey ? 2 : 1,
     compressed,
     iv: b64enc(iv),
     ct: b64enc(ct),
@@ -93,16 +112,18 @@ export function sealEnvelope(obj, opts = {}) {
 export function openEnvelope(env, opts = {}) {
   if (!env || typeof env !== "object") return { ok: false, reason: "not-an-object" };
   if (env.magic !== CHAMBER_MAGIC) return { ok: false, reason: "bad-magic" };
-  if (env.v !== 1) return { ok: false, reason: "bad-version" };
+  if (env.v !== 1 && env.v !== 2) return { ok: false, reason: "bad-version" };
   const keyHex = opts ? opts.keyHex : null;
+  const keyHex2 = opts ? opts.keyHex2 : null;
   if (!validKeyHex(keyHex)) return { ok: false, reason: "bad-key" };
+  if (env.v === 2 && !validKeyHex(keyHex2)) return { ok: false, reason: "bad-key" };
   const iv = b64decStrict(env.iv);
   const ct = b64decStrict(env.ct);
   const tag = b64decStrict(env.tag);
   if (!iv || iv.byteLength !== 12) return { ok: false, reason: "bad-iv" };
   if (!tag || tag.byteLength !== 16) return { ok: false, reason: "bad-tag" };
   if (!ct || ct.byteLength < 1) return { ok: false, reason: "bad-body" };
-  const key = Buffer.from(keyHex, "hex");
+  const key = env.v === 2 ? deriveTwoKey(keyHex, keyHex2) : Buffer.from(keyHex, "hex");
   let body;
   try {
     const decipher = createDecipheriv("aes-256-gcm", key, iv);

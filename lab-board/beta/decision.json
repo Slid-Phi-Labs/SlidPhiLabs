@@ -1,0 +1,22 @@
+{
+  "ran_at": "2026-11-21T00:13:21.824Z",
+  "seats": [
+    {
+      "seat": "seat-a",
+      "sixth_reason": "usd_exhausted",
+      "retry_same_reservation": true
+    },
+    {
+      "seat": "seat-b",
+      "sixth_reason": "usd_exhausted",
+      "retry_same_reservation": true
+    },
+    {
+      "seat": "seat-c",
+      "sixth_reason": "usd_exhausted",
+      "retry_same_reservation": true
+    }
+  ],
+  "decision": "go",
+  "note": "Three lab seats ran the warrant path on this machine. No outside team was emailed."
+}

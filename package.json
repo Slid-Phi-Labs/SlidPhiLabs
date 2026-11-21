@@ -140,6 +140,7 @@
   "scripts": {
     "test": "node --test test/pccz.test.mjs",
     "test:site": "node --test docs/site/api/*.test.mjs docs/site/api/lib/*.test.mjs",
+    "test:trugame": "python -m pytest packages/trugame_scene_test -q",
     "mcp": "node mcp-shim.js"
   },
   "bin": {

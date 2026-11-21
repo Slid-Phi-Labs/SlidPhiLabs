@@ -66,6 +66,36 @@
   <p><strong>What it is:</strong> Spend mandates enforced <em>before</em> money moves. A human sets the ceiling, the scope, and the conditions; every attempted payment is checked against the mandate first, and violations are blocked at the moment of the attempt — verified across two independent implementations (17/17 TypeScript tests, 8/8 Python port).</p>
   <p><strong>What it isn't:</strong> Not a monitoring tool, not an alerting dashboard, and not a post-hoc audit log. Tools that tell you what an agent <em>already spent</em> are accounting. Warrant is prevention: the unauthorized payment never executes, so there is nothing to detect, dispute, or recover.</p>
 </section>
+    <section class="spl-prose spl-full" id="walkthrough">
+      <h2>Six screens</h2>
+      <p>Click through the path a counterparty actually walks. The check at the end is for you. Five outside developers have not taken it.</p>
+      <p class="spl-actions">
+        <button type="button" class="spl-btn spl-btn-line" id="stepPrev">Back</button>
+        <button type="button" class="spl-btn spl-btn-dark" id="stepNext">Next</button>
+      </p>
+      <p id="stepLabel">Screen 1 of 6</p>
+      <div id="stepBody">
+        <p><strong>1. Name.</strong> A Rider is the name a stranger can check. Valid, invalid, expired, or revoked. Anything else is invalid.</p>
+      </div>
+      <h2>Quickstart</h2>
+      <ol>
+        <li>Issue a demo warrant with the button below, or POST <code>/api/warrant/issue</code> with <code>{"demo":true}</code>.</li>
+        <li>Reserve the cost before the job: POST <code>/api/warrant/reserve</code> with header <code>X-Agent-Warrant</code> and body <code>{"host":"www.slidphilabs.com","action":"invoke","usd":0.2,"idempotency_key":"job-1"}</code>.</li>
+        <li>Send the same key again if the call retries. The second reserve returns the first reservation and does not deduct twice.</li>
+        <li>File the receipt only after the job finishes. A cancelled job calls release, and the call count stays.</li>
+        <li>A refused call names the reason: <code>host_not_allowed</code>, <code>action_not_allowed</code>, <code>usd_exhausted</code>, <code>calls_exhausted</code>, <code>expired</code>, <code>revoked</code>.</li>
+      </ol>
+      <h2>Did the six screens stick</h2>
+      <form id="check">
+        <label>What does a retry with the same idempotency key do? <input name="q1" placeholder="returns the first reservation"></label>
+        <label>When is a call counted? <input name="q2" placeholder="when the receipt is filed"></label>
+        <label>What verdict is a revoked key? <input name="q3" placeholder="revoked"></label>
+        <label>What happens when two seats print different stdout? <input name="q4" placeholder="refuse"></label>
+        <label>Who is the only person who accepts the team draft? <input name="q5" placeholder="the founder"></label>
+        <button type="submit" class="spl-btn spl-btn-line">Score</button>
+      </form>
+      <pre class="spl-out" id="stepScore">Not scored.</pre>
+    </section>
     <h2>Try the shape in the browser</h2>
     <p class="lede">Issues a 10-minute demo warrant so you can see the token and a receipt.</p>
     <div class="spl-try">
@@ -113,6 +143,35 @@
       if (!token) { show({ error: "issue a warrant first" }); return; }
       show(await post("/api/warrant/revoke", { token }, { "X-Agent-Warrant": token }));
     };
+    const screens = [
+      "<p><strong>1. Name.</strong> A Rider is the name a stranger can check. The counterparty answer is one of four words: valid, invalid, expired, or revoked.</p>",
+      "<p><strong>2. Mandate.</strong> Warrant names the hosts, the actions, the dollar cap, the call cap, and the expiry. Demo warrants allow invoke on www.slidphilabs.com.</p>",
+      "<p><strong>3. Reserve.</strong> The expected cost is held before the job runs. A retry sends the same idempotency key and gets the same reservation back.</p>",
+      "<p><strong>4. Refuse.</strong> The sixth 0.20 reserve against a 1.00 budget returns usd_exhausted. A bad host returns host_not_allowed. Expired and revoked stop before the job.</p>",
+      "<p><strong>5. Receipt.</strong> The receipt is filed after the job. That is when one call is consumed. Release refunds a reservation the job never used.</p>",
+      "<p><strong>6. Exactness.</strong> CuNi keeps a result only when every seat prints the same stdout. One different line refuses the set. This page does not run the 53-target compiler.</p>",
+    ];
+    let step = 0;
+    const stepBody = document.getElementById("stepBody");
+    const stepLabel = document.getElementById("stepLabel");
+    function paint() {
+      stepBody.innerHTML = screens[step];
+      stepLabel.textContent = "Screen " + (step + 1) + " of 6";
+    }
+    document.getElementById("stepPrev").onclick = () => { step = Math.max(0, step - 1); paint(); };
+    document.getElementById("stepNext").onclick = () => { step = Math.min(screens.length - 1, step + 1); paint(); };
+    document.getElementById("check").onsubmit = (event) => {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      const expect = ["reservation", "receipt", "revoked", "refus", "founder"];
+      const names = ["q1", "q2", "q3", "q4", "q5"];
+      let hit = 0;
+      names.forEach((name, i) => {
+        if (String(data.get(name) || "").toLowerCase().includes(expect[i])) hit += 1;
+      });
+      document.getElementById("stepScore").textContent = hit + " of 5. This is your score, not a study of five developers.";
+    };
+    paint();
   })();
   </script>
 </body>

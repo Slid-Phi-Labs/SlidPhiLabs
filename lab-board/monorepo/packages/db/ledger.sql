@@ -1,0 +1,2 @@
+-- Re-export path. The schema lives with the identity work.
+-- See lab-board/identity/ledger.sql
