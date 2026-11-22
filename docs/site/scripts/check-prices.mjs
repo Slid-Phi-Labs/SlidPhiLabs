@@ -8,7 +8,13 @@
 //   2. pricing.json math keys hold the canonical values, and the disputed
 //      object lists exactly the three blocked items.
 //   3. assets/pricing-data.mjs still deep-equals pricing.json (hand-sync).
-//   4. No known stale pattern appears in docs/site/ HTML, except:
+//   4. NEW 2026-11-22 (diligence): Rider annual prices on /pricing, the
+//      Merchant Gate pointer, the homepage card periods, the Lab Pass parts
+//      arithmetic, the Rider Ops standalone SKUs, the uniform 10x annual
+//      rule, and the Agent Rider Network name on the three pages touched
+//      (pricing.html, products.html, index.html). Header names such as
+//      X-Agent-Rider are NOT renamed and are excluded from the name check.
+//   5. No known stale pattern appears in docs/site/ HTML, except:
 //      - docs/site/blog/ (dated archive posts; the $369 Chamber-year anchor
 //        was still fixed there, but post bodies keep their history), and
 //      - docs/site/assets/web-samples/ (sample fixtures, not live pages).
@@ -50,8 +56,17 @@ const EXPECT = [
   ["pricing.html", "$369 / yr grant", "TNSSRC grant"],
   ["pricing.html", "$25/seat/month", "PSI Meter seat"],
   ["pricing.html", "$79 / month", "PSI Org"],
+  // NEW 2026-11-22: Rider annuals + Merchant Gate pointer on /pricing
+  ["pricing.html", "Solo $120/yr", "Rider Solo year"],
+  ["pricing.html", "Team $490/yr", "Rider Team year"],
+  ["pricing.html", "Fleet $1,990/yr", "Rider Fleet year"],
+  ["pricing.html", "$120 – $1,990 / yr", "Rider annual range"],
+  ["pricing.html", "$80 / yr", "Warrant add-on year"],
+  ["pricing.html", "Merchant Gate", "Merchant Gate pointer"],
+  ["pricing.html", "$11.99/mo", "Merchant Gate price"],
+  ["pricing.html", "2× plan price", "Rider cap wording"],
   // index.html — homepage cards
-  ["index.html", "Solo $12 · Team $49 · Fleet $199", "Rider card"],
+  ["index.html", "Solo $12/mo · Team $49/mo · Fleet $199/mo", "Rider card"],
   ["index.html", "$20/mo · $200/yr", "Chamber card"],
   ["index.html", "The parts sum to $650. The pass is $495.", "Lab Pass card"],
   ["index.html", "check $0.05, translate $0.10, audit $1.00", "CuNi calls"],
@@ -107,6 +122,7 @@ const MATH_EXPECT = {
   pcc_meter_gb: 0.25, pcc_pro_month: 25, pcc_pro_year: 250, pcc_pro_overage_gb: 0.2,
   rider_solo: 12, rider_team: 49, rider_fleet: 199,
   rider_solo_year: 120, rider_team_year: 490, rider_fleet_year: 1990,
+  rider_ops_month: 37, rider_ops_year: 369,
   warrant_addon: 8, warrant_addon_year: 80,
   lab_pass_year: 495, lab_pass_parts_sum: 650,
   quikgater_fetch: 0.02,
@@ -152,6 +168,43 @@ const disputedKeys = Object.keys(pricing.disputed ?? {}).filter((k) => k !== "no
 const wantDisputed = ["pcc_free_window", "teachaid", "tollkeeper_toll_5_exactness"].sort();
 if (JSON.stringify(disputedKeys) !== JSON.stringify(wantDisputed)) {
   failures.push(`pricing.json disputed keys: expected ${wantDisputed.join(",")}, got ${disputedKeys.join(",")}`);
+}
+
+// ---------------------------------------------------------------- 2b. diligence arithmetic + naming (2026-11-22)
+const m = pricing.math;
+// Lab Pass parts: Chamber year + Rider Solo year + PSI Meter seat year + Warrant add-on year.
+const partsSum = m.chamber_year + m.rider_solo_year + m.psi_meter_year + m.warrant_addon_year;
+if (partsSum !== m.lab_pass_parts_sum) {
+  failures.push(`pricing.json Lab Pass parts: ${m.chamber_year}+${m.rider_solo_year}+${m.psi_meter_year}+${m.warrant_addon_year}=${partsSum}, expected lab_pass_parts_sum ${m.lab_pass_parts_sum}`);
+}
+// Uniform annual rule: every Rider annual is 10x the monthly (two months free).
+for (const [mo, yr] of [["rider_solo", "rider_solo_year"], ["rider_team", "rider_team_year"], ["rider_fleet", "rider_fleet_year"]]) {
+  if (m[yr] !== 10 * m[mo]) {
+    failures.push(`pricing.json annual rule: math.${yr} (${m[yr]}) is not 10x math.${mo} (${m[mo]})`);
+  }
+}
+// Rider Ops standalone SKUs (live catalog rider-ops-month / rider-ops-year).
+const ops = pricing.products?.rider_ops;
+if (ops?.plans?.month?.usd !== 37 || ops?.plans?.month?.sku !== "rider-ops-month"
+    || ops?.plans?.year?.usd !== 369 || ops?.plans?.year?.sku !== "rider-ops-year") {
+  failures.push("pricing.json products.rider_ops must carry month $37 / year $369 plans (rider-ops-month / rider-ops-year)");
+}
+if (typeof ops?.availability !== "string" || !ops.availability.includes("$37/month") || !ops.availability.includes("$369/year")) {
+  failures.push("pricing.json products.rider_ops.availability must state the $37/month and $369/year standalone prices");
+}
+// ARN naming on the three pages touched: old brand must be gone (header
+// names like X-Agent-Rider excluded); new name must be present.
+for (const page of ["pricing.html", "products.html", "index.html"]) {
+  const text = read(page);
+  if (/(?<!X-)Agent-Rider/.test(text)) {
+    failures.push(`${page}: stale brand "Agent-Rider" (rename to Agent Rider Network)`);
+  }
+  if (/Agent Rider(?! Network)/.test(text)) {
+    failures.push(`${page}: stale brand "Agent Rider" without "Network"`);
+  }
+  if (!text.includes("Agent Rider Network")) {
+    failures.push(`${page}: missing new brand "Agent Rider Network"`);
+  }
 }
 
 // ---------------------------------------------------------------- 3. pricing-data.mjs hand-sync check

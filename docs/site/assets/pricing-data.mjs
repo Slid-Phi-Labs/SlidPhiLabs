@@ -57,6 +57,8 @@ export const PRICING =
     "rider_solo_year": 120,
     "rider_team_year": 490,
     "rider_fleet_year": 1990,
+    "rider_ops_month": 37,
+    "rider_ops_year": 369,
     "psi_meter_year": 250,
     "gitdepot_seat_year": 150,
     "teachaid_student_year": 60,
@@ -153,7 +155,7 @@ export const PRICING =
       "plain": "24-hour try. Opening already-sealed blobs free forever. Sealing not metered."
     },
     "rider": {
-      "name": "Agent-Rider",
+      "name": "Agent Rider Network",
       "page": "https://www.slidphilabs.com/rider",
       "plans": {
         "solo": {
@@ -199,8 +201,17 @@ export const PRICING =
       "name": "Rider Ops",
       "needs": "rider",
       "page": "https://www.slidphilabs.com/rider",
-      "availability": "Fleet watch included in Rider Fleet. No standalone price.",
-      "plans": {}
+      "availability": "Fleet watch included in Rider Fleet. Standalone: $37/month, $369/year (live catalog SKUs rider-ops-month / rider-ops-year).",
+      "plans": {
+        "month": {
+          "sku": "rider-ops-month",
+          "usd": 37
+        },
+        "year": {
+          "sku": "rider-ops-year",
+          "usd": 369
+        }
+      }
     },
     "warrant": {
       "name": "Warrant",
