@@ -29,7 +29,7 @@ curl -sL https://www.slidphilabs.com/.well-known/mcp/server-card.json
 | Products | https://www.slidphilabs.com/products |
 | Humans | Stripe https://www.slidphilabs.com/pay |
 | Agents | x402 POST https://www.slidphilabs.com/api/x402-products |
-| MCP | POST https://www.slidphilabs.com/mcp · `npx -y spl-pay-per-suite mcp` |
+| MCP | POST https://www.slidphilabs.com/mcp · `npx -y @slidphi/spl-pay-per-suite mcp` |
 | Smithery MCP | https://smithery.ai/servers/slidphi/lab |
 | Lab verbs | https://spl-lab-agent.fly.dev/healthz  check · translate · squeeze |
 

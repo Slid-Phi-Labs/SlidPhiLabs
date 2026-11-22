@@ -1,18 +1,26 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { OWNER_EMAILS, OWNER_AGENT_IDS, normEmail, isOwnerEmail, isOwnerAgent, resolveOwnerLane } from "./owner-gratis.mjs";
+import {
+  OWNER_AGENT_IDS,
+  normEmail,
+  ownerEmails,
+  isOwnerEmail,
+  isOwnerAgent,
+  isOwnerRequest,
+  isOwnerClaim,
+  ownerToken,
+  resolveOwnerLane,
+} from "./owner-gratis.mjs";
 
-test("all three known owner emails match", () => {
-  for (const e of ["corey@slidphilabs.com", "ceedotrock@gmail.com", "ptasz13@hotmail.com"]) {
-    assert.equal(isOwnerEmail(e), true);
-  }
-});
+const ENV = { SPL_OWNER_EMAILS: " Owner@Example.com, second@example.com ", SPL_OWNER_TOKEN: "t".repeat(40) };
 
-test("email matching is normalized, strangers fail", () => {
-  assert.equal(isOwnerEmail("  Corey@SlidPhiLabs.COM "), true);
-  assert.equal(isOwnerEmail(""), false);
-  assert.equal(isOwnerEmail("corey@slidphilabs.co"), false);
-  assert.equal(isOwnerEmail("admin@slidphilabs.com"), false);
+test("owner emails come from env and are labelling only", () => {
+  assert.deepEqual(ownerEmails(ENV), ["owner@example.com", "second@example.com"]);
+  assert.equal(isOwnerEmail("  OWNER@example.COM ", ENV), true);
+  assert.equal(isOwnerEmail("stranger@example.com", ENV), false);
+  assert.equal(isOwnerEmail("", ENV), false);
+  assert.deepEqual(ownerEmails({}), [], "no hard-coded personal emails");
+  assert.equal(normEmail("  A@B.C "), "a@b.c");
 });
 
 test("owner agents: human seat only, workers stay metered", () => {
@@ -22,23 +30,30 @@ test("owner agents: human seat only, workers stay metered", () => {
   }
   assert.equal(isOwnerAgent(""), false);
   assert.equal(isOwnerAgent(null), false);
-});
-
-test("resolveOwnerLane prefers signed claims over self-assertion", () => {
-  const signed = resolveOwnerLane({ email: "stranger@example.com", verifiedEmail: "Corey@SlidPhiLabs.COM" });
-  assert.deepEqual(signed, { ok: true, gratis: true, via: "signed-claim", email: "corey@slidphilabs.com" });
-  const asserted = resolveOwnerLane({ email: "ceedotrock@gmail.com" });
-  assert.equal(asserted.ok, true);
-  assert.equal(asserted.gratis, true);
-  assert.equal(asserted.via, "self-asserted");
-  assert.equal(asserted.warning, "operator-only-attributable");
-  assert.deepEqual(resolveOwnerLane({ email: "stranger@example.com" }), { ok: true, gratis: false, via: "none" });
-  assert.deepEqual(resolveOwnerLane(null), { ok: true, gratis: false, via: "none" });
-  assert.equal(resolveOwnerLane({ verifiedEmail: "corey@slidphilabs.com" }, { verifyEmail: () => false }).error, "owner_verify_failed");
-  assert.equal(resolveOwnerLane({ verifiedEmail: "corey@slidphilabs.com" }, { verifyEmail: () => { throw new Error("down"); } }).error, "owner_verify_failed");
-});
-
-test("lists are non-empty and stable", () => {
-  assert.equal(OWNER_EMAILS.length, 3);
   assert.equal(OWNER_AGENT_IDS.length, 1);
+});
+
+test("owner token: exact match only, fail-closed when unset or short", () => {
+  assert.equal(ownerToken(ENV), ENV.SPL_OWNER_TOKEN);
+  assert.equal(ownerToken({ SPL_OWNER_TOKEN: "short" }), "");
+  assert.equal(isOwnerRequest({ headers: { "x-spl-owner-token": ENV.SPL_OWNER_TOKEN } }, ENV), true);
+  assert.equal(isOwnerRequest({ headers: { "x-spl-owner-token": ENV.SPL_OWNER_TOKEN + "x" } }, ENV), false);
+  assert.equal(isOwnerRequest({ headers: {} }, ENV), false);
+  assert.equal(isOwnerRequest({ headers: { "x-spl-owner-token": "" } }, {}), false);
+  assert.equal(isOwnerRequest(null, ENV), false);
+});
+
+test("owner claims need the explicit owner flag", () => {
+  assert.equal(isOwnerClaim({ owner: true }), true);
+  assert.equal(isOwnerClaim({ owner: "true" }), false);
+  assert.equal(isOwnerClaim({ email: "owner@example.com" }), false);
+  assert.equal(isOwnerClaim(null), false);
+});
+
+test("resolveOwnerLane: token or owner claim only; emails never authenticate", () => {
+  assert.deepEqual(resolveOwnerLane({ ownerRequest: true }), { ok: true, gratis: true, via: "owner-token" });
+  assert.deepEqual(resolveOwnerLane({ claimPayload: { owner: true } }), { ok: true, gratis: true, via: "owner-claim" });
+  assert.equal(resolveOwnerLane({ email: "owner@example.com" }).gratis, false);
+  assert.equal(resolveOwnerLane({ verifiedEmail: "owner@example.com" }).gratis, false);
+  assert.deepEqual(resolveOwnerLane(null), { ok: true, gratis: false, via: "none" });
 });

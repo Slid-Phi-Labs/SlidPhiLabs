@@ -73,6 +73,9 @@ export function signClaim(fields, { env = process.env } = {}) {
     iat,
     exp: iat + ttl,
   };
+  // Owner flag: only set by callers that authenticated the owner token
+  // (x402-products owner lane). Never derived from an email.
+  if (fields.owner === true) payload.owner = true;
   if (!payload.order_id || !payload.sku) {
     return { ok: false, error: "claim_fields_incomplete" };
   }
@@ -123,6 +126,11 @@ export function verifyClaim(token) {
   }
   if (!payload.order_id || !payload.sku) {
     return { ok: false, error: "claim_incomplete", payload };
+  }
+  // Revoke claims minted by the retired self-asserted owner-email lane
+  // (tx "owner-gratis" without the owner flag). Security fix 2026-11-22.
+  if (payload.tx === "owner-gratis" && payload.owner !== true) {
+    return { ok: false, error: "claim_revoked" };
   }
   return { ok: true, payload };
 }

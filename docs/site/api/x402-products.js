@@ -24,7 +24,7 @@
 import "./lib/prod-guard.mjs";
 import { signClaim } from "./lib/x402-claim.mjs";
 import { paidCors } from "./lib/cors.mjs";
-import { isOwnerEmail } from "./lib/owner-gratis.mjs";
+import { isOwnerRequest } from "./lib/owner-gratis.mjs";
 import {
   consumePaymentTx,
   alreadyUsedResponse,
@@ -283,60 +283,79 @@ async function solanaRpc(rpc, method, params) {
   return data.result;
 }
 
+/**
+ * Net amount (raw base units) of `mint` received by `payTo` in a parsed
+ * Solana transaction. `payTo` may be the wallet (token-balance owner) or the
+ * token account itself. Pure; exported for tests.
+ */
+export function solanaReceivedAmount(tx, { payTo, mint }) {
+  const meta = tx && tx.meta;
+  if (!meta || meta.err) return 0n;
+  const keys = ((tx.transaction && tx.transaction.message && tx.transaction.message.accountKeys) || []).map((k) =>
+    typeof k === "string" ? k : k && k.pubkey
+  );
+  const row = (b) => {
+    const acct = keys[b.accountIndex];
+    const isPayee = b.owner === payTo || acct === payTo;
+    return isPayee && b.mint === mint ? BigInt((b.uiTokenAmount && b.uiTokenAmount.amount) || "0") : 0n;
+  };
+  const pre = (meta.preTokenBalances || []).reduce((a, b) => a + row(b), 0n);
+  const post = (meta.postTokenBalances || []).reduce((a, b) => a + row(b), 0n);
+  return post > pre ? post - pre : 0n;
+}
+
 async function verifySolanaPayment(proof, expected) {
+  // Security fix 2026-11-22: the old verifier accepted ANY confirmed
+  // signature (never checked recipient, mint or amount) and returned ok
+  // while confirmation was still pending. Now: confirmed-or-refused, and the
+  // transaction must move >= maxAmountRequired of the USDC mint to payTo.
   const { rpc, payTo, asset } = solanaConfig();
   if (!payTo) return { ok: false, reason: "X402_PAY_TO not configured" };
+  const need = BigInt(expected.maxAmountRequired || "0");
+  if (need <= 0n) return { ok: false, reason: "no amount required for this SKU" };
 
   const ser = proof?.payload?.serializedTransaction || proof?.payload?.transaction;
   const sigOnly = proof?.payload?.signature || proof?.payload?.txSignature;
 
+  let signature = null;
   if (ser && !String(ser).startsWith("0x")) {
-    let signature;
     try {
       signature = await solanaRpc(rpc, "sendTransaction", [
         ser,
         { encoding: "base64", preflightCommitment: "confirmed", skipPreflight: false },
       ]);
     } catch (e) {
-      const msg = String(e.message || e);
-      if (sigOnly) signature = sigOnly;
-      else return { ok: false, reason: `sendTransaction failed: ${msg}` };
+      if (!sigOnly) return { ok: false, reason: `sendTransaction failed: ${String(e.message || e)}` };
+      signature = sigOnly;
     }
-    for (let i = 0; i < 12; i++) {
-      const st = await solanaRpc(rpc, "getSignatureStatuses", [
-        [signature],
-        { searchTransactionHistory: true },
-      ]);
-      const v = st?.value?.[0];
-      if (v?.confirmationStatus === "confirmed" || v?.confirmationStatus === "finalized") {
-        if (v.err) return { ok: false, reason: "tx failed on chain", signature };
-        return { ok: true, signature, network: expected.network, payTo, asset };
-      }
-      await new Promise((r) => setTimeout(r, 500));
-    }
-    return {
-      ok: true,
-      signature,
-      network: expected.network,
-      payTo,
-      asset,
-      note: "submitted; confirmation pending",
-    };
+  } else if (sigOnly && !String(sigOnly).startsWith("0x")) {
+    signature = sigOnly;
   }
+  if (!signature) return { ok: false, reason: "no serializedTransaction or signature in payment payload" };
 
-  if (sigOnly && !String(sigOnly).startsWith("0x")) {
-    const st = await solanaRpc(rpc, "getSignatureStatuses", [
-      [sigOnly],
-      { searchTransactionHistory: true },
-    ]);
+  let confirmed = false;
+  for (let i = 0; i < 12; i++) {
+    const st = await solanaRpc(rpc, "getSignatureStatuses", [[signature], { searchTransactionHistory: true }]);
     const v = st?.value?.[0];
-    if (v && !v.err && (v.confirmationStatus === "confirmed" || v.confirmationStatus === "finalized")) {
-      return { ok: true, signature: sigOnly, network: expected.network, payTo, asset };
+    if (v?.err) return { ok: false, reason: "tx failed on chain", signature };
+    if (v?.confirmationStatus === "confirmed" || v?.confirmationStatus === "finalized") {
+      confirmed = true;
+      break;
     }
-    return { ok: false, reason: "signature not confirmed", signature: sigOnly };
+    await new Promise((r) => setTimeout(r, 500));
   }
+  if (!confirmed) return { ok: false, reason: "confirmation pending; retry with the same signature", signature };
 
-  return { ok: false, reason: "no serializedTransaction or signature in payment payload" };
+  const tx = await solanaRpc(rpc, "getTransaction", [
+    signature,
+    { encoding: "jsonParsed", commitment: "confirmed", maxSupportedTransactionVersion: 0 },
+  ]);
+  if (!tx) return { ok: false, reason: "tx not found", signature };
+  const paid = solanaReceivedAmount(tx, { payTo, mint: asset });
+  if (paid < need) {
+    return { ok: false, reason: `USDC to payTo insufficient: got ${paid} need ${need}`, signature };
+  }
+  return { ok: true, signature, network: expected.network, payTo, asset, amount: paid.toString() };
 }
 
 function padAddressTopic(addr) {
@@ -659,12 +678,11 @@ export default async function handler(req, res) {
 
   const email = clean(body.email, 120);
   const note = clean(body.note, 800);
-  // Operator-only attributable path (see lib/owner-gratis.mjs): this email
-  // is SELF-ASSERTED from the request body, not signature-verified. It must
-  // never gate irrevocable fulfillment -- gratis stays RECORDED (gratis
-  // markers + ops log) so abuse is attributable. Value-moving routes must
-  // use resolveOwnerLane({ verifiedEmail }) from an HMAC-verified claim.
-  const ownerOrder = isOwnerEmail(email);
+  // Owner lane (security fix 2026-11-22): ONLY the SPL_OWNER_TOKEN header
+  // grants gratis. A typed email authenticates nothing -- the old
+  // self-asserted email lane let anyone mint a signed "paid" claim for any
+  // SKU. Gratis stays RECORDED (owner flag + gratis marker + ops log).
+  const ownerOrder = isOwnerRequest(req);
   const p = CATALOG[sku];
   const requirements = buildAccepts(sku);
   const accept0 = requirements.accepts[0];
@@ -696,7 +714,7 @@ export default async function handler(req, res) {
     : { ok: false };
   if (!ownerOrder && process.env.X402_DEV_BYPASS === "1" && devHdr === "ok") {
     paymentResult = { ok: true, signature: "dev-bypass", network: accept0.network };
-  } else {
+  } else if (!ownerOrder) {
     const proof = decodePayment(paymentHdr);
     if (!proof) return json(res, 400, { error: "Invalid X-PAYMENT header" });
     try {
@@ -742,7 +760,8 @@ export default async function handler(req, res) {
     email: email || null,
     tx,
     network: net,
-    amount_cents: p.amount_cents,
+    amount_cents: ownerOrder ? 0 : p.amount_cents,
+    owner: ownerOrder === true,
   });
 
   const deliverable = buildDeliverable({

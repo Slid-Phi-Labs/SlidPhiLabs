@@ -6,6 +6,7 @@
  */
 import { withProductBox } from "./lib/spl-box-gate.js";
 import { logInternal } from "./lib/http-fail.mjs";
+import { cleanIp } from "./lib/usage-meter.mjs";
 
 const NEBIUS_BASE = "https://api.studio.nebius.com/v1";
 const MODEL = process.env.NEBIUS_MODEL || "meta-llama/Llama-3.3-70B-Instruct";
@@ -59,11 +60,9 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+// Security fix 2026-11-22: first X-Forwarded-For entry is client-controlled.
 function clientIp(req) {
-  const xf = String(req.headers["x-forwarded-for"] || "")
-    .split(",")[0]
-    .trim();
-  return xf || req.socket?.remoteAddress || "unknown";
+  return cleanIp(req) || "unknown";
 }
 
 function rateLimit(ip) {

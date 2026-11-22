@@ -35,7 +35,7 @@ Config:
 
 Chamber stdio MCP: npx -y json-chamber-mcp
 Agent-Rider MCP: https://agentrider.fly.dev/api/mcp
-npm MCP helper: npx -y spl-pay-per-suite mcp
+npm MCP helper: npx -y @slidphi/spl-pay-per-suite mcp
 
 There is no public engine repository for the seats — this is a hosted service, so the
 endpoint above is the whole integration. Public cousin source (GPLv3) lives at
