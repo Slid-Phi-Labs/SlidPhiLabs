@@ -21,6 +21,29 @@ process.env.USAGE_IDENTITY_SECRET = "test-identity-secret";
 
 const ipReq = (ip) => ({ headers: { "x-forwarded-for": ip } });
 
+test("Cloudflare visitor address is used, and a forged one is not", () => {
+  const visitor = "203.0.113.50";
+  const throughCloudflare = identityFromReq({
+    headers: {
+      "x-forwarded-for": "198.51.100.9",
+      "cf-connecting-ip": visitor,
+      "cf-ray": "abc-IAD",
+      "fly-client-ip": "104.21.81.91",
+    },
+  });
+  assert.equal(throughCloudflare.key, identityFromReq(ipReq(visitor)).key);
+
+  const direct = identityFromReq({
+    headers: {
+      "cf-connecting-ip": visitor,
+      "cf-ray": "forged",
+      "fly-client-ip": "198.51.100.20",
+    },
+  });
+  assert.equal(direct.key, identityFromReq(ipReq("198.51.100.20")).key);
+  assert.notEqual(direct.key, throughCloudflare.key);
+});
+
 test("IP identity is HMAC-bound, day-scoped, and never carries the raw IP", () => {
   const today = identityDay();
   const id = identityFromReq(ipReq("203.0.113.7"));

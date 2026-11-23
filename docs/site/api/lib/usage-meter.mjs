@@ -63,13 +63,104 @@ function hmac32(secret, text) {
   return createHmac("sha256", String(secret)).update(String(text), "utf8").digest("hex").slice(0, 32);
 }
 
-/** Normalize a client-supplied IP for hashing (never stored raw). */
+// Cloudflare publishes these ranges at https://www.cloudflare.com/ips-v4 and /ips-v6.
+// Fly-Client-IP is the address that connected to the app. When that address is
+// Cloudflare, CF-Connecting-IP is the visitor. A caller who hits fly.dev directly
+// can send a forged CF-Connecting-IP, so that header is ignored unless the
+// connection itself came from Cloudflare.
+const CLOUDFLARE_V4 = [
+  ["173.245.48.0", 20],
+  ["103.21.244.0", 22],
+  ["103.22.200.0", 22],
+  ["103.31.4.0", 22],
+  ["141.101.64.0", 18],
+  ["108.162.192.0", 18],
+  ["190.93.240.0", 20],
+  ["188.114.96.0", 20],
+  ["197.234.240.0", 22],
+  ["198.41.128.0", 17],
+  ["162.158.0.0", 15],
+  ["104.16.0.0", 13],
+  ["104.24.0.0", 14],
+  ["172.64.0.0", 13],
+  ["131.0.72.0", 22],
+];
+const CLOUDFLARE_V6 = [
+  ["2400:cb00::", 32],
+  ["2606:4700::", 32],
+  ["2803:f800::", 32],
+  ["2405:b500::", 32],
+  ["2405:8100::", 32],
+  ["2a06:98c0::", 29],
+  ["2c0f:f248::", 32],
+];
+
+function firstIp(value) {
+  const raw = String(value || "").split(",")[0].trim().toLowerCase();
+  if (!raw || raw.length > 100) return null;
+  return raw;
+}
+
+function ipv4ToInt(ip) {
+  const parts = ip.split(".");
+  if (parts.length !== 4) return null;
+  let n = 0n;
+  for (const part of parts) {
+    if (!/^\d{1,3}$/.test(part)) return null;
+    const octet = Number(part);
+    if (octet > 255) return null;
+    n = (n << 8n) + BigInt(octet);
+  }
+  return n;
+}
+
+function ipv6ToInt(ip) {
+  const bare = ip.split("%")[0];
+  if (bare.includes(".")) return null;
+  const halves = bare.split("::");
+  if (halves.length > 2) return null;
+  let groups;
+  if (halves.length === 1) {
+    groups = bare.split(":");
+  } else {
+    const left = halves[0] ? halves[0].split(":") : [];
+    const right = halves[1] ? halves[1].split(":") : [];
+    const missing = 8 - left.length - right.length;
+    if (missing < 0) return null;
+    groups = [...left, ...Array(missing).fill("0"), ...right];
+  }
+  if (groups.length !== 8) return null;
+  let n = 0n;
+  for (const group of groups) {
+    if (!/^[0-9a-f]{1,4}$/.test(group)) return null;
+    n = (n << 16n) + BigInt(parseInt(group, 16));
+  }
+  return n;
+}
+
+function inCidr(ip, base, bits, v6) {
+  const addr = v6 ? ipv6ToInt(ip) : ipv4ToInt(ip);
+  const net = v6 ? ipv6ToInt(base) : ipv4ToInt(base);
+  if (addr == null || net == null) return false;
+  const width = v6 ? 128n : 32n;
+  const shift = width - BigInt(bits);
+  return addr >> shift === net >> shift;
+}
+
+function isCloudflareEdge(ip) {
+  if (!ip) return false;
+  if (ip.includes(":")) return CLOUDFLARE_V6.some(([base, bits]) => inCidr(ip, base, bits, true));
+  return CLOUDFLARE_V4.some(([base, bits]) => inCidr(ip, base, bits, false));
+}
+
+/** Normalize a client address for hashing (never stored raw). */
 export function cleanIp(req) {
   const h = (req && req.headers) || {};
-  const raw = String(h["x-forwarded-for"] || h["x-real-ip"] || "").split(",")[0].trim();
-  if (!raw) return null;
-  if (raw.length > 100) return null;
-  return raw.toLowerCase();
+  const cf = firstIp(h["cf-connecting-ip"]);
+  const fly = firstIp(h["fly-client-ip"]);
+  if (cf && h["cf-ray"] && isCloudflareEdge(fly)) return cf;
+  if (fly) return fly;
+  return firstIp(h["x-forwarded-for"] || h["x-real-ip"]);
 }
 
 export function ownerFromReq(req) {
