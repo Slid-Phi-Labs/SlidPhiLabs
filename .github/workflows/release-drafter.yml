@@ -19,5 +19,14 @@ jobs:
       pull-requests: read
     steps:
       - uses: release-drafter/release-drafter@978bb0b30c5ee8cdd332ced253758157150d43f0 # v7.10.0
+        with:
+          # Baseline pinned 2026-11-23: the published v2.5.0 tag points at
+          # merge commit 12083d99, an abandoned twin that is not an ancestor
+          # of main, so the Compare API 404s ("No common ancestor") and every
+          # run failed. The in-history twin on main is b8718c3 (same merge;
+          # trees differ by one fixture constant). REMOVE this `from:` pin
+          # after the next release is published, or drafts will keep
+          # comparing from Nov 2026.
+          from: b8718c34002f71dcb469c3d306e2edab6ce25fdc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

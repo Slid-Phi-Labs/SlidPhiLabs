@@ -21,6 +21,8 @@ jobs:
       - name: Ensure ci-health label exists
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No checkout in this job, so gh has no repo context without this.
+          GH_REPO: ${{ github.repository }}
         run: |
           gh label create ci-health \
             --description "Open CI failure on the default branch" \
@@ -28,6 +30,7 @@ jobs:
       - name: Reconcile ci-health issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           default="$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name')"
