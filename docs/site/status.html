@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Slid Phi Labs — System status</title>
-<style>:root { --bg:#0d1117; --fg:#e6edf3; --muted:#8b949e; --ok:#3fb950;
- --warn:#d29922; --down:#f85149; --nodata:#30363d; --card:#161b22; }
+<style>:root { --bg:#ffffff; --fg:#141413; --muted:#5c5c57; --ok:#166534;
+ --warn:#7a5a12; --down:#b42318; --nodata:#d6d4cc; --card:#ffffff; }
 body { background:var(--bg); color:var(--fg);
  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
  margin:0; padding:2rem 1rem; }
 .wrap { max-width:860px; margin:0 auto; }
 h1 { font-size:1.6rem; margin:0 0 .25rem; }
 .sub { color:var(--muted); margin:0 0 1.5rem; }
-.note { background:#12233a; border:1px solid #1f6feb; color:#a8c7fa;
+.note { background:#ffffff; border:1px solid #1f6feb; color:#0f766e;
  padding:.75rem 1rem; border-radius:8px; margin-bottom:1.5rem; font-size:.9rem; }
-.svc { background:var(--card); border:1px solid #30363d; border-radius:8px;
+.svc { background:var(--card); border:1px solid #141413; border-radius:8px;
  padding:1rem 1.25rem; margin-bottom:1rem; }
 .svc-head { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; }
 .svc-name { font-weight:600; font-size:1.05rem; }
@@ -22,9 +25,9 @@ h1 { font-size:1.6rem; margin:0 0 .25rem; }
 .badge { font-size:.75rem; font-weight:600; padding:.2rem .6rem; border-radius:999px;
  white-space:nowrap; }
 .badge.ok { background:rgba(63,185,80,.15); color:var(--ok); border:1px solid rgba(63,185,80,.4); }
-.badge.warn { background:rgba(210,153,34,.15); color:var(--warn); border:1px solid rgba(210,153,34,.4); }
+.badge.warn { background:#fff7e6; color:var(--warn); border:1px solid #d6d4cc; }
 .badge.down { background:rgba(248,81,73,.15); color:var(--down); border:1px solid rgba(248,81,73,.4); }
-.badge.none { background:rgba(139,148,158,.15); color:var(--muted); border:1px solid #30363d; }
+.badge.none { background:#efede6; color:var(--muted); border:1px solid #141413; }
 .grid { display:grid; grid-template-columns:repeat(30, 1fr); gap:3px; margin-top:.75rem; }
 .day { aspect-ratio:1; border-radius:2px; background:var(--nodata); }
 .day.ok { background:var(--ok); } .day.warn { background:var(--warn); }
@@ -34,19 +37,20 @@ h1 { font-size:1.6rem; margin:0 0 .25rem; }
 .sw { display:inline-block; width:.7rem; height:.7rem; border-radius:2px;
  vertical-align:baseline; margin-right:.3rem; }
 footer { color:var(--muted); font-size:.8rem; margin-top:2rem;
- border-top:1px solid #30363d; padding-top:1rem; }
-a { color:#58a6ff; }</style>
+ border-top:1px solid #141413; padding-top:1rem; }
+a { color:#0f766e; }</style>
   <meta name="description" content="Live status for Slid Phi Labs services."/>
   <link rel="canonical" href="https://www.slidphilabs.com/status"/>
   <meta property="og:title" content="Slid Phi Labs — System status"/>
   <meta property="og:description" content="Live status for Slid Phi Labs services."/>
-  <meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Slid Phi Labs — System status"/>
   <meta name="twitter:description" content="Live status for Slid Phi Labs services."/>
-  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Slid Phi Labs — System status","description":"Live status for Slid Phi Labs services.","url":"https://www.slidphilabs.com/status","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
 <div class="wrap">
@@ -190,5 +194,6 @@ a { color:#58a6ff; }</style>
   });
 })();
 </script>
+<script src="/assets/chrome.js?v=50" defer></script>
 </body>
 </html>

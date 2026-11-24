@@ -1,31 +1,32 @@
 /** One header, footer, one logo — every page. */
 (function () {
   const NAV = [
-    ["/", "Shop"],
-    ["/#calls", "Calls"],
     ["/products", "Products"],
     ["/pricing", "Pricing"],
-    ["/pay", "Buy"],
+    ["/docs", "Docs"],
+    ["/wiki", "Wiki"],
+    ["/agents", "Agents"],
   ];
   const MORE = [
+    ["/rider", "Agent-Rider"],
+    ["/warrant", "Warrant"],
+    ["/persist", "PERsiST"],
+    ["/chamber", "Chamber"],
     ["/cuni", "CuNi"],
     ["/pcc", "PCC"],
-    ["/chamber", "Chamber"],
-    ["/rider", "Rider"],
-    ["/warrant", "Warrant"],
+    ["/trustream", "TRUSTREAM"],
+    ["/awlpay", "AwLPay"],
+    ["/teachaid", "TEACHAiD"],
     ["/quikgater", "Quikgater"],
     ["/tollkeeper", "Tollkeeper"],
     ["/lab-pass", "Lab Pass"],
     ["/silesia", "Silesia"],
-    ["/wiki", "Wiki"],
     ["/mcp-service", "MCP"],
-    ["/llms.txt", "Price list"],
     ["/about", "About"],
-    ["/docs", "Docs"],
     ["/press", "Press"],
-    ["/agents", "Agents"],
-    ["/humans", "Humans"],
   ];
+  const LOGO = "/assets/brand/sp-logo-120.png";
+  const LOGO_2X = "/assets/brand/sp-logo-240.png";
 
 
   function path() {
@@ -49,11 +50,11 @@
     <header class="spl-header" role="banner">
       <div class="bar">
         <a class="spl-brand" href="/" aria-label="Slid Phi Labs home">
-          <img src="/assets/wings/mark/slidphi-winged-mark.svg" width="48" height="38" alt=""/>
+          <img src="${LOGO}" srcset="${LOGO} 1x, ${LOGO_2X} 2x" width="62" height="54" alt="Slid Phi Labs"/>
           <span>Slid Phi Labs</span>
         </a>
-        <button class="spl-nav-toggle" type="button" aria-expanded="false" aria-label="Menu"></button>
-        <nav class="spl-nav" aria-label="Primary">${links}<details class="spl-drop"><summary>More</summary><div class="spl-drop-menu">${more}</div></details><span data-spl-auth></span></nav>
+        <button class="spl-nav-toggle" type="button" aria-expanded="false" aria-controls="spl-nav" aria-label="Menu"></button>
+        <nav class="spl-nav" id="spl-nav" aria-label="Primary">${links}<details class="spl-drop"><summary>Products A–Z</summary><div class="spl-drop-menu">${more}</div></details><span data-spl-auth></span><a class="spl-buy-cta" href="/pay">Buy →</a></nav>
       </div>
     </header>`;
   }
@@ -61,56 +62,53 @@
   function footer() {
     return `<footer class="spl-footer" role="contentinfo">
     <div class="inner">
-      <div>
-        <h4>Company</h4>
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/press">Press</a>
-        <a href="/box">Try 24 hours</a>
-        <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a>
-      </div>
-      <div>
-        <h4>Compress</h4>
-        <a href="/pcc">Compression through your tools</a>
-        <a href="/compare">Compare prices</a>
-        <a href="/bench">Bench</a>
-        <a href="/docs">API</a>
-        <a href="/pulsar">pulsar</a>
-      </div>
-      <div>
-        <h4>Also</h4>
-        <a href="/trustream">TRUSTREAM</a>
-        <a href="/chamber">Chamber</a>
-        <a href="/rider">Agent-Rider</a>
-        <a href="/warrant">Warrant</a>
-        <a href="/cuni">CuNi</a>
-        <a href="/about">About</a>
-      </div>
-      <div>
-        <h4>Shop</h4>
-        <a href="/">Shop</a>
-        <a href="/#calls">Calls</a>
-        <a href="/pay">Buy</a>
-        <a href="/pricing">Pricing</a>
-        <a href="/quikgater">Quikgater</a>
-        <a href="/lab-pass">Lab Pass</a>
+      <div class="spl-foot-brand">
+        <img src="${LOGO}" srcset="${LOGO} 1x, ${LOGO_2X} 2x" width="74" height="64" alt="Slid Phi Labs"/>
+        <p>Tools that check. Proof before praise.</p>
       </div>
       <div>
         <h4>Agents</h4>
-        <a href="/agents">For agents</a>
+        <a href="/rider">Agent-Rider</a>
+        <a href="/warrant">Warrant</a>
+        <a href="/persist">PERsiST</a>
+        <a href="/chamber">Chamber</a>
+        <a href="/awlpay">AwLPay</a>
+      </div>
+      <div>
+        <h4>Exact</h4>
+        <a href="/cuni">CuNi</a>
+        <a href="/pcc">PCC</a>
+        <a href="/trustream">TRUSTREAM</a>
+        <a href="/pulsar">pulsar</a>
+        <a href="/bench">Bench</a>
+      </div>
+      <div>
+        <h4>Buy</h4>
+        <a href="/pay">Checkout</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/lab-pass">Lab Pass</a>
+        <a href="/box">Try 24 hours</a>
+        <a href="/teachaid">TEACHAiD</a>
+      </div>
+      <div>
+        <h4>For agents</h4>
+        <a href="/agents">Start here</a>
         <a href="/api/agent">/api/agent</a>
         <a href="/llms.txt">llms.txt</a>
         <a href="/mcp">/mcp</a>
+        <a href="/x402">x402</a>
       </div>
       <div>
-        <h4>Legal</h4>
+        <h4>Company</h4>
+        <a href="/about">About</a>
+        <a href="/press">Press</a>
+        <a href="/contact">Contact</a>
         <a href="/terms">Terms</a>
         <a href="/privacy">Privacy</a>
-        <a href="/dpa">DPA</a>
         <a href="/refund-policy">Refunds</a>
       </div>
     </div>
-    <p class="legal">© Slid Phi Labs · Cherry Hill · corey@slidphilabs.com · Built with care, made to fly.</p>
+    <p class="legal">© ${new Date().getFullYear()} Slid Phi Labs, Inc. · Cherry Hill, New Jersey · <a href="mailto:corey@slidphilabs.com" style="display:inline;min-height:0;font-size:inherit">corey@slidphilabs.com</a></p>
   </footer>`;
   }
 
@@ -159,7 +157,7 @@
       btn.addEventListener("click", () => {
         const open = btn.getAttribute("aria-expanded") === "true";
         btn.setAttribute("aria-expanded", open ? "false" : "true");
-        document.querySelector(".spl-nav")?.classList.toggle("open", !open);
+        document.querySelector(".spl-header")?.classList.toggle("open", !open);
       });
     }
   }

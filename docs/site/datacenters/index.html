@@ -3,12 +3,15 @@
 <head>
 <meta name="agentic" content="true"/>
 
-<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 
 <meta name="lab-pricing" content="freemium_suite_v4_undercut"/>
 <meta name="lab-eval-path" content="https://www.slidphilabs.com/pps"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Data Centers · first 1 GB once per address then $0.25/GB · Slid Phi Labs</title>
 <meta name="description" content="Compression economics for bulk/ops. first 1 GB free once per address, then $0.25/GB."/>
 <meta name="lab-modules" content="compression,agent_platform"/>
@@ -24,72 +27,68 @@
 <meta property="og:title" content="Data Centers · first 1 GB once per address then $0.25/GB · Slid Phi Labs"/>
 <meta property="og:description" content="Compression economics for bulk/ops. first 1 GB free once per address, then $0.25/GB."/>
 <meta property="og:url" content="https://www.slidphilabs.com/datacenters"/>
-<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:site" content="@slidphilabs"/>
 <meta name="twitter:creator" content="@slidphilabs"/>
 <meta name="twitter:title" content="Data Centers · first 1 GB once per address then $0.25/GB · Slid Phi Labs"/>
-<meta name="theme-color" content="#050b16"/>
+<meta name="theme-color" content="#f7f6f2"/>
 <meta name="robots" content="index,follow"/>
-<link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
-<link rel="stylesheet" href="/assets/brand-header.css?v=1"/>
-<link rel="stylesheet" href="/assets/site-header.css?v=1"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/brand-header.css?v=50"/>
+<link rel="stylesheet" href="/assets/site-header.css?v=50"/>
 <style>
 :root{
-  --bg:#050b16;--panel:#0c1524;--panel2:#122033;--border:rgba(61,214,198,.14);--border-gold:rgba(232,197,71,.35);
-  --text:#eef4fb;--muted:#8fa3b8;--accent:#5ba8ff;--teal:#3dd6c6;--teal-bright:#5ef0df;--gold:#e8c547;--gold-deep:#c9a227;
-  --gold-soft:rgba(232,197,71,.12);--code:#081018;--win:#3ecf8e;--poster:url("https://www.slidphilabs.com/assets/now/og.jpg?v=3");
+  --bg:#ffffff;--panel:#ffffff;--panel2:#ffffff;--border:#d6d4cc;--border-gold:#d6d4cc;
+  --text:#141413;--muted:#5c5c57;--accent:#0f766e;--teal:#0f766e;--teal-bright:#0f766e;--gold:#7a5a12;--gold-deep:#7a5a12;
+  --gold-soft:#7a5a12;--code:#ffffff;--win:#166534;--poster:url("https://www.slidphilabs.com/assets/brand/sp-og.png");
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 80% 45% at 50% -5%, rgba(61,214,198,.08), transparent 55%),
-    radial-gradient(ellipse 40% 30% at 90% 70%, rgba(232,197,71,.05), transparent 50%)}
+  background:#e6f4f1}
 a{color:var(--accent);text-decoration:none}a:hover{color:var(--teal-bright)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
-nav{position:sticky;top:0;z-index:50;background:rgba(5,11,22,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,197,71,.18)}
+nav{position:sticky;top:0;z-index:50;background:#ffffff;backdrop-filter:none;border-bottom:1px solid #d6d4cc}
 nav .inner{max-width:1040px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.logo{display:inline-flex;align-items:center;gap:10px;font-family:'Cinzel',serif;font-weight:700;color:var(--gold);letter-spacing:.03em}
-.logo img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border-gold);box-shadow:0 0 16px rgba(61,214,198,.3)}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:"IBM Plex Sans", system-ui, sans-serif;font-weight:700;color:var(--gold);letter-spacing:.03em}
+.logo img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border-gold);box-shadow:none}
 .logo span{color:var(--teal-bright)}
 .nav-links{display:flex;gap:12px;flex-wrap:wrap;font-size:.88rem;align-items:center}
 .nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--gold)}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid transparent;cursor:pointer;font-family:inherit;gap:8px}
-.btn-teal{background:linear-gradient(180deg,#5ef0df,var(--teal));color:#031018}
-.btn-gold{background:linear-gradient(180deg,#f5e6a3,var(--gold));color:#1a1400}
-.btn-ghost{background:transparent;color:var(--text);border-color:rgba(61,214,198,.28)}
+.btn-teal{background:#141413;color:#ffffff}
+.btn-gold{background:#141413;color:#ffffff}
+.btn-ghost{background:transparent;color:var(--text);border-color:#d6d4cc}
 .btn-sm{padding:8px 12px;font-size:.8rem}
 .hero{
-  padding:40px 0 32px;border-bottom:1px solid rgba(232,197,71,.2);
-  background:linear-gradient(105deg, rgba(5,11,22,.95) 0%, rgba(5,11,22,.88) 42%, rgba(5,11,22,.55) 100%),
-    var(--poster) 82% 18%/cover no-repeat;
+  padding:40px 0 32px;border-bottom:1px solid #d6d4cc;
+  background:#ffffff;
 }
-.badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:var(--gold);background:var(--gold-soft);border:1px solid var(--border-gold);padding:5px 14px;border-radius:999px;margin-bottom:14px}
-h1{font-family:'Cinzel',serif;font-size:clamp(1.55rem,4vw,2.25rem);color:var(--gold);letter-spacing:.03em;margin-bottom:12px;line-height:1.2}
+.badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:#f5c85a;background:#141413;border:1px solid var(--border-gold);padding:5px 14px;border-radius:999px;margin-bottom:14px}
+h1{font-family:"IBM Plex Sans", system-ui, sans-serif;font-size:clamp(1.55rem,4vw,2.25rem);color:var(--gold);letter-spacing:.03em;margin-bottom:12px;line-height:1.2}
 .lead{color:var(--muted);max-width:40rem;font-size:1.05rem}
 .lead strong{color:var(--teal-bright);font-weight:600}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.pill{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid rgba(61,214,198,.3);color:var(--teal-bright);background:rgba(61,214,198,.06)}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid #d6d4cc;color:var(--teal-bright);background:#e6f4f1}
 .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 
 .layout{display:grid;gap:20px;padding:28px 0 48px}
 @media(min-width:900px){.layout{grid-template-columns:1.05fr .95fr;align-items:start}}
 
 .card{
-  background:linear-gradient(165deg, rgba(18,32,51,.95), rgba(12,21,36,.98));
+  background:#ffffff;
   border:1px solid var(--border);border-radius:16px;padding:20px;
-  box-shadow:0 16px 40px rgba(0,0,0,.25);
+  box-shadow:none;
 }
-.card.gold-edge{border-color:var(--border-gold);box-shadow:0 0 0 1px rgba(232,197,71,.08), 0 20px 50px rgba(0,0,0,.3)}
-.card h2{font-family:'Cinzel',serif;font-size:1.15rem;color:var(--gold);margin-bottom:6px;letter-spacing:.03em}
+.card.gold-edge{border-color:var(--border-gold);box-shadow:0 0 0 1px #d6d4cc, 0 20px 50px #141413}
+.card h2{font-family:"IBM Plex Sans", system-ui, sans-serif;font-size:1.15rem;color:var(--gold);margin-bottom:6px;letter-spacing:.03em}
 .card .sub{color:var(--muted);font-size:.9rem;margin-bottom:16px}
 
 label{display:flex;justify-content:space-between;align-items:baseline;font-size:.78rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;margin:12px 0 6px}
 label .val{color:var(--teal-bright);font-weight:600}
 input[type="range"]{width:100%;accent-color:var(--teal);cursor:pointer}
 select, input[type="number"]{
-  width:100%;background:var(--code);border:1px solid rgba(61,214,198,.25);color:var(--text);
+  width:100%;background:var(--code);border:1px solid #d6d4cc;color:var(--text);
   padding:10px 12px;border-radius:10px;font:inherit;
 }
 .grid2{display:grid;gap:12px}
@@ -97,11 +96,11 @@ select, input[type="number"]{
 
 .results{display:grid;gap:12px;margin-top:4px}
 .metric{
-  padding:14px 16px;border-radius:12px;border:1px solid rgba(61,214,198,.2);
-  background:rgba(8,16,24,.75);
+  padding:14px 16px;border-radius:12px;border:1px solid #d6d4cc;
+  background:#ffffff;
 }
 .metric .k{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.metric .v{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,1.85rem);color:var(--teal-bright);margin-top:4px}
+.metric .v{font-family:"IBM Plex Sans", system-ui, sans-serif;font-size:clamp(1.4rem,3vw,1.85rem);color:var(--teal-bright);margin-top:4px}
 .metric .v.gold{color:var(--gold)}
 .metric .v.win{color:var(--win)}
 .metric .s{font-size:.85rem;color:var(--muted);margin-top:4px}
@@ -109,19 +108,19 @@ select, input[type="number"]{
 .bars{margin-top:8px}
 .bar-row{margin:10px 0}
 .bar-label{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:4px;font-family:'IBM Plex Mono',monospace}
-.bar-track{height:12px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar-track{height:12px;border-radius:999px;background:rgba(20,20,19,0.04);overflow:hidden}
 .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--teal-bright));transition:width .35s ease}
-.bar-fill.gold{background:linear-gradient(90deg,var(--gold-deep),var(--gold))}
-.bar-fill.dim{background:linear-gradient(90deg,#4a5568,#718096);opacity:.85}
+.bar-fill.gold{background:#141413}
+.bar-fill.dim{background:#efede6;opacity:.85}
 
 .note{font-size:.84rem;color:var(--muted);margin-top:14px;line-height:1.5}
 .note strong{color:var(--gold)}
-.live-box{margin-top:16px;padding-top:16px;border-top:1px solid rgba(232,197,71,.2)}
-.live-box h3{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold);margin-bottom:8px}
+.live-box{margin-top:16px;padding-top:16px;border-top:1px solid #d6d4cc}
+.live-box h3{font-family:"IBM Plex Sans", system-ui, sans-serif;font-size:.95rem;color:var(--gold);margin-bottom:8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .chip{font-size:.76rem;padding:7px 12px;border-radius:999px;border:1px solid var(--border);color:var(--muted);background:transparent;cursor:pointer;font-family:'IBM Plex Mono',monospace}
-.chip:hover,.chip.on{border-color:var(--border-gold);color:var(--gold);background:var(--gold-soft)}
-.out{margin-top:10px;padding:12px;border-radius:10px;background:var(--code);border:1px solid rgba(61,214,198,.2);font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--muted);min-height:48px}
+.chip:hover,.chip.on{border-color:var(--border-gold);color:#f5c85a;background:#141413}
+.out{margin-top:10px;padding:12px;border-radius:10px;background:var(--code);border:1px solid #d6d4cc;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--muted);min-height:48px}
 .out.ok{color:var(--win);border-color:rgba(62,207,142,.35)}
 .out.err{color:#ff8a7a}
 
@@ -130,19 +129,19 @@ select, input[type="number"]{
 .why .card h3{font-size:1rem;margin-bottom:8px}
 .why p{color:var(--muted);font-size:.9rem}
 
-footer{border-top:1px solid rgba(232,197,71,.18);padding:28px 0 40px;color:var(--muted);font-size:.88rem}
+footer{border-top:1px solid #d6d4cc;padding:28px 0 40px;color:var(--muted);font-size:.88rem}
 footer a{color:var(--gold)}
 .disclaimer{font-size:.78rem;color:var(--muted);opacity:.9;margin-top:12px;font-family:'IBM Plex Mono',monospace}
 </style>
-<link rel="stylesheet" href="/assets/chrome.css?v=40"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Data Centers · first 1 GB once per address then $0.25/GB · Slid Phi Labs","description":"Compression economics for bulk/ops. first 1 GB free once per address, then $0.25/GB.","url":"https://www.slidphilabs.com/datacenters","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
 <header class="site-nav" role="banner">
   <div class="inner">
     <a class="brand" href="/" aria-label="Slid Phi Labs home">
-      <img class="brand-logo" src="/assets/logos/logo-slid-phi-labs.jpg" width="36" height="36" alt=""/>
+      <img class="brand-logo" src="/assets/brand/sp-icon-192.png" width="36" height="36" alt=""/>
       <span>Slid Phi Labs</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -495,8 +494,8 @@ $('runLive').addEventListener('click', async () => {
   }
 });
 </script>
-<script src="/assets/platform-home.js?v=1" defer></script>
+<script src="/assets/platform-home.js?v=50" defer></script>
 <script src="/assets/site-header.js?v=1" defer></script>
-<script src="/assets/chrome.js?v=42" defer></script>
+<script src="/assets/chrome.js?v=50" defer></script>
 </body>
 </html>

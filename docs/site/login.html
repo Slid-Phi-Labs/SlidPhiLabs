@@ -3,42 +3,44 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Log in — Slid Phi Labs</title>
 <meta name="description" content="Log in to your Slid Phi Labs account. One login for CuNi Studio, Agent-Rider, Chamber, and the rest of the lab."/>
 <link rel="canonical" href="https://www.slidphilabs.com/login"/>
-<link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
 <meta name="robots" content="index,follow"/>
 <meta name="agentic" content="true"/>
 <meta property="og:site_name" content="Slid Phi Labs"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Log in — Slid Phi Labs"/>
 <meta property="og:description" content="One lab login for every product."/>
-<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta property="og:url" content="https://www.slidphilabs.com/login"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Log in — Slid Phi Labs"/>
 <meta name="twitter:description" content="One lab login for every product."/>
-<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
-<link rel="stylesheet" href="/assets/chrome.css?v=40"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Log in — Slid Phi Labs","description":"Log in to your Slid Phi Labs account. One login for CuNi Studio, Agent-Rider, Chamber, and the rest of the lab.","url":"https://www.slidphilabs.com/login","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
 <main id="main" style="max-width:28rem;margin:2rem auto;padding:0 1.1rem 3rem">
   <h1 style="font-size:1.8rem">Log in</h1>
-  <p style="margin:0 0 1rem;color:#444">Same account you created on Sign up. No card on this page.</p>
+  <p style="margin:0 0 1rem;color:#3d3d39">Same account you created on Sign up. No card on this page.</p>
   <form id="f" style="margin-top:1.2rem;display:grid;gap:.7rem">
     <label>Email<input name="email" type="email" autocomplete="email" required style="width:100%;padding:.7rem;margin-top:.25rem"/></label>
     <label>Password<input name="password" type="password" autocomplete="current-password" required style="width:100%;padding:.7rem;margin-top:.25rem"/></label>
-    <button type="submit" style="padding:.85rem;font-weight:700;background:#9a7b2f;color:#fff;border:0;border-radius:8px;cursor:pointer">Log in</button>
-    <button type="button" id="pk" style="padding:.85rem;font-weight:700;background:#0f1c2e;color:#fff;border:0;border-radius:8px;cursor:pointer">Passkey</button>
+    <button type="submit" style="padding:.85rem;font-weight:700;background:#141413;color:#141413;border:0;border-radius:8px;cursor:pointer">Log in</button>
+    <button type="button" id="pk" style="padding:.85rem;font-weight:700;background:#ffffff;color:#141413;border:0;border-radius:8px;cursor:pointer">Passkey</button>
   </form>
   <p id="err" style="color:#b42318;min-height:1.2em"></p>
   <p>New here? <a id="su" href="/signup">Sign up</a></p>
 </main>
-<script src="/assets/chrome.js?v=42" defer></script>
-<script src="/assets/lab-auth.js?v=3"></script>
+<script src="/assets/chrome.js?v=50" defer></script>
+<script src="/assets/lab-auth.js?v=50"></script>
 <script>
 document.getElementById("su").href = "/signup" + location.search;
 document.getElementById("f").addEventListener("submit", async (e) => {

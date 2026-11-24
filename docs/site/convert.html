@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Convert · Suite first 1 GB free (lifetime per IP) then Stripe · Slid Phi Labs</title>
 <meta name="description" content="Freemium → paid conversion: First 1 GB free once per IP (lifetime), then $0.25/GB. Stripe for humans · x402 for agents."/>
 <link rel="canonical" href="https://www.slidphilabs.com/convert"/>
 <meta name="robots" content="index,follow"/>
-<meta name="theme-color" content="#050b16"/>
+<meta name="theme-color" content="#f7f6f2"/>
 <meta name="lab-pricing" content="freemium_suite_v4_undercut"/>
 <meta name="agentic" content="true"/>
 <meta property="og:type" content="website"/>
@@ -15,81 +18,77 @@
 <meta property="og:title" content="Convert · Suite then Stripe · Slid Phi Labs"/>
 <meta property="og:description" content="First 1 GB free once per IP (lifetime), then $0.25/GB. Stripe humans · x402 agents."/>
 <meta property="og:url" content="https://www.slidphilabs.com/convert"/>
-<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Convert · freemium → Stripe · Slid Phi Labs"/>
 <meta name="twitter:description" content="First 1 GB free once per IP (lifetime), then $0.25/GB. Dual doors: humans + agents."/>
-<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
-<link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent" title="Agent commerce"/>
 <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#050b16;--panel:#0c1524;--text:#eef4fb;--muted:#8fa3b8;
-  --teal:#3dd6c6;--teal-b:#5ef0df;--gold:#e8c547;--gold-d:#c9a227;
-  --border:rgba(61,214,198,.16);--border-gold:rgba(232,197,71,.38);
-  --accent:#5ba8ff;--good:#3ecf8e;--bad:#f87171;
+  --bg:#ffffff;--panel:#ffffff;--text:#141413;--muted:#5c5c57;
+  --teal:#0f766e;--teal-b:#0f766e;--gold:#7a5a12;--gold-d:#7a5a12;
+  --border:#d6d4cc;--border-gold:#d6d4cc;
+  --accent:#0f766e;--good:#166534;--bad:#f87171;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 55% 42% at 12% 0%,rgba(61,214,198,.1),transparent 55%),
-  radial-gradient(ellipse 50% 38% at 92% 8%,rgba(232,197,71,.08),transparent 50%),
-  linear-gradient(180deg,#03060e 0%,var(--bg) 45%)}
+  background:#e6f4f1}
 a{color:var(--accent);text-decoration:none}a:hover{color:var(--teal-b)}
 .wrap{max-width:720px;margin:0 auto;padding:28px 18px 72px;position:relative;z-index:1}
 nav{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:22px;font-size:.88rem;color:var(--muted)}
 nav a{color:var(--muted)}nav a:hover{color:var(--gold)}
 .badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold);border:1px solid var(--border-gold);padding:5px 12px;border-radius:999px;margin-bottom:12px;background:rgba(232,197,71,.1)}
-h1{font-family:'Cinzel',serif;color:var(--gold);font-size:clamp(1.45rem,3.2vw,2rem);line-height:1.2;margin-bottom:10px}
+  color:var(--gold);border:1px solid var(--border-gold);padding:5px 12px;border-radius:999px;margin-bottom:12px;background:#fff7e6}
+h1{font-family:"IBM Plex Sans", system-ui, sans-serif;color:var(--gold);font-size:clamp(1.45rem,3.2vw,2rem);line-height:1.2;margin-bottom:10px}
 .lead{color:var(--muted);font-size:1.02rem;max-width:40rem;margin-bottom:18px}
 .lead strong{color:var(--text)}
-.card{background:rgba(12,21,36,.94);border:1px solid var(--border);border-radius:16px;padding:20px 18px;margin-bottom:14px}
+.card{background:#ffffff;border:1px solid var(--border);border-radius:16px;padding:20px 18px;margin-bottom:14px}
 .kicker{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-b);margin-bottom:8px}
 label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
 input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--border);
-  background:#081018;color:var(--text);font:inherit}
+  background:#ffffff;color:var(--text);font:inherit}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:560px){.row{grid-template-columns:1fr}}
-.quote{margin-top:14px;padding:14px;border-radius:12px;background:#081018;border:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.quote{margin-top:14px;padding:14px;border-radius:12px;background:#ffffff;border:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.86rem}
 .quote .big{font-size:1.35rem;color:var(--gold);font-weight:700;margin:4px 0}
 .quote.free .big{color:var(--good)}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;
   font-weight:700;font-size:.92rem;border:0;cursor:pointer;font-family:inherit;text-decoration:none;color:inherit}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.btn-gold{background:linear-gradient(180deg,#f5d76e 0%,var(--gold) 45%,var(--gold-d) 100%);color:#1a1200;
-  box-shadow:0 8px 24px rgba(232,197,71,.22)}
-.btn-teal{background:linear-gradient(180deg,#5ef0df,var(--teal));color:#031018}
+.btn-gold{background:#141413;color:#ffffff;
+  box-shadow:none}
+.btn-teal{background:#141413;color:#ffffff}
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
 .steps{list-style:none;counter-reset:s;margin:8px 0 0}
-.steps li{position:relative;padding:10px 0 10px 40px;border-bottom:1px solid rgba(61,214,198,.1);color:var(--muted);font-size:.92rem}
+.steps li{position:relative;padding:10px 0 10px 40px;border-bottom:1px solid #d6d4cc;color:var(--muted);font-size:.92rem}
 .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:10px;width:28px;height:28px;
   border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;
-  font-size:.75rem;color:#031018;background:var(--gold)}
+  font-size:.75rem;color:#ffffff;background:#141413}
 .steps li strong{color:var(--text)}
 .proof{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;font-size:.85rem;color:var(--muted)}
 .proof a{color:var(--teal-b)}
 .err{color:var(--bad);font-size:.85rem;margin-top:8px;min-height:1.2em}
 .doors{display:grid;gap:10px;margin-top:8px}
 @media(min-width:560px){.doors{grid-template-columns:1fr 1fr}}
-.door{padding:14px;border-radius:12px;border:1px solid var(--border);background:rgba(8,16,28,.7)}
-.door h3{font-family:'Cinzel',serif;color:var(--gold);font-size:.95rem;margin-bottom:6px}
+.door{padding:14px;border-radius:12px;border:1px solid var(--border);background:#ffffff}
+.door h3{font-family:"IBM Plex Sans", system-ui, sans-serif;color:var(--gold);font-size:.95rem;margin-bottom:6px}
 .door p{color:var(--muted);font-size:.86rem}
-footer{margin-top:28px;padding-top:16px;border-top:1px solid rgba(232,197,71,.18);color:var(--muted);font-size:.85rem}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid #d6d4cc;color:#3d3d39;font-size:.85rem}
 footer a{margin-right:12px}
 </style>
-<link rel="stylesheet" href="/assets/site-header.css?v=1"/>
-<link rel="stylesheet" href="/assets/chrome.css?v=40"/>
+<link rel="stylesheet" href="/assets/site-header.css?v=50"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Convert · Suite first 1 GB free (lifetime per IP) then Stripe · Slid Phi Labs","description":"Freemium → paid conversion: First 1 GB free once per IP (lifetime), then $0.25/GB. Stripe for humans · x402 for agents.","url":"https://www.slidphilabs.com/convert","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
   <header class="site-nav" role="banner">
   <div class="inner">
     <a class="brand" href="/" aria-label="Slid Phi Labs home">
-      <img class="brand-logo" src="/assets/logos/logo-slid-phi-labs.jpg" width="36" height="36" alt=""/>
+      <img class="brand-logo" src="/assets/brand/sp-icon-192.png" width="36" height="36" alt=""/>
       <span>Slid Phi Labs</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -204,7 +203,7 @@ footer a{margin-right:12px}
       <a href="/pps">Suite</a>
       <a href="/stand">Stand</a>
       <a href="/pay">Pay matrix</a>
-      <span style="opacity:.7">#increatorwetrust · residual only · freemium_suite_v4_undercut</span>
+      <span style="color:#5c5c57">#increatorwetrust · residual only · freemium_suite_v4_undercut</span>
     </footer>
   </div>
 
@@ -335,6 +334,6 @@ footer a{margin-right:12px}
     refreshQuote();
   </script>
 <script src="/assets/site-header.js?v=1" defer></script>
-<script src="/assets/chrome.js?v=42" defer></script>
+<script src="/assets/chrome.js?v=50" defer></script>
 </body>
 </html>

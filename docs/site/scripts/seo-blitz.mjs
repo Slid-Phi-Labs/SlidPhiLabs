@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url))) + path.sep;
 const SITE = "https://www.slidphilabs.com";
-const OG_IMG = SITE + "/assets/now/og.jpg";
+const OG_IMG = SITE + "/assets/brand/sp-og.png";
 
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {

@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
   <title>PCC — Lossless compression through your tools | Slid Phi Labs</title>
   <meta name="description" content="Lossless compression through your tools: Silesia benchmark 51,498,645 bytes, every win proven by decode plus SHA-256. Called through your tools. Call it with a key; restore every byte."/>
   <link rel="canonical" href="https://www.slidphilabs.com/pcc"/>
-  <link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
-  <link rel="icon" href="/assets/wings/favicon/favicon.ico" sizes="any"/>
-  <link rel="apple-touch-icon" href="/assets/wings/app-icon/apple-touch-icon-180.png"/>
   <meta property="og:title" content="PCC — Lossless compression through your tools | Slid Phi Labs"/>
   <meta property="og:description" content="Lossless compression through your tools: Silesia benchmark 51,498,645 bytes, every win proven by decode plus SHA-256. Called through your tools. Call it with a key; restore every byte."/>
   <meta property="og:url" content="https://www.slidphilabs.com/pcc"/>
   <meta property="og:image" content="https://www.slidphilabs.com/assets/wings/og/slidphi-creator-og-1200.jpg"/>
-  <link rel="stylesheet" href="/assets/chrome.css?v=40"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="PCC — Lossless compression through your tools | Slid Phi Labs"/>
   <meta name="twitter:description" content="Lossless compression through your tools: Silesia benchmark 51,498,645 bytes, every win proven by decode plus SHA-256. Called through your tools. Call it with a key; restore every byte."/>
   <meta name="twitter:image" content="https://www.slidphilabs.com/assets/wings/og/slidphi-creator-og-1200.jpg"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"PCC — Lossless compression through your tools | Slid Phi Labs","description":"Lossless compression through your tools: Silesia benchmark 51,498,645 bytes, every win proven by decode plus SHA-256. Called through your tools. Call it with a key; restore every byte.","url":"https://www.slidphilabs.com/pcc","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
-  <link rel="stylesheet" href="/assets/voice/voice.css?v=2"/>
+  <link rel="stylesheet" href="/assets/voice/voice.css?v=50"/>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
   <main class="spl-page" id="main">
@@ -44,7 +44,8 @@
     </div>
     <p class="spl-note" style="margin:0.4rem 0 0">Want the full engine for a day? <a href="/box">24-hour try</a> — no account, no card. Prefer the API? Same engine over HTTP with a key, npm, or MCP — <a href="/docs">docs</a>.</p>
 <section class="spl-prose spl-full" id="what-pcc" aria-labelledby="what-pcc-h">
-  <h2 id="what-pcc-h">What PCC is</h2>
+  <div data-spl-buy="pcc"></div>
+<h2 id="what-pcc-h">What PCC is</h2>
   <p>PCC is lossless compression for your files, called through tools. Your tool sends a file; it gets back the smallest faithful copy — and when you restore it, every single byte is identical to the original. A smaller file, guaranteed identical when unzipped.</p>
   <p>Here is why that matters. Storage and bandwidth cost real money, and most files carry far more redundancy than they need to. PCC tries your file several ways and keeps whichever copy is smallest, then proves it by decoding it and checking every byte. In one live receipt, a 51&nbsp;MB file came back as 16.7&nbsp;MB, every byte verified on restore.</p>
   <p>Lossless is a promise, not a hope. If nothing can shrink your file, PCC stores it as-is — it never makes a file bigger. And the proof is public: on the standard Silesia benchmark set, PCC pcc-0.12.1 packed the corpus to 51,498,645 bytes, 12 of 12 decoded. The local TNSSRC stamp on the same corpus is 43,724,575. Both numbers are on the board at /silesia.</p>
@@ -84,8 +85,9 @@
 </section>
     <p class="spl-note"><a href="/pricing">Pricing</a> · <a href="/docs">API</a> · <a href="/silesia">Silesia</a> · <a href="/npm">npm</a></p>
   </main>
-  <script src="/assets/chrome.js?v=42" defer></script>
+  <script src="/assets/chrome.js?v=50" defer></script>
   <script src="/assets/file-drop.js?v=1"></script>
   <script src="/assets/voice/voice.js?v=1" defer></script>
+<script src="/assets/buy.js?v=50" defer></script>
 </body>
 </html>

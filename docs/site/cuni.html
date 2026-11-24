@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
   <title>CuNi — Same program. Same output. Or refuse. | Slid Phi Labs</title>
   <meta name="description" content="CuNi hosted calls: check $0.05, translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Same stdout or refuse. Studio free. POST /v1."/>
   <link rel="canonical" href="https://www.slidphilabs.com/cuni"/>
-  <link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
-  <link rel="icon" href="/assets/wings/favicon/favicon.ico" sizes="any"/>
-  <link rel="apple-touch-icon" href="/assets/wings/app-icon/apple-touch-icon-180.png"/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="CuNi — Same program. Same output. Or refuse. | Slid Phi Labs"/>
   <meta property="og:description" content="Nine hosted CuNi calls at /v1. check $0.05 through audit $1.00. Studio free. Same stdout, or refuse."/>
@@ -54,9 +54,9 @@
     "documentation": "https://www.slidphilabs.com/cuni-protocol.json"
   }
   </script>
-  <link rel="stylesheet" href="/assets/chrome.css?v=40"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"CuNi","description":"Nine hosted calls at /v1. Same stdout, or CuNi refuses.","url":"https://www.slidphilabs.com/cuni","brand":{"@type":"Brand","name":"Slid Phi Labs"},"offers":[{"@type":"Offer","name":"check","price":"0.05","priceCurrency":"USD"},{"@type":"Offer","name":"translate","price":"0.10","priceCurrency":"USD"},{"@type":"Offer","name":"audit","price":"1.00","priceCurrency":"USD"}]}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
   <main class="spl-page" id="main">
@@ -70,7 +70,8 @@
       <a class="spl-btn spl-btn-line" href="/rider">Execute on Rider seats</a>
     </p>
     <section class="spl-prose spl-full" id="what-is-cuni" aria-labelledby="what-is-cuni-h">
-      <h2 id="what-is-cuni-h">What CuNi is</h2>
+      <div data-spl-buy="cuni"></div>
+<h2 id="what-is-cuni-h">What CuNi is</h2>
       <p>CuNi is a programming language with one hard rule: write your code once, and it either behaves <em>exactly</em> the same in every language it builds for — or it refuses to build at all.</p>
       <p>Here is why that matters. A program written in Python and the &ldquo;same&rdquo; program rewritten in JavaScript are never quite the same program. Tiny differences creep in: how numbers round, how text is handled, what happens at the edges. Most of the time nobody notices. Then money or data is on the line, and a rounding difference becomes a real loss.</p>
       <p>CuNi eliminates that whole class of problem. You write one source file. CuNi can turn it into 53 catalog targets — the top 50 languages plus 3 onchain profiles, including Python, JavaScript, Rust, C, Go, and onchain emitters for ink!, Move, Vyper, Cairo, Clarity, and Cadence. Before it hands you any of them, <code>cuni check</code> emits and runs every target: byte-identical stdout, or it refuses the path.</p>
@@ -185,6 +186,7 @@
 </section>
     <p class="spl-note"><span>© 2026 Slid Phi Labs, Inc. All rights reserved.</span></p>
 </main>
-  <script src="/assets/chrome.js?v=41" defer></script>
+  <script src="/assets/chrome.js?v=50" defer></script>
+<script src="/assets/buy.js?v=50" defer></script>
 </body>
 </html>

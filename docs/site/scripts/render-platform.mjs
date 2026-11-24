@@ -7,7 +7,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const MARK = `<img src="/assets/logos/logo-slid-phi-labs.jpg?v=14" width="44" height="44" alt="">`;
+const MARK = `<img src="/assets/brand/sp-logo-120.png" srcset="/assets/brand/sp-logo-120.png 1x, /assets/brand/sp-logo-240.png 2x" width="53" height="46" alt="Slid Phi Labs">`;
 
 const NAV = [
   ["/", "Home"],
@@ -106,22 +106,25 @@ function head({ title, desc, path }) {
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}"/>
-  <meta name="theme-color" content="#0f1c2e"/>
+  <meta name="theme-color" content="#f7f6f2"/>
   <link rel="canonical" href="${url}"/>
-  <link rel="icon" type="image/jpeg" href="/assets/logos/logo-slid-phi-labs.jpg?v=14"/>
+  <link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+  <link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
   <meta property="og:title" content="${esc(title)}"/>
   <meta property="og:description" content="${esc(desc)}"/>
   <meta property="og:url" content="${url}"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <meta property="og:site_name" content="Slid Phi Labs"/>
   <meta name="robots" content="index,follow"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="${esc(title)}"/>
   <meta name="twitter:description" content="${esc(desc)}"/>
-  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
-  <link rel="stylesheet" href="/assets/platform.css?v=3"/>
+  <link rel="stylesheet" href="/assets/platform.css?v=50"/>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body class="pf">`;
 }
@@ -515,7 +518,7 @@ function renderHome() {
 ${chrome("/")}
 <main class="pf-wrap" id="main">
   <section class="pf-hero">
-    <img class="pf-logo" src="/assets/logos/logo-slid-phi-labs.jpg?v=14" width="1024" height="1024" alt="Slid Phi Labs" fetchpriority="high">
+    <img class="pf-logo" src="/assets/brand/sp-icon-512.png" width="512" height="512" alt="Slid Phi Labs" fetchpriority="high">
     <p class="pf-kicker">Slid Phi Labs · Cherry Hill</p>
     <h1>Signed seats. Exact programs. Receipts.</h1>
     <p class="pf-lede">Rider gives an agent a signed name for about fifteen minutes. Anyone can check it on the public keys. CuNi takes one program and checks that Python, Go, and JavaScript print the same stdout. Warrant writes what the agent may do, then files the receipt when it does.</p>
