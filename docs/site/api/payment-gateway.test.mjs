@@ -120,7 +120,10 @@ describe("gateway — ap2 mandates", () => {
     assert.equal(low.reason, "mandate_below_price");
     const wrong = settleAp2({ mandate: mandate({ ...base, merchant_id: "other", amount_cents: 5000 }, kp), sku: "chamber-month", amount_cents: 2000, nonce: "n1" });
     assert.equal(wrong.reason, "mandate_merchant_mismatch");
-    const tampered = mandate({ ...base, amount_cents: 5000 }, kp).replace(/.$/, "x");
+    // Tamper the payload without re-signing: signature must fail.
+    const good2 = mandate({ ...base, amount_cents: 5000 }, kp).split(".");
+    const forgedPayload = Buffer.from(JSON.stringify({ ...base, amount_cents: 9000 })).toString("base64url");
+    const tampered = `${good2[0]}.${forgedPayload}.${good2[2]}`;
     assert.equal(settleAp2({ mandate: tampered, sku: "chamber-month", amount_cents: 2000, nonce: "n1" }).ok, false);
     delete process.env.AP2_ISSUER_PUBLIC_KEY;
     delete process.env.GW_AP2_MERCHANT_ID;
