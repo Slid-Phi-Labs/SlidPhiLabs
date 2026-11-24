@@ -60,6 +60,8 @@ function envSet(name, env) {
     const k = name.slice(0, -2);
     return env[k] === "1";
   }
+  // The restricted key satisfies the Stripe credential requirement.
+  if (name === "STRIPE_SECRET_KEY") return Boolean(env.STRIPE_SECRET_KEY || env.STRIPE_RESTRICTED_KEY);
   return Boolean(env[name]);
 }
 

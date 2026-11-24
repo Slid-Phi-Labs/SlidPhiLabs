@@ -67,6 +67,15 @@ function nonceFile(env, nonce) {
   return join(nonceDir(env), `${digest.slice(0, 32)}.json`);
 }
 
+/**
+ * Stripe credential for the card rails: full secret when present,
+ * otherwise the restricted key. The live app ships rk_live with
+ * PaymentIntents write (create/cancel verified by probe 2026-11-24).
+ */
+export function stripeKey(env = process.env) {
+  return env.STRIPE_SECRET_KEY || env.STRIPE_RESTRICTED_KEY || "";
+}
+
 /** Price for a SKU from the canonical catalog. Returns cents or null. */
 export function priceForSku(rawSku) {
   const sku = resolveSku(rawSku);
@@ -79,8 +88,8 @@ export function priceForSku(rawSku) {
 export function configuredProtocols(env = process.env) {
   const out = [];
   if (solanaPayTo(env)) out.push("x402");
-  if (env.STRIPE_SECRET_KEY && env.GW_MPP_ENABLED === "1") out.push("mpp");
-  if (env.STRIPE_SECRET_KEY && env.GW_ACP_ENABLED === "1") out.push("acp");
+  if (stripeKey(env) && env.GW_MPP_ENABLED === "1") out.push("mpp");
+  if (stripeKey(env) && env.GW_ACP_ENABLED === "1") out.push("acp");
   if (env.AP2_ISSUER_PUBLIC_KEY && env.GW_AP2_MERCHANT_ID) out.push("ap2");
   return out;
 }
@@ -100,10 +109,10 @@ function acceptsFor({ sku, amount_cents, nonce, env }) {
       extra: { nonce, amount_cents },
     });
   }
-  if (env.STRIPE_SECRET_KEY && env.GW_MPP_ENABLED === "1") {
+  if (stripeKey(env) && env.GW_MPP_ENABLED === "1") {
     accepts.push({ protocol: "mpp", provider: "stripe", currency: "usd", amount_cents, credential: "shared_payment_token (spt_)", nonce });
   }
-  if (env.STRIPE_SECRET_KEY && env.GW_ACP_ENABLED === "1") {
+  if (stripeKey(env) && env.GW_ACP_ENABLED === "1") {
     accepts.push({ protocol: "acp", provider: "stripe", currency: "usd", amount_cents, credential: "delegated_payment_token", nonce });
   }
   if (env.AP2_ISSUER_PUBLIC_KEY && env.GW_AP2_MERCHANT_ID) {
@@ -230,7 +239,7 @@ function stripeForm(obj, prefix, out = []) {
  * Adapters: { fetchImpl } for tests.
  */
 export async function settleStripeRail({ protocol, credential, sku, amount_cents, nonce, env = process.env, fetchImpl = globalThis.fetch }) {
-  if (!env.STRIPE_SECRET_KEY) return { ok: false, reason: "protocol_not_configured" };
+  if (!stripeKey(env)) return { ok: false, reason: "protocol_not_configured" };
   if (protocol === "mpp" && env.GW_MPP_ENABLED !== "1") return { ok: false, reason: "protocol_not_configured" };
   if (protocol === "acp" && env.GW_ACP_ENABLED !== "1") return { ok: false, reason: "protocol_not_configured" };
   if (amount_cents < cardFloorCents(env)) return { ok: false, reason: "below_min_settlement", floor_cents: cardFloorCents(env) };
@@ -250,7 +259,7 @@ export async function settleStripeRail({ protocol, credential, sku, amount_cents
   try {
     res = await fetchImpl("https://api.stripe.com/v1/payment_intents", {
       method: "POST",
-      headers: { authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, "content-type": "application/x-www-form-urlencoded" },
+      headers: { authorization: `Bearer ${stripeKey(env)}`, "content-type": "application/x-www-form-urlencoded" },
       body,
     });
     data = await res.json().catch(() => ({}));
