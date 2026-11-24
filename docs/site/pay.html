@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
   <title>Checkout — Slid Phi Labs</title>
   <meta name="description" content="Buy a lab seat on Stripe. Chamber $20/$200. PCC Pro $25/$250. Agent-Rider Solo $12–Fleet $199. Lab Pass $495."/>
-  <meta name="theme-color" content="#0f1c2e"/>
+  <meta name="theme-color" content="#f7f6f2"/>
   <meta name="robots" content="index,follow"/>
   <meta name="agentic" content="true"/>
   <link rel="canonical" href="https://www.slidphilabs.com/pay"/>
-  <link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
   <link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt"/>
   <meta property="og:type" content="website"/>
@@ -17,144 +19,41 @@
   <meta property="og:title" content="Checkout — Slid Phi Labs"/>
   <meta property="og:description" content="Pick a seat. Pay on Stripe. Claim access after."/>
   <meta property="og:url" content="https://www.slidphilabs.com/pay"/>
-  <meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Checkout — Slid Phi Labs"/>
   <meta name="twitter:description" content="Lab seats on Stripe. Invoice for teams."/>
-  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
-  <link rel="stylesheet" href="/assets/chrome.css?v=40"/>
+  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <style>
-    .pay-form { max-width: 36rem; }
-    .pay-form label { display: block; font-size: 0.82rem; color: var(--mut); margin: 14px 0 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .pay-form { max-width:36rem; }
+    .pay-form label { display:block; font-size:0.82rem; color:var(--mut); margin:14px 0 6px; letter-spacing:0.04em; text-transform:uppercase; }
     .pay-form select, .pay-form input {
-      width: 100%; padding: 11px 12px; border-radius: 8px; border: 1px solid var(--line);
-      background: var(--white); color: var(--ink); font: inherit; box-sizing: border-box;
+      width:100%; padding:11px 12px; border-radius:8px; border:1px solid var(--line);
+      background:var(--white); color:var(--ink); font:inherit; box-sizing:border-box;
     }
-    .pay-amount { margin: 16px 0 0; color: var(--ink-2); }
-    .pay-amount strong { color: var(--ink); font-size: 1.15rem; }
-    .pay-msg { margin-top: 16px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--white); white-space: pre-wrap; word-break: break-word; font-size: 0.92rem; }
-    .pay-msg.ok { border-color: #b7d7c2; }
-    .pay-msg.err { border-color: #e3b6b6; }
-    .pay-note { color: var(--mut); font-size: 0.92rem; max-width: 52ch; }
+    .pay-amount { margin:16px 0 0; color:var(--ink-2); }
+    .pay-amount strong { color:var(--ink); font-size:1.15rem; }
+    .pay-msg { margin-top:16px; padding:12px 14px; border-radius:8px; border:1px solid var(--line); background:var(--white); white-space:pre-wrap; word-break:break-word; font-size:0.92rem; }
+    .pay-msg.ok { border-color:#d6d4cc; }
+    .pay-msg.err { border-color:#d6d4cc; }
+    .pay-note { color:var(--mut); font-size:0.92rem; max-width:52ch; }
   </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Checkout — Slid Phi Labs","description":"Buy a lab seat on Stripe. Chamber $20/$200. PCC Pro $25/$250. Agent-Rider Solo $12–Fleet $199. Lab Pass $495.","url":"https://www.slidphilabs.com/pay","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
   <main class="spl-page" id="main">
     <p class="spl-kicker">Checkout</p>
     <h1>Buy a lab seat</h1>
-    <p class="lede">Pick the product. Humans pay on Stripe or by invoice. Agents pay x402 (USDC on Solana or Base). After payment you land on Access.</p>
-    <p class="pay-note">Chamber $20/mo · $200/yr. PCC Pro $25/mo · $250/yr. Rider Solo $12 · Team $49 · Fleet $199. Warrant is $8/mo on Solo ($80/yr) and included in Team and Fleet. Rider Ops year is $369; Fleet includes the watch. Lab Pass $495/yr — Chamber year ($200) + Rider Solo year ($120) + PSI Meter seat ($250) + Warrant add-on year ($80); parts sum $650. Consulting $350. CuNi Studio is free. Hosted CuNi calls are $0.05 to $1.00. The closed-app grant is $490/yr. Quikgater is $0.02 per fetch — <a href="/quikgater">/quikgater</a>.</p>
-
-    <div class="pay-form">
-      <label for="sku">Seat</label>
-      <select id="sku"></select>
-      <noscript><p><strong>Pick a seat:</strong> <a href="/pay?sku=rider-solo">Rider Solo — $12/mo</a> · <a href="/pay?sku=chamber-month">Chamber — $20/mo</a> · <a href="/pay?sku=pcc-pro">PCC Pro — $25/mo</a> · <a href="/pricing">full list</a>. This page needs JavaScript for checkout — the links above work without it.</p></noscript>
-      <label for="email">Email for receipt and Access</label>
-      <input id="email" type="email" placeholder="you@lab.tld" autocomplete="email"/>
-      <p class="pay-amount">Amount: <strong id="amount">—</strong></p>
-      <p class="spl-actions">
-        <button type="button" class="spl-btn spl-btn-dark" id="payStripe">Pay with Stripe</button>
-        <button type="button" class="spl-btn spl-btn-line" id="payX402">x402 · USDC</button>
-        <button type="button" class="spl-btn spl-btn-line" id="payInvoice">Invoice / wire</button>
-        <a class="spl-btn spl-btn-line" href="/pricing">Full price list</a>
-      </p>
-      <p class="pay-note" style="margin-top:8px">Agents can also POST <code>/api/x402-products</code> with the SKU, then retry with <code>X-PAYMENT</code>. Same catalog as this page.</p>
-      <div id="out" class="pay-msg" hidden></div>
+    <p class="lede">Pick the product and plan, then pay the way that suits you. Your access link arrives by email after payment, and your lab login opens the product.</p>
+    <div class="spl-pair" style="max-width:44rem">
+      <div><p class="spl-kicker">Humans</p><p style="margin:0">Card through Stripe, with Apple Pay, Google Pay, Link and bank account where your device supports them. Crypto to a posted address. Invoice by ACH or wire for companies.</p></div>
+      <div><p class="spl-kicker">Agents</p><p style="margin:0">POST <code>/api/x402-products</code> with the SKU, get a 402, pay the exact amount in USDC, then retry with <code>X-PAYMENT</code>. Same catalog as this page.</p></div>
     </div>
+    <p class="spl-note">Every price here matches <a href="/pricing">/pricing</a> and <a href="/llms.txt">llms.txt</a>. Usage products (hosted CuNi calls, Quikgater, PCC pay-as-you-go) are paid per call, not here.</p>
+    <div data-spl-buy="all"></div>
   </main>
-<script>
-(async () => {
-  const out = document.getElementById("out");
-  const skuEl = document.getElementById("sku");
-  const amountEl = document.getElementById("amount");
-  const emailEl = document.getElementById("email");
-
-  function show(msg, ok) {
-    out.hidden = false;
-    out.className = "pay-msg " + (ok ? "ok" : "err");
-    out.textContent = typeof msg === "string" ? msg : JSON.stringify(msg, null, 2);
-  }
-
-  let matrix = null;
-  try {
-    const r = await fetch("/api/payments", { cache: "no-store" });
-    matrix = await r.json();
-  } catch (e) {
-    show("Could not load the catalog. Refresh, or email corey@slidphilabs.com.", false);
-    return;
-  }
-
-  const listed = (matrix.listed || (matrix.products || []).filter((p) => p.list !== false))
-    .filter((p) => p.sell !== false && Number(p.amount_cents || p.amount_usd * 100) >= 50);
-  const all = (matrix.products || listed).filter((p) => p.sell !== false && Number(p.amount_cents || 0) >= 50);
-  const params = new URLSearchParams(location.search);
-  const wantedRaw = params.get("sku");
-  const wanted = (matrix.aliases && wantedRaw && matrix.aliases[wantedRaw]) || wantedRaw;
-
-  let products = listed.slice();
-  if (wanted && !products.some((p) => p.sku === wanted)) {
-    const extra = all.find((p) => p.sku === wanted);
-    if (extra) products = [extra].concat(products);
-  }
-
-  skuEl.innerHTML = products.map((p) =>
-    `<option value="${p.sku}">${p.name} · $${Number(p.amount_usd).toFixed(p.amount_usd % 1 ? 2 : 0)}</option>`
-  ).join("");
-
-  if (wanted) skuEl.value = wanted;
-  if (params.get("cancel") === "1") show("Checkout canceled. Pick a seat again when you are ready.", true);
-
-  function syncAmount() {
-    const p = products.find((x) => x.sku === skuEl.value) || all.find((x) => x.sku === skuEl.value);
-    if (!p) { amountEl.textContent = "—"; return; }
-    const n = Number(p.amount_usd);
-    amountEl.textContent = Number.isFinite(n) ? ("$" + n.toLocaleString("en-US") + " USD") : ("$" + p.amount_usd + " USD");
-  }
-  skuEl.addEventListener("change", syncAmount);
-  syncAmount();
-
-  async function checkout(rail) {
-    out.hidden = true;
-    const body = {
-      sku: skuEl.value,
-      email: emailEl.value || undefined,
-      rail,
-    };
-    try {
-      const r = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      const d = await r.json();
-      if (!r.ok) {
-        show(d.error || d, false);
-        return;
-      }
-      if (d.url && (rail === "stripe" || d.mode === "stripe_checkout" || d.mode === "payment_link" || d.mode === "payment_link_fallback")) {
-        show("Opening Stripe…", true);
-        location.href = d.url;
-        return;
-      }
-      if (d.mode === "invoice") {
-        const subj = encodeURIComponent(d.subject || "Invoice request");
-        const bodyTxt = encodeURIComponent(d.body_template || ("SKU: " + skuEl.value + "\nAmount: $" + d.amount_usd));
-        show("Opening mail to " + d.email + " for an invoice.", true);
-        location.href = "mailto:" + d.email + "?subject=" + subj + "&body=" + bodyTxt;
-        return;
-      }
-      show(d, true);
-    } catch (e) {
-      show(String(e.message || e), false);
-    }
-  }
-
-  document.getElementById("payStripe").onclick = () => checkout("stripe");
-  document.getElementById("payX402").onclick = () => checkout("x402");
-  document.getElementById("payInvoice").onclick = () => checkout("invoice");
-})();
-</script>
-  <script src="/assets/chrome.js?v=42" defer></script>
+<script src="/assets/chrome.js?v=50" defer></script>
+<script src="/assets/buy.js?v=50" defer></script>
 </body>
 </html>

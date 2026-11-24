@@ -51,24 +51,24 @@
     var s = document.createElement("style");
     s.id = "spl-platform-home-css";
     s.textContent =
-      "#spl-home-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;" +
-      "padding:10px 14px;border-radius:14px;background:rgba(8,14,26,.94);border:1px solid rgba(232,197,71,.35);" +
-      "box-shadow:0 12px 40px rgba(0,0,0,.45);backdrop-filter:blur(12px);font-family:IBM Plex Sans,system-ui,sans-serif;font-size:.84rem;color:#eef4fb}" +
-      "#spl-home-bar .spl-msg{flex:1;min-width:12rem;color:#8fa3b8;line-height:1.4}" +
-      "#spl-home-bar .spl-msg strong{color:#e8c547}" +
-      "#spl-home-bar .spl-msg em{color:#5ef0df;font-style:normal}" +
-      "#spl-home-bar .spl-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}" +
-      "#spl-home-bar a.spl-btn{display:inline-flex;padding:7px 12px;border-radius:8px;font-weight:600;font-size:.78rem;text-decoration:none}" +
-      "#spl-home-bar a.spl-gold{background:linear-gradient(180deg,#f0d56a,#e8c547);color:#1a1404}" +
-      "#spl-home-bar a.spl-teal{background:linear-gradient(180deg,#5ef0df,#3dd6c6);color:#031018}" +
-      "#spl-home-bar a.spl-ghost{border:1px solid rgba(61,214,198,.35);color:#eef4fb}" +
-      "#spl-home-bar button.spl-x{background:transparent;border:0;color:#8fa3b8;font-size:1.1rem;cursor:pointer;padding:0 4px;line-height:1}" +
-      "#spl-home-bar button.spl-x:hover{color:#e8c547}" +
+      "#spl-home-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;" +
+      "padding:12px 14px;border-radius:0;background:#ffffff;border:1px solid #141413;" +
+      "box-shadow:6px 6px 0 #141413;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:.9rem;color:#141413}" +
+      "#spl-home-bar .spl-msg{flex:1;min-width:12rem;color:#3d3d39;line-height:1.45}" +
+      "#spl-home-bar .spl-msg strong{color:#141413}" +
+      "#spl-home-bar .spl-msg em{color:#0f766e;font-style:normal}" +
+      "#spl-home-bar .spl-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0}" +
+      "#spl-home-bar a.spl-btn{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:0;font-weight:600;font-size:.85rem;text-decoration:none;border:1px solid #141413}" +
+      "#spl-home-bar a.spl-gold{background:#141413;color:#ffffff}" +
+      "#spl-home-bar a.spl-teal{background:#0f766e;border-color:#0f766e;color:#ffffff}" +
+      "#spl-home-bar a.spl-ghost{background:#ffffff;color:#141413;font-family:'IBM Plex Mono',monospace}" +
+      "#spl-home-bar button.spl-x{background:transparent;border:0;color:#5c5c57;font-size:1.2rem;cursor:pointer;min-width:40px;min-height:40px;line-height:1}" +
+      "#spl-home-bar button.spl-x:hover{color:#141413}" +
       "@media(max-width:520px){#spl-home-bar{left:8px;right:8px;bottom:8px;flex-direction:column;align-items:stretch}}" +
       ".spl-skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}" +
-      ".spl-skip:focus{position:fixed;left:12px;top:12px;z-index:200;width:auto;height:auto;padding:10px 14px;background:#e8c547;color:#1a1404;border-radius:8px;font-weight:700}" +
-      ".spl-welcome-top{border-bottom:1px solid rgba(61,214,198,.2);background:rgba(12,21,36,.88);padding:8px 16px;font-size:.82rem;color:#8fa3b8;text-align:center;position:relative;z-index:40}" +
-      ".spl-welcome-top strong{color:#e8c547}.spl-welcome-top a{color:#5ef0df;margin:0 4px}";
+      ".spl-skip:focus{position:fixed;left:12px;top:12px;z-index:200;width:auto;height:auto;padding:10px 14px;background:#141413;color:#ffffff;font-weight:700}" +
+      ".spl-welcome-top{border-bottom:1px solid #141413;background:#efede6;padding:8px 16px;font-size:.85rem;color:#3d3d39;text-align:center;position:relative;z-index:40}" +
+      ".spl-welcome-top strong{color:#141413}.spl-welcome-top a{color:#0f766e;margin:0 4px}";
     document.head.appendChild(s);
   }
 
@@ -178,7 +178,7 @@
     // Highlight matching door
     var sel = pref === "human" ? ".door-human" : ".door-agent";
     document.querySelectorAll(sel).forEach(function (el) {
-      el.style.outline = "2px solid " + (pref === "human" ? "#e8c547" : "#5ef0df");
+      el.style.outline = "2px solid " + (pref === "human" ? "#141413" : "#0f766e");
       el.style.outlineOffset = "2px";
     });
   }

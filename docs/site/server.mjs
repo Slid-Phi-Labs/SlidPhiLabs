@@ -70,6 +70,8 @@ const REWRITES = {
   "/login/": "/login.html",
   "/account": "/account.html",
   "/account/": "/account.html",
+  "/welcome": "/welcome.html",
+  "/welcome/": "/welcome.html",
   "/join-the-work": "/join.html",
   "/join-the-work/": "/join.html",
   "/humans": "/humans/index.html",

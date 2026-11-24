@@ -3,44 +3,46 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Sign up — Slid Phi Labs</title>
 <meta name="description" content="Create one lab account. Open CuNi Studio, Agent-Rider, Chamber, L33tSaaS, Overlord Eye, and TEACHAiD with the same login."/>
 <link rel="canonical" href="https://www.slidphilabs.com/signup"/>
-<link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
 <meta name="robots" content="index,follow"/>
 <meta name="agentic" content="true"/>
 <meta property="og:site_name" content="Slid Phi Labs"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Sign up — Slid Phi Labs"/>
 <meta property="og:description" content="One lab account. Exactness, Chamber, Rider."/>
-<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta property="og:url" content="https://www.slidphilabs.com/signup"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Sign up — Slid Phi Labs"/>
 <meta name="twitter:description" content="One lab account for every product."/>
-<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
 <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt"/>
-<link rel="stylesheet" href="/assets/chrome.css?v=40"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sign up — Slid Phi Labs","description":"Create one lab account. Open CuNi Studio, Agent-Rider, Chamber, L33tSaaS, Overlord Eye, and TEACHAiD with the same login.","url":"https://www.slidphilabs.com/signup","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
 <main id="main" style="max-width:28rem;margin:2rem auto;padding:0 1.1rem 3rem">
-  <p style="letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;color:#9a7b2f">One account</p>
+  <p style="letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;color:#7a5a12">One account</p>
   <h1 style="font-size:1.8rem;margin:.3rem 0 .6rem">Sign up</h1>
-  <p style="margin:0 0 1rem;color:#444">One free account. The same login opens every door on this site. No card on this page.</p>
-  <p style="color:#5c6570">Name, email, password. Then every door uses this login. Free.</p>
+  <p style="margin:0 0 1rem;color:#3d3d39">One free account. The same login opens every door on this site. No card on this page.</p>
+  <p style="color:#5c5c57">Name, email, password. Then every door uses this login. Free.</p>
   <form id="f" style="margin-top:1.2rem;display:grid;gap:.7rem">
     <label>Name<input name="name" autocomplete="name" required style="width:100%;padding:.7rem;margin-top:.25rem"/></label>
     <label>Email<input name="email" type="email" autocomplete="email" required style="width:100%;padding:.7rem;margin-top:.25rem"/></label>
     <label>Password (8+)<input name="password" type="password" autocomplete="new-password" minlength="8" required style="width:100%;padding:.7rem;margin-top:.25rem"/></label>
-    <button type="submit" style="padding:.85rem;font-weight:700;background:#9a7b2f;color:#fff;border:0;border-radius:8px;cursor:pointer">Create account</button>
+    <button type="submit" style="padding:.85rem;font-weight:700;background:#141413;color:#141413;border:0;border-radius:8px;cursor:pointer">Create account</button>
   </form>
   <p id="err" style="color:#b42318;min-height:1.2em"></p>
   <p>Already have one? <a id="login-link" href="/login">Log in</a></p>
 </main>
-<script src="/assets/chrome.js?v=42" defer></script>
-<script src="/assets/lab-auth.js?v=3"></script>
+<script src="/assets/chrome.js?v=50" defer></script>
+<script src="/assets/lab-auth.js?v=50"></script>
 <script>
 (function () {
   const q = location.search;
@@ -55,7 +57,9 @@
       err.textContent = j.error === "email_taken" ? "That email is already in. Log in." : (j.error || "Could not sign up");
       return;
     }
-    SPLAuth.goAfter(j.token);
+    // Sent here from another page: go back there. Otherwise: the welcome page.
+    if (new URLSearchParams(location.search).get("next")) SPLAuth.goAfter(j.token);
+    else location.href = "/welcome";
   });
 })();
 </script>

@@ -8,12 +8,15 @@
 <meta property="og:type" content="website"/>
 <meta name="twitter:title" content="TRU8 / historical web codec door · Slid Phi Labs"/>
 <meta name="twitter:description" content="Free HTML/CSS/JS/JSON compress demo. For bulk jobs: first 1 GB free once per address on /pps, then $0.25/GB."/>
-<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 
 <meta name="lab-pricing" content="freemium_suite_v4_undercut"/>
 <meta name="lab-eval-path" content="https://www.slidphilabs.com/pps"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Free web-codec demo · Slid Phi Labs</title>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:site" content="@slidphilabs"/>
@@ -26,58 +29,56 @@
 <meta name="lab-compression" content="TRU8,CDDG:Split"/>
 <meta property="og:title" content="TRU8 / historical web codec door · Slid Phi Labs"/>
 <meta property="og:url" content="https://www.slidphilabs.com/web"/>
-<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
-<meta name="theme-color" content="#050b16"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
+<meta name="theme-color" content="#f7f6f2"/>
 <meta name="robots" content="index,follow"/>
-<link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
-<link rel="stylesheet" href="/assets/brand-header.css?v=1"/>
-<link rel="stylesheet" href="/assets/site-header.css?v=2"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/brand-header.css?v=50"/>
+<link rel="stylesheet" href="/assets/site-header.css?v=50"/>
 <style>
-:root{--bg:#050b16;--panel:#0c1524;--border:rgba(61,214,198,.14);--border-gold:rgba(232,197,71,.35);--text:#eef4fb;--muted:#8fa3b8;--accent:#5ba8ff;--teal:#3dd6c6;--teal-bright:#5ef0df;--gold:#e8c547;--gold-soft:rgba(232,197,71,.12);--code:#081018;--poster:url("https://www.slidphilabs.com/assets/now/og.jpg?v=3")}
+:root{--bg:#ffffff;--panel:#ffffff;--border:#d6d4cc;--border-gold:#d6d4cc;--text:#141413;--muted:#5c5c57;--accent:#0f766e;--teal:#0f766e;--teal-bright:#0f766e;--gold:#7a5a12;--gold-soft:#7a5a12;--code:#ffffff;--poster:url("https://www.slidphilabs.com/assets/brand/sp-og.png")}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
 a{color:var(--accent);text-decoration:none}a:hover{color:var(--teal-bright)}
 .wrap{max-width:960px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;z-index:50;background:rgba(5,11,22,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,197,71,.18)}
+nav{position:sticky;top:0;z-index:50;background:#ffffff;backdrop-filter:none;border-bottom:1px solid #d6d4cc}
 nav .inner{max-width:960px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.logo{display:inline-flex;align-items:center;gap:10px;font-family:'Cinzel',serif;font-weight:700;color:var(--gold)}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:"IBM Plex Sans", system-ui, sans-serif;font-weight:700;color:var(--gold)}
 .logo img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border-gold)}
 .logo span{color:var(--teal-bright)}
 .nav-links{display:flex;gap:12px;flex-wrap:wrap;font-size:.88rem}
 .nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--gold)}
 .btn{display:inline-flex;padding:10px 14px;border-radius:8px;font-size:.86rem;font-weight:600;border:1px solid transparent;cursor:pointer;font-family:inherit}
-.btn-teal{background:linear-gradient(180deg,#5ef0df,var(--teal));color:#031018}
-.btn-gold{background:linear-gradient(180deg,#f5e6a3,var(--gold));color:#1a1400}
-.btn-ghost{background:transparent;color:var(--text);border-color:rgba(61,214,198,.25)}
-.hero{padding:32px 0 24px;border-bottom:1px solid rgba(232,197,71,.2);
-  background:linear-gradient(105deg, rgba(5,11,22,.94) 0%, rgba(5,11,22,.85) 50%, rgba(5,11,22,.5) 100%), var(--poster) 80% 20%/cover no-repeat}
-.badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--gold);background:var(--gold-soft);border:1px solid var(--border-gold);padding:4px 12px;border-radius:999px;margin-bottom:12px}
-h1{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:var(--gold);margin-bottom:10px}
+.btn-teal{background:#141413;color:#ffffff}
+.btn-gold{background:#141413;color:#ffffff}
+.btn-ghost{background:transparent;color:var(--text);border-color:#d6d4cc}
+.hero{padding:32px 0 24px;border-bottom:1px solid #d6d4cc;
+  background:#ffffff}
+.badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:#f5c85a;background:#141413;border:1px solid var(--border-gold);padding:4px 12px;border-radius:999px;margin-bottom:12px}
+h1{font-family:"IBM Plex Sans", system-ui, sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);color:var(--gold);margin-bottom:10px}
 .lead{color:var(--muted);max-width:48rem}
 .panel{margin:20px 0;padding:16px;border-radius:14px;background:var(--panel);border:1px solid var(--border)}
 label{display:block;font-size:.8rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:6px;letter-spacing:.04em}
-textarea{width:100%;min-height:180px;background:var(--code);border:1px solid rgba(61,214,198,.25);color:var(--text);border-radius:10px;padding:12px;font-family:'IBM Plex Mono',monospace;font-size:.82rem;resize:vertical}
+textarea{width:100%;min-height:180px;background:var(--code);border:1px solid #d6d4cc;color:var(--text);border-radius:10px;padding:12px;font-family:'IBM Plex Mono',monospace;font-size:.82rem;resize:vertical}
 .row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;align-items:center}
-select{background:var(--code);border:1px solid rgba(61,214,198,.25);color:var(--text);padding:10px 12px;border-radius:8px;font:inherit}
+select{background:var(--code);border:1px solid #d6d4cc;color:var(--text);padding:10px 12px;border-radius:8px;font:inherit}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
-.stat{padding:10px;border-radius:10px;border:1px solid var(--border-gold);background:rgba(12,21,36,.9)}
-.stat b{display:block;font-family:'Cinzel',serif;color:var(--teal-bright);font-size:1.1rem}
+.stat{padding:10px;border-radius:10px;border:1px solid var(--border-gold);background:#ffffff}
+.stat b{display:block;font-family:"IBM Plex Sans", system-ui, sans-serif;color:var(--teal-bright);font-size:1.1rem}
 .stat span{font-size:.7rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
-.out{margin-top:12px;padding:12px;border-radius:10px;background:var(--code);border:1px solid rgba(61,214,198,.2);font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--muted);white-space:pre-wrap;word-break:break-all;max-height:220px;overflow:auto}
+.out{margin-top:12px;padding:12px;border-radius:10px;background:var(--code);border:1px solid #d6d4cc;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--muted);white-space:pre-wrap;word-break:break-all;max-height:220px;overflow:auto}
 .err{color:#ff8a7a}
-.ok{color:#3ecf8e}
-footer{border-top:1px solid rgba(232,197,71,.18);padding:28px 0 40px;color:var(--muted);font-size:.88rem;margin-top:32px}
+.ok{color:#166534}
+footer{border-top:1px solid #d6d4cc;padding:28px 0 40px;color:var(--muted);font-size:.88rem;margin-top:32px}
 footer a{color:var(--gold)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .chip{font-size:.78rem;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:var(--muted);background:transparent;cursor:pointer;font-family:'IBM Plex Mono',monospace}
 .chip:hover{border-color:var(--border-gold);color:var(--gold)}
 </style>
-<link rel="stylesheet" href="/assets/slid-proof.css?v=1"/>
+<link rel="stylesheet" href="/assets/slid-proof.css?v=50"/>
 <script src="/assets/slid-proof.js?v=1" defer></script>
-<link rel="stylesheet" href="/assets/chrome.css?v=40"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Free web-codec demo · Slid Phi Labs","description":"Free HTML/CSS/JS/JSON compress demo. Bulk jobs are Suite (first 1 GB once per address then $0.25/GB). Production TRU8 is its own ladder. TRU8 Year includes Chamber.","url":"https://www.slidphilabs.com/web","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
 
@@ -95,7 +96,7 @@ footer a{color:var(--gold)}
 <header class="site-nav" role="banner">
   <div class="inner">
     <a class="brand" href="/" aria-label="Slid Phi Labs home">
-      <img class="brand-logo" src="/assets/logos/logo-slid-phi-labs.jpg" width="36" height="36" alt=""/>
+      <img class="brand-logo" src="/assets/brand/sp-icon-192.png" width="36" height="36" alt=""/>
       <span>Slid Phi Labs</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -264,8 +265,8 @@ document.getElementById('btnDecompress').onclick = async () => {
 // default sample
 loadSample('json');
 </script>
-<script src="/assets/platform-home.js?v=1" defer></script>
+<script src="/assets/platform-home.js?v=50" defer></script>
 <script src="/assets/site-header.js?v=2" defer></script>
-<script src="/assets/chrome.js?v=42" defer></script>
+<script src="/assets/chrome.js?v=50" defer></script>
 </body>
 </html>

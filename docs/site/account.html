@@ -6,29 +6,31 @@
 
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
 <title>Your lab account — Slid Phi Labs</title>
 <meta name="description" content="Your Slid Phi Labs account. Open CuNi Studio, Agent-Rider, Chamber, L33tSaaS, Overlord Eye, and TEACHAiD."/>
 <link rel="canonical" href="https://www.slidphilabs.com/account"/>
-<link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
 <meta name="robots" content="noindex,follow"/>
 <meta name="agentic" content="true"/>
 <meta property="og:site_name" content="Slid Phi Labs"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Your lab account — Slid Phi Labs"/>
 <meta property="og:description" content="One account. Every product door."/>
-<meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+<meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta property="og:url" content="https://www.slidphilabs.com/account"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Your lab account — Slid Phi Labs"/>
 <meta name="twitter:description" content="One account. Every product door."/>
-<meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
-<link rel="stylesheet" href="/assets/chrome.css?v=40"/>
+<meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Your lab account — Slid Phi Labs","description":"Your Slid Phi Labs account. Open CuNi Studio, Agent-Rider, Chamber, L33tSaaS, Overlord Eye, and TEACHAiD.","url":"https://www.slidphilabs.com/account","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
 <main id="main" style="max-width:36rem;margin:2rem auto;padding:0 1.1rem 3rem">
   <h1 style="font-size:1.8rem">You’re in</h1>
-  <p id="who" style="color:#5c6570"></p>
+  <p id="who" style="color:#5c5c57"></p>
   <p>Same login on every door (opens already signed in):</p>
   <ul id="doors" style="line-height:1.9"></ul>
   <h2 style="font-size:1.1rem;margin-top:1.8rem">Change password</h2>
@@ -41,8 +43,8 @@
   <p><button type="button" id="pk">Add a passkey</button> <span id="pkerr"></span></p>
   <p><button type="button" id="out">Log out</button></p>
 </main>
-<script src="/assets/chrome.js?v=42" defer></script>
-<script src="/assets/lab-auth.js?v=3"></script>
+<script src="/assets/chrome.js?v=50" defer></script>
+<script src="/assets/lab-auth.js?v=50"></script>
 <script>
 (async () => {
   const u = await SPLAuth.me();

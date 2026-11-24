@@ -3,36 +3,38 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+<link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
   <title>Try compression — zeros, PCC, pulsar · Slid Phi Labs</title>
   <meta name="description" content="Free demo: an all-zero file compresses to 8 bytes and restores. Everyday files use PCC, compression through your tools you pay to use. pulsar is the free open-source compressor you download."/>
-  <meta name="theme-color" content="#0f1c2e"/>
+  <meta name="theme-color" content="#f7f6f2"/>
   <meta name="robots" content="index,follow"/>
   <link rel="canonical" href="https://www.slidphilabs.com/specialist"/>
   <link rel="alternate" type="application/json" href="https://www.slidphilabs.com/licensing.json"/>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/COMMERCIAL-LICENSE.md"/>
-  <link rel="icon" type="image/svg+xml" href="/assets/wings/favicon/favicon.svg"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Slid Phi Labs"/>
   <meta property="og:title" content="Try compression — Slid Phi Labs"/>
   <meta property="og:description" content="Free zeros demo. Pay for PCC on everyday files. Download pulsar for free."/>
   <meta property="og:url" content="https://www.slidphilabs.com/specialist"/>
-  <meta property="og:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
+  <meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Try compression"/>
   <meta name="twitter:description" content="Zeros are free. Everyday files use PCC. pulsar is the download."/>
-  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/now/og.jpg"/>
-  <link rel="stylesheet" href="/assets/chrome.css?v=40"/>
+  <meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
   <style>
-    .spl-try { margin: 28px 0 0; max-width: 40rem; }
+    .spl-try { margin:28px 0 0; max-width:40rem; }
     .spl-try textarea, .spl-try input {
-      width: 100%; padding: 11px 12px; border-radius: 8px; border: 1px solid var(--line);
-      background: var(--white); color: var(--ink); font: inherit; box-sizing: border-box;
+      width:100%; padding:11px 12px; border-radius:8px; border:1px solid var(--line);
+      background:var(--white); color:var(--ink); font:inherit; box-sizing:border-box;
     }
-    .spl-try textarea { min-height: 7rem; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.88rem; }
-    .spl-out { margin-top: 14px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--white); white-space: pre-wrap; word-break: break-word; font-size: 0.88rem; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .spl-try textarea { min-height:7rem; font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.88rem; }
+    .spl-out { margin-top:14px; padding:12px 14px; border-radius:8px; border:1px solid var(--line); background:var(--white); white-space:pre-wrap; word-break:break-word; font-size:0.88rem; font-family:"IBM Plex Mono", ui-monospace, monospace; }
   </style>
   <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt" title="llms.txt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Try compression — zeros, PCC, pulsar · Slid Phi Labs","description":"Free demo: an all-zero file compresses to 8 bytes and restores. Everyday files use PCC, compression through your tools you pay to use. pulsar is the free open-source compressor you download.","url":"https://www.slidphilabs.com/specialist","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
+<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
 <body>
   <main class="spl-page" id="main">
@@ -78,7 +80,7 @@
       <pre class="spl-out" id="out" hidden></pre>
     </form>
   </main>
-  <script src="/assets/chrome.js?v=42" defer></script>
+  <script src="/assets/chrome.js?v=50" defer></script>
   <script>
     const out = document.getElementById("out");
     document.getElementById("try").addEventListener("submit", async (e) => {
