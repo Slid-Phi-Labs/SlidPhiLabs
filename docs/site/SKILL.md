@@ -12,7 +12,7 @@ Lab Pass: **$495/yr** = Chamber year + Rider Solo year + PSI Meter seat + Warran
 
 ## Agent Quickstart
 1. Discover: GET https://www.slidphilabs.com/api/agent · GET /.well-known/mcp/server-card.json
-2. MCP: `npx -y spl-pay-per-suite mcp` OR POST https://www.slidphilabs.com/mcp
+2. MCP: `npx -y @slidphi/spl-pay-per-suite mcp` OR POST https://www.slidphilabs.com/mcp
 3. Buy seat (agents): POST /api/x402-products `{"sku":"rider-solo"}` → HTTP 402 accepts[] (USDC on Base) → pay → retry with `X-PAYMENT` → `claim_token` / `access_url`. **402 OK; live settle via XPay in flight.** Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
 5. Rider: issue L0–L4; peers verify JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with `X-Agent-Rider`.

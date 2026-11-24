@@ -25,4 +25,4 @@ Allow: GET /SKILL.md
 
 Payment: x402 USDC on Base (X-PAYMENT). Humans: Stripe.
 MCP: https://www.slidphilabs.com/mcp
-npx: npx -y spl-pay-per-suite mcp
+npx: npx -y @slidphi/spl-pay-per-suite mcp

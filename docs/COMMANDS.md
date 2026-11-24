@@ -86,7 +86,7 @@ npm run
 ```bash
 npm view slid-phi version
 npm view slid-phi
-npm i slid-phi
+npm i @slidphi/spl-pay-per-suite
 ```
 
 ---
@@ -161,7 +161,7 @@ git push && git push --tags
 ## 6. Use the library
 
 ```bash
-npm i slid-phi
+npm i @slidphi/spl-pay-per-suite
 ```
 
 ```js

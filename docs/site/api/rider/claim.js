@@ -23,6 +23,7 @@ const MINTED = new Map(); // session_id -> { ok, jwt, expires_in } | { ok:false,
 import fs from "node:fs";
 import { lookupBySession, hasAccess } from "../lib/stripe-subscriptions.mjs";
 import path from "node:path";
+import { cleanIp } from "../lib/usage-meter.mjs";
 
 const DATA_DIR = process.env.AUTH_DIR || "/data";
 const CLAIMS_FILE = path.join(DATA_DIR, "rider-claims.json");
@@ -66,10 +67,9 @@ function rateLimited(ip) {
   return entry.count > RATE_LIMIT;
 }
 
+// Security fix 2026-11-22: first X-Forwarded-For entry is client-controlled.
 function clientIp(req) {
-  const fwd = req.headers["x-forwarded-for"];
-  if (fwd) return String(fwd).split(",")[0].trim();
-  return (req.socket && req.socket.remoteAddress) || "unknown";
+  return cleanIp(req) || "unknown";
 }
 function json(res, status, body) {
   res.statusCode = status;

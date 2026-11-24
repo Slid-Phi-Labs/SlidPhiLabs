@@ -37,9 +37,8 @@ The free gigabyte for compression is once per address, for life. It does not res
 ## npm
 
 ```bash
-npm i slid-phi
-npm i spl-pay-per-suite
-npx -y spl-pay-per-suite mcp
+npm i @slidphi/spl-pay-per-suite
+npx -y @slidphi/spl-pay-per-suite mcp
 ```
 
 These packages call the live host: `compress()` / `decompress()` / `zip()` / `unzip()`. A `.pcc` file is our zip. Dual-licensed.

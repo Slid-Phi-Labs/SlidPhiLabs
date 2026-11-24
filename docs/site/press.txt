@@ -26,8 +26,7 @@ NPM CLIENTS (not the encoder)
   blackjack-compression 1.6.0    same hosted path
   @cptasz13/tru8 0.2.0           zeros pack locally to 8 bytes; else hosted PCC
 
-  npm i slid-phi
-  npm i spl-pay-per-suite
+  npm i @slidphi/spl-pay-per-suite
   npm i blackjack-compression
   npm i @cptasz13/tru8
 

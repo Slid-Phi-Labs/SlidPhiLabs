@@ -295,10 +295,45 @@ function notFound(res, msg = "not found") {
   res.end(JSON.stringify({ error: msg }));
 }
 
-async function readBody(req) {
-  const chunks = [];
-  for await (const c of req) chunks.push(c);
-  return Buffer.concat(chunks);
+// Security fix 2026-11-22: bodies were read with no limit on a 512 MB
+// machine, so one large upload could take down the site, API and webhooks.
+// Handlers cap their own inputs at 1-4 MB; this is the outer guard.
+const MAX_BODY_BYTES = (() => {
+  const n = Math.floor(Number(process.env.MAX_BODY_BYTES));
+  return Number.isSafeInteger(n) && n > 0 ? n : 32 * 1024 * 1024;
+})();
+
+class BodyTooLarge extends Error {
+  constructor(limit) {
+    super("body_too_large");
+    this.limit = limit;
+  }
+}
+
+function readBody(req, limit = MAX_BODY_BYTES) {
+  const declared = Number(req.headers["content-length"]);
+  if (Number.isFinite(declared) && declared > limit) {
+    req.resume(); // discard; the 413 is sent with Connection: close
+    return Promise.reject(new BodyTooLarge(limit));
+  }
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let size = 0;
+    let over = false;
+    req.on("data", (c) => {
+      if (over) return; // keep draining so the 413 can be delivered
+      size += c.length;
+      if (size > limit) {
+        over = true;
+        chunks.length = 0;
+        reject(new BodyTooLarge(limit));
+        return;
+      }
+      chunks.push(c);
+    });
+    req.on("end", () => { if (!over) resolve(Buffer.concat(chunks)); });
+    req.on("error", (e) => { if (!over) reject(e); });
+  });
 }
 
 function makeRes(nodeRes) {
@@ -375,7 +410,19 @@ async function handleApi(req, res, url) {
     notFound(res, "api_not_found");
     return;
   }
-  const raw = await readBody(req);
+  let raw;
+  try {
+    raw = await readBody(req);
+  } catch (e) {
+    if (e instanceof BodyTooLarge) {
+      if (!res.headersSent) {
+        res.writeHead(413, { "Content-Type": "application/json", Connection: "close", ...trustHeaders() });
+        res.end(JSON.stringify({ ok: false, error: "body_too_large", max_bytes: e.limit }));
+      }
+      return;
+    }
+    throw e;
+  }
   let body = undefined;
   const ct = String(req.headers["content-type"] || "");
   if (raw.length && ct.includes("application/json")) {

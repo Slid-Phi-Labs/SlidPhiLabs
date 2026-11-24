@@ -15,7 +15,7 @@ There are four public compression doors on one shared method: PCC hosted on our 
 
 ## Agent Quickstart
 1. Discover: GET https://www.slidphilabs.com/api/agent · GET /.well-known/mcp/server-card.json · GET /llms.txt
-2. MCP: npx -y spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
+2. MCP: npx -y @slidphi/spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
 3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
 4b. After Stripe pays, the buyer lands on /rider/claim?session_id=... — the page mints the signed name via POST /api/rider/claim {"session_id"} → {"ok","jwt","expires_in"}. The SKU comes from Stripe metadata on the session. Credential renders on slidphilabs.com.
@@ -215,7 +215,7 @@ Try 24 hours: https://www.slidphilabs.com/box
 - x402 — POST https://www.slidphilabs.com/api/x402-products  (docs: https://www.slidphilabs.com/x402)
 - Prices — https://www.slidphilabs.com/pricing.json
 - Silesia board — https://www.slidphilabs.com/silesia.json
-- npm MCP helper — npx -y spl-pay-per-suite mcp
+- npm MCP helper — npx -y @slidphi/spl-pay-per-suite mcp
 - npm packages — https://www.slidphilabs.com/npm
 - Full brief — https://www.slidphilabs.com/llms-full.txt
 - Agents — https://www.slidphilabs.com/agents.txt

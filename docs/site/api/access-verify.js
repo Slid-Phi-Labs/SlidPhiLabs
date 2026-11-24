@@ -18,6 +18,7 @@
  */
 
 import { verifyClaim } from "./lib/x402-claim.mjs";
+import { PRODUCT_CATALOG } from "./lib/payments-rails.js";
 import { reportPurchase } from "./lib/ga4.mjs";
 import { recordSale, hasOrderId } from "./lib/sales-ledger.mjs";
 import { paidCors } from "./lib/cors.mjs";
@@ -573,6 +574,26 @@ function packageMailto(product, sessionId, email) {
   );
 }
 
+/**
+ * Refuse to grant a catalog SKU for less than its list price (security fix
+ * 2026-11-22). Compares Stripe's amount_subtotal (pre-discount, so promo
+ * codes still work) when given, else amount_total. A $0 subscription is
+ * allowed only when the SKU came from server-set session metadata (trials).
+ * Pure; exported for tests.
+ */
+export function skuPriceCheck({ sku, amountTotal, amountSubtotal, mode, fromMetadata } = {}) {
+  if (!sku) return { ok: true };
+  const p = PRODUCT_CATALOG[sku];
+  const need = p && Number(p.amount_cents);
+  if (!p || !Number.isFinite(need) || need <= 0) return { ok: true };
+  const got = Number(amountSubtotal ?? amountTotal);
+  if (mode === "subscription" && fromMetadata && got === 0) return { ok: true, trial: true };
+  if (!Number.isFinite(got) || got < need) {
+    return { ok: false, reason: "amount_below_price", need, got: Number.isFinite(got) ? got : null };
+  }
+  return { ok: true };
+}
+
 export function normalizeSku(raw) {
   const s = String(raw || "")
     .trim()
@@ -1005,7 +1026,8 @@ export default async function handler(req, res) {
 
   const sessionId = String(q(req, "session") || q(req, "session_id") || "").trim();
   const claimTok = String(q(req, "claim") || q(req, "x402_claim") || q(req, "token") || "").trim();
-  const productQ = normalizeSku(q(req, "product") || q(req, "sku") || "");
+  // ?product= / ?sku= are no longer read: the SKU must come from signed or
+  // Stripe-side data (security fix 2026-11-22).
 
   // --- x402 auto-claim path ---
   if (claimTok) {
@@ -1017,7 +1039,9 @@ export default async function handler(req, res) {
         message: "x402 claim token invalid or expired. Re-buy or email PACKAGE ACCESS.",
       });
     }
-    const sku = normalizeSku(productQ || v.payload.sku) || v.payload.sku;
+    // Security fix 2026-11-22: the SKU comes ONLY from the signed claim.
+    // ?product= used to override it, so any claim redeemed as any product.
+    const sku = normalizeSku(v.payload.sku) || v.payload.sku;
     const deliverable = buildDeliverable({
       paid: true,
       sku,
@@ -1131,15 +1155,22 @@ export default async function handler(req, res) {
     const currency = body.currency;
     const email =
       body.customer_details?.email || body.customer_email || null;
-    const productHint = normalizeSku(
-      productQ ||
-        body.metadata?.product ||
-        body.metadata?.sku ||
-        body.client_reference_id ||
-        ""
-    );
+    // Security fix 2026-11-22: never take the SKU from the query string, and
+    // never grant a catalog SKU for less than its price. client_reference_id
+    // can be set by the buyer on Stripe payment links, so it is only a hint.
+    const metaSku = normalizeSku(body.metadata?.product || body.metadata?.sku || "");
+    const refSku = normalizeSku(body.client_reference_id || "");
+    const productHint = metaSku || refSku;
 
     let sku = productHint;
+    const priceGate = skuPriceCheck({
+      sku,
+      amountTotal,
+      amountSubtotal: body.amount_subtotal,
+      mode: body.mode,
+      fromMetadata: !!metaSku,
+    });
+    if (!priceGate.ok) sku = "";
     if (!sku && paid && amountTotal === 900) sku = "try-gate";
     if (!sku && paid && amountTotal === 2900) sku = "sponsor";
     if (!sku && paid && amountTotal === 1250) sku = "chamber-day";

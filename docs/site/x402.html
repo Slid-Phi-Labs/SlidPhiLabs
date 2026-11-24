@@ -38,7 +38,7 @@
       <p><code>curl -sS https://www.slidphilabs.com/api/x402-products</code></p>
       <p><code>curl -sS -X POST https://www.slidphilabs.com/api/x402-products -H 'content-type: application/json' -d '{"sku":"gc-year"}'</code> — PCC Pro year seat (<code>pcc-pro-year</code>, $250). Human checkout: <a href="/pay?sku=pcc-pro-year">/pay?sku=pcc-pro-year</a>. Expect 402 until you attach payment.</p>
       <p><code>curl -sS "https://quikgater-worker.ceedotrock.workers.dev/?url=https://example.com"</code> — expect 402.</p>
-      <p>npm helper: <code>npx -y spl-pay-per-suite mcp</code> then <code>spl_pps_x402_catalog</code> / <code>spl_pps_x402_buy</code>.</p>
+      <p>npm helper: <code>npx -y @slidphi/spl-pay-per-suite mcp</code> then <code>spl_pps_x402_catalog</code> / <code>spl_pps_x402_buy</code>.</p>
     </div>
     <p class="spl-actions">
       <a class="spl-btn spl-btn-dark" href="/pay">Human checkout</a>

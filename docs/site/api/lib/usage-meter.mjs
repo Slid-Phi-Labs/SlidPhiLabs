@@ -30,7 +30,7 @@ import { tmpdir } from "node:os";
 import { parseCookies } from "./spl-box-gate.js";
 import { includedBytesForSku, FREE_GB, FREE_WINDOW, CENTS_PER_GB, computeQuote } from "../suite-pricing.js";
 import { seatFromClaimHeader } from "./claim-seat.mjs";
-import { isOwnerEmail } from "./owner-gratis.mjs";
+import { isOwnerClaim, isOwnerRequest } from "./owner-gratis.mjs";
 
 /** Owner quota: effectively unlimited, but usage is still COUNTED so the
  *  ledger shows what the owner took for free (gratis recorded, never silent). */
@@ -153,20 +153,40 @@ function isCloudflareEdge(ip) {
   return CLOUDFLARE_V4.some(([base, bits]) => inCidr(ip, base, bits, false));
 }
 
-/** Normalize a client address for hashing (never stored raw). */
+/** Normalize a client address for hashing (never stored raw).
+ * Trust order, combining the 2026-11-23 Cloudflare fix with the
+ * 2026-11-22 anti-spoofing fix:
+ *   1. CF-Connecting-IP, only with CF-Ray present and Fly-Client-IP
+ *      inside a published Cloudflare range (a direct caller can forge it).
+ *   2. Fly-Client-IP, set by Fly's edge over any client value.
+ *   3. The LAST X-Forwarded-For entry, the hop our proxy appended.
+ *      The first entry and X-Real-IP are client-controlled: never used.
+ *   4. The socket peer address (local/dev). */
 export function cleanIp(req) {
   const h = (req && req.headers) || {};
   const cf = firstIp(h["cf-connecting-ip"]);
   const fly = firstIp(h["fly-client-ip"]);
   if (cf && h["cf-ray"] && isCloudflareEdge(fly)) return cf;
   if (fly) return fly;
-  return firstIp(h["x-forwarded-for"] || h["x-real-ip"]);
+  const xff = String(Array.isArray(h["x-forwarded-for"]) ? h["x-forwarded-for"].join(",") : h["x-forwarded-for"] || "")
+    .split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (xff.length) {
+    const last = xff[xff.length - 1];
+    return last.length <= 100 ? last : null;
+  }
+  const sock = String((req && req.socket && req.socket.remoteAddress) || "").trim().toLowerCase();
+  if (!sock || sock.length > 100) return null;
+  return sock;
 }
 
+
 export function ownerFromReq(req) {
+  // Email inside a claim is whatever the buyer typed, so it proves nothing.
+  // Only the owner token, or a claim minted on the owner-token lane, counts.
+  if (isOwnerRequest(req)) return true;
   try {
     const s = seatFromClaimHeader(req);
-    if (s.ok && isOwnerEmail(s.payload && s.payload.email)) return true;
+    if (s.ok && isOwnerClaim(s.payload)) return true;
   } catch {
     /* fall through */
   }
