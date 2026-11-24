@@ -7,7 +7,7 @@
   "store": "https://spl-lab-agent.fly.dev/",
   "store_status": "suspended",
   "live": "https://www.slidphilabs.com/cuni",
-  "note": "CLI v0.10.0, 53 targets. brew tap ceedot-rock/cuni && brew install cuni. The Fly app spl-lab-agent is not serving.",
+  "note": "CLI v0.10.0, 53 targets. brew tap ceedot-rock/cuni && brew install cuni. The Fly app spl-lab-agent serves the store descriptor (verified Nov 24, 2026).",
   "license": "https://www.slidphilabs.com/licensing.json",
   "pay": "https://www.slidphilabs.com/api/agent",
   "verbs": ["check", "translate", "squeeze"],

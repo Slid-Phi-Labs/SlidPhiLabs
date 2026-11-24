@@ -107,10 +107,6 @@
       "urls": {
         "app": "https://teachaid.fly.dev"
       }
-    },
-    "mesh": {
-      "name": "Team Mesh",
-      "url": "https://spl-team-mesh.fly.dev"
     }
   },
   "pivot": {

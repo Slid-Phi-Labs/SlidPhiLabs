@@ -100,10 +100,9 @@ export default async function handler(req, res) {
     dual_doors: {
       brand: "https://www.slidphilabs.com",
       product: "https://www.slidphilabs.com",
-      mesh: "https://spl-team-mesh.fly.dev",
       humans: "https://www.slidphilabs.com/humans",
       agents: "https://www.slidphilabs.com/agents",
-      note: "PRIMARY: www.slidphilabs.com (DNS→Fly). ALTERNATE: slidphilabs.fly.dev. Mesh: spl-team-mesh.fly.dev.",
+      note: "PRIMARY: www.slidphilabs.com (DNS→Fly). ALTERNATE: slidphilabs.fly.dev.",
     },
     doors: {
       humans: "https://www.slidphilabs.com/humans",
@@ -145,13 +144,6 @@ export default async function handler(req, res) {
       { id: "warrant", name: "Warrant", url: "https://www.slidphilabs.com/warrant" },
       { id: "cuni", name: "CuNi", url: "https://cuni-studio.fly.dev/", protocol: "https://www.slidphilabs.com/cuni-protocol.json", public_install_tag: "v0.10.0" },
     ],
-    team_mesh: {
-      url: "https://spl-team-mesh.fly.dev",
-      discovery: "https://spl-team-mesh.fly.dev/api/agent",
-      join: "POST https://spl-team-mesh.fly.dev/api/join",
-      snapshot: "https://spl-team-mesh.fly.dev/api/room/teamsake/snapshot",
-      note: "Shared chat + reactions + same contextual memory for the team.",
-    },
     mission:
       "Pub-facing best encode/decode compression where the domain is named and round-trip proves it — then pivot into gaming and security. Agent systems stay exact. One team.",
     slogan: "Encode · decode · prove · game · secure",
@@ -339,7 +331,6 @@ export default async function handler(req, res) {
         url: "https://quikgater-worker.ceedotrock.workers.dev",
         status: "live",
       },
-      team_mesh: { url: "https://spl-team-mesh.fly.dev", status: "live" },
     },
     x402_access_autoclaim: true,
     codec: {
