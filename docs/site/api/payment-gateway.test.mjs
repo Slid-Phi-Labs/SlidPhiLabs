@@ -45,6 +45,17 @@ describe("gateway — pricing + challenge + replay", () => {
     assert.deepEqual(configuredProtocols(process.env), ["x402"]);
   });
 
+  it("accepts the restricted Stripe key for card rails", async () => {
+    process.env.STRIPE_RESTRICTED_KEY = "rk_test_x";
+    process.env.GW_MPP_ENABLED = "1";
+    assert.ok(configuredProtocols(process.env).includes("mpp"));
+    const okFetch = async () => ({ ok: true, json: async () => ({ id: "pi_rk", status: "succeeded", amount: 2000, amount_received: 2000 }) });
+    const r = await settleStripeRail({ protocol: "mpp", credential: "spt_x", sku: "chamber-month", amount_cents: 2000, nonce: "n", fetchImpl: okFetch });
+    assert.equal(r.ok, true);
+    delete process.env.STRIPE_RESTRICTED_KEY;
+    delete process.env.GW_MPP_ENABLED;
+  });
+
   it("issues a 402 challenge whose nonce consumes exactly once", () => {
     const ch = issueChallenge({ sku: "chamber-month", amount_cents: 2000 });
     assert.equal(ch.code, "payment_required");
