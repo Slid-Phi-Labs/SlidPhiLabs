@@ -5,7 +5,7 @@
   "site": "https://www.slidphilabs.com",
   "lead_product": "rider",
   "cash_product": "pcc-pro-year",
-  "one_liner": "Tools that check. Rider Solo $12–Fleet $199. CuNi 0.10.0, 53 targets, Studio $0. Warrant $8/$80 add-on. Tollkeeper meters ten live tools. PCC metered $0.25/GB, Pro $25/mo (board 51,498,645). TNSSRC 0.1.0. Chamber $20/$200. AwLPay 0.5% with no fixed fee. Stripe / x402.",
+  "one_liner": "Tools that check. Rider Solo $12–Fleet $199. CuNi 0.10.2, 53 targets, Studio $0. Warrant $8/$80 add-on. Tollkeeper meters ten live tools. PCC metered $0.25/GB, Pro $25/mo (board 51,498,645). TNSSRC 0.1.0. Chamber $20/$200. AwLPay 0.5% with no fixed fee. Stripe / x402.",
   "protocols": [
     "x402"
   ],

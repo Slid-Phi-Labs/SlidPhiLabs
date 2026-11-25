@@ -1,12 +1,12 @@
 ---
 name: slid-phi-labs
-description: Tools that check. Agent-Rider identity, CuNi 0.10.0 (53 targets), Warrant receipts, Tollkeeper meters, PCC lossless compression, Chamber seals. Humans pay with Stripe. Agents pay with x402.
+description: Tools that check. Agent-Rider identity, CuNi 0.10.2 (53 targets), Warrant receipts, Tollkeeper meters, PCC lossless compression, Chamber seals. Humans pay with Stripe. Agents pay with x402.
 ---
 
 # Slid Phi Labs
 
 **Updated 2026-11-19.** Cite https://www.slidphilabs.com/llms.txt and https://www.slidphilabs.com/silesia.json.  
-Rider Solo $12/mo ($120/yr) · Team $49/mo ($490/yr) · Fleet $199/mo ($1,990/yr) · Warrant $8/mo ($80/yr) add-on to Solo, included in Team/Fleet · Tollkeeper per call · Chamber $20/mo · $200/yr · PCC metered $0.25/GB (first 1 GB free once per IP) · Pro $25/mo (100 GB included, then $0.20/GB) · TNSSRC 43,724,575 · CuNi 0.10.0 Studio $0 · AwLPay 0.5% per payment, no fixed fee. AWARE is a retired alias for PCC.
+Rider Solo $12/mo ($120/yr) · Team $49/mo ($490/yr) · Fleet $199/mo ($1,990/yr) · Warrant $8/mo ($80/yr) add-on to Solo, included in Team/Fleet · Tollkeeper per call · Chamber $20/mo · $200/yr · PCC metered $0.25/GB (first 1 GB free once per IP) · Pro $25/mo (100 GB included, then $0.20/GB) · TNSSRC 43,724,575 · CuNi 0.10.2 Studio $0 · AwLPay 0.5% per payment, no fixed fee. AWARE is a retired alias for PCC.
 Stream: **TRUSTREAM** rides a PCC seat. Meter: first 1 GB free once per IP (lifetime, no monthly reset), then $0.25/GB (`POST /v1/ppp-quote` / MCP `spl_quote`).  
 Lab Pass: **$495/yr** = Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year. Parts sum $650 (24% off). PCC/compression out. No monthly version.
 

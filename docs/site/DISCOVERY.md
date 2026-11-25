@@ -18,12 +18,12 @@ Tool engines (MCP): `/.well-known/mcp.json` · `/.well-known/agent.json` · `/.w
 - Lab: Slid Phi Labs, Cherry Hill, NJ. Corey Tasz. corey@slidphilabs.com
 - Site: https://www.slidphilabs.com
 - Humans: https://www.slidphilabs.com/humans · Agents: https://www.slidphilabs.com/agents
-- Catalog: Rider, CuNi 0.10.0 (53 targets), Warrant, Tollkeeper (ten live metered tools), PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD (rollout)
+- Catalog: Rider, CuNi 0.10.2 (53 targets), Warrant, Tollkeeper (ten live metered tools), PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD (rollout)
 - PCC: metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/mo (100 GB included, then $0.20/GB, checkout sku `pcc-pro`); Pro annual $250. Card charges start at $1. Encoder not in npm.
 - AwLPay free tier: 0.5% per payment, no fixed fee. Pro $39/mo. L33t $799/mo.
 - Chamber MCP: `npx -y json-chamber-mcp` · `io.github.ceedot-rock/json-chamber-mcp` · https://www.slidphilabs.com/.well-known/mcp.json
 - CuNi Bank: paste N, get X. Studio https://cuni-studio.fly.dev/bank
-- CuNi install: `brew tap ceedot-rock/cuni && brew install cuni` · tag `v0.10.0` · 53 targets · matching gate Python, Go, JavaScript
+- CuNi install: `brew tap ceedot-rock/cuni && brew install cuni` · tag `v0.10.2` · 53 targets · matching gate Python, Go, JavaScript
 - Official Silesia 12: TNSSRC 43,724,575 · PCC pcc-0.12.1 51,498,645 · pulsar 55,745,438. Cite silesia.json. xz-6 still ahead (~49.4M). Not a #1 claim.
 - Verses: MemoryVerse is open source. WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D.
 - Rider MCP: https://agentrider.fly.dev/api/mcp (Vercel 402 is a dead door)
