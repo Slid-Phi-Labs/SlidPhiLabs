@@ -23,229 +23,130 @@
 <meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <link rel="alternate" type="application/json" href="https://www.slidphilabs.com/api/agent"/>
 <link rel="alternate" type="text/plain" href="https://www.slidphilabs.com/llms.txt"/>
-<style>
-  .wl { max-width: 60rem; margin: 2.2rem auto 3.5rem; padding: 0 var(--pad, 20px); color: var(--ink, #f4f7fb); }
-  .wl-kicker { letter-spacing: .14em; text-transform: uppercase; font-size: .75rem; color: var(--gold, #e8c547); margin: 0; }
-  .wl h1 { font-family:"IBM Plex Sans", system-ui, sans-serif; font-size: clamp(1.8rem, 4.5vw, 2.7rem); margin: .35rem 0 .5rem; line-height: 1.15; }
-  .wl-lede { color: var(--ink-2, #c5d0dc); font-size: 1.05rem; max-width: 40rem; margin: 0 0 1.8rem; }
-
-  .car { position: relative; border: 1px solid var(--line, rgba(232,197,71,.22)); border-radius: 16px; background: var(--card, #102033); overflow: hidden; }
-  .car:focus-visible { outline: 2px solid var(--teal, #5ef0df); outline-offset: 3px; }
-  .car-track { display: flex; transition: transform .5s ease; will-change: transform; touch-action: pan-y; }
-  .slide { flex: 0 0 100%; min-width: 0; padding: 2.1rem clamp(1.2rem, 6vw, 4.2rem) 3.4rem; box-sizing: border-box; }
-  .slide-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem; }
-  .slide-top img { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-2, #0e1c2c); object-fit: contain; }
-  .slide-name { font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: .85rem; color: var(--teal, #5ef0df); margin: 0; }
-  .slide-n { margin-left: auto; color: var(--mut, #8fa3b8); font-size: .8rem; font-variant-numeric: tabular-nums; }
-  .slide h2 { font-size: clamp(1.3rem, 3.2vw, 1.85rem); margin: 0 0 .7rem; line-height: 1.25; color: var(--ink, #f4f7fb); }
-  .slide p.desc { color: var(--ink-2, #c5d0dc); margin: 0 0 1.3rem; max-width: 38rem; line-height: 1.6; }
-  .slide a.go { display: inline-block; padding: .65rem 1.05rem; border-radius: 9px; border: 1px solid var(--line-2, rgba(94,240,223,.28)); color: var(--teal, #5ef0df); text-decoration: none; font-weight: 600; }
-  .slide a.go:hover, .slide a.go:focus-visible { background: rgba(94,240,223,.08); }
-
-  .car-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line, rgba(232,197,71,.22)); background: rgba(7,17,28,.75); color: var(--ink, #f4f7fb); font-size: 1.2rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
-  .car-btn:hover, .car-btn:focus-visible { border-color: var(--gold, #e8c547); }
-  .car-prev { left: .6rem; } .car-next { right: .6rem; }
-  .car-dots { position: absolute; left: 0; right: 0; bottom: 1.05rem; display: flex; justify-content: center; gap: .45rem; }
-  .car-dots button { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: rgba(197,208,220,.35); cursor: pointer; }
-  .car-dots button[aria-current="true"] { background:#141413; width: 22px; border-radius: 5px; }
-  .car-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-  .mission { margin-top: 2.6rem; padding: 1.8rem clamp(1.2rem, 4vw, 2.4rem); border-radius: 16px; border: 1px solid var(--line, rgba(232,197,71,.22)); background: linear-gradient(180deg, rgba(232,197,71,.06), transparent); }
-  .mission h2 { font-family:"IBM Plex Sans", system-ui, sans-serif; font-size: 1.35rem; margin: .3rem 0 .6rem; }
-  .mission > p { color: var(--ink-2, #c5d0dc); max-width: 44rem; line-height: 1.6; margin: 0 0 1.4rem; }
-  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9rem; margin: 0 0 1.6rem; padding: 0; list-style: none; }
-  .pillars li { border: 1px solid var(--line-2, rgba(94,240,223,.28)); border-radius: 12px; padding: 1rem; background: var(--bg-2, #0e1c2c); }
-  .pillars b { display: block; color: var(--gold, #e8c547); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .35rem; }
-  .pillars span { color: var(--ink-2, #c5d0dc); font-size: .95rem; line-height: 1.5; }
-  .ctas { display: flex; flex-wrap: wrap; gap: .7rem; }
-  .ctas a { padding: .8rem 1.15rem; border-radius: 9px; font-weight: 700; text-decoration: none; }
-  .ctas a.primary { background:#141413; color: var(--ink-on-gold, #07111c); }
-  .ctas a.secondary { border: 1px solid var(--line-2, rgba(94,240,223,.28)); color: var(--teal, #5ef0df); }
-
-  @media (max-width: 680px) {
-    .pillars { grid-template-columns: 1fr; }
-    .car-btn { display: none; }
-    .slide { padding-bottom: 3.1rem; }
-  }
-  @media (prefers-reduced-motion: reduce) { .car-track { transition: none; } }
-</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Welcome — Slid Phi Labs","description":"Welcome to Slid Phi Labs. One account opens every product.","url":"https://www.slidphilabs.com/welcome","isPartOf":{"@type":"WebSite","name":"Slid Phi Labs","url":"https://www.slidphilabs.com/"},"inLanguage":"en"}</script>
-<link rel="stylesheet" href="/assets/chrome.css?v=50"/>
+<link rel="stylesheet" href="/assets/chrome.css?v=52"/>
 </head>
 <body>
-<main id="main" class="wl">
-  <p class="wl-kicker">Slid Phi Labs · Cherry Hill, New Jersey</p>
-  <h1 id="hello">Welcome to Slid Phi Labs.</h1>
-  <p class="wl-lede" id="lede">Your account is ready. The same login opens every product below.</p>
-
-  <section class="car" id="car" aria-roledescription="carousel" aria-label="Slid Phi Labs products" tabindex="0">
-    <div class="car-track" id="track">
-      <article class="slide" aria-roledescription="slide" aria-label="1 of 9: Agent-Rider">
-        <div class="slide-top"><img src="/assets/logos/logo-agent-rider.png" alt=""/><p class="slide-name">Agent-Rider</p><span class="slide-n">01 / 09</span></div>
-        <h2>Agents talk. Rider delivers your intent.</h2>
-        <p class="desc">Give every agent a signed name. Message agents by ID, verify them locally against published keys, and prove which one acted.</p>
-        <a class="go" href="/rider">Explore Agent-Rider →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="2 of 9: Warrant">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">Warrant</p><span class="slide-n">02 / 09</span></div>
-        <h2>Rider names the agent. Warrant names the job.</h2>
-        <p class="desc">A signed mandate bound to a Rider: which hosts, which actions, what spend cap. When the job runs, a receipt proves it.</p>
-        <a class="go" href="/warrant">Explore Warrant →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="3 of 9: PERsiST">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">PERsiST</p><span class="slide-n">03 / 09</span></div>
-        <h2>Memory that starts empty and loads only what the task needs.</h2>
-        <p class="desc">PERsiST scans your work, builds its own compressed memory from it, inflates only the slice each task needs, and verifies every read before the model sees it.</p>
-        <a class="go" href="/persist">Explore PERsiST →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="4 of 9: Chamber">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">Chamber</p><span class="slide-n">04 / 09</span></div>
-        <h2>Two keys seal the JSON. Opening stays free.</h2>
-        <p class="desc">Attested signing where one share is useless on its own, and every envelope carries a stamp of who held the keys.</p>
-        <a class="go" href="/chamber">Explore Chamber →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="5 of 9: CuNi">
-        <div class="slide-top"><img src="/assets/logos/logo-cuni.svg" alt=""/><p class="slide-name">CuNi</p><span class="slide-n">05 / 09</span></div>
-        <h2>Same program. Same output. Or refuse.</h2>
-        <p class="desc">Write a rule once. CuNi checks that Python, Go and JavaScript all print the same output, and refuses to ship it if they don't.</p>
-        <a class="go" href="/cuni">Explore CuNi →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="6 of 9: PCC">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">PCC</p><span class="slide-n">06 / 09</span></div>
-        <h2>Send a file. Every byte comes back.</h2>
-        <p class="desc">Hosted lossless compression called from your own tools. Every result is proven by decoding it and matching its SHA-256.</p>
-        <a class="go" href="/pcc">Explore PCC →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="7 of 9: TRUSTREAM">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">TRUSTREAM</p><span class="slide-n">07 / 09</span></div>
-        <h2>Pack the stream as it arrives.</h2>
-        <p class="desc">Compresses live logs and telemetry in 4 KiB tiles. Empty stretches shrink, and you restore the original stream exactly.</p>
-        <a class="go" href="/trustream">Explore TRUSTREAM →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="8 of 9: AwLPay">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">AwLPay</p><span class="slide-n">08 / 09</span></div>
-        <h2>A locked quote. A mismatch is refused.</h2>
-        <p class="desc">Accept any token on any chain whose value can be checked, converted across chains through CuNi, or refused. Built on x402 rails.</p>
-        <a class="go" href="/awlpay">Explore AwLPay →</a>
-      </article>
-      <article class="slide" aria-roledescription="slide" aria-label="9 of 9: TEACHAiD">
-        <div class="slide-top"><img src="/assets/brand/sp-icon-192.png" alt=""/><p class="slide-name">TEACHAiD</p><span class="slide-n">09 / 09</span></div>
-        <h2>A personal teacher that cites the textbook.</h2>
-        <p class="desc">A campus app whose teacher cites its sources, builds the curriculum, and speaks it aloud.</p>
-        <a class="go" href="/teachaid">Explore TEACHAiD →</a>
-      </article>
+<main id="main" class="spl-page spl-home">
+  <section class="wl-hero" aria-labelledby="hello">
+    <div class="wl-hero-text">
+      <p class="spl-kicker">Slid Phi Labs · Cherry Hill, New Jersey</p>
+      <h1 id="hello">Welcome to Slid Phi Labs.</h1>
+      <p class="lede" id="lede">One free account opens every product below. Proof before praise.</p>
+      <p class="spl-actions"><a class="spl-btn spl-btn-dark" id="cta-top" href="/signup">Create your free account</a><a class="spl-btn spl-btn-line" href="#hc">Browse products ↓</a></p>
     </div>
-    <button type="button" class="car-btn car-prev" id="prev" aria-label="Previous product">‹</button>
-    <button type="button" class="car-btn car-next" id="next" aria-label="Next product">›</button>
-    <div class="car-dots" id="dots" role="group" aria-label="Choose a product"></div>
-    <p class="car-status" id="status" aria-live="polite"></p>
+    <div class="wl-hero-mark" aria-hidden="true"><img src="/assets/brand/sp-logo-240.png" width="276" height="240" alt=""/></div>
   </section>
 
-  <section class="mission" aria-labelledby="mission-h">
-    <p class="wl-kicker">Our mission</p>
+  <section class="home-car" id="hc" aria-roledescription="carousel" aria-label="Slid Phi Labs products">
+    <div class="hc-viewport" tabindex="0">
+      <div class="hc-track">
+      <article class="hc-slide" id="hc-1" role="group" aria-roledescription="slide" aria-label="1 of 9: Agent-Rider">
+        <div class="hc-text">
+        <p class="spl-kicker">Agent-Rider</p>
+        <h3>Agents talk. Rider delivers your intent.</h3>
+        <p class="hc-desc">Give every agent a signed name. Message agents by ID, verify them locally against published keys, and prove which one acted.</p>
+        <a class="spl-btn spl-btn-dark" href="/rider">Explore Agent-Rider →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">01</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">Agent-Rider</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-2" role="group" aria-roledescription="slide" aria-label="2 of 9: Warrant">
+        <div class="hc-text">
+        <p class="spl-kicker">Warrant</p>
+        <h3>Rider names the agent. Warrant names the job.</h3>
+        <p class="hc-desc">A signed mandate bound to a Rider: which hosts, which actions, what spend cap. When the job runs, a receipt proves it.</p>
+        <a class="spl-btn spl-btn-dark" href="/warrant">Explore Warrant →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">02</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">Warrant</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-3" role="group" aria-roledescription="slide" aria-label="3 of 9: PERsiST">
+        <div class="hc-text">
+        <p class="spl-kicker">PERsiST</p>
+        <h3>Memory that starts empty and loads only what the task needs.</h3>
+        <p class="hc-desc">PERsiST scans your work, builds its own compressed memory from it, inflates only the slice each task needs, and verifies every read before the model sees it.</p>
+        <a class="spl-btn spl-btn-dark" href="/persist">Explore PERsiST →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">03</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">PERsiST</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-4" role="group" aria-roledescription="slide" aria-label="4 of 9: Chamber">
+        <div class="hc-text">
+        <p class="spl-kicker">Chamber</p>
+        <h3>Two keys seal the JSON. Opening stays free.</h3>
+        <p class="hc-desc">Attested signing where one share is useless on its own, and every envelope carries a stamp of who held the keys.</p>
+        <a class="spl-btn spl-btn-dark" href="/chamber">Explore Chamber →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">04</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">Chamber</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-5" role="group" aria-roledescription="slide" aria-label="5 of 9: CuNi">
+        <div class="hc-text">
+        <p class="spl-kicker">CuNi</p>
+        <h3>Same program. Same output. Or refuse.</h3>
+        <p class="hc-desc">Write a rule once. CuNi checks that Python, Go and JavaScript all print the same output, and refuses to ship it if they don't.</p>
+        <a class="spl-btn spl-btn-dark" href="/cuni">Explore CuNi →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">05</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">CuNi</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-6" role="group" aria-roledescription="slide" aria-label="6 of 9: PCC">
+        <div class="hc-text">
+        <p class="spl-kicker">PCC</p>
+        <h3>Send a file. Every byte comes back.</h3>
+        <p class="hc-desc">Hosted lossless compression called from your own tools. Every result is proven by decoding it and matching its SHA-256.</p>
+        <a class="spl-btn spl-btn-dark" href="/pcc">Explore PCC →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">06</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">PCC</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-7" role="group" aria-roledescription="slide" aria-label="7 of 9: TRUSTREAM">
+        <div class="hc-text">
+        <p class="spl-kicker">TRUSTREAM</p>
+        <h3>Pack the stream as it arrives.</h3>
+        <p class="hc-desc">Compresses live logs and telemetry in 4 KiB tiles. Empty stretches shrink, and you restore the original stream exactly.</p>
+        <a class="spl-btn spl-btn-dark" href="/trustream">Explore TRUSTREAM →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">07</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">TRUSTREAM</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-8" role="group" aria-roledescription="slide" aria-label="8 of 9: AwLPay">
+        <div class="hc-text">
+        <p class="spl-kicker">AwLPay</p>
+        <h3>A locked quote. A mismatch is refused.</h3>
+        <p class="hc-desc">Accept any token on any chain whose value can be checked, converted across chains through CuNi, or refused. Built on x402 rails.</p>
+        <a class="spl-btn spl-btn-dark" href="/awlpay">Explore AwLPay →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">08</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">AwLPay</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      <article class="hc-slide" id="hc-9" role="group" aria-roledescription="slide" aria-label="9 of 9: TEACHAiD">
+        <div class="hc-text">
+        <p class="spl-kicker">TEACHAiD</p>
+        <h3>A personal teacher that cites the textbook.</h3>
+        <p class="hc-desc">A campus app whose teacher cites its sources, builds the curriculum, and speaks it aloud.</p>
+        <a class="spl-btn spl-btn-dark" href="/teachaid">Explore TEACHAiD →</a>
+        </div>
+        <div class="hc-ticket" aria-hidden="true"><span class="hc-ticket-n">09</span><span class="hc-ticket-of">of 09</span><span class="hc-ticket-name">TEACHAiD</span><span class="hc-ticket-foot">Slid Phi Labs, Inc.</span></div>
+      </article>
+      </div>
+    </div>
+    <div class="hc-controls">
+      <button type="button" class="hc-btn hc-prev" aria-label="Previous product">←</button>
+      <button type="button" class="hc-btn hc-pause" aria-label="Pause the carousel">Pause</button>
+      <button type="button" class="hc-btn hc-next" aria-label="Next product">→</button>
+    </div>
+    <p class="hc-status" aria-live="polite"></p>
+    <div class="hc-progress" aria-hidden="true"><i></i></div>
+  </section>
+  <nav class="hc-tabs" aria-label="All products"><a class="hc-tab" href="#hc-1">Agent-Rider</a> <a class="hc-tab" href="#hc-2">Warrant</a> <a class="hc-tab" href="#hc-3">PERsiST</a> <a class="hc-tab" href="#hc-4">Chamber</a> <a class="hc-tab" href="#hc-5">CuNi</a> <a class="hc-tab" href="#hc-6">PCC</a> <a class="hc-tab" href="#hc-7">TRUSTREAM</a> <a class="hc-tab" href="#hc-8">AwLPay</a> <a class="hc-tab" href="#hc-9">TEACHAiD</a></nav>
+
+  <section class="wl-mission" aria-labelledby="mission-h">
+    <p class="spl-kicker">Our mission</p>
     <h2 id="mission-h">To make every claim checkable. Proof before praise.</h2>
     <p>Compression that restores exactly what it stored, agents with a signed name and a spending limit they cannot exceed, and a receipt for everything that happened.</p>
-    <ul class="pillars">
-      <li><b>Exact</b><span>What you store is what comes back, byte for byte, or the result is refused.</span></li>
-      <li><b>Bounded</b><span>Every agent has a signed name and a spend cap it cannot cross.</span></li>
-      <li><b>Receipted</b><span>Every action leaves a receipt you can check later.</span></li>
-    </ul>
-    <div class="ctas">
-      <a class="primary" id="cta-account" href="/account">Go to your account</a>
-      <a class="secondary" href="/products">See all products</a>
-    </div>
+    <ul class="wl-pillars"><li><b>Exact</b><span>What you store is what comes back, byte for byte, or the result is refused.</span></li><li><b>Bounded</b><span>Every agent has a signed name and a spend cap it cannot cross.</span></li><li><b>Receipted</b><span>Every action leaves a receipt you can check later.</span></li></ul>
+    <p class="spl-actions">
+      <a class="spl-btn spl-btn-dark" id="cta-account" href="/signup">Create your account</a>
+      <a class="spl-btn spl-btn-line" href="/products">See all products</a>
+    </p>
   </section>
 </main>
 <script src="/assets/chrome.js?v=50" defer></script>
 <script src="/assets/lab-auth.js?v=50"></script>
-<script>
-(function () {
-  // Greeting by first name, from the lab session.
-  (async () => {
-    let u = null;
-    try { u = await SPLAuth.me(); } catch { u = null; }
-    const hello = document.getElementById("hello");
-    const lede = document.getElementById("lede");
-    const cta = document.getElementById("cta-account");
-    if (u) {
-      const first = String(u.name || "").trim().split(/\s+/)[0] || "";
-      hello.textContent = first ? "Welcome, " + first + "." : "Welcome to Slid Phi Labs.";
-    } else {
-      lede.textContent = "One free account opens every product below.";
-      cta.textContent = "Create your account";
-      cta.href = "/signup";
-    }
-  })();
-
-  // Carousel: auto-advance every 6s, pause on hover/focus, swipe, arrows, dots, keyboard.
-  const car = document.getElementById("car");
-  const track = document.getElementById("track");
-  const slides = Array.from(track.children);
-  const dots = document.getElementById("dots");
-  const status = document.getElementById("status");
-  const N = slides.length;
-  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let i = 0, timer = null, hovering = false, focused = false;
-
-  slides.forEach((s, k) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.setAttribute("aria-label", "Show " + s.querySelector(".slide-name").textContent);
-    b.addEventListener("click", () => { go(k); restart(); });
-    dots.appendChild(b);
-  });
-
-  function go(k, announce) {
-    i = (k + N) % N;
-    track.style.transform = "translateX(" + (-100 * i) + "%)";
-    slides.forEach((s, k2) => {
-      const on = k2 === i;
-      s.setAttribute("aria-hidden", on ? "false" : "true");
-      s.querySelectorAll("a").forEach((a) => (a.tabIndex = on ? 0 : -1));
-    });
-    Array.from(dots.children).forEach((d, k2) => d.setAttribute("aria-current", k2 === i ? "true" : "false"));
-    if (announce !== false) status.textContent = slides[i].getAttribute("aria-label");
-  }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
-  function start() {
-    stop();
-    if (reduce || hovering || focused || document.hidden) return;
-    timer = setInterval(() => go(i + 1, false), 6000);
-  }
-  function restart() { start(); }
-
-  document.getElementById("prev").addEventListener("click", () => { go(i - 1); restart(); });
-  document.getElementById("next").addEventListener("click", () => { go(i + 1); restart(); });
-  car.addEventListener("mouseenter", () => { hovering = true; stop(); });
-  car.addEventListener("mouseleave", () => { hovering = false; start(); });
-  car.addEventListener("focusin", (e) => {
-    // Pause for keyboard focus only; a mouse click on an arrow shouldn't freeze it.
-    let kb = true;
-    try { kb = e.target.matches(":focus-visible"); } catch { kb = true; }
-    if (kb) { focused = true; stop(); }
-  });
-  car.addEventListener("focusout", (e) => { if (!car.contains(e.relatedTarget)) { focused = false; start(); } });
-  car.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") { go(i + 1); e.preventDefault(); }
-    else if (e.key === "ArrowLeft") { go(i - 1); e.preventDefault(); }
-    else if (e.key === "Home") { go(0); e.preventDefault(); }
-    else if (e.key === "End") { go(N - 1); e.preventDefault(); }
-  });
-  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
-
-  let x0 = null, y0 = null;
-  track.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; stop(); }, { passive: true });
-  track.addEventListener("touchend", (e) => {
-    if (x0 === null) return;
-    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(i + (dx < 0 ? 1 : -1));
-    x0 = y0 = null;
-    start();
-  });
-
-  go(0, false);
-  start();
-})();
-</script>
+<script src="/assets/home-carousel.js?v=3" defer></script>
 </body>
 </html>
