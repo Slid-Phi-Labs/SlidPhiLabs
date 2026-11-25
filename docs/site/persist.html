@@ -69,8 +69,8 @@
     <p class="pf-lede">Three steps. No pre-loaded memory, no lab content, no promised number.</p>
     <div class="pf-prose">
       <p><strong>1. Start at BASE.</strong> Empty. Nothing pre-loaded, nothing of ours inside it.</p>
-      <p><strong>2. Scan your work.</strong> Repos, tasks, decisions. PERsiST builds its folded memory from what it finds, and keeps building as the work accumulates.</p>
-      <p><strong>3. Load the slice.</strong> Each task inflates only what it needs, from a <code>heart.cae</code> archive folded by <code>spl-heart</code>. Every read is verified before the model sees it.</p>
+      <p><strong>2. Scan your work.</strong> Repos, tasks, decisions. PERsiST builds its memory from what it finds, and keeps building as the work accumulates.</p>
+      <p><strong>3. Load the slice.</strong> Each task inflates only what it needs, from a <code>heart.cae</code> archive written by <code>spl-heart</code>. Every read is verified before the model sees it.</p>
     </div>
     <p class="pf-note">PERsiST reports the tokens it loads on your work. No result is promised here, because no two codebases load the same context.</p>
   </section>
@@ -85,7 +85,7 @@
     <p class="lb-secnum" aria-hidden="true">03</p>
     <h2 class="lb-h2" id="evidence">The mechanism, stated plainly.</h2>
     <div class="pf-prose">
-      <p><strong>Folded memory.</strong> At rest, memory sits folded in one compressed archive (<code>heart.cae</code>) on disk. <code>spl-heart</code> inflates only the slice the current task needs.</p>
+      <p><strong>Memory at rest.</strong> At rest, memory sits in one compressed archive (<code>heart.cae</code>) on disk. <code>spl-heart</code> inflates only the slice the current task needs.</p>
       <p><strong>Verified reads.</strong> Every read is verified cryptographically before the model sees it.</p>
       <p><strong>Learning from your work.</strong> At first run, PERsiST scans your environment and your work and tailors itself to what it finds. It keeps building as the work accumulates. Nothing of ours ships inside it.</p>
       <p><strong>Gates and receipts.</strong> Spend and push gates are checked against a human mandate before they execute. Every gate decision and task completion gets a tamper-evident receipt.</p>
@@ -104,12 +104,12 @@
         <tr>
           <th scope="row">psi Solo</th>
           <td>$13.31/mo · $99/yr</td>
-          <td>1 seat · 1 agent identity · local <code>spl-heart</code> engine · BASE-start memory built from a scan of your work · Warrant included · 10 GB PCC compression/mo</td>
+          <td>1 seat · local <code>spl-heart</code> engine · BASE-start memory built from a scan of your work · Warrant gate + CuNi receipts · 10 GB PCC compression/mo</td>
         </tr>
         <tr>
           <th scope="row"><strong>psi Crew</strong></th>
           <td><strong>$39/mo</strong></td>
-          <td><strong>6 seats</strong> · shared <code>heart.cae</code> built from the crew's shared work · slice loading per seat · 200 GB PCC</td>
+          <td><strong>6 seats</strong> · shared <code>heart.cae</code> built from the crew's shared work · slice loading per seat · Warrant + CuNi receipts for all 6 seats · 200 GB PCC</td>
         </tr>
         <tr>
           <th scope="row">psi Team</th>
@@ -123,16 +123,16 @@
         </tr>
       </tbody>
     </table>
-    <p class="pf-note">First 5,000 tokens/day folded via <code>spl-heart</code> are free with no plan. Agents buy with x402 (USDC on Solana or Base): <code>POST /api/x402-products {"sku":"psi-crew"}</code>. Full catalog: <a href="https://www.slidphilabs.com/pricing">/pricing</a>.</p>
+    <p class="pf-note">First 5,000 tokens/day written to memory via <code>spl-heart</code> are free with no plan. PSI Meter, the spend log, is a separate seat: $25/seat/mo, $250/seat/yr, 250,000 logged calls/mo included, then $2 per 100,000 calls; free 1 seat, 10,000 calls/mo, 7-day retention. Full catalog: <a href="https://www.slidphilabs.com/pricing">/pricing</a>.</p>
   </section>
 
   <section class="lb-sec" aria-labelledby="how">
     <p class="lb-secnum" aria-hidden="true">05</p>
     <h2 class="lb-h2" id="how">How it works.</h2>
     <div class="pf-prose">
-      <p><strong>At rest:</strong> the memory sits folded in one compressed archive (<code>heart.cae</code>) on disk.</p>
+      <p><strong>At rest:</strong> the memory sits in one compressed archive (<code>heart.cae</code>) on disk.</p>
       <p><strong>Active:</strong> <code>spl-heart</code> inflates only the task's slice, verified before the model sees it.</p>
-      <p><strong>After the task:</strong> notes are logged, the archive re-folds, and the receipts are re-audited.</p>
+      <p><strong>After the task:</strong> notes are logged, the archive is rewritten, and the receipts are re-audited.</p>
       <p><strong>Always:</strong> spend and push gates are checked against a human mandate before they execute.</p>
     </div>
   </section>
