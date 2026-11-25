@@ -399,7 +399,7 @@ a.spl-meter:hover { background: var(--l-paper-2); }
 
 /* ---------- Home ---------- */
 .spl-home .home-hero { padding-bottom: 1rem; }
-.spl-home .home-hero h1 { font-size: clamp(2.8rem, 8vw, 6rem); margin-bottom: 1.2rem; }
+.spl-home .home-hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); margin-bottom: 1.2rem; max-width: 18ch; }
 .spl-home .home-hero .lede { font-size: 1.25rem; max-width: 46rem; }
 .home-vm { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--l-rule); margin: 2rem 0 0.5rem; background: var(--l-card); }
 .home-vm > div { padding: 20px 22px; }

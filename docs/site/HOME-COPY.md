@@ -2,7 +2,9 @@
 
 **Hosting:** Fly app `slidphilabs` (`docs/site/`, deploys on push to `main`). Wix is retired; do not paste copy into Wix.
 **Canonical site:** https://www.slidphilabs.com  
-**Tagline:** Tools that check. Proof before praise.
+**Tagline:** Tools that check. Proof before praise. (Small label only, not the headline.)
+
+**Homepage headline (current since 2026-11-21, reaffirmed by Corey 2026-11-24):** A name your agent can prove. A program that gives one answer.
 **Brand art:** https://raw.githubusercontent.com/ceedot-rock/splabs-brand/main/assets/brand/slid-phi-labs-master.jpg  
 **IP:** marketing + metrics only. No engine source, coefficients, or residual internals.  
 **Design pack:** `docs/site/` — `index.html`, `try.html`, `access.html` (source of truth for layout + links).
