@@ -11,7 +11,7 @@ Buy: https://www.slidphilabs.com/pay?sku=psi-meter
 Local metering works today with no account:
 
 ```bash
-python psi/scripts/usage-line.py --log
+python psi/persist/usage-line.py --log
 ```
 
 Rules: log every session's line at session end; profiled cost uses live

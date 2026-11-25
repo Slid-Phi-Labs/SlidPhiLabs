@@ -1,0 +1,12 @@
+[project]
+name = "spl-lab-calls"
+version = "0.1.0"
+description = "One Python client for lab calls that already have an engine."
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later OR LicenseRef-SlidPhiLabs-Commercial" }
+
+[tool.setuptools]
+py-modules = ["spl_lab_calls"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
