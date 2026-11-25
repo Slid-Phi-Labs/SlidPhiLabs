@@ -4,7 +4,7 @@
 **Canonical site:** https://www.slidphilabs.com  
 **Tagline:** Tools that check. Proof before praise. (Small label only, not the headline.)
 
-**Homepage headline (current since 2026-11-21, reaffirmed by Corey 2026-11-24):** A name your agent can prove. A program that gives one answer.
+**Homepage (Corey, 2026-11-24): the welcome page IS the homepage.** Greeting ("Welcome to Slid Phi Labs." / "Welcome, <first name>." when signed in), the 9-product carousel with links (Agent-Rider, Warrant, PERsiST, Chamber, CuNi, PCC, TRUSTREAM, AwLPay, TEACHAiD), then the mission (exact, bounded, receipted) and account / all-products buttons. No prices. /welcome shows the same page after sign-up. Previous headline (2026-11-21): "A name your agent can prove. A program that gives one answer."
 **Brand art:** https://raw.githubusercontent.com/ceedot-rock/splabs-brand/main/assets/brand/slid-phi-labs-master.jpg  
 **IP:** marketing + metrics only. No engine source, coefficients, or residual internals.  
 **Design pack:** `docs/site/` — `index.html`, `try.html`, `access.html` (source of truth for layout + links).
