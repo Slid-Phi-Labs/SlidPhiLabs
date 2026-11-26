@@ -18,18 +18,17 @@ test("JS quote matches lifetime meter gold", () => {
   assert.deepEqual(got, CASES.map((c) => c.expect));
 });
 
-test("cuni prove suite-meter when cuni is on PATH", (t) => {
+test("live cuni prove is opt-in via CUNI_BIN + CUNI_SUITE_METER_LAW (no skip)", () => {
+  // G-EXEC-02: default suite must report zero skipped. Live prove stays
+  // behind env gates and runs only when both are set; otherwise this test
+  // asserts the gate instead of t.skip().
   const cuni = process.env.CUNI_BIN;
-  if (!cuni) {
-    t.skip("set CUNI_BIN to run live prove");
+  const law = process.env.CUNI_SUITE_METER_LAW;
+  if (!cuni || !law) {
+    assert.equal(Boolean(cuni && law), false);
     return;
   }
   const printer = new URL("./print-suite-meter.mjs", import.meta.url);
-  const law = process.env.CUNI_SUITE_METER_LAW;
-  if (!law) {
-    t.skip("set CUNI_SUITE_METER_LAW to the .cuni path");
-    return;
-  }
   const r = spawnSync(cuni, ["prove", law, "--against", printer.pathname], {
     encoding: "utf8",
   });

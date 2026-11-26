@@ -7,6 +7,7 @@ rubric.md, applies safe smart fixes, keeps standing records.
 Usage:
     python gid.py [--score-only] [--no-fix] [--product NAME]
                   [--registry PATH] [--root PATH]
+                  [--passes N] [--until-stable]
 
 Outputs:
     standings.jsonl  append-only, one record per product per run
@@ -17,7 +18,10 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import json
+import os
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -28,7 +32,12 @@ STANDINGS_JSONL = HERE / "standings.jsonl"
 STANDINGS_MD = HERE / "STANDINGS.md"
 
 SECRET_RE = re.compile(
-    r"(api[_-]?key|secret|password)\s*=\s*['\"][^'\"]{4,}['\"]",
+    r"(api[_-]?key|secret|password)\s*=\s*['\"]([^'\"]{4,})['\"]",
+    re.IGNORECASE,
+)
+SECRET_PLACEHOLDER_RE = re.compile(
+    r"your|xxx|example|placeholder|dummy|changeme|\btest\b|\bdemo\b|"
+    r"sample|here|<|>|sk_test|pk_test|rk_test",
     re.IGNORECASE,
 )
 RUST_TEST_RE = re.compile(r"#\[test\]")
@@ -37,15 +46,46 @@ PLACEHOLDER_RE = re.compile(r"\b(TODO|PLACEHOLDER|TBD|FIXME)\b", re.IGNORECASE)
 CHECKS = [
     ("G-FUNC-01", "Manifest present", "Functionality"),
     ("G-FUNC-02", "Entry source present", "Functionality"),
+    ("G-WIRE-01", "Own tests wired", "Functionality"),
+    ("G-SURF-01", "Surface reachable", "Functionality"),
     ("G-REL-01", "Tests present", "Reliability"),
-    ("G-REL-02", "Test script wired", "Reliability"),
+    ("G-EXEC-01", "Tests execute green", "Reliability"),
+    ("G-EXEC-02", "Zero skipped tests", "Reliability"),
+    ("G-NEG-01", "Negative-path coverage", "Reliability"),
     ("G-SEC-01", "License present", "Security"),
     ("G-SEC-02", "No plaintext secrets", "Security"),
+    ("G-LOCK-01", "Lockfile pins manifest", "Security"),
+    ("G-HTTPS-01", "No plaintext-http deps", "Security"),
     ("G-DOC-01", "README present + substantive", "Docs"),
     ("G-DOC-02", "NOTICE / CHANGELOG present", "Docs"),
+    ("G-USAGE-01", "Usage documented", "Docs"),
+    ("G-LOG-01", "CHANGELOG substantive", "Docs"),
     ("G-OPS-01", "Versioned past scaffold", "Ops"),
     ("G-OPS-02", "No scaffold placeholders", "Ops"),
+    ("G-JUNK-01", "No tracked build junk", "Ops"),
+    ("G-TODO-01", "No TODOs in sources", "Ops"),
 ]
+
+POINTS = 5          # full pass per check
+POINTS_BLOCKED = 3  # execution-impossible-here partial (toolchain absent)
+
+NEG_RE = re.compile(
+    r"refus|reject|mismatch|throw|invalid|no_|fail|deny|error|wrong",
+    re.IGNORECASE,
+)
+USAGE_RE = re.compile(r"us(age|e\b)|example|quickstart|getting started",
+                      re.IGNORECASE)
+HTTP_RE = re.compile(r"http://(?!localhost|127\.|schemas\.|www\.w3\.org)")
+LOCKFILES = ("package-lock.json", "Cargo.lock", "poetry.lock", "pdm.lock",
+             "uv.lock", "requirements.txt", "requirements-lock.txt")
+JUNK_RES = (
+    re.compile(r"(^|/)(__pycache__|node_modules|target|dist|build)(/|$)"),
+    re.compile(r"\.pyc$"),
+    re.compile(r"(^|/)\.DS_Store$"),
+)
+SKIP_DIRS = {".git", "node_modules", "target", "__pycache__", ".venv",
+             "venv", "dist", "build"}
+EXEC_TIMEOUT_S = 120
 
 SAFE_FIXABLE = {"G-DOC-01", "G-DOC-02"}
 
@@ -168,13 +208,109 @@ def read_head(f: Path | None, lines: int = 40, chars: int = 2000) -> str:
         return ""
 
 
+def _tree_files(pdir: Path) -> list[Path]:
+    out: list[Path] = []
+    stack = [pdir]
+    while stack:
+        d = stack.pop()
+        try:
+            entries = list(d.iterdir())
+        except OSError:
+            continue
+        for e in entries:
+            try:
+                if e.is_dir():
+                    if e.name not in SKIP_DIRS and not e.is_symlink():
+                        stack.append(e)
+                elif e.is_file() and e.stat().st_size <= 500_000:
+                    out.append(e)
+            except OSError:
+                pass
+    return out
+
+
+def _product_tests(
+    pdir: Path, focus: list[str] | None, focus_files: list[Path],
+) -> list[Path]:
+    if focus:
+        return sorted(f for f in focus_files if is_test_file(f))
+    found: set[Path] = set()
+    for td in ("test", "tests"):
+        d = pdir / td
+        if d.is_dir():
+            try:
+                for f in d.iterdir():
+                    if f.is_file() and is_test_file(f):
+                        found.add(f)
+            except OSError:
+                pass
+    try:
+        for f in pdir.iterdir():
+            if f.is_file() and is_test_file(f):
+                found.add(f)
+    except OSError:
+        pass
+    return sorted(found)
+
+
+def _wired_ok(mname: str | None, script: str, test_files: list[Path],
+              rust_tests: bool, pytest_cfg: bool, shtest_ok: bool) -> bool:
+    if mname == "Cargo.toml":
+        return bool(rust_tests)
+    if mname == "pyproject.toml":
+        return bool(pytest_cfg or "pytest" in script)
+    if test_files and shtest_ok and not script:
+        return True
+    if not test_files:
+        return False
+    names = [f.name for f in test_files]
+    return any(n in script for n in names) or "test/" in script \
+        or "tests/" in script
+
+
+def _surface_ok(pdir: Path, manifest: dict, mname: str | None,
+                focus: list[str] | None) -> bool:
+    if focus:
+        stems = []
+        for s in focus:
+            stem = s.split(".")[0] if "." in s else s
+            stems.append(stem)
+        if any(st in ("main", "index") for st in stems):
+            return True
+        pats = [re.compile(
+            r"(import|require|from|use|mod|export)[^;\n]{0,160}\b"
+            + re.escape(st) + r"\b") for st in stems]
+        for f in _tree_files(pdir):
+            if f.suffix not in SOURCE_SUFFIXES:
+                continue
+            try:
+                text = f.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            if any(p.search(text) for p in pats):
+                return True
+        return False
+    if mname == "package.json" and isinstance(manifest, dict):
+        if isinstance(manifest.get("exports"), dict) or manifest.get("main"):
+            return True
+        if (pdir / "index.mjs").is_file() or (pdir / "index.js").is_file():
+            return True
+        return False
+    if mname == "pyproject.toml":
+        return True  # named project package: pip-installable surface
+    if mname == "Cargo.toml":
+        return ((pdir / "src" / "lib.rs").is_file()
+                or (pdir / "src" / "main.rs").is_file())
+    return False
+
+
 def check_product(
     pdir: Path,
     manifest: dict,
     root: Path,
     manifest_file: Path | None = None,
     focus: list[str] | None = None,
-) -> dict[str, bool]:
+) -> tuple[dict[str, int], dict]:
     focus_files: list[Path] = []
     if focus:
         # Single-module arms may live in src/ (Rust layout), not the top level.
@@ -196,6 +332,10 @@ def check_product(
         )
     else:
         src_ok = (pdir / "src").is_dir() and any((pdir / "src").iterdir())
+        if not src_ok:
+            # xo-ecosystem layout: source/ is src/ by another name.
+            src_ok = (pdir / "source").is_dir() and any(
+                (pdir / "source").iterdir())
         if not src_ok:
             # Flat-layout products: a top-level importable/runnable module
             # (single-file client, script) IS the entry source.
@@ -276,7 +416,11 @@ def check_product(
         f.is_file() and f.suffix == ".sh" and is_test_file(f)
         for f in top_files
     )
-    lic_ok = has_upward(pdir, root, "LICENSE")
+    lic_ok = any(
+        has_upward(pdir, root, n)
+        for n in ("LICENSE", "LICENSE.txt", "LICENSE.md", "LICENCE",
+                  "LICENCE.txt", "COPYING", "COPYING.txt")
+    )
     readme = pdir / "README.md"
     readme_ok = readme.is_file() and len(
         readme.read_text(encoding="utf-8", errors="replace")
@@ -295,10 +439,15 @@ def check_product(
         try:
             if probe.stat().st_size > 500_000:
                 continue
-            if SECRET_RE.search(
-                probe.read_text(encoding="utf-8", errors="replace")
-            ):
-                secrets_ok = False
+            text = probe.read_text(encoding="utf-8", errors="replace")
+            for m in SECRET_RE.finditer(text):
+                # Doc-example placeholders (your-key, xxx, sk_test, ...)
+                # are fixtures by another name; real-looking values fail.
+                if not SECRET_PLACEHOLDER_RE.search(m.group(2)):
+                    secrets_ok = False
+                    break
+            if not secrets_ok:
+                break
         except OSError:
             pass
 
@@ -316,31 +465,305 @@ def check_product(
             pass
     placeholders_ok = not bool(PLACEHOLDER_RE.search(head))
 
-    return {
-        "G-FUNC-01": manifest_file is not None,
-        "G-FUNC-02": bool(src_ok),
-        "G-REL-01": bool((test_dir and test_files) or rust_tests),
-        "G-REL-02": bool(test_script or pytest_wired or shtest_wired or cargo_wired),
-        "G-SEC-01": bool(lic_ok),
-        "G-SEC-02": bool(secrets_ok),
-        "G-DOC-01": bool(readme_ok),
-        "G-DOC-02": bool(notice_ok),
-        "G-OPS-01": bool(versioned_ok),
-        "G-OPS-02": bool(placeholders_ok),
+    mname = manifest_file.name if manifest_file is not None else None
+    mdir = manifest_file.parent if manifest_file is not None else None
+    script = ""
+    if isinstance(manifest, dict):
+        scripts = manifest.get("scripts")
+        if isinstance(scripts, dict):
+            script = " ".join(str(v) for v in scripts.values())
+    pytest_cfg = bool(isinstance(manifest, dict) and manifest.get("_pytest"))
+    tfiles = _product_tests(pdir, focus, focus_files)
+    if not tfiles and rust_tests and any(
+            str(s).endswith(".rs") for s in (focus or [])):
+        # Rust convention: #[test] fns live inside src files — the crate
+        # itself is the executable test carrier.
+        tfiles = [f for f in focus_files if f.suffix == ".rs"]
+    if not tfiles and mname == "Cargo.toml" \
+            and (pdir / "Cargo.toml").is_file():
+        # Owned crate without a test/ dir: in-source #[test] fns are the
+        # suite; cargo runs them from the manifest.
+        srcd = pdir / "src"
+        if srcd.is_dir():
+            tfiles = sorted(f for f in srcd.iterdir()
+                            if f.is_file() and f.suffix == ".rs")
+    wired = _wired_ok(mname, script, tfiles, rust_tests, pytest_cfg,
+                      bool(shtest_wired))
+    surf = _surface_ok(pdir, manifest, mname, focus)
+    execm = _run_suite(pdir, mname, tfiles)
+    everd = execm["verdict"]
+    if not tfiles:
+        e1, e2 = 0, POINTS
+    elif everd == "green":
+        e1 = POINTS
+        e2 = POINTS if execm["skipped"] == 0 else 0
+    elif everd == "blocked":
+        e1, e2 = POINTS_BLOCKED, POINTS_BLOCKED
+    else:
+        e1, e2 = 0, 0
+    neg = False
+    for f in tfiles:
+        try:
+            if NEG_RE.search(f.read_text(encoding="utf-8",
+                                         errors="replace")):
+                neg = True
+                break
+        except OSError:
+            pass
+    try:
+        readme_text = readme.read_text(
+            encoding="utf-8", errors="replace")[:30000] if readme_ok else ""
+    except OSError:
+        readme_text = ""
+    clog = pdir / "CHANGELOG.md"
+    try:
+        clog_ok = clog.is_file() and len(clog.read_text(
+            encoding="utf-8", errors="replace")) > 200
+    except OSError:
+        clog_ok = False
+    todo_re = re.compile(r"\b(TODO|FIXME)\b", re.IGNORECASE)
+    if focus:
+        todo_scope = list(focus_files)
+    else:
+        todo_scope = [f for f in _tree_files(pdir)
+                      if f.suffix in SOURCE_SUFFIXES]
+    todo_ok = True
+    for f in todo_scope:
+        try:
+            if todo_re.search(f.read_text(encoding="utf-8",
+                                          errors="replace")):
+                todo_ok = False
+                break
+        except OSError:
+            pass
+    checks = {
+        "G-FUNC-01": POINTS if manifest_file is not None else 0,
+        "G-FUNC-02": POINTS if src_ok else 0,
+        "G-WIRE-01": POINTS if wired else 0,
+        "G-SURF-01": POINTS if surf else 0,
+        "G-REL-01": POINTS if ((test_dir and test_files)
+                               or rust_tests) else 0,
+        "G-EXEC-01": e1,
+        "G-EXEC-02": e2,
+        "G-NEG-01": POINTS if neg else 0,
+        "G-SEC-01": POINTS if lic_ok else 0,
+        "G-SEC-02": POINTS if secrets_ok else 0,
+        "G-LOCK-01": POINTS if _lockfile_ok(mdir) else 0,
+        "G-HTTPS-01": POINTS if _https_ok(manifest_file) else 0,
+        "G-DOC-01": POINTS if readme_ok else 0,
+        "G-DOC-02": POINTS if notice_ok else 0,
+        "G-USAGE-01": POINTS if _usage_ok(readme_text) else 0,
+        "G-LOG-01": POINTS if clog_ok else 0,
+        "G-OPS-01": POINTS if versioned_ok else 0,
+        "G-OPS-02": POINTS if placeholders_ok else 0,
+        "G-JUNK-01": POINTS if _junk_ok(pdir) else 0,
+        "G-TODO-01": POINTS if todo_ok else 0,
     }
+    return checks, {"exec": execm}
+
+
+def _parse_node(out: str) -> tuple[int, int, int]:
+    counts = dict(re.findall(
+        r"(tests|pass|fail|cancelled|skipped|todo)\s+(\d+)", out))
+    num = lambda k: int(counts.get(k, 0))
+    passed, failed = num("pass"), num("fail")
+    skipped = num("skipped") + num("todo")
+    if not counts and "not ok" in out:
+        failed = max(failed, 1)
+    return passed, failed, skipped
+
+
+def _parse_pytest(out: str) -> tuple[int, int, int]:
+    counts: dict[str, int] = {}
+    for n, k in re.findall(r"(\d+)\s+(passed|failed|skipped|error)", out):
+        counts[k] = counts.get(k, 0) + int(n)
+    return (counts.get("passed", 0),
+            counts.get("failed", 0) + counts.get("error", 0),
+            counts.get("skipped", 0))
+
+
+def _linker_ok() -> bool:
+    if shutil.which("cargo") is None:
+        return False
+    if os.name == "nt":
+        return any(shutil.which(t) for t in ("link", "cl", "cc", "gcc"))
+    return shutil.which("cc") is not None
+
+
+def _run_suite(pdir: Path, mname: str | None,
+               test_files: list[Path]) -> dict:
+    """Execute the product suite. Verdicts: green / fail / blocked."""
+    if not test_files:
+        return {"verdict": "fail", "reason": "no test files to run",
+                "passed": 0, "failed": 0, "skipped": 0, "cmd": ""}
+    suffixes = {f.suffix for f in test_files}
+    node = shutil.which("node")
+    npm = shutil.which("npm")
+    py_files = [f for f in test_files if f.suffix == ".py"]
+    js_files = [f for f in test_files
+                if f.suffix in {".mjs", ".js", ".cjs", ".ts"}]
+    rs_files = [f for f in test_files if f.suffix == ".rs"]
+    sh_files = [f for f in test_files if f.suffix == ".sh"]
+    if mname == "pyproject.toml" and py_files:
+        test_files, suffixes = py_files, {".py"}
+    elif mname == "package.json" and js_files:
+        test_files, suffixes = js_files, {".mjs"}
+    elif mname == "Cargo.toml" and (rs_files or True):
+        test_files, suffixes = rs_files, {".rs"}
+    if suffixes <= {".mjs", ".js", ".cjs", ".ts"} and node:
+        if mname == "package.json" and (pdir / "package.json").is_file():
+            if npm is None:
+                return {"verdict": "blocked",
+                        "reason": "npm not on PATH",
+                        "passed": 0, "failed": 0, "skipped": 0, "cmd": ""}
+            cmd = [npm, "test", "--prefix", str(pdir)]
+            cwd = pdir
+        else:
+            by_dir: dict[Path, list[Path]] = {}
+            for f in test_files:
+                by_dir.setdefault(f.parent, []).append(f)
+            target = max(by_dir, key=lambda d: len(by_dir[d]))
+            # Run only the product's test files (focus rows must not inherit
+            # sibling skips from a shared directory like docs/site/api).
+            names = sorted(f.name for f in by_dir[target])
+            if not names:
+                return {"verdict": "fail",
+                        "reason": "no runnable test files",
+                        "passed": 0, "failed": 0, "skipped": 0, "cmd": ""}
+            cmd = [node, "--test", *names]
+            cwd = target
+        try:
+            r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True,
+                               errors="replace", timeout=EXEC_TIMEOUT_S)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {"verdict": "fail", "reason": f"runner error: {exc}",
+                    "passed": 0, "failed": 0, "skipped": 0,
+                    "cmd": " ".join(cmd)}
+        out = (r.stdout or "") + "\n" + (r.stderr or "")
+        passed, failed, skipped = _parse_node(out)
+        if r.returncode == 0 and failed == 0:
+            verdict: str = "green"
+        else:
+            verdict, failed = "fail", max(failed, 1)
+        return {"verdict": verdict, "reason": out[-800:],
+                "passed": passed, "failed": failed, "skipped": skipped,
+                "cmd": " ".join(cmd)}
+    if suffixes <= {".py"}:
+        try:
+            import pytest  # noqa: F401
+        except ImportError:
+            if shutil.which("pytest") is None:
+                return {"verdict": "blocked",
+                        "reason": "pytest not installed on this box",
+                        "passed": 0, "failed": 0, "skipped": 0, "cmd": ""}
+        ws = pdir.resolve()
+        while ws.name not in ("SlidPhiLabs", "psi", "CuNIverse") \
+                and ws.parent != ws:
+            ws = ws.parent
+        cmd = [sys.executable, "-m", "pytest",
+               *[str(f) for f in test_files], "-q"]
+        try:
+            r = subprocess.run(cmd, cwd=str(ws), capture_output=True,
+                               text=True, errors="replace",
+                               timeout=EXEC_TIMEOUT_S)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {"verdict": "fail", "reason": f"runner error: {exc}",
+                    "passed": 0, "failed": 0, "skipped": 0,
+                    "cmd": " ".join(cmd)}
+        out = (r.stdout or "") + "\n" + (r.stderr or "")
+        passed, failed, skipped = _parse_pytest(out)
+        verdict = "green" if r.returncode == 0 and failed == 0 else "fail"
+        return {"verdict": verdict, "reason": out[-800:],
+                "passed": passed,
+                "failed": failed or (0 if verdict == "green" else 1),
+                "skipped": skipped, "cmd": " ".join(cmd)}
+    if suffixes <= {".rs"} or mname == "Cargo.toml":
+        if not _linker_ok():
+            return {"verdict": "blocked",
+                    "reason": "no linkable Rust toolchain on this box",
+                    "passed": 0, "failed": 0, "skipped": 0,
+                    "cmd": "cargo test"}
+        cmd = ["cargo", "test", "--manifest-path",
+               str(pdir / "Cargo.toml")]
+        try:
+            r = subprocess.run(cmd, cwd=str(pdir), capture_output=True,
+                               text=True, errors="replace", timeout=300)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {"verdict": "fail", "reason": f"runner error: {exc}",
+                    "passed": 0, "failed": 0, "skipped": 0,
+                    "cmd": " ".join(cmd)}
+        out = (r.stdout or "") + "\n" + (r.stderr or "")
+        if "error: linker" in out or "linker `link`" in out:
+            return {"verdict": "blocked", "reason": "linker absent",
+                    "passed": 0, "failed": 0, "skipped": 0,
+                    "cmd": " ".join(cmd)}
+        passed = sum(map(int, re.findall(r"(\d+) passed", out)))
+        verdict = "green" if r.returncode == 0 else "fail"
+        return {"verdict": verdict, "reason": out[-800:],
+                "passed": passed, "failed": 0 if verdict == "green" else 1,
+                "skipped": 0, "cmd": " ".join(cmd)}
+    return {"verdict": "blocked",
+            "reason": "no safe executor for this suite "
+                      "(shell suites are not auto-run: side-effect risk)",
+            "passed": 0, "failed": 0, "skipped": 0, "cmd": ""}
+
+
+def _usage_ok(readme_text: str) -> bool:
+    return "```" in readme_text and bool(USAGE_RE.search(readme_text))
+
+
+def _https_ok(manifest_file: Path | None) -> bool:
+    if manifest_file is None or not manifest_file.is_file():
+        return True
+    try:
+        return not bool(HTTP_RE.search(manifest_file.read_text(
+            encoding="utf-8", errors="replace")))
+    except OSError:
+        return True
+
+
+def _lockfile_ok(mdir: Path | None) -> bool:
+    if mdir is None:
+        return False
+    return any((mdir / n).is_file() for n in LOCKFILES)
+
+
+def _junk_ok(pdir: Path) -> bool:
+    try:
+        probe = subprocess.run(
+            ["git", "-C", str(pdir), "ls-files"], capture_output=True,
+            text=True, errors="replace", timeout=30)
+        if probe.returncode != 0:
+            return True
+        for line in probe.stdout.splitlines():
+            if any(r.search(line.strip()) for r in JUNK_RES):
+                return False
+        return True
+    except (OSError, subprocess.TimeoutExpired):
+        return True
 
 
 FIX_GUIDANCE = {
     "G-FUNC-01": "Add package.json/pyproject.toml with name, version, test script.",
     "G-FUNC-02": "Add src/ with the product entry point.",
     "G-REL-01": "Scaffold test/ with one smoke test for the happy path.",
-    "G-REL-02": 'Add a "test" script to the manifest (e.g. node --test test/).',
     "G-SEC-01": "Copy the owning project's license set (lab dual-license trio / psi commercial LICENSE) — never mix them.",
     "G-SEC-02": "Move the literal into vault/env config; never commit live secrets.",
     "G-DOC-01": "Auto-fixable: stub README created from manifest name/version.",
     "G-DOC-02": "Auto-fixable: stub NOTICE / CHANGELOG.md created.",
     "G-OPS-01": "Cut a version past 0.1.0 with a CHANGELOG entry.",
     "G-OPS-02": "Fill each TODO/PLACEHOLDER or file an issue and drop the marker.",
+    "G-WIRE-01": "Reference the product's own test file/dir in the manifest test command (cargo test / pytest config counts).",
+    "G-SURF-01": "Declare the surface (npm main/exports, named project package, binary target) or gain an importer.",
+    "G-EXEC-01": "Make the suite green; on a blocked box, re-run where the toolchain exists (output excerpt in record).",
+    "G-EXEC-02": "Unskip or remove skipped/todo tests; on a blocked box, re-run where the toolchain exists.",
+    "G-NEG-01": "Add one negative-path case (refusal/mismatch/invalid) to the suite.",
+    "G-LOCK-01": "Cut a lockfile beside the manifest; never auto-run, log the command.",
+    "G-HTTPS-01": "Move the URL to https.",
+    "G-USAGE-01": "Human writes a real usage example with expected output; never fabricated.",
+    "G-LOG-01": "Human records real CHANGELOG entries past the GID stub.",
+    "G-JUNK-01": "Untrack the build artifact and ignore it; never ship caches.",
+    "G-TODO-01": "Fill each source TODO/FIXME or file an issue and drop the marker.",
 }
 
 
@@ -402,11 +825,11 @@ def safe_fix(
     return None
 
 
-def score(checks: dict[str, bool]) -> tuple[int, dict[str, int]]:
-    total = sum(10 for v in checks.values() if v)
+def score(checks: dict[str, int]) -> tuple[int, dict[str, int]]:
+    total = sum(checks.get(gid, 0) for gid, _, _ in CHECKS)
     dims: dict[str, int] = {}
     for gid, _label, dim in CHECKS:
-        dims[dim] = dims.get(dim, 0) + (10 if checks.get(gid) else 0)
+        dims[dim] = dims.get(dim, 0) + checks.get(gid, 0)
     return max(1, min(100, total)), dims
 
 
@@ -430,17 +853,52 @@ def last_scores(path: Path = STANDINGS_JSONL) -> dict[str, int]:
     return prev
 
 
-def render_standings(records: list[dict], path: Path = STANDINGS_MD) -> None:
-    ts = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+def upper_median(scores: list[int]) -> int:
+    """Upper median: sorted scores[n//2]. Documented in rubric.md."""
+    if not scores:
+        return 0
+    ordered = sorted(scores)
+    return ordered[len(ordered) // 2]
+
+
+def pass_converged(deltas: list[int | None]) -> bool:
+    """True when every known delta is 0. None (first-seen) does not count."""
+    known = [d for d in deltas if d is not None]
+    return bool(known) and all(d == 0 for d in known)
+
+
+def render_standings(
+    records: list[dict],
+    path: Path = STANDINGS_MD,
+    *,
+    run_ts: str | None = None,
+) -> None:
+    # Header uses the scoring run timestamp (record time), not render time.
+    if run_ts:
+        try:
+            dt = _dt.datetime.fromisoformat(run_ts.replace("Z", "+00:00"))
+            ts = dt.astimezone(_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+        except ValueError:
+            ts = run_ts
+    else:
+        stamp = max((str(r.get("ts") or "") for r in records), default="")
+        if stamp:
+            try:
+                dt = _dt.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+                ts = dt.astimezone(_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+            except ValueError:
+                ts = stamp
+        else:
+            ts = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     rows = sorted(records, key=lambda r: (-r["score"], r["name"]))
     band = lambda s: (
         "shippable" if s >= 90 else "credible" if s >= 70
         else "gappy" if s >= 40 else "scaffold"
     )
-    scores = sorted(r["score"] for r in rows)
+    scores = [r["score"] for r in rows]
     n = len(scores)
     mean = sum(scores) / n if n else 0
-    median = scores[n // 2] if n else 0
+    median = upper_median(scores)
     ship = sum(1 for s in scores if s >= 90)
     gaps = sum(len(r.get("open_gaps", [])) for r in rows)
     dims: dict[str, list[int]] = {}
@@ -453,9 +911,9 @@ def render_standings(records: list[dict], path: Path = STANDINGS_MD) -> None:
     lines = [
         "# GID Standings",
         "",
-        f"Last run: {ts}. Scores 1–100 per `rubric.md`. Best first.",
+        f"Last run: {ts} (run-start / record time). Scores 1–100 per `rubric.md`. Best first.",
         "",
-        f"Lab as a whole: {n} products, mean {mean:.1f}, median {median}, "
+        f"Lab as a whole: {n} products, mean {mean:.1f}, median {median} (upper-median), "
         f"{ship}/{n} shippable (>=90), "
         f"{gaps} open gap{'s' if gaps != 1 else ''}.",
         f"Dimension means: {dimline}." if dimline else "",
@@ -476,6 +934,114 @@ def render_standings(records: list[dict], path: Path = STANDINGS_MD) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def _run_once(
+    products: list[dict],
+    *,
+    root: Path,
+    all_names: set[str],
+    apply_fixes: bool,
+    prev: dict[str, int],
+    run_ts: str,
+) -> list[dict]:
+    """Score (+ optional safe fixes) one pass. Re-runs suite only when fixes landed."""
+    run_records: list[dict] = []
+    for p in products:
+        name = p["name"]
+        pdir = root / p["path"]
+        if not pdir.is_dir():
+            checks = {gid: 0 for gid, _, _ in CHECKS}
+            gaps = ["missing-dir:" + p["path"]]
+            run_records.append({
+                "ts": run_ts, "name": name, "path": p["path"],
+                "score": 1, "dims": {}, "open_gaps": gaps,
+                "fixes_applied": [],
+                "delta": 1 - prev[name] if name in prev else None,
+                "exec": {"verdict": "missing",
+                         "reason": "product dir absent"},
+            })
+            print(f"{name:22s} MISSING DIR -> 1")
+            continue
+        focus = p.get("focus")
+        prefer_cargo = bool(focus) and any(
+            str(s).endswith(".rs") for s in focus
+        )
+        mname, manifest, mdir = find_manifest(pdir, root, prefer_cargo)
+        manifest_file = (mdir / mname) if (mdir and mname) else None
+        if not isinstance(manifest, dict):
+            manifest = {}
+        checks, meta = check_product(pdir, manifest, root, manifest_file,
+                                     focus)
+        fixes_applied: list[str] = []
+        # Focus entries share their directory with other modules: audit-grade
+        # only, never write stubs into a shared dir.
+        can_write = not focus
+        # License stubs must match the owning tree: lab dual-license vs
+        # psi commercial — never mix them.
+        try:
+            commercial = not pdir.resolve().is_relative_to(root.resolve())
+        except OSError:
+            commercial = False
+        if apply_fixes and can_write:
+            n_before = len(fixes_applied)
+            for gid, _, _ in CHECKS:
+                if checks[gid] < POINTS and gid in SAFE_FIXABLE:
+                    msg = safe_fix(pdir, gid, manifest, commercial)
+                    if msg and not msg.startswith("FAILED"):
+                        fixes_applied.append(f"{gid}: {msg}")
+            if len(fixes_applied) > n_before:
+                checks, meta = check_product(pdir, manifest, root,
+                                             manifest_file,
+                                             focus)  # re-score post-fix
+        s, dims = score(checks)
+        open_gaps = [gid for gid, _, _ in CHECKS if checks[gid] < POINTS]
+        steps = []
+        exec_reason = str(meta.get("exec", {}).get("reason", "") or "")
+        exec_reason = " ".join(exec_reason.split())
+        for g in open_gaps:
+            note = FIX_GUIDANCE[g]
+            if g.startswith("G-EXEC") and exec_reason:
+                note += f" [suite: {exec_reason[-160:]}]"
+            if focus and g in SAFE_FIXABLE:
+                note += " (shared dir: stub not auto-written; fix at owning-project level)"
+            steps.append(f"{g}: {note}")
+        rec = {
+            "ts": run_ts, "name": name, "path": p["path"],
+            "score": s, "dims": dims, "open_gaps": open_gaps,
+            "fixes_applied": fixes_applied,
+            "next_steps": steps,
+            "delta": s - prev[name] if name in prev else None,
+            "exec": meta.get("exec", {}),
+        }
+        if focus:
+            rec["focus"] = focus
+        if manifest_file is not None:
+            rec["manifest"] = str(manifest_file)
+        run_records.append(rec)
+        flag = " (fixed: %s)" % "; ".join(fixes_applied) if fixes_applied else ""
+        print(f"{name:22s} {s:3d}  gaps={open_gaps or ['none']}{flag}")
+    return run_records
+
+
+def _write_standings(run_records: list[dict], all_names: set[str], run_ts: str) -> None:
+    with STANDINGS_JSONL.open("a", encoding="utf-8") as fh:
+        for r in run_records:
+            fh.write(json.dumps(r) + "\n")
+    # STANDINGS.md reflects latest score per product across history.
+    # Retired registry names drop off the table (their history stays
+    # in the append-only log). all_names is the full registry even
+    # on single-product runs.
+    latest: dict[str, dict] = {}
+    for line in STANDINGS_JSONL.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            try:
+                r = json.loads(line)
+                if r["name"] in all_names:
+                    latest[r["name"]] = r
+            except json.JSONDecodeError:
+                continue
+    render_standings(list(latest.values()), run_ts=run_ts)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="GID betterment loop runner")
     ap.add_argument("--score-only", action="store_true",
@@ -485,6 +1051,19 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--product", default=None, help="run one product only")
     ap.add_argument("--registry", default=str(DEFAULT_REGISTRY))
     ap.add_argument("--root", default=str(DEFAULT_ROOT))
+    ap.add_argument(
+        "--passes",
+        type=int,
+        default=1,
+        help="outer betterment passes (default 1). With N>1, stops early "
+             "when every known product delta is 0 (same as --until-stable).",
+    )
+    ap.add_argument(
+        "--until-stable",
+        action="store_true",
+        help="stop when every known product delta is 0; implied when "
+             "--passes > 1",
+    )
     args = ap.parse_args(argv)
 
     registry = Path(args.registry)
@@ -506,98 +1085,27 @@ def main(argv: list[str] | None = None) -> int:
             return 2
 
     apply_fixes = not (args.score_only or args.no_fix)
-    prev = last_scores()
-    run_ts = _dt.datetime.now(_dt.timezone.utc).isoformat()
-    run_records: list[dict] = []
-
-    for p in products:
-        name = p["name"]
-        pdir = root / p["path"]
-        if not pdir.is_dir():
-            checks = {gid: False for gid, _, _ in CHECKS}
-            gaps = ["missing-dir:" + p["path"]]
-            run_records.append({
-                "ts": run_ts, "name": name, "path": p["path"],
-                "score": 1, "dims": {}, "open_gaps": gaps,
-                "fixes_applied": [],
-                "delta": 1 - prev[name] if name in prev else None,
-            })
-            print(f"{name:22s} MISSING DIR -> 1")
-            continue
-        focus = p.get("focus")
-        prefer_cargo = bool(focus) and any(
-            str(s).endswith(".rs") for s in focus
-        )
-        mname, manifest, mdir = find_manifest(pdir, root, prefer_cargo)
-        manifest_file = (mdir / mname) if (mdir and mname) else None
-        if not isinstance(manifest, dict):
-            manifest = {}
-        checks = check_product(pdir, manifest, root, manifest_file, focus)
-        fixes_applied: list[str] = []
-        # Focus entries share their directory with other modules: audit-grade
-        # only, never write stubs into a shared dir.
-        can_write = not focus
-        # License stubs must match the owning tree: lab dual-license vs
-        # psi commercial — never mix them.
-        try:
-            commercial = not pdir.resolve().is_relative_to(root.resolve())
-        except OSError:
-            commercial = False
-        if apply_fixes and can_write:
-            for gid, _, _ in CHECKS:
-                if not checks[gid] and gid in SAFE_FIXABLE:
-                    msg = safe_fix(pdir, gid, manifest, commercial)
-                    if msg and not msg.startswith("FAILED"):
-                        fixes_applied.append(f"{gid}: {msg}")
-            checks = check_product(pdir, manifest, root, manifest_file, focus)  # re-score post-fix
-        s, dims = score(checks)
-        open_gaps = [gid for gid, _, _ in CHECKS if not checks[gid]]
-        steps = []
-        for g in open_gaps:
-            note = FIX_GUIDANCE[g]
-            if focus and g in SAFE_FIXABLE:
-                note += " (shared dir: stub not auto-written; fix at owning-project level)"
-            steps.append(f"{g}: {note}")
-        rec = {
-            "ts": run_ts, "name": name, "path": p["path"],
-            "score": s, "dims": dims, "open_gaps": open_gaps,
-            "fixes_applied": fixes_applied,
-            "next_steps": steps,
-            "delta": s - prev[name] if name in prev else None,
-        }
-        if focus:
-            rec["focus"] = focus
-        if manifest_file is not None:
-            rec["manifest"] = str(manifest_file)
-        run_records.append(rec)
-        flag = " (fixed: %s)" % "; ".join(fixes_applied) if fixes_applied else ""
-        print(f"{name:22s} {s:3d}  gaps={open_gaps or ['none']}{flag}")
-
-    if not args.product:
-        # full-run standings table covers all registry products
-        table_records = run_records
-    else:
-        # single-product run: merge with latest full standings for context
-        table_records = run_records
+    passes = max(1, int(args.passes))
+    # Multi-pass runs converge by default; --until-stable also forces it on N=1.
+    until_stable = bool(args.until_stable or passes > 1)
     try:
-        with STANDINGS_JSONL.open("a", encoding="utf-8") as fh:
-            for r in run_records:
-                fh.write(json.dumps(r) + "\n")
-        # STANDINGS.md reflects latest score per product across history.
-        # Retired registry names drop off the table (their history stays
-        # in the append-only log). all_names is the full registry even
-        # on single-product runs.
-        active = all_names
-        latest: dict[str, dict] = {}
-        for line in STANDINGS_JSONL.read_text(encoding="utf-8").splitlines():
-            if line.strip():
-                try:
-                    r = json.loads(line)
-                    if r["name"] in active:
-                        latest[r["name"]] = r
-                except json.JSONDecodeError:
-                    continue
-        render_standings(list(latest.values()))
+        for i in range(1, passes + 1):
+            prev = last_scores()
+            run_ts = _dt.datetime.now(_dt.timezone.utc).isoformat()
+            print(f"=== GID pass {i}/{passes} @ {run_ts} ===")
+            run_records = _run_once(
+                products,
+                root=root,
+                all_names=all_names,
+                apply_fixes=apply_fixes,
+                prev=prev,
+                run_ts=run_ts,
+            )
+            _write_standings(run_records, all_names, run_ts)
+            deltas = [r.get("delta") for r in run_records]
+            if until_stable and pass_converged(deltas):
+                print(f"converged after pass {i}: all deltas 0")
+                break
     except OSError as exc:
         print(f"standings write failed: {exc}", file=sys.stderr)
         return 1
