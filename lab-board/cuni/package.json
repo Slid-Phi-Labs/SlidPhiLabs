@@ -1,0 +1,1 @@
+{"description": "CuNi silent-error rules on money, time, and crypto amounts.", "name": "@slidphi/cuni-silent-rules", "private": true, "type": "module", "scripts": {"test": "node --test silent-rules.test.mjs"}}

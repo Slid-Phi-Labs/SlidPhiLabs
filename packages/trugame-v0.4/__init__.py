@@ -1,38 +1,12 @@
+"""TruGame v0.4 — engine folder.
+
+Deliberately import-free: the folder name (trugame-v0.4) is not an
+importable package name, so relative re-exports can never execute —
+previous revisions imported streamer/renderer/netcode/assets/compression/
+loader (none of which ship here) plus a license chain needing the external
+json-chamber SDK, which made the whole folder uncollectible by pytest.
+Import the modules you need directly (core, ecs, physics, scene,
+license_bridge); see test/ for the loader pattern.
 """
-TruGame v0.4 — Full engine
-Gated by json-chamber Black Box control plane (require_alive).
-"""
-from .core import TruGameEngine, WorldState, Entity, LicenseError
-from .streamer import TruGameStreamer
-from .renderer import TruGameRenderer
-from .netcode import PhiNetcode
-from .ecs import WorldECS, Transform, Mesh, RigidBody
-from .physics import PhysicsSystem
-from .scene import Scene
-from .assets import AssetPipeline
-from .compression import TruGameCompressor
-from .loader import TruGameLoader
-from .license_bridge import gate, status, activate
 
 __version__ = "0.4.1"
-__all__ = [
-    "TruGameEngine",
-    "WorldState",
-    "Entity",
-    "LicenseError",
-    "TruGameStreamer",
-    "TruGameRenderer",
-    "PhiNetcode",
-    "WorldECS",
-    "Transform",
-    "Mesh",
-    "RigidBody",
-    "PhysicsSystem",
-    "Scene",
-    "AssetPipeline",
-    "TruGameCompressor",
-    "TruGameLoader",
-    "gate",
-    "status",
-    "activate",
-]
