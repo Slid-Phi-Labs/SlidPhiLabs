@@ -5,7 +5,14 @@
   "documentation": "https://www.slidphilabs.com/agents",
   "mcp": "https://www.slidphilabs.com/mcp",
   "calls": "https://www.slidphilabs.com/v1/",
-  "version": "1.25.0",
-  "updated": "2026-11-13",
-  "products": ["agent-rider", "cuni", "warrant", "tollkeeper", "pcc", "tnssrc", "trustream", "pulsar", "chamber", "awlpay", "exactodds", "teachaid"]
+  "version": "1.26.0",
+  "updated": "2026-11-26",
+  "products": ["agenthq", "agent-rider", "cuni", "warrant", "tollkeeper", "pcc", "tnssrc", "trustream", "pulsar", "chamber", "awlpay", "exactodds", "teachaid"],
+  "agenthq": {
+    "url": "https://www.slidphilabs.com/hq",
+    "sku": "hq-month",
+    "lookup_key": "spl_hq_month",
+    "price_usd_month": 29.99,
+    "create": "POST /api/hq?action=create"
+  }
 }

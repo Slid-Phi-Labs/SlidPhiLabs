@@ -685,6 +685,9 @@ const server = http.createServer(async (req, res) => {
       notFound(res, "not_found");
       return;
     }
+    if (p === "/hq" || p === "/hq/" || p.startsWith("/hq/")) {
+      url.pathname = "/hq.html";
+    }
     if (
       url.pathname.includes("..") ||
       url.pathname.startsWith("/server.mjs") ||

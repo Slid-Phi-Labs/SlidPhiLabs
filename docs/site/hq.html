@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" href="/assets/brand/favicon.ico" sizes="any"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
+  <link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
+  <title>AgentHQ — $29.99/mo hosted agent dashboard</title>
+  <meta name="description" content="Claim your /hq/name. Stripe-gated AgentHQ dashboard with settings and PSI control. $29.99/mo, cancel anytime."/>
+  <meta name="theme-color" content="#f7f6f2"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://www.slidphilabs.com/hq"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="AgentHQ by Slid Phi Labs"/>
+  <meta property="og:title" content="AgentHQ — hosted agent dashboard"/>
+  <meta property="og:description" content="Claim your /hq/name. $29.99/mo hosted dashboard with settings and PSI control."/>
+  <meta property="og:url" content="https://www.slidphilabs.com/hq"/>
+  <meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "AgentHQ",
+    "description": "Stripe-gated hosted agent dashboard at /hq/<name>. Settings and PSI control after activate. $29.99/mo, cancel anytime.",
+    "url": "https://www.slidphilabs.com/hq",
+    "image": "https://www.slidphilabs.com/assets/brand/sp-og.png",
+    "brand": { "@type": "Brand", "name": "Slid Phi Labs" },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.slidphilabs.com/hq",
+      "priceCurrency": "USD",
+      "price": "29.99",
+      "priceValidUntil": "2027-12-31",
+      "availability": "https://schema.org/InStock",
+      "category": "SaaS"
+    },
+    "sku": "hq-month"
+  }
+  </script>
+  <link rel="stylesheet" href="/assets/platform.css?v=50"/>
+  <link rel="stylesheet" href="/assets/chrome.css?v=50"/>
+  <style>
+    .hq-panel { max-width: 36rem; margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--pf-line, #ddd); border-radius: 8px; background: #fff; }
+    .hq-panel label { display: block; font-size: 0.9rem; margin: 0.75rem 0 0.25rem; }
+    .hq-panel input:not([type="checkbox"]) { width: 100%; padding: 0.65rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font: inherit; box-sizing: border-box; }
+    .hq-check { display: flex; align-items: flex-start; gap: 0.6rem; margin: 1rem 0 0.25rem; font-size: 0.9rem; }
+    .hq-check input { margin-top: 0.2rem; }
+    .hq-msg { margin-top: 0.75rem; font-size: 0.95rem; }
+    .hq-msg[data-kind="err"] { color: #a11; }
+    .hq-msg[data-kind="ok"] { color: #165; }
+    .hq-hidden { display: none !important; }
+    .hq-chip { display: inline-block; margin: 0.5rem 0 0; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.85rem; background: #eef6f0; color: #165; }
+    .hq-chip[data-kind="idle"] { background: #f3f3f0; color: #555; }
+    .hq-chip[data-kind="err"] { background: #f8e8e8; color: #a11; }
+    .hq-hint { font-size: 0.85rem; color: #666; margin: 0.25rem 0 0; }
+    code.hq-token { word-break: break-all; font-size: 0.8rem; }
+    .hq-ops li { margin: 0.35rem 0; }
+  </style>
+</head>
+<body class="pf">
+<a class="pf-skip" href="#main">Skip to content</a>
+<header class="pf-top">
+  <div class="pf-bar">
+    <a class="pf-brand" href="/"><img src="/assets/brand/sp-logo-120.png" srcset="/assets/brand/sp-logo-120.png 1x, /assets/brand/sp-logo-240.png 2x" width="53" height="46" alt="Slid Phi Labs"><span>AgentHQ</span></a>
+    <nav class="pf-nav" aria-label="Primary">
+      <a href="/hq" aria-current="page">HQ</a>
+      <a href="#claim">Claim</a>
+      <a href="#manage">Manage</a>
+      <a href="https://www.slidphilabs.com">Slid Phi Labs</a>
+    </nav>
+  </div>
+</header>
+<main class="pf-wrap" id="main">
+  <section class="pf-hero" aria-labelledby="lede">
+    <p class="pf-kicker">Slid Phi Labs · AgentHQ</p>
+    <h1 id="lede">Your agents get a home page.</h1>
+    <p class="pf-lede"><strong>AgentHQ</strong> is a hosted dashboard at <code>/hq/&lt;your-name&gt;</code>. Creation is Stripe-gated. <strong>$29.99/mo</strong>, cancel anytime. Settings + PSI control after you activate.</p>
+    <p class="pf-actions">
+      <a class="pf-btn pf-btn-solid" href="#claim">Claim a name</a>
+      <a class="pf-btn pf-btn-line" href="#manage">Open settings</a>
+    </p>
+  </section>
+
+  <section class="lb-sec" id="claim" aria-labelledby="claim-h">
+    <p class="lb-secnum" aria-hidden="true">01</p>
+    <h2 class="lb-h2" id="claim-h">Claim.</h2>
+    <p class="pf-lede">Pick a short name. Pay. Land on your HQ. Fail closed if the name is taken or Stripe is down.</p>
+    <p id="path-status" class="hq-chip hq-hidden" data-kind="idle" role="status"></p>
+    <div class="hq-panel">
+      <form id="claim-form">
+        <label for="hq-name">Name (becomes /hq/slug)</label>
+        <input id="hq-name" name="name" autocomplete="username" required minlength="3" maxlength="30" pattern="[a-zA-Z0-9]([a-zA-Z0-9-]{1,28}[a-zA-Z0-9])?" placeholder="aurora" title="3–30 chars: letters, numbers, hyphens"/>
+        <p class="hq-hint">3–30 characters. Lowercase letters, numbers, hyphens. Reserved paths rejected.</p>
+        <p id="name-avail" class="hq-msg" hidden></p>
+        <label for="hq-email">Email for checkout</label>
+        <input id="hq-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"/>
+        <p class="pf-actions" style="margin-top:1rem">
+          <button class="pf-btn pf-btn-solid" type="submit" id="btn-claim">Continue to Stripe — $29.99/mo</button>
+        </p>
+      </form>
+      <p class="hq-msg" id="claim-msg" hidden></p>
+    </div>
+  </section>
+
+  <section class="lb-sec" id="manage" aria-labelledby="manage-h">
+    <p class="lb-secnum" aria-hidden="true">02</p>
+    <h2 class="lb-h2" id="manage-h">Manage.</h2>
+    <p class="pf-lede">After payment, activation returns a one-time management token. Store it. Use it here to read or patch settings and PSI control.</p>
+    <div class="hq-panel">
+      <form id="manage-form">
+        <label for="m-name">HQ name</label>
+        <input id="m-name" required minlength="3" maxlength="30" placeholder="aurora"/>
+        <label for="m-token">Management token</label>
+        <input id="m-token" required minlength="64" maxlength="64" placeholder="64-hex token" autocomplete="off"/>
+        <p class="hq-hint">Tokens restore from this browser’s localStorage when you typed the name here before.</p>
+        <p class="pf-actions" style="margin-top:1rem">
+          <button class="pf-btn pf-btn-line" type="button" id="btn-load">Load settings</button>
+        </p>
+      </form>
+      <form id="settings-form" class="hq-hidden">
+        <label for="s-display">Display name</label>
+        <input id="s-display" maxlength="60"/>
+        <label for="s-alert">Alert email</label>
+        <input id="s-alert" type="email"/>
+        <label for="s-cap">Daily cap (cents, 0 = none)</label>
+        <input id="s-cap" type="number" min="0" max="1000000" step="1"/>
+        <label for="s-hook">Webhook URL (https)</label>
+        <input id="s-hook" type="url" placeholder="https://…"/>
+        <label class="hq-check" for="s-psi">
+          <input id="s-psi" type="checkbox"/>
+          <span><strong>PSI control</strong> — enable PSI Meter seat hooks on this HQ (Meter $25/mo sold separately; toggle only stores the preference).</span>
+        </label>
+        <p class="pf-actions" style="margin-top:1rem">
+          <button class="pf-btn pf-btn-solid" type="submit">Save settings</button>
+        </p>
+      </form>
+      <p class="hq-msg" id="manage-msg" hidden></p>
+      <p id="token-banner" class="hq-hidden">Save this token now — it is shown once: <code class="hq-token" id="token-once"></code></p>
+    </div>
+  </section>
+
+  <section class="lb-sec" aria-labelledby="price-h">
+    <p class="lb-secnum" aria-hidden="true">03</p>
+    <h2 class="lb-h2" id="price-h">Checkout readiness.</h2>
+    <div class="pf-prose">
+      <p>Stripe product/price is live. Do <strong>not</strong> create more AgentHQ products or prices unless Corey says so.</p>
+      <ol class="hq-ops">
+        <li><strong>Done:</strong> product <code>spl_hq</code>, price <code>price_1UfxcLLehTFD59CGBhLOr1Cl</code>, lookup <code>spl_hq_month</code>, <strong>$29.99/mo</strong>.</li>
+        <li><strong>Done:</strong> <code>api/lib/stripe-prices.json</code> <code>test.hq-month</code> and <code>live.hq-month</code> both hold that Price id (no secrets — ids only).</li>
+        <li>Checkout uses <code>line_items[0][price]</code> when the id is present; <code>price_data</code> is fallback only if the row is emptied.</li>
+        <li>Fail-closed create still returns <code>503 no_key</code> without a Stripe secret (zero charge).</li>
+        <li><strong>Open:</strong> activate E2E needs a Stripe key in the deploy env (or Stripe CLI) plus a site deploy so production <code>hq.js</code> reads the filled Price row.</li>
+        <li><strong>Open:</strong> site deploy only on Corey’s exact “deploy” — no psi push / no Fly from this loop.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const claimMsg = document.getElementById("claim-msg");
+  const manageMsg = document.getElementById("manage-msg");
+  const nameAvail = document.getElementById("name-avail");
+  const pathStatus = document.getElementById("path-status");
+  const settingsForm = document.getElementById("settings-form");
+  const hqName = document.getElementById("hq-name");
+  const mName = document.getElementById("m-name");
+  const mToken = document.getElementById("m-token");
+
+  function show(el, text, kind) {
+    el.hidden = false;
+    el.dataset.kind = kind || "";
+    el.textContent = text;
+  }
+
+  function tokenKey(slug) {
+    return "agenthq.token." + String(slug || "").toLowerCase();
+  }
+
+  function restoreToken(slug) {
+    if (!slug) return;
+    try {
+      const t = localStorage.getItem(tokenKey(slug));
+      if (t && /^[0-9a-f]{64}$/i.test(t) && !mToken.value) mToken.value = t;
+    } catch (_) {}
+  }
+
+  async function checkStatus(name) {
+    const slug = String(name || "").trim().toLowerCase();
+    if (slug.length < 3) return null;
+    try {
+      const r = await fetch("/api/hq?action=status&name=" + encodeURIComponent(slug));
+      const j = await r.json().catch(() => ({}));
+      if (r.status === 404) return { exists: false, active: false };
+      if (!r.ok || !j.ok) return null;
+      return { exists: !!j.exists, active: !!j.active };
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function scrubCheckoutParams() {
+    try {
+      const u = new URL(location.href);
+      ["paid", "session_id", "cancel"].forEach((k) => u.searchParams.delete(k));
+      const qs = u.searchParams.toString();
+      history.replaceState({}, "", u.pathname + (qs ? "?" + qs : "") + u.hash);
+    } catch (_) {}
+  }
+
+  // Post-checkout activation
+  if (params.get("paid") === "1" && params.get("session_id")) {
+    show(claimMsg, "Activating paid session…", "ok");
+    const sessionId = params.get("session_id");
+    scrubCheckoutParams();
+    fetch("/api/hq?action=activate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "activate", session_id: sessionId }),
+    })
+      .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (!ok || !j.ok) {
+          const why = j.reason || "error";
+          show(
+            claimMsg,
+            why === "no_key"
+              ? "Activate failed: Stripe key missing on server (503 no_key). Operator: wire key + deploy."
+              : "Activate failed: " + why,
+            "err"
+          );
+          return;
+        }
+        show(claimMsg, "HQ active at " + (j.url || ("/hq/" + j.slug)), "ok");
+        if (j.managementToken) {
+          document.getElementById("token-banner").classList.remove("hq-hidden");
+          document.getElementById("token-once").textContent = j.managementToken;
+          mName.value = j.slug || "";
+          mToken.value = j.managementToken;
+          try { localStorage.setItem(tokenKey(j.slug), j.managementToken); } catch (_) {}
+        }
+        const manage = document.getElementById("manage");
+        if (manage) manage.scrollIntoView({ block: "nearest" });
+      })
+      .catch((e) => show(claimMsg, String(e), "err"));
+  }
+  if (params.get("cancel") === "1") {
+    show(claimMsg, "Checkout cancelled — no charge. You can claim again anytime.", "err");
+    scrubCheckoutParams();
+  }
+
+  // Prefill slug from path /hq/<name> when rewritten, or ?name=
+  const pathSlug = (location.pathname.match(/^\/hq\/([a-z0-9-]+)/i) || [])[1];
+  if (pathSlug) {
+    hqName.value = pathSlug;
+    mName.value = pathSlug;
+    restoreToken(pathSlug);
+  }
+  if (params.get("name")) {
+    hqName.value = params.get("name");
+    mName.value = params.get("name");
+    restoreToken(params.get("name"));
+  }
+
+  if (pathSlug) {
+    checkStatus(pathSlug).then((st) => {
+      if (!st) return;
+      pathStatus.classList.remove("hq-hidden");
+      if (st.active) {
+        pathStatus.dataset.kind = "ok";
+        pathStatus.textContent = "/" + pathSlug + " is active — use Manage with your token.";
+        document.getElementById("manage").scrollIntoView({ block: "nearest" });
+      } else if (st.exists) {
+        pathStatus.dataset.kind = "idle";
+        pathStatus.textContent = "/" + pathSlug + " exists but is not active.";
+      } else {
+        pathStatus.dataset.kind = "idle";
+        pathStatus.textContent = "/" + pathSlug + " is free to claim.";
+      }
+    });
+  }
+
+  let availTimer = 0;
+  function scheduleAvail() {
+    clearTimeout(availTimer);
+    availTimer = setTimeout(async () => {
+      const name = hqName.value.trim();
+      if (name.length < 3) {
+        nameAvail.hidden = true;
+        return;
+      }
+      const st = await checkStatus(name);
+      if (!st) {
+        nameAvail.hidden = true;
+        return;
+      }
+      if (st.exists) show(nameAvail, "Name taken — pick another.", "err");
+      else show(nameAvail, "Name looks free.", "ok");
+    }, 280);
+  }
+  hqName.addEventListener("input", scheduleAvail);
+  hqName.addEventListener("blur", scheduleAvail);
+
+  mName.addEventListener("change", () => restoreToken(mName.value.trim()));
+  mName.addEventListener("blur", () => restoreToken(mName.value.trim()));
+
+  const btnClaim = document.getElementById("btn-claim");
+  document.getElementById("claim-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const name = hqName.value.trim();
+    const email = document.getElementById("hq-email").value.trim();
+    if (btnClaim) btnClaim.disabled = true;
+    show(claimMsg, "Checking name…", "ok");
+    const st = await checkStatus(name);
+    if (st && st.exists) {
+      show(claimMsg, "Create failed: name_taken", "err");
+      show(nameAvail, "Name taken — pick another.", "err");
+      if (btnClaim) btnClaim.disabled = false;
+      return;
+    }
+    show(claimMsg, "Creating checkout…", "ok");
+    try {
+      const r = await fetch("/api/hq?action=create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "create", name, email }),
+      });
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        const why = j.reason || String(r.status);
+        show(
+          claimMsg,
+          why === "no_key"
+            ? "Create failed: Stripe key missing on server (503 no_key, zero charge). Operator: wire key + deploy."
+            : "Create failed: " + why,
+          "err"
+        );
+        if (btnClaim) btnClaim.disabled = false;
+        return;
+      }
+      location.href = j.url;
+    } catch (e) {
+      show(claimMsg, String(e), "err");
+      if (btnClaim) btnClaim.disabled = false;
+    }
+  });
+
+  document.getElementById("btn-load").addEventListener("click", async () => {
+    const name = mName.value.trim();
+    const token = mToken.value.trim();
+    show(manageMsg, "Loading…", "ok");
+    try {
+      const r = await fetch("/api/hq?action=settings&name=" + encodeURIComponent(name), {
+        headers: { Authorization: "Bearer " + token },
+      });
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        show(manageMsg, "Load failed: " + (j.reason || r.status), "err");
+        return;
+      }
+      const s = j.settings || {};
+      document.getElementById("s-display").value = s.displayName || "";
+      document.getElementById("s-alert").value = s.alertEmail || "";
+      document.getElementById("s-cap").value = s.dailyCapCents || 0;
+      document.getElementById("s-hook").value = s.webhookUrl || "";
+      document.getElementById("s-psi").checked = !!s.psiEnabled;
+      settingsForm.classList.remove("hq-hidden");
+      try { localStorage.setItem(tokenKey(name), token); } catch (_) {}
+      show(manageMsg, "Settings loaded.", "ok");
+    } catch (e) {
+      show(manageMsg, String(e), "err");
+    }
+  });
+
+  settingsForm.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const name = mName.value.trim();
+    const token = mToken.value.trim();
+    const settings = {
+      displayName: document.getElementById("s-display").value,
+      alertEmail: document.getElementById("s-alert").value,
+      dailyCapCents: Number(document.getElementById("s-cap").value || 0),
+      webhookUrl: document.getElementById("s-hook").value,
+      psiEnabled: document.getElementById("s-psi").checked,
+    };
+    show(manageMsg, "Saving…", "ok");
+    try {
+      const r = await fetch("/api/hq?action=settings", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({ action: "settings", name, settings }),
+      });
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        show(manageMsg, "Save failed: " + (j.reason || r.status), "err");
+        return;
+      }
+      try { localStorage.setItem(tokenKey(name), token); } catch (_) {}
+      show(manageMsg, "Saved.", "ok");
+    } catch (e) {
+      show(manageMsg, String(e), "err");
+    }
+  });
+})();
+</script>
+</body>
+</html>

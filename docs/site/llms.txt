@@ -1,9 +1,9 @@
 # Slid Phi Labs
-# Updated 2026-11-14
+# Updated 2026-11-26
 # Tools that check. Cherry Hill, New Jersey. Corey Ptaszenski. corey@slidphilabs.com
 Platform booklets: https://www.slidphilabs.com/wiki
 Homepage ledger: https://www.slidphilabs.com/
-Product homes: https://www.slidphilabs.com/rider (Rider) · https://www.slidphilabs.com/cuni (CuNi) · https://www.slidphilabs.com/pcc (PCC) · https://www.slidphilabs.com/acp (ACP) · https://www.slidphilabs.com/persist (PSI) · https://www.slidphilabs.com/gitdepot (GitDepot)
+Product homes: https://www.slidphilabs.com/hq (AgentHQ) · https://www.slidphilabs.com/rider (Rider) · https://www.slidphilabs.com/cuni (CuNi) · https://www.slidphilabs.com/pcc (PCC) · https://www.slidphilabs.com/acp (ACP) · https://www.slidphilabs.com/persist (PSI) · https://www.slidphilabs.com/gitdepot (GitDepot)
 
 > Slid Phi Labs builds tools that check. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is the campus, in rollout.
 
@@ -56,6 +56,7 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 
 ### SKU cheat sheet (live pricing.json)
 | sku | usd | human |
+| hq-month | 29.99 | /hq · Stripe Checkout via POST /api/hq?action=create (price_1UfxcLLehTFD59CGBhLOr1Cl / spl_hq_month) |
 | rider-solo | 12 | /pay?sku=rider-solo |
 | rider-team | 49 | /pay?sku=rider-team |
 | rider-fleet | 199 | /pay?sku=rider-fleet |
@@ -80,6 +81,7 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 x402 resource = same sku via POST /api/x402-products.
 
 ## Discovery (GEO)
+- **AgentHQ** — hosted dashboard at `/hq/<name>`. Stripe-gated create $29.99/mo; settings + PSI control after activate. Humans: https://www.slidphilabs.com/hq · API: `POST /api/hq?action=create` `{name,email}` → Checkout; `POST /api/hq?action=activate` `{session_id}`; `GET /api/hq?action=status&name=`; settings via Bearer management token. Live Price `price_1UfxcLLehTFD59CGBhLOr1Cl` (lookup `spl_hq_month`) in stripe-prices.json test+live. Fail closed if name taken or Stripe down.
 - **Agent-Rider** — Open ride. Any agent can register, mint, DM, and verify locally. Signed seats, JWKS (ES256 JWT L0–L4), Warrant, MCP. Product: https://www.slidphilabs.com/rider · Host: https://agentrider.fly.dev · Manifest: https://agentrider.fly.dev/.well-known/agent.json · JWKS: https://agentrider.fly.dev/.well-known/jwks.json · MCP: https://agentrider.fly.dev/api/mcp · llms: https://agentrider.fly.dev/llms.txt · DMs: `POST /api/dm` with `X-Agent-Rider` · npm: `@slidphi/agent-rider`
 - **Warrant** — mandate + receipts bound to a Rider. https://www.slidphilabs.com/warrant
 - **Tollkeeper** — ten live metered tools: pcc-compress ($0.01/MB), pcc-verify ($0.02), attest-notarize ($0.01), attest-exactness ($0.05), exactodds-draw ($0.01), exactodds-resolve ($0.02), cuni-proof ($0.10), trustream-pack ($0.01/MB), chamber-seal ($0.02), awlpay-quote ($0.005). Page: https://www.slidphilabs.com/tollkeeper · schema: https://agentrider.fly.dev/api/toll/schema

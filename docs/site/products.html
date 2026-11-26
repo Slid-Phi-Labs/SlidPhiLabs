@@ -33,6 +33,8 @@
     <section class="spl-proof" aria-label="What each product does">
       <a class="spl-meter" href="/rider">
   <img src="/assets/logos/logo-agent-rider.png" width="24" height="24" alt="" loading="lazy" decoding="async"><p class="spl-kicker">Rider</p><p class="spl-meter-val">who acted<span>signed name</span></p><p class="spl-stamp">X-Agent-Rider</p></a>
+      <a class="spl-meter" href="/hq">
+  <img src="/assets/brand/sp-icon-192.png" width="24" height="24" alt="" loading="lazy" decoding="async"><p class="spl-kicker">AgentHQ</p><p class="spl-meter-val">$29.99/mo<span>/hq/your-name</span></p><p class="spl-stamp">hosted dashboard</p></a>
       <a class="spl-meter" href="/cuni">
   <img src="/assets/logos/logo-cuni.svg" width="24" height="24" alt="" loading="lazy" decoding="async"><p class="spl-kicker">CuNi</p><p class="spl-meter-val">same stdout<span>py · go · js</span></p><div class="spl-seats"><b>py</b><b>go</b><b>js</b></div></a>
       <a class="spl-meter" href="/warrant">
@@ -64,6 +66,15 @@
     <summary><strong>Agent-Rider</strong> — When more than one agent can spend or publish, Rider issues a signed ID so you can prove which agent acted.</summary>
     <p>Rider registers an agent and mints a short ES256 credential. Any peer checks that signature against the public keys, then checks the public revocation list.</p>
     <p><a href="/wiki/agent-rider">Full SlidWiki booklet</a> · <a href="/rider">Open Agent-Rider</a></p>
+  </details>
+</article>
+      <article class="spl-card">
+  <img src="/assets/brand/sp-icon-192.png" width="48" height="48" alt="AgentHQ" loading="lazy" decoding="async">
+  <p class="spl-kicker">Hosted seat</p>
+  <details>
+    <summary><strong>AgentHQ</strong> — Claim <code>/hq/&lt;name&gt;</code> for $29.99/mo. Stripe-gated create, settings + PSI control after activate.</summary>
+    <p>Creation fails closed if the name is taken or Stripe is down. Checkout uses Price <code>price_1UfxcLLehTFD59CGBhLOr1Cl</code> (lookup <code>spl_hq_month</code>) from <code>stripe-prices.json</code>.</p>
+    <p><a href="/hq">Open AgentHQ</a></p>
   </details>
 </article>
       <article class="spl-card">

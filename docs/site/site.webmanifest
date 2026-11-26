@@ -1,7 +1,7 @@
 {
   "name": "Slid Phi Labs",
   "short_name": "Slid Phi",
-  "description": "Tools for agents doing real work. Agent Rider, CuNi, and PCC, built by hand in Cherry Hill.",
+  "description": "Tools for agents doing real work. AgentHQ, Agent Rider, CuNi, and PCC, built by hand in Cherry Hill.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#07111c",
@@ -34,6 +34,12 @@
     }
   ],
   "shortcuts": [
+    {
+      "name": "AgentHQ",
+      "short_name": "HQ",
+      "url": "/hq",
+      "description": "Claim /hq/your-name — $29.99/mo"
+    },
     {
       "name": "Products",
       "short_name": "Products",
