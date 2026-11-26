@@ -1,5 +1,8 @@
 # TruGame 30-second demo (standalone)
 
+Offline ECS + gravity demo for `packages/trugame-v0.4`. Uses `license_stub.py`
+(always alive) — no Chamber host.
+
 ## Requirements
 ```bash
 pip install matplotlib numpy
@@ -9,11 +12,15 @@ pip install matplotlib numpy
 ## Run
 ```bash
 cd trugame-demo-30s
-python3 demo_30s.py
+python demo_30s.py
+# quick smoke:
+# set TRUGAME_DEMO_SECONDS=3 && python demo_30s.py
 ```
 
 Outputs:
 - `demo_frames/frame_XXXXX.png` — rendered frames
 - `trugame_demo_30s.mp4` — 30s video (if ffmpeg available)
 
-Pre-built video is included: `trugame_demo_30s.mp4`
+## What it shows
+Falling mesh instances, ground clamp, bitstream-delta HUD — the engine-seat
+idea in a short loop. **No SKU / no price** until Corey decides product-or-archive.
