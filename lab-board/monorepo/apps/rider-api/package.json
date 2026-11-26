@@ -3,5 +3,7 @@
   "name": "@slidphi/rider-api",
   "private": true,
   "type": "module",
+  "main": "./index.mjs",
+  "exports": { ".": "./index.mjs" },
   "scripts": { "test": "node --test test.mjs" }
 }
