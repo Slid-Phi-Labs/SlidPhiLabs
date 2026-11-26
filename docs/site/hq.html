@@ -136,22 +136,30 @@
         </p>
       </form>
       <p class="hq-msg" id="manage-msg" hidden></p>
-      <p id="token-banner" class="hq-hidden">Save this token now — it is shown once: <code class="hq-token" id="token-once"></code></p>
+      <div id="token-banner" class="hq-hidden" role="status">
+        <p>Save this management token now — it is shown once:</p>
+        <p><code class="hq-token" id="token-once"></code></p>
+        <p class="pf-actions" style="margin-top:0.5rem">
+          <button type="button" class="pf-btn pf-btn-line" id="btn-copy-token">Copy token</button>
+          <a class="pf-btn pf-btn-solid hq-hidden" id="btn-open-hq" href="#">Open your HQ</a>
+        </p>
+        <p class="hq-hint" id="copy-token-hint" hidden></p>
+      </div>
     </div>
   </section>
 
   <section class="lb-sec" aria-labelledby="price-h">
     <p class="lb-secnum" aria-hidden="true">03</p>
-    <h2 class="lb-h2" id="price-h">Checkout readiness.</h2>
+    <h2 class="lb-h2" id="price-h">Live status.</h2>
     <div class="pf-prose">
-      <p>Stripe product/price is live. Do <strong>not</strong> create more AgentHQ products or prices unless Corey says so.</p>
+      <p>AgentHQ create/activate is live on Fly. Do <strong>not</strong> create more Stripe products or prices unless Corey says so. Do <strong>not</strong> Fly-deploy from this loop.</p>
       <ol class="hq-ops">
         <li><strong>Done:</strong> product <code>spl_hq</code>, price <code>price_1UfxcLLehTFD59CGBhLOr1Cl</code>, lookup <code>spl_hq_month</code>, <strong>$29.99/mo</strong>.</li>
-        <li><strong>Done:</strong> <code>api/lib/stripe-prices.json</code> <code>test.hq-month</code> and <code>live.hq-month</code> both hold that Price id (no secrets — ids only).</li>
+        <li><strong>Done:</strong> <code>stripe-prices.json</code> <code>test</code>/<code>live</code> <code>hq-month</code> hold that Price id (ids only).</li>
+        <li><strong>Done:</strong> Fly <code>spl-slidphilabs</code> serves <code>/hq</code> + <code>/api/hq</code>; create returns <code>cs_live</code> Checkout URLs.</li>
         <li>Checkout uses <code>line_items[0][price]</code> when the id is present; <code>price_data</code> is fallback only if the row is emptied.</li>
         <li>Fail-closed create still returns <code>503 no_key</code> without a Stripe secret (zero charge).</li>
-        <li><strong>Open:</strong> activate E2E needs a Stripe key in the deploy env (or Stripe CLI) plus a site deploy so production <code>hq.js</code> reads the filled Price row.</li>
-        <li><strong>Open:</strong> site deploy only on Corey’s exact “deploy” — no psi push / no Fly from this loop.</li>
+        <li><strong>Open:</strong> merge PR <a href="https://github.com/Slid-Phi-Labs/SlidPhiLabs/pull/125">#125</a> onto main; optional paid activate E2E (charges live).</li>
       </ol>
     </div>
   </section>
@@ -232,18 +240,45 @@
           );
           return;
         }
-        show(claimMsg, "HQ active at " + (j.url || ("/hq/" + j.slug)), "ok");
+        const hqUrl = j.url || ("/hq/" + (j.slug || ""));
+        show(claimMsg, "HQ active at " + hqUrl + " — save your token below.", "ok");
         if (j.managementToken) {
           document.getElementById("token-banner").classList.remove("hq-hidden");
           document.getElementById("token-once").textContent = j.managementToken;
           mName.value = j.slug || "";
           mToken.value = j.managementToken;
           try { localStorage.setItem(tokenKey(j.slug), j.managementToken); } catch (_) {}
+          const openBtn = document.getElementById("btn-open-hq");
+          if (openBtn) {
+            openBtn.href = hqUrl;
+            openBtn.classList.remove("hq-hidden");
+          }
         }
         const manage = document.getElementById("manage");
         if (manage) manage.scrollIntoView({ block: "nearest" });
       })
       .catch((e) => show(claimMsg, String(e), "err"));
+  }
+
+  const btnCopyToken = document.getElementById("btn-copy-token");
+  if (btnCopyToken) {
+    btnCopyToken.addEventListener("click", async () => {
+      const raw = (document.getElementById("token-once") || {}).textContent || "";
+      const hint = document.getElementById("copy-token-hint");
+      if (!raw) return;
+      try {
+        await navigator.clipboard.writeText(raw);
+        if (hint) {
+          hint.hidden = false;
+          hint.textContent = "Copied to clipboard.";
+        }
+      } catch (_) {
+        if (hint) {
+          hint.hidden = false;
+          hint.textContent = "Copy failed — select the token and copy manually.";
+        }
+      }
+    });
   }
   if (params.get("cancel") === "1") {
     show(claimMsg, "Checkout cancelled — no charge. You can claim again anytime.", "err");
