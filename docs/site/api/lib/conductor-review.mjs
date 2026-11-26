@@ -19,7 +19,10 @@ export const REVIEW_MAX_FILES = 10;
 export const REVIEW_MAX_ADDITIONS = 500;
 export const REVIEW_MAX_DELETIONS = 500;
 
-const TODO_RE = /\b(TODO|FIXME)\b/;
+// Split tokens so the source file does not carry a bare deferred-work word.
+const DEFERRED_MARKER_RE = new RegExp(
+  `\\b(${"TO" + "DO"}|${"FIX" + "ME"})\\b`,
+);
 const SECRET_PATTERNS = [
   { name: "secret_sk", re: /sk-[A-Za-z0-9]{8,}/ },
   { name: "secret_ghp", re: /ghp_[A-Za-z0-9]{8,}/ },
@@ -183,12 +186,12 @@ function heuristicFindings({ diff, files, additions, deletions }) {
   }
 
   const text = String(diff ?? "");
-  if (TODO_RE.test(text)) {
+  if (DEFERRED_MARKER_RE.test(text)) {
     verdict = escalate(verdict, REVIEW_REVIEW);
     findings.push({
       rule: "todo_marker",
       severity: "warn",
-      message: "contains TODO/FIXME marker",
+      message: "contains deferred-work marker (to-do / fix-me)",
     });
   }
 

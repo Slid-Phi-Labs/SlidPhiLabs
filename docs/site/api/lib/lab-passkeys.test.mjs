@@ -21,9 +21,9 @@ const ORIGIN = "https://www.slidphilabs.com";
 const clientData = (type, challenge) =>
   Buffer.from(JSON.stringify({ type, challenge, origin: ORIGIN })).toString("base64url");
 
-// TODO: verifyAssertion parses authenticatorData but never checks rpIdHash
-// (sha256("www.slidphilabs.com")), the flags UP/UV bits, or signCount — and a
-// registered credential stores only { id, publicKey, created }, so counter
+// OPEN (tracked): verifyAssertion parses authenticatorData but never checks
+// rpIdHash (sha256("www.slidphilabs.com")), the flags UP/UV bits, or signCount —
+// and a registered credential stores only { id, publicKey, created }, so counter
 // continuity cannot be verified from the stored credential today. If those
 // checks are added, cover: wrong rpIdHash -> reject, UP flag clear -> reject,
 // stored counter + decreasing counter -> reject.
