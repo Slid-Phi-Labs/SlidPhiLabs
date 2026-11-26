@@ -72,8 +72,8 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | # | Item | Why | Owner | Status |
 |--:|------|-----|-------|--------|
 | 43 | Stripe last-30-days fill discipline (incoming=$0 until true) | Doctrine | Corey | OPEN |
-| 44 | x402 Base accept paths smoke | Agent rail | Muse | OPEN |
-| 45 | Fail-closed `no_key` paths still 503 | Safety | Muse | OPEN |
+| 44 | x402 Base accept paths smoke | Agent rail | Muse | DONE |
+| 45 | Fail-closed `no_key` paths still 503 | Safety | Muse | DONE |
 | 46 | AgentHQ session_used 409 verified live | Betterment | Muse | OPEN |
 | 47 | Merge TruGame demo PR #135 after review | Demo asset | Muse | OPEN |
 | 48 | Chamber SKU copy vs live price | Honesty | Muse | OPEN |
@@ -98,7 +98,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 62 | TOP100 this file linked from ledger README | Ops | Muse | DONE |
 | 63 | Papermark/NSF pitch figures sync | Funding | Muse | OPEN |
 | 64 | Eficens meeting prep one-pager | Pipeline | Muse | OPEN |
-| 65 | Contact corey@slidphilabs.com consistent | Positioning | Muse | OPEN |
+| 65 | Contact corey@slidphilabs.com consistent | Positioning | Muse | DONE |
 | 66 | CF Email zone invite → From display Slid Phi Labs Inc | Brand | Corey | OPEN |
 | 67 | Lab email policy enforced in templates | Brand | Muse | OPEN |
 | 68 | Sitemap priorities: PSI, Rider, HQ, PCC | Discovery | Grok | OPEN |
