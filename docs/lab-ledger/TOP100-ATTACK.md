@@ -154,4 +154,4 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 3. Bus receipt: `{item, delta, branch}`.
 4. Re-rank #100 weekly; never invent PERsiST rates; never quote conflicting prices.
 
-_Last pass: 2026-11-26 Muse — #6 #7 #12 #14 #61 #62 #73 DONE; slid-phi GID 100; psi-meter cs_live Checkout OK; next even OPEN: #8 #16 #18…_
+_Last pass: 2026-11-26 Muse — #6 #7 #12 #14 #61 #62 #73 DONE; GID scanner honesty (string+regex strip, self/vendor exclude) + seo corpus; site+slid-phi 100; next even OPEN: #8 #16 #18…_

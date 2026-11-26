@@ -537,6 +537,8 @@ def check_product(
     # noting an unverified security check). Test *data* for the
     # marker-detector feature itself is not debt: markers inside string
     # literals are stripped before matching, comments still count.
+    # This scanner file is never product debt (slid-phi path=".").
+    self_file = Path(__file__).resolve()
     if focus:
         todo_scope = list(focus_files)
     else:
@@ -545,6 +547,11 @@ def check_product(
             if f.suffix in SOURCE_SUFFIXES
             and not _VENDOR_TODO_NAME.search(f.name)
         ]
+    todo_scope = [
+        f for f in todo_scope
+        if f.resolve() != self_file
+        and not _VENDOR_TODO_NAME.search(f.name)
+    ]
     todo_ok = True
     for f in todo_scope:
         try:
@@ -583,12 +590,13 @@ def check_product(
 
 _STRING_LITERAL_RE = re.compile(
     r"'(?:[^'\\\n]|\\.)*'|\"(?:[^\"\\\n]|\\.)*\"|`(?:[^`\\]|\\.)*`")
+_REGEX_LITERAL_RE = re.compile(r"/(?:[^/\\\n]|\\.)+/[gimsuy]*")
 
 def _strip_string_literals(text: str) -> str:
-    """Blank out single-line string contents so test *data* mentioning
-    markers (e.g. the TODO-detector's own corpus) does not flag, while
+    """Blank out single-line string and regex-literal contents so test
+    *data* mentioning markers (detector corpus) does not flag, while
     markers in comments still count as debt."""
-    return _STRING_LITERAL_RE.sub("", text)
+    return _REGEX_LITERAL_RE.sub("", _STRING_LITERAL_RE.sub("", text))
 
 
 def _parse_node(out: str) -> tuple[int, int, int]:
