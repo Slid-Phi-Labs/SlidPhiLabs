@@ -50,12 +50,13 @@
       <div><p class="spl-kicker">Humans</p><p style="margin:0">Card through Stripe, with Apple Pay, Google Pay, Link and bank account where your device supports them. Crypto to a posted address. Invoice by ACH or wire for companies.</p></div>
       <div><p class="spl-kicker">Agents</p><p style="margin:0">POST <code>/api/x402-products</code> with the SKU, get a 402, pay the exact amount in USDC, then retry with <code>X-PAYMENT</code>. Same catalog as this page.</p></div>
     </div>
-    <p class="spl-note">Every price here matches <a href="/pricing">/pricing</a> and <a href="/llms.txt">llms.txt</a>. Usage products (hosted CuNi calls, Quikgater, PCC pay-as-you-go) are paid per call, not here.</p>
+    <p class="spl-note">Every price here matches <a href="/pricing">/pricing</a> and <a href="/llms.txt">llms.txt</a>. Usage products (hosted CuNi calls, Quikgater, PCC pay-as-you-go) are paid per call, not here. <a href="/hq">AgentHQ</a> ($29.99/mo) claims via its own Stripe Checkout on <code>/hq</code>, not this widget.</p>
     <div data-spl-buy="all"></div>
 
     <h2 id="price-list">Price list</h2>
     <p class="lede">The same prices the checkout above charges. Plain text, so agents and readers without JavaScript see them too.</p>
     <table class="spl-trials pay-prices">
+      <tr><th>AgentHQ</th><td><a href="/hq">Claim /hq/&lt;name&gt;</a> $29.99/mo (sku hq-month · lookup spl_hq_month)</td></tr>
       <tr><th>Agent-Rider</th><td>Rider Solo $12/mo · Team $49/mo · Fleet $199/mo (yearly: $120, $490, $1,990)</td></tr>
       <tr><th>Warrant</th><td>Add-on $8/mo · $80/yr (included in Team and Fleet)</td></tr>
       <tr><th>Chamber</th><td>Chamber $20/mo · $200/yr</td></tr>

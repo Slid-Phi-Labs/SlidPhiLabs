@@ -77,7 +77,22 @@
       "amount": 8000,
       "interval": "year",
       "lookup_key": "spl_warrant_addon_year"
+    },
+    "hq-month": {
+      "price": "price_1UfxcLLehTFD59CGBhLOr1Cl",
+      "product": "spl_hq",
+      "amount": 2999,
+      "interval": "month",
+      "lookup_key": "spl_hq_month"
     }
   },
-  "live": {}
+  "live": {
+    "hq-month": {
+      "price": "price_1UfxcLLehTFD59CGBhLOr1Cl",
+      "product": "spl_hq",
+      "amount": 2999,
+      "interval": "month",
+      "lookup_key": "spl_hq_month"
+    }
+  }
 }

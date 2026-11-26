@@ -369,6 +369,14 @@
     {
       "source": "/pcc/",
       "destination": "/pcc.html"
+    },
+    {
+      "source": "/hq",
+      "destination": "/hq.html"
+    },
+    {
+      "source": "/hq/:slug",
+      "destination": "/hq.html"
     }
   ],
   "redirects": [

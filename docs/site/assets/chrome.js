@@ -8,6 +8,7 @@
     ["/agents", "Agents"],
   ];
   const MORE = [
+    ["/hq", "AgentHQ"],
     ["/rider", "Agent-Rider"],
     ["/warrant", "Warrant"],
     ["/persist", "PERsiST"],
@@ -68,6 +69,7 @@
       </div>
       <div>
         <h4>Agents</h4>
+        <a href="/hq">AgentHQ</a>
         <a href="/rider">Agent-Rider</a>
         <a href="/warrant">Warrant</a>
         <a href="/persist">PERsiST</a>
@@ -84,6 +86,7 @@
       </div>
       <div>
         <h4>Buy</h4>
+        <a href="/hq">AgentHQ</a>
         <a href="/pay">Checkout</a>
         <a href="/pricing">Pricing</a>
         <a href="/lab-pass">Lab Pass</a>

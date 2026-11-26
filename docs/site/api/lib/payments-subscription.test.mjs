@@ -61,10 +61,14 @@ test("checkout: subscription mode with saved price, payment mode without", async
   assert.equal(sent[1].get("line_items[0][price_data][unit_amount]"), "49500");
 });
 
-test("saved price book: test ids resolve for every recurring sku; live stays empty (checkout stays one-time in prod)", async () => {
+test("saved price book: test ids resolve for every recurring sku; live empty except AgentHQ hq-month", async () => {
   const m = await import("./payments-rails.js");
   const book = m.stripePriceBook();
-  assert.deepEqual(book.live, {});
+  // AgentHQ is the first live recurring Price; other catalog SKUs stay empty (one-time fallback).
+  assert.deepEqual(Object.keys(book.live || {}).sort(), ["hq-month"]);
+  assert.match(book.live["hq-month"].price || "", /^price_[A-Za-z0-9]+$/);
+  assert.equal(book.live["hq-month"].lookup_key, "spl_hq_month");
+  assert.equal(book.live["hq-month"].amount, 2999);
   for (const sku of m.SUBSCRIPTION_SKUS()) {
     const envKey = "STRIPE_PRICE_" + sku.toUpperCase().replace(/[^A-Z0-9]/g, "_");
     if (process.env[envKey]) continue;

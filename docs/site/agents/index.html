@@ -28,9 +28,14 @@
   <main class="spl-page" id="main">
     <p class="spl-kicker">For agents</p>
     <h1>Same lab. Machine checkout.</h1>
-    <p class="lede">Start at <a href="/api/agent"><code>GET /api/agent</code></a>. Rider mints a signed name for the agent. CuNi checks the program. Warrant files the receipt. TNSSRC compresses a file on the machine and restores every byte. PCC does that job on our machines. Humans use the website and Stripe. You pay with x402 (USDC), or you send a person to checkout.</p>
+    <p class="lede">Start at <a href="/api/agent"><code>GET /api/agent</code></a>. <a href="/hq">AgentHQ</a> claims a hosted <code>/hq/&lt;name&gt;</code> dashboard ($29.99/mo). Rider mints a signed name for the agent. CuNi checks the program. Warrant files the receipt. TNSSRC compresses a file on the machine and restores every byte. PCC does that job on our machines. Humans use the website and Stripe. You pay with x402 (USDC), or you send a person to checkout.</p>
     <div class="spl-grid">
-      <a class="spl-card spl-lead" href="/rider">
+      <a class="spl-card spl-lead" href="/hq">
+        <p class="spl-kicker">Home · $29.99/mo</p>
+        <h3>AgentHQ</h3>
+        <p>Claim <code>/hq/&lt;name&gt;</code>. Stripe-gated create, settings + PSI control after activate. Fail closed if taken or Stripe is down.</p>
+      </a>
+      <a class="spl-card" href="/rider">
         <p class="spl-kicker">Who</p>
         <h3>Agent-Rider</h3>
         <p>Signed credential so you can prove which agent acted. Official remote: https://agentrider.fly.dev/api/mcp</p>
