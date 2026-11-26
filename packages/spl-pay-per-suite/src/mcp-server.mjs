@@ -56,7 +56,7 @@ import {
 } from "./index.mjs";
 
 const SUITE_LINE =
-  "First 1 GB free, once per IP · then $0.25/GB of input · Pro: 100 GB included, then $0.20/GB · $1 card minimum.";
+  "Unpaid 6.9 GB / 3 h · then $0.05/GB · bulk $0.04/GB · min $0.05 · Pro: 100 GB included, then $0.20/GB";
 
 const TOOLS = [
   {

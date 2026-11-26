@@ -64,8 +64,10 @@ One index + three areas. Each area holds one file per project.
 
 ## Known doc conflicts (recorded, not resolved)
 
-- Suite free edge: 6.9 GB / 3 h (canonical, NPM pricing) vs 2 GB/mo
-  (licensing caps) vs 100 GB (stale residual ledger + npm 1.1.8).
+- Suite free edge: **resolved** — quote unpaid **6.9 GB / 3 h**, then
+  **$0.05/GB** (bulk **$0.04/GB**), min **$0.05** (`licensing.json` caps.suite,
+  `pricing.json` suite, `/pps`, `spl-pay-per-suite`). Old 2 GB / 100 GB free
+  claims retired (TOP100 #8, 2026-11-26).
 - PCC year: **resolved** — quote **$250/yr** (`pcc-pro-year` in `licensing.json` /
   `pricing.json` / funding). Old $369 vs $390 / gc-year conflict retired
   (TOP100 #6, 2026-11-26).

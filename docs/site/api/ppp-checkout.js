@@ -1,7 +1,7 @@
 /**
  * Dual license: AGPL-3.0-or-later OR Slid Phi Labs Commercial. See /LICENSE.
  * PPP checkout — POST /api/ppp-checkout
- * First 1 GB of input free once per IP. Then $0.25/GB, $1 card minimum → Stripe Checkout.
+ * Unpaid 6.9 GB / 3 h. Then $0.05/GB (bulk $0.04/GB), min $0.05 → Stripe Checkout.
  */
 import { computeQuote } from "./suite-pricing.js";
 

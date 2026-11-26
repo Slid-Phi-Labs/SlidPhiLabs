@@ -29,7 +29,7 @@ test("single spec without items yields one quote", () => {
 });
 
 test("preview is deterministic offline", () => {
-  const spec = { task: "x", items: [{ name: "a", bytes: 2 * 1024 * 1024 * 1024 }] };
+  const spec = { task: "x", items: [{ name: "a", bytes: 20 * 1024 * 1024 * 1024 }] };
   const a = dryRun(spec);
   const b = dryRun(spec);
   assert.deepEqual(a, b);
@@ -38,18 +38,19 @@ test("preview is deterministic offline", () => {
 
 test("would-be cents run the real quote math, not byte length", () => {
   const GB = 1024 * 1024 * 1024;
-  // Under the 1 GB free cap: honestly $0 would-be.
+  // Under the unpaid 6.9 GB cap: honestly $0 would-be.
   const free = dryRun({ task: "x", items: [{ name: "a" }] });
   assert.equal(free.quotes[0].would_be_cents, 0);
   assert.equal(free.would_be_cents, 0);
-  // 2 GB in: 1 GB billable at $0.25/GB = $0.25, under the $1 card floor.
+  // 2 GB in: still under unpaid 6.9 GB → $0.
   const two = dryRun({ task: "x", items: [{ name: "big", bytes: 2 * GB }] });
   assert.equal(two.quotes[0].would_be_cents, computeQuote({ bytes: 2 * GB }).amount_cents);
-  assert.equal(two.quotes[0].would_be_cents, 100);
-  // 20 GB in: 19 GB x 25c = $4.75, exactly production's number.
+  assert.equal(two.quotes[0].would_be_cents, 0);
+  // 20 GB in: over unpaid 6.9 at 5¢/GB — matches production quote.
   const twenty = dryRun({ task: "x", items: [{ name: "huge", bytes: 20 * GB }] });
-  assert.equal(twenty.quotes[0].would_be_cents, 475);
-  assert.equal(twenty.would_be_cents, 475);
+  const expect20 = computeQuote({ bytes: 20 * GB }).amount_cents;
+  assert.equal(twenty.quotes[0].would_be_cents, expect20);
+  assert.equal(twenty.would_be_cents, expect20);
 });
 
 test("bytesOf prefers explicit byte fields over JSON length", () => {

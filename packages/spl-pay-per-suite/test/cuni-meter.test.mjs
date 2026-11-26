@@ -1,19 +1,19 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { computeQuote } from "../src/quote.mjs";
+import { computeQuote, FREE_BYTES, usageFeeCents } from "../src/quote.mjs";
 
 const GiB = 1024 ** 3;
 
-/** Lifetime meter gold — the user's bill: 1 GB free once per IP, then 25¢/GB, $1 floor. */
+/** Unpaid 6.9 GB / 3 h gold — then 5¢/GB, min $0.05. */
 const CASES = [
   { bytes: 0, expect: 0 },
-  { bytes: 1 * GiB, expect: 0 },
-  { bytes: 2 * GiB, expect: 100 },
-  { bytes: 20 * GiB, expect: 475 },
+  { bytes: FREE_BYTES, expect: 0 },
+  { bytes: FREE_BYTES + 1 * GiB, expect: 5 },
+  { bytes: 20 * GiB, expect: usageFeeCents(20 * GiB - FREE_BYTES) },
 ];
 
-test("JS quote matches lifetime meter gold", () => {
+test("JS quote matches unpaid 6.9 GB / 3 h meter gold", () => {
   const got = CASES.map((c) => computeQuote({ bytes: c.bytes }).amount_cents);
   assert.deepEqual(got, CASES.map((c) => c.expect));
 });

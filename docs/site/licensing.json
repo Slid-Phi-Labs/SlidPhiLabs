@@ -81,7 +81,7 @@
   },
   "caps": {
     "pcc": "first 1 GB free once per IP address (lifetime, no monthly reset), then $0.25/GB of input; Pro includes 100 GB/month, then $0.20/GB; customer-set cap (default $25), alert at 80%",
-    "suite": "first 1 GB free once per IP address (lifetime, no monthly reset), then $0.25/GB of input; customer-set cap (default $25), alert at 80%",
+    "suite": "unpaid 6.9 GB / 3 h, then $0.05/GB of input (bulk $0.04/GB after 100 paid GB), min $0.05; customer-set cap (default $25), alert at 80%",
     "warrant": "3 warrants + 10 receipts/operator/day free, then the Warrant add-on to Rider Solo (included in Team and Fleet)",
     "chamber": "automated fair-use rate limits; bulk moves to metered/enterprise",
     "source_licenses": "no usage cap; one product, one term",

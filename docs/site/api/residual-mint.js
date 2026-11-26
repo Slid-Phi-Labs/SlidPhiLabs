@@ -29,7 +29,7 @@ async function handler(req, res) {
     return json(res, 200, {
       service: "residual_mint",
       doors: {
-        suite: { free_gb: FREE_GB, then: "$0.25/GB after free", path: SUITE },
+        suite: { free_gb: FREE_GB, then: "$0.05/GB after unpaid 6.9 GB / 3 h", path: SUITE },
         chamber: { trial_h: 24, plans: CHAMBER, path: LICENSE },
       },
       post: { door: "suite|chamber", gb_used: 120.5, user_id: "…", plan: "year" },
