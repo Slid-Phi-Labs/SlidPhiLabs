@@ -34,9 +34,9 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 
 | # | Item | Why | Owner | Status |
 |--:|------|-----|-------|--------|
-| 16 | psi-doctor Windows path reliability | Effectiveness on Corey’s box | Muse | OPEN |
+| 16 | psi-doctor Windows path reliability | Effectiveness on Corey’s box | Muse | DONE |
 | 17 | Document `SLIDPHILABS_ROOT` fail-closed clearly on site | Buyer success | Muse | OPEN |
-| 18 | Retrieval scorer example in SELL-KIT | Positioning: scars > RAG | Muse | OPEN |
+| 18 | Retrieval scorer example in SELL-KIT | Positioning: scars > RAG | Muse | DONE |
 | 19 | Meter savings readout honesty check | No inflated claims | Muse | OPEN |
 | 20 | PSI Org vs Meter differentiation copy | Clarity | Grok | OPEN |
 | 21 | Embed grant $490 story without PERsiST confusion | Don’t invent PERsiST rates | Muse | OPEN |
@@ -154,4 +154,4 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 3. Bus receipt: `{item, delta, branch}`.
 4. Re-rank #100 weekly; never invent PERsiST rates; never quote conflicting prices.
 
-_Last pass: 2026-11-26 Muse — #6 #7 #12 #14 #61 #62 #73 DONE; GID scanner honesty (string+regex strip, self/vendor exclude) + seo corpus; site+slid-phi 100; next even OPEN: #8 #16 #18…_
+_Last pass: 2026-11-26 Muse — #16 #18 DONE; interlink doctor 9/9 on Win (`docs/lab-ledger/development/psi-doctor-windows-2026-11-26.md`); SELL-KIT scars>RAG example local+ledger mirror (psi push needs Corey go); next even OPEN: #8 #2 #22…_
