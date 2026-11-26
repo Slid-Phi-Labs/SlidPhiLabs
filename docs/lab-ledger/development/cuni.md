@@ -16,3 +16,9 @@ Updated 2026-11-02. Source: psi goals.md, standing memory, STATUS.md.
 - 2026-09-11: 0.1.9 drift fix. 2026-09-14: agent skills.
 - 2026-10-07: SEO rewrites. 2026-10-28: 0.10.0, seed EXACT.
 - intune arc: reps + parse built, frame v5, full bench pending user run.
+
+- 2026-11-26 (Muse unfinished): attempted CuNi EXEC unblock — host has rustc
+  1.99 + llvm-mingw gcc, but MSVC `link.exe` missing and windows-gnu link fails
+  (`-lgcc_eh`/`-lgcc`). Arms stay honest 96 blocked. Conductor API tests green
+  without CUNI_BIN; see development/conductor-repro.md.
+
