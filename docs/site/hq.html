@@ -221,6 +221,8 @@
   // Post-checkout activation
   if (params.get("paid") === "1" && params.get("session_id")) {
     show(claimMsg, "Activating paid session…", "ok");
+    show(pathStatus, "Activating…", "ok");
+    pathStatus.classList.remove("hq-hidden");
     const sessionId = params.get("session_id");
     scrubCheckoutParams();
     fetch("/api/hq?action=activate", {
@@ -239,10 +241,12 @@
               : "Activate failed: " + why,
             "err"
           );
+          show(pathStatus, "Activate failed", "err");
           return;
         }
         const hqUrl = j.url || ("/hq/" + (j.slug || ""));
         show(claimMsg, "HQ active at " + hqUrl + " — save your token below.", "ok");
+        show(pathStatus, "Active · " + (j.slug || "hq"), "ok");
         if (j.managementToken) {
           document.getElementById("token-banner").classList.remove("hq-hidden");
           document.getElementById("token-once").textContent = j.managementToken;
@@ -258,7 +262,10 @@
         const manage = document.getElementById("manage");
         if (manage) manage.scrollIntoView({ block: "nearest" });
       })
-      .catch((e) => show(claimMsg, String(e), "err"));
+      .catch((e) => {
+        show(claimMsg, String(e), "err");
+        show(pathStatus, "Activate error", "err");
+      });
   }
 
   const btnCopyToken = document.getElementById("btn-copy-token");
@@ -283,6 +290,8 @@
   }
   if (params.get("cancel") === "1") {
     show(claimMsg, "Checkout cancelled — no charge. You can claim again anytime.", "err");
+    show(pathStatus, "Checkout cancelled · no charge", "err");
+    pathStatus.classList.remove("hq-hidden");
     scrubCheckoutParams();
   }
 
