@@ -54,6 +54,28 @@ function writeRecord(slug, rec) {
   fs.renameSync(tmp, recordPath(slug));
 }
 
+/** True if any HQ record already consumed this Checkout session id. */
+export function sessionAlreadyUsed(sessionId) {
+  const id = String(sessionId || "");
+  if (!id) return false;
+  let files = [];
+  try {
+    files = fs.readdirSync(dataDir());
+  } catch {
+    return false;
+  }
+  for (const name of files) {
+    if (!name.endsWith(".json")) continue;
+    try {
+      const rec = JSON.parse(fs.readFileSync(path.join(dataDir(), name), "utf-8"));
+      if (rec && rec.stripeSession === id) return true;
+    } catch {
+      /* skip corrupt */
+    }
+  }
+  return false;
+}
+
 /** Stripe price id for AgentHQ from stripe-prices.json (test/live by env). */
 export function lookupHqPriceId() {
   try {
@@ -260,6 +282,9 @@ export default async function hqHandler(req, res) {
   }
   if (req.method === "POST" && action === "activate") {
     const sessionId = String((body && body.session_id) || "");
+    if (sessionAlreadyUsed(sessionId)) {
+      return send(res, 409, { ok: false, reason: "session_used" });
+    }
     const r = await retrieveCheckoutSession(sessionId);
     if (!r.ok) return send(res, 402, { ok: false, reason: r.reason || "not_paid" });
     const slugRaw = String((r.metadata && r.metadata.slug) || "");
@@ -268,6 +293,9 @@ export default async function hqHandler(req, res) {
       return send(res, 402, { ok: false, reason: "wrong_product" });
     }
     if (readRecord(v.slug)) return send(res, 409, { ok: false, reason: "name_taken" });
+    if (sessionAlreadyUsed(sessionId)) {
+      return send(res, 409, { ok: false, reason: "session_used" });
+    }
     const now = new Date().toISOString();
     const rec = {
       slug: v.slug,
@@ -298,7 +326,12 @@ export default async function hqHandler(req, res) {
     if (!v.ok) return send(res, 400, { ok: false, reason: "bad_name" });
     const rec = readRecord(v.slug);
     if (!rec) return send(res, 404, { ok: false, reason: "unknown_hq" });
-    return send(res, 200, { ok: true, exists: true, active: rec.status === "active" });
+    return send(res, 200, {
+      ok: true,
+      slug: v.slug,
+      exists: true,
+      active: rec.status === "active",
+    });
   }
   if (req.method === "GET" && action === "settings") {
     const v = validateSlug(q.get("name"));
