@@ -152,14 +152,15 @@
     <p class="lb-secnum" aria-hidden="true">03</p>
     <h2 class="lb-h2" id="price-h">Live status.</h2>
     <div class="pf-prose">
-      <p>AgentHQ create/activate is live on Fly. Do <strong>not</strong> create more Stripe products or prices unless Corey says so. Do <strong>not</strong> Fly-deploy from this loop.</p>
+      <p>AgentHQ create/activate is live on Fly and on <code>main</code> (PR <a href="https://github.com/Slid-Phi-Labs/SlidPhiLabs/pull/125">#125</a>). Do <strong>not</strong> create more Stripe products or prices unless Corey says so.</p>
       <ol class="hq-ops">
         <li><strong>Done:</strong> product <code>spl_hq</code>, price <code>price_1UfxcLLehTFD59CGBhLOr1Cl</code>, lookup <code>spl_hq_month</code>, <strong>$29.99/mo</strong>.</li>
         <li><strong>Done:</strong> <code>stripe-prices.json</code> <code>test</code>/<code>live</code> <code>hq-month</code> hold that Price id (ids only).</li>
         <li><strong>Done:</strong> Fly <code>spl-slidphilabs</code> serves <code>/hq</code> + <code>/api/hq</code>; create returns <code>cs_live</code> Checkout URLs.</li>
+        <li><strong>Done:</strong> PR #125 merged to <code>main</code> (<code>241af112</code>).</li>
         <li>Checkout uses <code>line_items[0][price]</code> when the id is present; <code>price_data</code> is fallback only if the row is emptied.</li>
         <li>Fail-closed create still returns <code>503 no_key</code> without a Stripe secret (zero charge).</li>
-        <li><strong>Open:</strong> merge PR <a href="https://github.com/Slid-Phi-Labs/SlidPhiLabs/pull/125">#125</a> onto main; optional paid activate E2E (charges live).</li>
+        <li><strong>Open:</strong> optional paid activate E2E (charges live) — claim a name, pay, activate, store management token.</li>
       </ol>
     </div>
   </section>
