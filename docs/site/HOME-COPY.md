@@ -74,7 +74,7 @@ The homepage no longer carries the full shipped ledger (it carries the four line
 | **pulsar** | Free GPLv3 binary for your own machine. No account, no phone-home. Silesia 55,745,438 · $0 |
 | **TRUSTREAM** | The PCC plan for live logs — agent traces, SIEM, telemetry in 4 KiB tiles. Empty shrinks · never inflates · on a PCC seat |
 | **Agent-Rider** | Signed identity for AI agents — a name that lasts fifteen minutes and proves itself on public keys. Solo $12/mo · Team $49/mo · Fleet $199/mo — per `pricing.json` · live at agentrider.fly.dev |
-| **Warrant** | Signed mandates — these hosts, these actions, this spend cap — plus a receipt when the job runs. $8/mo add-on to Rider Solo; included in Team and Fleet |
+| **Warrant** | Signed mandates — these hosts, these actions, this spend cap — plus a receipt when the job runs. $8/mo add-on to Rider Solo ($80/yr); included in Team and Fleet; no standalone SKU |
 | **Tollkeeper** | Ten live metered tools behind the lab meter. Call it, meter ticks, receipt files. Pay per call |
 | **CuNi** | One program, 53 targets. Python, Go, and JS must print the same stdout, or it refuses. Studio $0 · signed Ed25519 audit receipts |
 | **ExactOdds** | Provably-fair game rules — commit-reveal dice with identical rules on six runtimes. Open source · AGPL / commercial |

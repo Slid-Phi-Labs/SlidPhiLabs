@@ -221,7 +221,7 @@
         "sku": "tnssrc-grant",
         "usd": 369,
         "stripe": "https://www.slidphilabs.com/pay?sku=tnssrc-grant",
-        "plain": "Unified grant, one product, one year. TNSSRC 0.1.0 only. Written grant, human-fulfilled. Founding $190 for the first 10 grants; 3+ products $390 each; renewal at then-current schedule price."
+        "plain": "Closed grant $369/product/year via tnssrc-grant. TNSSRC 0.1.0 only. Written grant, human-fulfilled. Founding $190 for the first 10 grants; 3+ products $390 each; renewal at then-current schedule price."
       }
     },
     "lab_pass": {

@@ -132,7 +132,7 @@
       "name": "pulsar 2.5.0",
       "role": "compression",
       "url": "https://www.slidphilabs.com/pulsar",
-      "price": "Free GPLv3 binary; closed embed $490/yr (SKU pulsar-exception)",
+      "price": "Free GPLv3 binary; closed embed $490/yr via unified grant (SKU pulsar-exception)",
       "note": "Door 4. Free lossless binary demo you run on your own machine. 55,745,438 Silesia bytes, 12/12 DECODE_OK."
     },
     {
@@ -140,7 +140,7 @@
       "name": "TNSSRC",
       "role": "compression",
       "url": "https://www.slidphilabs.com/silesia",
-      "price": "AGPL $0 \u00b7 unified grant $369/product/year (TNSSRC 0.1.0 only)",
+      "price": "AGPL $0 \u00b7 closed grant $369/yr (SKU tnssrc-grant; TNSSRC 0.1.0 only; founding $190 first 10; 3+ products $390 each)",
       "note": "Door 2. TriNeural Shared Spine Row Compression. Local npcc. 43,724,575 Silesia bytes, 12/12 decode+SHA-256."
     },
     {
@@ -335,7 +335,7 @@
         "sku": "tnssrc-grant",
         "usd": 369,
         "human": "/pay?sku=tnssrc-grant",
-        "note": "TNSSRC unified grant, 0.1.0 only"
+        "note": "TNSSRC closed grant $369/yr, 0.1.0 only; founding $190 first 10; 3+ $390"
       },
       {
         "sku": "pulsar-exception",

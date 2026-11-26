@@ -16,7 +16,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 |--:|------|-----|-------|--------|
 | 1 | Post HN Show HN (PSI) | Lead product inbound; draft ready `~/psi/HN-SHOWHN.md` | Corey | OPEN |
 | 2 | Harvest HN replies → psi surprises | Turns signal into product backlog | Muse+Corey | OPEN |
-| 3 | PSI doctor green transcript (fresh dated) | Proof for HN/comments | Muse | OPEN |
+| 3 | PSI doctor green transcript (fresh dated) | Proof for HN/comments | Muse | DONE |
 | 4 | AgentHQ paid activate E2E (hq143732 or new) | Live cash proof | Corey | OPEN |
 | 5 | Publish AgentHQ case blurb on `/hq` after first activate | Positioning: “hosted agent desk” | Grok | OPEN |
 | 6 | Price-conflict purge: PCC $369 vs $390 | Never quote wrong number | Muse | DONE |
@@ -59,7 +59,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 33 | One crew seat repeat-use milestone path | Ledger next milestone | Grok | OPEN |
 | 34 | Archive host-* dumps (owner click) | Ops hygiene | Corey | OPEN |
 | 35 | Tag Rider release when ready | Positioning | Grok | OPEN |
-| 36 | Warrant add-on clarity vs Fleet include | Pricing honesty | Muse | OPEN |
+| 36 | Warrant add-on clarity vs Fleet include | Pricing honesty | Muse | DONE |
 | 37 | agentrider.fly.dev health + JWT cron verify | Effectiveness | Grok | OPEN |
 | 38 | Rider discovery agent.json accuracy | Agent commerce | Grok | OPEN |
 | 39 | Solo $12 / Team $49 / Fleet $199 site match | No drift | Muse | DONE |
@@ -76,10 +76,10 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 45 | Fail-closed `no_key` paths still 503 | Safety | Muse | DONE |
 | 46 | AgentHQ session_used 409 verified live | Betterment | Muse | OPEN |
 | 47 | Merge TruGame demo PR #135 after review | Demo asset | Muse | OPEN |
-| 48 | Chamber SKU copy vs live price | Honesty | Muse | OPEN |
+| 48 | Chamber SKU copy vs live price | Honesty | Muse | DONE |
 | 49 | PCC meter free-GB lifetime rule on site | Clarity | Grok | OPEN |
-| 50 | TNSSRC grant $369 founding story single source | Positioning | Muse | OPEN |
-| 51 | pulsar embed grant $490 single source | Positioning | Muse | OPEN |
+| 50 | TNSSRC grant $369 founding story single source | Positioning | Muse | DONE |
+| 51 | pulsar embed grant $490 single source | Positioning | Muse | DONE |
 | 52 | Remove dead Vercel lab host links | Trust | Grok | OPEN |
 | 53 | Fly app inventory vs STATUS | Ops truth | Muse | OPEN |
 | 54 | Refund/probe cleanup for AgentHQ test sessions | Hygiene | Muse | OPEN |

@@ -43,7 +43,7 @@ Smaller is better. Medical is a 98 MB covid table set, financial is
 
 ## Prices
 
-- TNSSRC is grant-gated at $369 a year. Quote it, never serve it free.
+- TNSSRC is grant-gated at $369/yr (SKU tnssrc-grant; founding $190 first 10; 3+ products $390 each). Quote it, never serve it free.
 - Served PCC: first gigabyte per address free, then 25 cents a gigabyte.
 
 ## Hard rules

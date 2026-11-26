@@ -22,11 +22,11 @@
 | rider-solo | 12 | /pay?sku=rider-solo |
 | rider-team | 49 | /pay?sku=rider-team |
 | rider-fleet | 199 | /pay?sku=rider-fleet |
-| warrant-addon | 8/80 | /pay?sku=warrant-addon |
+| warrant-addon | 8/80 | Solo add-on; included Team/Fleet; no standalone · /pay?sku=warrant-addon |
 | chamber-month/year | 20/200 | /pay?sku=chamber-month · /pay?sku=chamber-year |
 | pcc-pro/pro-year | 25/250 | /pay?sku=pcc-pro · /pay?sku=pcc-pro-year |
-| tnssrc-grant | 369 | /pay?sku=tnssrc-grant |
-| pulsar-exception | 490 | /pay?sku=pulsar-exception |
+| tnssrc-grant | 369 | founding $190 first 10; 3+ $390 · /pay?sku=tnssrc-grant |
+| pulsar-exception | 490 | unified grant closed embed · /pay?sku=pulsar-exception |
 | cuni-exception | 490 | /pay?sku=cuni-exception |
 | lab-pass | 495 | Chamber year + Rider Solo year + PSI Meter + Warrant |
 x402 resource = same sku via POST /api/x402-products.
