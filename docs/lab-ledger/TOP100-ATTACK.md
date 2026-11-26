@@ -44,7 +44,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 23 | Keep muse inbox drained every cycle | Tandem effectiveness | Muse | OPEN |
 | 24 | Grok ACK protocol before any main merge | Stop WIP collisions | Both | OPEN |
 | 25 | Merge PR #134 only after Grok ACK | Rescue hygiene | Grok | OPEN |
-| 26 | psi surprise log template for HN harvest | Ops | Muse | OPEN |
+| 26 | psi surprise log template for HN harvest | Ops | Muse | DONE |
 | 27 | Winbox/green-gate mention on psi public README | Proof | Muse | OPEN |
 | 28 | Commercial seat CTA from psi README → pay | Funnel | Grok | OPEN |
 | 29 | Archive stale AGPL-offer language site-wide | License truth | Muse | OPEN |
@@ -62,7 +62,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 36 | Warrant add-on clarity vs Fleet include | Pricing honesty | Muse | OPEN |
 | 37 | agentrider.fly.dev health + JWT cron verify | Effectiveness | Grok | OPEN |
 | 38 | Rider discovery agent.json accuracy | Agent commerce | Grok | OPEN |
-| 39 | Solo $12 / Team $49 / Fleet $199 site match | No drift | Muse | OPEN |
+| 39 | Solo $12 / Team $49 / Fleet $199 site match | No drift | Muse | DONE |
 | 40 | DM send still gated on Corey go (document) | Safety positioning | Muse | OPEN |
 | 41 | Rider+AgentHQ cross-link (seat → hosted desk) | Bundle story | Grok | OPEN |
 | 42 | lab-sdk/rider-api GID stay at 100 after #134 | Betterment | Muse | OPEN |
@@ -90,7 +90,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | # | Item | Why | Owner | Status |
 |--:|------|-----|-------|--------|
 | 56 | Site clarity pass: one lede per product | Positioning | Grok | OPEN |
-| 57 | TeachAid marked suspended everywhere | No false live | Muse | OPEN |
+| 57 | TeachAid marked suspended everywhere | No false live | Muse | DONE |
 | 58 | Quikgater: name or archive decision note | Kill zombie face | Muse | OPEN |
 | 59 | Tollkeeper: one-sentence what/why | Clarity | Muse | OPEN |
 | 60 | TruGame: product-or-archive decision (no SKU invent) | Focus | Corey | OPEN |

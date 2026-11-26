@@ -1,6 +1,10 @@
 # TEACHAiD — LLM prompt pack
 
-Teaching assistant: cited answers per course. Student $6/month, $60/year.
+Status: **suspended / not on sale / residual**. Host stopped. Do not
+offer checkout or cite teachaid.fly.dev as live. Historical plan sheet
+below is archive only.
+
+Teaching assistant: cited answers per course. (Archive) Student $6/month, $60/year.
 Free: 1 course, text-only cited answers, no voice. Schools $20 per
 student per semester (30 minimum); districts of 300+ students $16 per student.
 School pilot: full package at 33.3% off the semester, private trial week first.
@@ -24,4 +28,4 @@ get a redirect, not an improvisation. Spoken neural voices stay off on
 Free, Trial, and Student; they come with Student + Voice or a school
 voice pack.
 Page: https://www.slidphilabs.com/teachaid
-Checkout: https://teachaid.fly.dev/pricing.html
+Checkout: none — suspended, not on sale

@@ -5,10 +5,10 @@ Platform booklets: https://www.slidphilabs.com/wiki
 Homepage ledger: https://www.slidphilabs.com/
 Product homes: https://www.slidphilabs.com/hq (AgentHQ) · https://www.slidphilabs.com/rider (Rider) · https://www.slidphilabs.com/cuni (CuNi) · https://www.slidphilabs.com/pcc (PCC) · https://www.slidphilabs.com/acp (ACP) · https://www.slidphilabs.com/persist (PSI) · https://www.slidphilabs.com/gitdepot (GitDepot)
 
-> Slid Phi Labs builds tools that check. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is the campus, in rollout.
+> Slid Phi Labs builds tools that check. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is suspended / not on sale / residual.
 
 ## The one-liner
-> Slid Phi Labs builds tools that check. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is the campus, in rollout.
+> Slid Phi Labs builds tools that check. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is suspended / not on sale / residual.
 
 ## How compression works
 There are four public compression doors on one shared method: PCC hosted on our machines, TNSSRC on yours (Silesia 43.72M), TRUSTREAM for live tiles, and pulsar as the free demo. There is no fifth compression door. A file is packed only if it gets smaller, and every byte has to come back, or we store it as-is.
@@ -73,8 +73,8 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 | cuni-check | 0.05 | first 100 checks/month free |
 | quikgater | 0.02 | /pay?sku=quikgater · first 100 fetches/month free, cap default $10, alert at 80% |
 | gitdepot-seat | 15/150 | invite-only · mailto:corey@slidphilabs.com |
-| teachaid-student | 6/60 | student plan |
-| teachaid-school | 20 per student | per semester, 30 minimum; district 300+ $16; pilot 33.3% off at teachaid.fly.dev/pricing |
+| teachaid-student | — | suspended / not on sale / residual |
+| teachaid-school | — | suspended / not on sale / residual |
 | unified-grant | 490 | $190 founding for first 10 grants; 3+ products $390 each |
 | acp-certification | 990 | 3 free pilot certifications, assessment criteria published |
 | lab-pass | 495 | Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year · /pay?sku=lab-pass |
@@ -89,7 +89,7 @@ x402 resource = same sku via POST /api/x402-products.
 - CuNi — nine hosted calls: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Keeper: https://github.com/ceedot-rock/CuNIverse · Studio free: https://spl-cuni-studio.fly.dev/ · calls: https://www.slidphilabs.com/v1/ · protocol: https://www.slidphilabs.com/cuni-protocol.json · catalog still cites 53 targets. cuni_bank is translate.
 - **AwLPay** — quote a payment across rails, or refuse. Free tier 0.5% per payment, no fixed fee. Pro $39/mo. L33t $799/mo. https://www.slidphilabs.com/awlpay · repo: https://github.com/ceedot-rock/awlpay
 - **Quikgater** — pay-per-fact fetch. https://www.slidphilabs.com/quikgater
-- **TEACHAiD** — campus app with a teacher that cites the textbook. Live: https://teachaid.fly.dev
+- **TEACHAiD** — campus app with a teacher that cites the textbook. Suspended / not on sale / residual: https://www.slidphilabs.com/teachaid
 - **Verses** (October 2026) — eighteen repos fused into five monorepos, histories intact. MemoryVerse is open source: https://github.com/ceedot-rock/MemoryVerse . WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D. CuNIverse is a public exactness monorepo: https://github.com/ceedot-rock/CuNIverse
 
 PCC = lossless compressor only (it used to be called AWARE; that name is retired). TRU8 is the zeros specialist.
@@ -113,7 +113,7 @@ Four doors onto one Shared Spine. What it is, then what you pay.
 - ExactOdds — provably fair rules, commit-reveal, same rules on the published runtimes. https://www.slidphilabs.com/exactodds
 - AwLPay — free tier 0.5% per payment, no fixed fee. https://www.slidphilabs.com/awlpay
 - Quikgater — POST /v1/fetch. $0.02 per fetch; first 100 fetches/month free; customer-set monthly cap (default $10), alert at 80%. https://www.slidphilabs.com/quikgater
-- TEACHAiD — personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Schools $20 per student per semester (30 minimum); districts of 300+ students $16 per student, by invoice. School pilot: the full package (text teacher, spoken voice, live classroom) at 33.3% off the semester, with a private trial week first: $18.68 per student for a school, $16.01 for a district, plus $133.40 per campus for the live classroom. Pay on teachaid.fly.dev/pricing. Campus rollout at https://teachaid.fly.dev . Teacher chat in the repository calls Meta Llama.
+- TEACHAiD — personal teacher that cites the textbook. Suspended. Not on sale. Residual — host stopped; restart-or-sunset pending. Historical plan sheet is archive only. https://www.slidphilabs.com/teachaid
 - Lab Pass — $495/yr. Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year. Parts sum $650 (24% off). PCC/compression out. No monthly version. https://www.slidphilabs.com/lab-pass
 - GitDepot — live and functional team artifact depot. $15/seat/month, $150/seat/year; 100 GB pooled storage included, then $0.10/GB/month overage. Free: 1 team, 3 seats, 10 GB, 30-day audit retention. Invite-only: mailto:corey@slidphilabs.com. https://www.slidphilabs.com/gitdepot
 - ACP — $0, open standard. ACP Conformant certification $990 one-time, listed with test framing: 3 free pilot certifications, assessment criteria published. https://www.slidphilabs.com/acp
@@ -179,7 +179,7 @@ Q: What are the verses?
 A: Five monorepos from October 2026, histories kept. MemoryVerse is open source. WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D. https://github.com/ceedot-rock/MemoryVerse
 
 Q: What is TEACHAiD?
-A: The campus app. A personal teacher that cites the textbook. Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Schools $20 per student per semester (30 minimum); districts of 300+ students $16 per student, by invoice. School pilot: the full package (text teacher, spoken voice, live classroom) at 33.3% off the semester, with a private trial week first: $18.68 per student for a school, $16.01 for a district, plus $133.40 per campus for the live classroom. Pay on teachaid.fly.dev/pricing. The teacher chat in the repository calls Meta Llama. https://teachaid.fly.dev
+A: The campus app with a personal teacher that cites the textbook. Suspended. Not on sale. Residual — host stopped; restart-or-sunset pending. https://www.slidphilabs.com/teachaid
 
 ## ACN (Agent Commerce Network)
 

@@ -14,6 +14,7 @@ Updated 2026-11-26. Source: `~/psi`, interlink doctor + SELL-KIT scorer example.
   (TOP100 #18). Mirror below.
 - Next milestone: HN Show HN posted (draft in `~/psi/HN-SHOWHN.md`),
   inbound harvested as surprises. Tweak 117 from the crowd.
+  Harvest template: [psi-surprise-log.md](./psi-surprise-log.md) (TOP100 #26).
 
 ## Retrieval scorer example (scars > RAG) — mirror of SELL-KIT
 
@@ -35,6 +36,8 @@ Top hit matches the task scar; scorer is `retrieval/score.py`. Re-verified
 - 2026-11-26: TOP100 #16 — `python -m interlink doctor --peer muse` → 9/9
   PASS, home=`C:\Users\ptasz\.psi\a2a` (pathlib Windows-safe). Transcript
   filed under development/. No psi code fix needed; psi push still blocked.
+- 2026-11-26: TOP100 #26 — psi surprise log template for HN harvest filed as
+  `psi-surprise-log.md` and linked from this page.
 - 2026-11-26: TOP100 #18 — concrete retrieval-scorer example (scars > RAG)
   patched into local `~/psi/SELL-KIT.md` + docs-source (unpushed) and mirrored
   here for ledger truth.

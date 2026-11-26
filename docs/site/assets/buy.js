@@ -67,11 +67,8 @@
     },
     teachaid: {
       name: "TEACHAiD",
-      plans: [
-        { sku: "teachaid-student", cycle: "m", label: "Student", sub: "Personal teacher, cites the textbook" },
-        { sku: "teachaid-student-year", cycle: "y", label: "Student", sub: "Personal teacher, cites the textbook" },
-      ],
-      note: "Schools and districts: choose Invoice and we'll quote per student.",
+      plans: [],
+      note: "Suspended. Not on sale. Residual — host stopped. No checkout.",
     },
     "lab-pass": {
       name: "Lab Pass",

@@ -103,8 +103,9 @@
     "university": {
       "name": "Slid Phi University",
       "engine": "TEACHAiD",
+      "status": "suspended / not on sale / residual",
       "urls": {
-        "app": "https://teachaid.fly.dev"
+        "app": "https://www.slidphilabs.com/teachaid"
       }
     },
     "mesh": {

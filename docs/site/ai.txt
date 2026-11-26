@@ -27,13 +27,13 @@ rider-solo $12 · rider-team $49 · rider-fleet $199 · warrant 8/80 · chamber 
 - pulsar 2.5.0 — Door 4, free GPLv3 compressor — 55,745,438 — closed embed $490/yr — https://www.slidphilabs.com/pulsar
 - Chamber — two-key JSON seal — $20/mo · $200/yr — https://www.slidphilabs.com/chamber
 - Lab Pass — $495/yr — Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year — https://www.slidphilabs.com/lab-pass
-- Foundry+ — Lab Pass + TNSSRC grant + Rider Crew
+- Foundry+ — Lab Pass + TNSSRC grant + Rider Team
 - CuNi — nine hosted calls at POST /v1/<name> — check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00 — Studio $0 — keeper https://github.com/ceedot-rock/CuNIverse — https://www.slidphilabs.com/cuni
 - Calls — same short name on /v1, MCP, and the Python client. PCC compress/decompress/zip/unzip/quote. squeeze $0.10. fetch $0.02. seal and open. Warrant under /v1/warrant/. Tollkeeper names under /v1/<name>. Card: 81 tools. https://www.slidphilabs.com/llms.txt
 - AwLPay — 0.5% per payment, no fixed fee — Pro $39/mo — L33t $799/mo — https://www.slidphilabs.com/awlpay
 - Quikgater — pay per fetch — https://www.slidphilabs.com/quikgater
 - ExactOdds — provably fair rules — https://www.slidphilabs.com/exactodds
-- TEACHAiD — campus app, live; teacher chat runs on Meta's Llama — https://teachaid.fly.dev
+- TEACHAiD — campus app, suspended / not on sale / residual — https://www.slidphilabs.com/teachaid
 - MemoryVerse — open-source verse — https://github.com/ceedot-rock/MemoryVerse
 - Pricing — https://www.slidphilabs.com/pricing.json
 - Silesia board — https://www.slidphilabs.com/silesia.json

@@ -398,7 +398,8 @@
     "teachaid": {
       "name": "TEACHAiD",
       "page": "https://www.slidphilabs.com/teachaid",
-      "checkout": "https://teachaid.fly.dev/pricing.html",
+      "availability": "suspended / not on sale / residual — host stopped; restart-or-sunset pending",
+      "checkout": null,
       "contact": "corey@slidphilabs.com",
       "plans": {
         "free": {
@@ -451,7 +452,7 @@
         "answers": "text-only cited answers",
         "voice": false
       },
-      "plain": "Student $6/month, $60/year. Free: 1 course, text-only cited answers, no voice. Schools $20 per student per semester (30 minimum); districts of 300+ students $16 per student, by invoice. School pilot: the full package (text teacher, spoken voice, live classroom) at 33.3% off the semester, with a private trial week first: $18.68 per student for a school, $16.01 for a district, plus $133.40 per campus for the live classroom. Pay on teachaid.fly.dev/pricing."
+      "plain": "Suspended. Not on sale. Residual — host stopped. Historical student/school sheet is archive only; do not treat as a live offer. https://www.slidphilabs.com/teachaid"
     }
   },
   "suite": {

@@ -20,7 +20,7 @@
     { "product": "unified_grant", "pack": "llm/packs/unified_grant.md", "actions": ["request"], "via": "site", "auth": "human review", "sku": null, "status": "beta" },
     { "product": "gitdepot", "pack": "llm/packs/gitdepot.md", "actions": ["store", "fetch"], "via": "endpoint", "auth": "depot token", "sku": null, "status": "beta" },
     { "product": "acp", "pack": "llm/packs/acp.md", "actions": ["card", "catalog", "call"], "via": "cli", "auth": "x402 per-call for agents", "sku": null, "status": "live" },
-    { "product": "teachaid", "pack": "llm/packs/teachaid.md", "actions": ["teach"], "via": "sdk", "auth": "license key", "sku": null, "status": "beta" },
+    { "product": "teachaid", "pack": "llm/packs/teachaid.md", "actions": ["teach"], "via": "sdk", "auth": "license key", "sku": null, "status": "suspended" },
     { "product": "agentic_chat", "pack": "llm/packs/agentic_chat.md", "actions": ["create_room", "validate", "post", "read", "share_file"], "via": "endpoint", "auth": "chamber token hashes", "sku": null, "status": "beta" },
     { "product": "tru8", "pack": "llm/packs/tru8.md", "actions": ["compress", "decompress", "zip", "unzip"], "via": "cli", "auth": "free local zeros; claim token for hosted", "sku": "gc-day", "status": "live" }
   ]
