@@ -25,7 +25,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 9 | Site homepage lead with PSI then Rider | Matches Corey’s priority | Grok | OPEN |
 | 10 | `llms.txt` / discovery: PSI+Rider first | Agent/crawler positioning | Grok | OPEN |
 | 11 | Stripe Dashboard: AgentHQ product description polish | Buyer trust | Muse | OPEN |
-| 12 | Confirm `/pay?sku=psi-meter` live Checkout | Lead SKU path | Muse | OPEN |
+| 12 | Confirm `/pay?sku=psi-meter` live Checkout | Lead SKU path | Muse | DONE |
 | 13 | Confirm Rider Solo/Team/Fleet Checkout paths | #2 lead SKU path | Grok | OPEN |
 | 14 | Public status.html: AgentHQ live probe | Truthful status surface | Muse | DONE |
 | 15 | Funding one-pager figures sync to pricing.json | Investor/YC positioning | Muse | OPEN |
@@ -111,7 +111,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 |--:|------|-----|-------|--------|
 | 71 | CuNi EXEC unblock (VS C++ / link.exe) | 10×96→100 | Corey+Muse | OPEN |
 | 72 | Re-score CuNi arms after linker | GID truth | Muse | OPEN |
-| 73 | slid-phi G-TODO-01 clear (.venv skip) | 95→100 | Muse | DOING |
+| 73 | slid-phi G-TODO-01 clear (.venv skip) | 95→100 | Muse | DONE |
 | 74 | GID focus-suite isolation regression test | Don’t regress | Muse | OPEN |
 | 75 | Register missing lead surfaces if any | Coverage | Muse | OPEN |
 | 76 | Conductor API green without CUNI_BIN (keep) | Effectiveness | Muse | OPEN |
@@ -154,4 +154,4 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 3. Bus receipt: `{item, delta, branch}`.
 4. Re-rank #100 weekly; never invent PERsiST rates; never quote conflicting prices.
 
-_Last pass start: 2026-11-26T Muse._
+_Last pass: 2026-11-26 Muse — #6 #7 #12 #14 #61 #62 #73 DONE; slid-phi GID 100; psi-meter cs_live Checkout OK; next even OPEN: #8 #16 #18…_
