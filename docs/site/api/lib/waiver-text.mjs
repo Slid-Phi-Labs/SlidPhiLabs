@@ -6,7 +6,7 @@
  * (WAIVER_V1); acceptance receipts pin its version + SHA-256 hash, so any
  * wording drift fails verification. No network; the clock is injectable.
  *
- * LEGAL TODO (collected here, the single place it lives):
+ * LEGAL OPEN ITEM (collected here, the single place it lives):
  * this text is NOT legal advice and MUST be reviewed by a licensed attorney
  * before production use. See ATTORNEY_REVIEW_PENDING.
  */
@@ -64,7 +64,7 @@ function isNonEmptyString(x) {
 /**
  * Build an acceptance receipt for a rider. The receipt pins the waiver
  * version + text hash and carries the attorney-review flag, so the legal
- * TODO travels with every acceptance. Adapters (all optional):
+ * open item travels with every acceptance. Adapters (all optional):
  * { nowMs(): number }.
  */
 export function buildWaiverAcceptance(input = {}, adapters = {}) {

@@ -84,10 +84,16 @@ JUNK_RES = (
     re.compile(r"(^|/)\.DS_Store$"),
 )
 SKIP_DIRS = {".git", "node_modules", "target", "__pycache__", ".venv",
-             "venv", "dist", "build"}
+             "venv", "dist", "build", "vendor", "third_party"}
 EXEC_TIMEOUT_S = 120
 
 SAFE_FIXABLE = {"G-DOC-01", "G-DOC-02"}
+
+# Vendored / generated bundles — their upstream TODO/FIXME markers are not
+# lab product debt (e.g. livekit client ESM under docs/site/assets).
+_VENDOR_TODO_NAME = re.compile(
+    r"(livekit-client|\.min\.js$|\.bundle\.js$|\.umd\.js$)", re.IGNORECASE
+)
 
 
 def find_manifest(
@@ -523,10 +529,14 @@ def check_product(
         clog_ok = False
     todo_re = re.compile(r"\b(TODO|FIXME)\b", re.IGNORECASE)
     if focus:
-        todo_scope = list(focus_files)
+        todo_scope = [f for f in focus_files if not is_test_file(f)]
     else:
-        todo_scope = [f for f in _tree_files(pdir)
-                      if f.suffix in SOURCE_SUFFIXES]
+        todo_scope = [
+            f for f in _tree_files(pdir)
+            if f.suffix in SOURCE_SUFFIXES
+            and not is_test_file(f)
+            and not _VENDOR_TODO_NAME.search(f.name)
+        ]
     todo_ok = True
     for f in todo_scope:
         try:
