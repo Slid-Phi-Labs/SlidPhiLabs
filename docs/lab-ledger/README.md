@@ -66,8 +66,9 @@ One index + three areas. Each area holds one file per project.
 
 - Suite free edge: 6.9 GB / 3 h (canonical, NPM pricing) vs 2 GB/mo
   (licensing caps) vs 100 GB (stale residual ledger + npm 1.1.8).
-- PCC year: $369 (funding/pcc page) vs $390 (licensing gc-year).
-  Quote $369, fix the file, never the customer.
+- PCC year: **resolved** — quote **$250/yr** (`pcc-pro-year` in `licensing.json` /
+  `pricing.json` / funding). Old $369 vs $390 / gc-year conflict retired
+  (TOP100 #6, 2026-11-26).
 - CuNi exception: canonical **$490** (`licensing.json` / unified grant).
   Fixed `api/cuni-plans.json` cents 36900→49000 on 2026-11-26 (TOP100 #7).
 

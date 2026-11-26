@@ -19,7 +19,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 3 | PSI doctor green transcript (fresh dated) | Proof for HN/comments | Muse | OPEN |
 | 4 | AgentHQ paid activate E2E (hq143732 or new) | Live cash proof | Corey | OPEN |
 | 5 | Publish AgentHQ case blurb on `/hq` after first activate | Positioning: “hosted agent desk” | Grok | OPEN |
-| 6 | Price-conflict purge: PCC $369 vs $390 | Never quote wrong number | Muse | OPEN |
+| 6 | Price-conflict purge: PCC $369 vs $390 | Never quote wrong number | Muse | DONE |
 | 7 | Price-conflict purge: CuNi $390 vs $369 text | Same | Muse | DONE |
 | 8 | Suite free-edge single source (6.9GB/3h) | Kill 2GB/100GB contradictions | Muse | OPEN |
 | 9 | Site homepage lead with PSI then Rider | Matches Corey’s priority | Grok | OPEN |
