@@ -4,6 +4,9 @@ Built 2026-11-02. History pass same day back to repo birth (lab git
 2026-07-29, 750 commits; psi git 2026-10-16; observatory 10-17→10-28).
 One index + three areas. Each area holds one file per project.
 
+**Attack list:** [TOP100-ATTACK.md](./TOP100-ATTACK.md) (positioning + effectiveness + betterment).  
+**History:** [slidphilabs-history-timeline.ipynb](./slidphilabs-history-timeline.ipynb).
+
 ## Projects (full files in each area)
 
 | Project | What | Canonical source |
@@ -65,7 +68,8 @@ One index + three areas. Each area holds one file per project.
   (licensing caps) vs 100 GB (stale residual ledger + npm 1.1.8).
 - PCC year: $369 (funding/pcc page) vs $390 (licensing gc-year).
   Quote $369, fix the file, never the customer.
-- CuNi exception: $390 SKU, description text says $369. Same rule.
+- CuNi exception: canonical **$490** (`licensing.json` / unified grant).
+  Fixed `api/cuni-plans.json` cents 36900→49000 on 2026-11-26 (TOP100 #7).
 
 ## Update rule (standing)
 

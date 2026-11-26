@@ -12,7 +12,17 @@ Commands to install, required runtimes, and environment variables. Keep secrets 
 
 ## Usage
 
-Minimal end-to-end example with real commands and expected output. Link the entry point under src/.
+Entry point: `index.mjs` (re-exports `lab-board/cuni/silent-rules.mjs`,
+the shared CuNi silent-error rules).
+
+```js
+import { silentErrors } from "./index.mjs";
+
+silentErrors("const price = 1.5").map((row) => row.rule);
+// ["money-float"]
+```
+
+Run the suite: `npm test` (`node --test test.mjs`).
 
 ## Testing
 

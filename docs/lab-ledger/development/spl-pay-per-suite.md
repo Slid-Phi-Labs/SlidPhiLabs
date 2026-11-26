@@ -16,3 +16,7 @@ Updated 2026-11-02. Source: `packages/spl-pay-per-suite`, NPM pricing.
 - 2026-08-30: hosted MCP + agent API keys + auto-claim work.
 - 2026-09-05: npm 1.1.9. 2026-10-16: LLC attribution.
 - 2026-10-28: suite 36/36 in owner-gratis work; truth sweep.
+
+- 2026-11-26 eve (GID close-out):
+  - spl-pay-per-suite: 85 -> 100 (invalid-input negative test + package-lock + gate-first prove test; suite 16/16).
+

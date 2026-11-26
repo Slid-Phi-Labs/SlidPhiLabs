@@ -12,7 +12,18 @@ Commands to install, required runtimes, and environment variables. Keep secrets 
 
 ## Usage
 
-Minimal end-to-end example with real commands and expected output. Link the entry point under src/.
+Entry point: `src/phi_rest.mjs` (also `src/phi_rest.cjs`,
+`src/vite-plugin.mjs`). Seal bytes with `cloak`, open with `open`,
+serve warm files from RAM with `createRest`.
+
+```js
+import { cloak, open } from "./src/phi_rest.mjs";
+
+const sealed = cloak(Buffer.from("after fire, rest"));
+open(sealed).toString(); // "after fire, rest"
+```
+
+Run the suite: `npm test` (`node --test test/`, offline, no network).
 
 ## Testing
 

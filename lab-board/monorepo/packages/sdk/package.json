@@ -3,5 +3,6 @@
   "name": "@slidphi/sdk",
   "private": true,
   "type": "module",
-  "main": "index.mjs"
+  "main": "index.mjs",
+  "scripts": { "test": "node --test sdk.test.mjs" }
 }

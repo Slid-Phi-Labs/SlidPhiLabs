@@ -20,6 +20,7 @@ export const LEDGER_SCHEMA = join(
   pkgRoot,
   "..",
   "..",
+  "..",
   "identity",
   "ledger.sql",
 );

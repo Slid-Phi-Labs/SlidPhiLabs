@@ -110,3 +110,14 @@ test("used_bytes consumes the lifetime allowance", () => {
 test("classify zeros", () => {
   assert.equal(classifyBytes(Buffer.alloc(64)).dataClass, "zeros");
 });
+
+test("invalid inputs fall back instead of charging", () => {
+  assert.equal(computeQuote({ bytes: -5 }).amount_cents, 0);
+  assert.equal(computeQuote({ bytes: -5 }).free, true);
+  assert.equal(computeQuote({ bytes: Number.NaN }).amount_cents, 0);
+  const bogus = computeQuote({ bytes: 2 * GiB, product: "bogus-product" });
+  const auto = computeQuote({ bytes: 2 * GiB, product: "auto" });
+  assert.equal(bogus.amount_cents, auto.amount_cents);
+  assert.equal(bogus.breakdown.product, "auto");
+  assert.equal(classifyBytes(null).dataClass, "unknown");
+});

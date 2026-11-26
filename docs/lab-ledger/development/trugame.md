@@ -13,3 +13,7 @@ Updated 2026-11-02. Source: `packages/trugame-v0.4`, `trugame-demo-30s`.
 - 2026-09-12: zeros-specialist messaging ("8 bytes, round-trip").
 - 2026-09-21: tru8 npm deprecated into slid-phi.
 - Now: demo only. Engine-seat idea never shipped as a SKU.
+
+- 2026-11-26 eve (GID close-out):
+  - trugame-v0.4: 80 -> 100 (mismatch negative test + real Usage + CHANGELOG + requirements.txt; suite 6/6).
+

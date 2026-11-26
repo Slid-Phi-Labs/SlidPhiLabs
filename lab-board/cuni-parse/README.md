@@ -12,7 +12,24 @@ Commands to install, required runtimes, and environment variables. Keep secrets 
 
 ## Usage
 
-Minimal end-to-end example with real commands and expected output. Link the entry point under src/.
+Library crate, entry point `src/lib.rs`: `parse_decl(language, source)`
+finds the top-level declaration for `python` / `typescript` / `solidity`
+/ `go`, returning `None` for anything else. Cases below are pinned by
+the in-crate `#[test] four_languages`.
+
+```rust
+use cuni_parse::parse_decl;
+
+let d = parse_decl("python", "def spend():\n  pass").unwrap();
+assert_eq!(d.name, "spend");
+assert_eq!(d.kind, "function");
+
+assert!(parse_decl("rust", "fn spend() {}").is_none());
+```
+
+Run the suite: `cargo test` (needs the Rust toolchain in
+`rust-toolchain.toml`; native builds are blocked on boxes without a
+linker, including this one).
 
 ## Testing
 

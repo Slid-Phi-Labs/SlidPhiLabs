@@ -12,7 +12,26 @@ Commands to install, required runtimes, and environment variables. Keep secrets 
 
 ## Usage
 
-Minimal end-to-end example with real commands and expected output. Link the entry point under src/.
+Modules load directly (the folder name is not an importable package);
+see `test/test_trugame_smoke.py` for the loader pattern. Engine entry
+points are license-gated (`license_bridge.gate`); the ECS/scene/physics
+layers run without a license.
+
+```powershell
+cd packages/trugame-v0.4
+python -m pytest test/ -q
+# 6 passed
+```
+
+Spawn a mesh and tick it — modules load via `importlib` by path
+(full pattern in `test/test_trugame_smoke.py`):
+
+```python
+scene = scene_mod.Scene(name="demo")
+scene.add_mesh_instance("models/ship.obj", [1.0, 2.0, 3.0])
+physics_mod.PhysicsSystem().tick(scene.ecs, 1 / 60)
+scene.to_manifest()["entities"]  # 1
+```
 
 ## Testing
 

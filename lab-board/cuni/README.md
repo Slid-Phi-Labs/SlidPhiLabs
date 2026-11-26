@@ -12,7 +12,20 @@ Commands to install, required runtimes, and environment variables. Keep secrets 
 
 ## Usage
 
-Minimal end-to-end example with real commands and expected output. Link the entry point under src/.
+Entry point: `index.mjs` (re-exports `./silent-rules.mjs`).
+
+```js
+import { silentErrors } from "./index.mjs";
+
+silentErrors("const price = 19.99");
+// [{ rule: "money-float",
+//    detail: "A money field uses a decimal literal without bigint, Decimal, or cents." }]
+
+silentErrors("const priceCents = 1999");
+// []
+```
+
+Run the suite: `npm test` (`node --test silent-rules.test.mjs`).
 
 ## Testing
 
