@@ -93,9 +93,7 @@ export function buildHqCheckoutParams({ origin, slug, email, priceId }) {
       "AgentHQ hosted dashboard — $29.99/mo, cancel anytime"
     );
   }
-  ["card", "link", "cashapp", "amazon_pay", "us_bank_account"].forEach((m, i) =>
-    params.set(`payment_method_types[${i}]`, m)
-  );
+  // Stripe retired payment_method_types on Checkout Sessions; Dashboard defaults apply.
   params.set("metadata[sku]", "hq");
   params.set("metadata[slug]", slug);
   if (email) params.set("customer_email", email);
