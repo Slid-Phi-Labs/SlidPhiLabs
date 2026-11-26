@@ -14,11 +14,12 @@ machine and keeps the smallest copy that still restores every byte. All-zero
 files become 8 bytes. If nothing shrinks the file, it is stored as-is so it
 never comes back larger. Restore is the same host.
 
-DUAL LICENSE
-Every product the lab brings forward is available two ways: open terms, or a
-paid commercial grant to ship inside a closed product. A PCC seat is the
-grant for hosted use. pulsar’s closed-product grant is $490/year. CuNi’s is
-$369/year. Chamber, Rider, and Warrant seats cover theirs.
+DUAL LICENSE (compression family)
+PCC, pulsar, CuNi, and related public trees are available two ways: open
+terms, or a paid commercial grant to ship inside a closed product. A PCC
+seat is the grant for hosted use. pulsar’s closed-product grant is $490/year.
+CuNi’s is $490/year. Chamber, Rider, and Warrant seats cover theirs. PSI is
+commercial-only (not an AGPL offer). PERsiST rates are unset and not collected.
 
 NPM CLIENTS (not the encoder)
   slid-phi 2.3.0                 compress() / decompress()

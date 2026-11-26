@@ -35,7 +35,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | # | Item | Why | Owner | Status |
 |--:|------|-----|-------|--------|
 | 16 | psi-doctor Windows path reliability | Effectiveness on Corey’s box | Muse | DONE |
-| 17 | Document `SLIDPHILABS_ROOT` fail-closed clearly on site | Buyer success | Muse | OPEN |
+| 17 | Document `SLIDPHILABS_ROOT` fail-closed clearly on site | Buyer success | Muse | DONE |
 | 18 | Retrieval scorer example in SELL-KIT | Positioning: scars > RAG | Muse | DONE |
 | 19 | Meter savings readout honesty check | No inflated claims | Muse | OPEN |
 | 20 | PSI Org vs Meter differentiation copy | Clarity | Grok | OPEN |
@@ -47,8 +47,8 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 26 | psi surprise log template for HN harvest | Ops | Muse | DONE |
 | 27 | Winbox/green-gate mention on psi public README | Proof | Muse | OPEN |
 | 28 | Commercial seat CTA from psi README → pay | Funnel | Grok | OPEN |
-| 29 | Archive stale AGPL-offer language site-wide | License truth | Muse | OPEN |
-| 30 | PSI vs PERsiST naming glossary (one page) | Kill confusion | Muse | OPEN |
+| 29 | Archive stale AGPL-offer language site-wide | License truth | Muse | DONE |
+| 30 | PSI vs PERsiST naming glossary (one page) | Kill confusion | Muse | DONE |
 
 ## Tier C — Agent-Rider effectiveness (31–42)
 
@@ -91,8 +91,8 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 |--:|------|-----|-------|--------|
 | 56 | Site clarity pass: one lede per product | Positioning | Grok | OPEN |
 | 57 | TeachAid marked suspended everywhere | No false live | Muse | DONE |
-| 58 | Quikgater: name or archive decision note | Kill zombie face | Muse | OPEN |
-| 59 | Tollkeeper: one-sentence what/why | Clarity | Muse | OPEN |
+| 58 | Quikgater: name or archive decision note | Kill zombie face | Muse | DONE |
+| 59 | Tollkeeper: one-sentence what/why | Clarity | Muse | DONE |
 | 60 | TruGame: product-or-archive decision (no SKU invent) | Focus | Corey | OPEN |
 | 61 | History notebook linked from ledger README | Continuity | Muse | DONE |
 | 62 | TOP100 this file linked from ledger README | Ops | Muse | DONE |
@@ -154,4 +154,4 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 3. Bus receipt: `{item, delta, branch}`.
 4. Re-rank #100 weekly; never invent PERsiST rates; never quote conflicting prices.
 
-_Last pass: 2026-11-26 Muse — #8 DONE (suite free edge → unpaid 6.9 GB / 3 h · $0.05/$0.04 · min $0.05; killed 2 GB / 100 GB free claims on live surfaces); next even OPEN: #2 #22…_
+_Last pass: 2026-11-26 Muse — #58 Quikgater keep named face; #59 Tollkeeper one-liner; #30 PSI/PERsiST glossary; #17 SLIDPHILABS_ROOT fail-closed on /wiki/psi; #29 stale AGPL-offer CTAs carved (PSI commercial-only). Next even OPEN: #2 #22…_

@@ -1,12 +1,12 @@
-# QuikGater — financial
+# Quikgater — financial
 
-Updated 2026-11-02. Source: git log, NPM pricing.
+Updated 2026-11-26. Source: `docs/site/pricing.json`, TOP100 #58.
 
-- Was a secondary SoT SKU (08-25, "public face only / IP Guard").
-- No current price. Revenue $0.
-- Next money step: decide if it prices or stays a face.
+- SKU `quikgater` · usage · **$0.02**/fetch · first **100**/mo free · cap default **$10** · alert 80%.
+- Page `/quikgater` · x402 `https://quikgater-worker.ceedotrock.workers.dev/`.
+- Revenue to date: $0 (incoming doctrine). Not archived.
 
 ## History
 
-- 2026-08-20: SEO pack + discovery 1.15.
-- 2026-08-25: SoT pricing entry. No price since.
+- 2026-11-26: #58 — priced face confirmed; keep.
+- 2026-08-20/25: named + SoT entry.

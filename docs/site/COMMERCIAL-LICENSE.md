@@ -7,7 +7,9 @@ Public specialist machine: https://www.slidphilabs.com/specialist
 
 ## Plain English (read this first)
 
-Every product we bring forward is **dual-licensed**. You pick the open license, or you pay a commercial grant and ship closed. Compression through your tools runs every pathway we own on that grant. npm and MCP are clients.
+**Dual-licensed products** (copyleft or a paid commercial grant) include pulsar, PCC, CuNi, Chamber SDK, Agent-Rider source, Warrant source, TNSSRC, and related public trees. You pick the open license, or you pay a commercial grant and ship closed. Compression through your tools runs every pathway we own on that grant. npm and MCP are clients.
+
+**Exception — PSI is commercial-only.** PSI Meter, PSI Org, and PSI Embed are seats / grants, not an AGPL offer. Pre-2026-10-28 AGPL copies of psi stay AGPL; new use is commercial. PERsiST is not on sale (session + token-saved rates unset). Do not advertise an AGPL lane for PSI.
 
 pulsar is GPL-3.0-or-later, or SKU `pulsar-exception` at **$490/year** for one closed product, one year, via the unified grant. CuNi is AGPL-3.0-or-later, or SKU `cuni-exception` at **$490/app/year** via the unified grant. Chamber SDK, Warrant, and Agent-Rider source are AGPL-3.0-or-later, or the unified grant at **$490/product/year**. Chooser files live in each repo as `LICENSE`.
 

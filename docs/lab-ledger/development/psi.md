@@ -5,6 +5,8 @@ Updated 2026-11-26. Source: `~/psi`, interlink doctor + SELL-KIT scorer example.
 - Repo: github.com/ceedot-rock/psi, PUBLIC. 116 tweaks wired.
 - Gate: `PSI-GREEN: quad complete, 116 wired` (bash doctor; needs
   `SLIDPHILABS_ROOT` or tools fail closed RED by design).
+- Naming: [psi-persist-glossary.md](./psi-persist-glossary.md) — PSI Meter/Org/Embed
+  vs PERsiST (not on sale; rates unset) (TOP100 #30).
 - Interlink doctor (Windows): **9/9 PASS** on Corey box — see
   [psi-doctor-windows-2026-11-26.md](./psi-doctor-windows-2026-11-26.md)
   (TOP100 #16).
@@ -33,6 +35,8 @@ Top hit matches the task scar; scorer is `retrieval/score.py`. Re-verified
 
 ## History
 
+- 2026-11-26: TOP100 #30 — PSI vs PERsiST glossary filed as
+  `psi-persist-glossary.md` and linked here.
 - 2026-11-26: TOP100 #16 — `python -m interlink doctor --peer muse` → 9/9
   PASS, home=`C:\Users\ptasz\.psi\a2a` (pathlib Windows-safe). Transcript
   filed under development/. No psi code fix needed; psi push still blocked.

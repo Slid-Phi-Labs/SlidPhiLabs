@@ -24,8 +24,8 @@ One index + three areas. Each area holds one file per project.
 | phi-rest | RAM-serve toy v0.1.0 | `packages/phi-rest` |
 | warrant | Receipted warrants, $290/yr | `docs/site/licensing.json` |
 | tnssrc | Closed grant $369/yr | `docs/site/licensing.json` |
-| tollkeeper | Metered protection tools | wiki + git log |
-| quikgater | Named face, no product yet | git log |
+| tollkeeper | Rider metered protection tools (posted prices on `/tollkeeper`) | [development/tollkeeper.md](./development/tollkeeper.md) |
+| quikgater | Named pay-per-fetch face · $0.02 after 100 free/mo (kept, not archived) | [development/quikgater.md](./development/quikgater.md) · `pricing.json` |
 | teachaid | School product, suspended | residual ledger |
 
 ## Lab timeline (money + rails)
