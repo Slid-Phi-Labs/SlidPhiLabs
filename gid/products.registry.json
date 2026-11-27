@@ -167,6 +167,134 @@
         "hq-slug",
         "hq.test"
       ]
+    },
+    {
+      "name": "warrant",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "warrant"
+      ]
+    },
+    {
+      "name": "chamber",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "chamber-seal"
+      ]
+    },
+    {
+      "name": "gitdepot",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "depot-receipts",
+        "depot-store",
+        "depot-billing"
+      ]
+    },
+    {
+      "name": "trustream",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "trustream"
+      ]
+    },
+    {
+      "name": "pcc",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "pccz",
+        "engines",
+        "hosted-job",
+        "specialist",
+        "context-compress"
+      ]
+    },
+    {
+      "name": "quikgater",
+      "path": "docs/site/api",
+      "focus": [
+        "quikgater"
+      ]
+    },
+    {
+      "name": "acp",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "acp-layers"
+      ],
+      "note": "AcP \u2014 Agent Commerce Protocol (branding AcP, not ACP)"
+    },
+    {
+      "name": "arn",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "acn-schema",
+        "acn-accounting"
+      ],
+      "note": "ArN \u2014 Agent Commerce Network (branding ArN, not ACN)"
+    },
+    {
+      "name": "conductor",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "conductor-tasks",
+        "conductor-review"
+      ]
+    },
+    {
+      "name": "awlpay",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "payment-gateway",
+        "operator-payouts",
+        "payments-rails"
+      ]
+    },
+    {
+      "name": "pulsar",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "pulsar-host"
+      ]
+    },
+    {
+      "name": "mcp-host",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "product-mcp"
+      ]
+    },
+    {
+      "name": "tollkeeper",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "call-doors"
+      ]
+    },
+    {
+      "name": "lab-pass",
+      "path": "docs/site/api/lib",
+      "focus": [
+        "storefront-skills",
+        "subscriptions",
+        "claim-seat"
+      ]
+    },
+    {
+      "name": "teachaid",
+      "path": "../teachaid"
+    },
+    {
+      "name": "agent-rider",
+      "path": "../Agent-Rider/packages/agent-rider"
+    },
+    {
+      "name": "agent-rider-quickstart",
+      "path": "../Agent-Rider/packages/agent-rider-quickstart"
+    },
+    {
+      "name": "gitdepot-hub",
+      "path": "../gitdepot-hub"
     }
   ]
 }

@@ -2245,8 +2245,31 @@
       }
     },
     {
+      "name": "spl_arn",
+      "description": "ArN product door (Agent Commerce Network). op=card. Alias: spl_acn.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
       "name": "spl_acn",
-      "description": "ACN product door. op=card.",
+      "description": "Alias for spl_arn (ArN). Prefer spl_arn.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -2269,7 +2292,7 @@
     },
     {
       "name": "spl_acp",
-      "description": "ACP product door. op=layers|card.",
+      "description": "AcP product door (Agent Commerce Protocol). op=layers|card.",
       "inputSchema": {
         "type": "object",
         "properties": {
