@@ -62,18 +62,18 @@ const opProp = (ops, extra = "Required.") => ({
 /** Canonical product registry for discovery + dispatch. */
 export const LAB_PRODUCTS = Object.freeze([
   {
-    id: "acn",
-    tool: "spl_acn",
+    id: "arn",
+    tool: "spl_arn",
     ops: ["card"],
     page: SITE + "/mcp-service",
-    note: "Agent Commerce Network — hosted MCP at /mcp",
+    note: "ArN — Agent Commerce Network — hosted MCP at /mcp (branding ArN, not ACN)",
   },
   {
     id: "acp",
     tool: "spl_acp",
     ops: ["layers", "card"],
     page: SITE + "/acp",
-    note: "Agent Commerce Protocol layers (in development)",
+    note: "AcP — Agent Commerce Protocol layers (branding AcP, not ACP)",
   },
   {
     id: "rider",
@@ -209,11 +209,11 @@ export const LAB_PRODUCTS = Object.freeze([
     note: "Rider toll tools — call pcc-compress, exactodds-draw, chamber-seal, …",
   },
   {
-    id: "acn_mcp",
+    id: "arn_mcp",
     tool: "spl_products",
     ops: ["list"],
     page: SITE + "/mcp",
-    note: "Meta: list every product MCP door",
+    note: "Meta: list every product MCP door (ArN host)",
   },
 ]);
 
@@ -481,8 +481,9 @@ export const PRODUCT_TOOLS = Object.freeze([
     },
     ["product", "op"],
   ),
-  tool("spl_acn", "ACN product door. op=card.", { op: opProp(["card"]) }, ["op"]),
-  tool("spl_acp", "ACP product door. op=layers|card.", { op: opProp(["layers", "card"]) }, ["op"]),
+  tool("spl_arn", "ArN product door (Agent Commerce Network). op=card. Alias: spl_acn.", { op: opProp(["card"]) }, ["op"]),
+  tool("spl_acn", "Alias for spl_arn (ArN). Prefer spl_arn.", { op: opProp(["card"]) }, ["op"]),
+  tool("spl_acp", "AcP product door (Agent Commerce Protocol). op=layers|card.", { op: opProp(["layers", "card"]) }, ["op"]),
   tool("spl_rider", "Rider product door. op=card. Issue/verify live on Agent-Rider; warrants use spl_warrant_*.", { op: opProp(["card"]) }, ["op"]),
   tool("spl_warrant", "Warrant product door. op=card. Runtime: spl_warrant_issue/verify/reserve/release/receipt.", { op: opProp(["card"]) }, ["op"]),
   tool(
@@ -644,19 +645,35 @@ export async function dispatchProductTool(name, args = {}, req = null, deps = {}
   if (product === "git_depot") product = "gitdepot";
   if (product === "exact_odds") product = "exactodds";
   if (product === "tru_game") product = "trugame";
-  if (product === "acn_mcp") product = "acn";
+  if (product === "arn_mcp" || product === "acn_mcp") product = "arn";
+  if (product === "acn") product = "arn";
 
   switch (product) {
     case "products":
       return dispatchProductTool("spl_products", {}, req, deps);
-    case "acn":
-      if (op === "card") return cardFor("acn", { endpoint: SITE + "/mcp", version: "streamable-http" });
+    case "arn":
+      if (op === "card") {
+        return cardFor("arn", {
+          brand: "ArN",
+          endpoint: SITE + "/mcp",
+          version: "streamable-http",
+          note: "ArN (not ACN)",
+        });
+      }
       break;
     case "acp":
-      if (op === "card") return cardFor("acp", { layers: ACP_LAYERS.length, missing: missingAcpLayers() });
+      if (op === "card") {
+        return cardFor("acp", {
+          brand: "AcP",
+          layers: ACP_LAYERS.length,
+          missing: missingAcpLayers(),
+          note: "AcP (not ACP)",
+        });
+      }
       if (op === "layers") {
         return {
           ok: true,
+          brand: "AcP",
           layers: ACP_LAYERS.map(([id, path]) => ({ id, path })),
           missing: missingAcpLayers(),
         };

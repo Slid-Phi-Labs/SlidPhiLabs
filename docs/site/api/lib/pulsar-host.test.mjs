@@ -1,4 +1,4 @@
-import { test } from "node:test";
+﻿import { test } from "node:test";
 import assert from "node:assert/strict";
 import { looksPulsar, magicOf } from "./pulsar-host.mjs";
 
@@ -17,4 +17,10 @@ test("magicOf returns each pulsar magic or null", () => {
   }
   assert.equal(magicOf(Buffer.from("nope")), null);
   assert.equal(looksPulsar(Buffer.from("nope")), false);
+});
+
+test("invalid pulsar buffers are rejected", () => {
+  assert.equal(looksPulsar(Buffer.alloc(0)), false);
+  assert.equal(magicOf(Buffer.from("FAIL")), null);
+  assert.equal(looksPulsar(Buffer.from("wrong")), false);
 });
