@@ -23,9 +23,10 @@ import {
   dispatchFetch,
   dispatchSqueeze,
 } from "./lib/call-doors.mjs";
+import { PRODUCT_TOOLS, isProductTool, dispatchProductTool } from "./lib/product-mcp.mjs";
 
 const SITE = "https://www.slidphilabs.com";
-const MCP_VERSION = "1.22.0";
+const MCP_VERSION = "1.23.0";
 
 export const COMMERCE = [
   {
@@ -231,6 +232,7 @@ export const COMMERCE = [
   },
   ...CALL_TOOLS,
   ...AGENTIC_TOOLS,
+  ...PRODUCT_TOOLS,
 ];
 
 export const SERVER_CARD = {
@@ -345,6 +347,7 @@ async function callTool(name, args = {}, req) {
     return dispatchCuni(name, args);
   }
   if (name === "spl_discover") {
+    const products = await dispatchProductTool("spl_products", {});
     return {
       lead_product: "rider",
       cash_product: "chamber",
@@ -363,6 +366,8 @@ async function callTool(name, args = {}, req) {
       x402: SITE + "/api/x402-products",
       skill: SITE + "/SKILL.md",
       npx: "npx -y spl-pay-per-suite mcp",
+      product_tools: "spl_products + spl_product_call + spl_<product>",
+      products: products.products,
     };
   }
   if (name === "spl_lab_auth") {
@@ -434,8 +439,14 @@ async function callTool(name, args = {}, req) {
       note: args.note,
     });
   }
-  if (name === "spl_agentic_plan" || name === "spl_agentic_run") {
+  if (name === "spl_agentic_plan" || name === "spl_agentic_context" || name === "spl_agentic_run") {
     return dispatchAgentic(name, args);
+  }
+  if (isProductTool(name)) {
+    return dispatchProductTool(name, args, req, {
+      compress: (a, r) => callTool("spl_compress", a, r),
+      decompress: (a, r) => callTool("spl_decompress", a, r),
+    });
   }
   throw new Error("Unknown tool: " + name);
 }
