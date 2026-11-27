@@ -15,7 +15,7 @@
     "Agent-Rider": "signed agent identity L0\u2013L4. Solo $12 \u00b7 Team $49 \u00b7 Fleet $199 per month. Overage $0.02 per verification, customer-set cap, alert at 80%. Rider Solo included in Lab Pass.",
     "PCC": "lossless compressor through your tools. POST /v1/compress. Metered $0.25/GB of input, first 1 GB free once per IP (lifetime); Pro $25/mo (100 GB included, then $0.20/GB). squeeze is $0.10.",
     "TRUSTREAM": "live logs on the PCC plan.",
-    "Suite": "PCC meter. First 1 GB free once per IP (lifetime), then $0.25/GB of input. Customer-set cap (default $25), alert at 80%.",
+    "Suite": "First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05. Customer-set cap (default $25), alert at 80%.",
     "Lab Pass": "Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year for 365 days, $495. PCC/compression out.",
     "Access": "entitlement claim after Stripe or x402. Not a codec dump.",
     "pulsar": "free GPLv3 compressor you run on your own machine. Closed embed via unified grant $490/product/year.",
@@ -200,7 +200,7 @@
     },
     "/pps": {
       "title": "Suite — metered encode/decode · Slid Phi Labs",
-      "description": "Pay per PCC job. First 1 GB free once per address (lifetime, no monthly reset), then $0.25/GB of input.",
+      "description": "Suite meters encode/decode jobs. First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05.",
       "canonical": "https://www.slidphilabs.com/pps"
     },
     "/access": {
