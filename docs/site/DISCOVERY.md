@@ -18,7 +18,7 @@ Tool engines (MCP): `/.well-known/mcp.json` · `/.well-known/agent.json` · `/.w
 - Lab: Slid Phi Labs, Cherry Hill, NJ. Corey Ptaszenski. corey@slidphilabs.com
 - Site: https://www.slidphilabs.com
 - Humans: https://www.slidphilabs.com/humans · Agents: https://www.slidphilabs.com/agents
-- Catalog: AgentHQ (`/hq`, $29.99/mo, sku hq-month / lookup spl_hq_month), Rider, CuNi (nine hosted calls), Warrant, Tollkeeper (ten live metered tools), PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD
+- Catalog: AgentHQ (`/hq`, $29.99/mo, sku hq-month / lookup spl_hq_month), Rider, CuNi (nine hosted calls), Warrant, Tollkeeper (ten live metered tools), PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD (suspended / not on sale / residual)
 - AgentHQ: https://www.slidphilabs.com/hq · claim via Stripe Checkout `POST /api/hq?action=create` · Price `price_1UfxcLLehTFD59CGBhLOr1Cl`
 - Calls: POST https://www.slidphilabs.com/v1/<name>. check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00, squeeze $0.10, fetch $0.02. compress/decompress/zip/unzip use the PCC meter (first 1 GB free once per IP, then $0.25/GB). quote is free. seal has no per-seal price. open is free.
 - PCC meter: first 1 GB free once per IP (lifetime), then $0.25/GB. Pro $25/mo (100 GB included, then $0.20/GB, sku pcc-pro). Encoder not in npm.

@@ -20,7 +20,7 @@ Public product is **PCC**. AWARE is a retired alias. Combined GC 1.19.2 is a pri
 | Methods | `docs/site/METHODS.md` |
 | Discovery | https://www.slidphilabs.com/llms.txt |
 
-Meter: first **1 GB once per address free**, then **$0.25/GB**. Not 6.9 GB / 3 h / 5¢.
+Suite free edge: unpaid **1 GB free once per address (lifetime)**, then **$0.05/GB** (bulk **$0.04/GB**), min **$0.05**. Do not advertise 100 GB free or 2 GB free.
 Lab Pass: **$668/yr**. Not $1088.
 PCC meter: first 1 GB free once per address, then $0.25/GB. Pro $25/mo (100 GB, then $0.20/GB) or $250/yr. Checkout SKUs: pcc-pro, pcc-pro-year.
 Chamber $20/$200. Rider Solo $12, Team $49, Fleet $199. Warrant $8/$80. CuNi Studio $0. Closed-app grant $490/yr.
@@ -55,7 +55,7 @@ Private: combined-gc engine, lab dumps.
 
 - Combined GC 1.19.2 as the product name
 - AWARE as a current SKU
-- 6.9 GB / 3 h unpaid cap
+- 1 GB free once per address (lifetime) cap
 - Lab Pass $1088
 - AWARE+XZ1 47,752,368 as a live spec
 - Side Vercel shop as canonical

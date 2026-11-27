@@ -144,6 +144,14 @@
       "path": "lab-board/monorepo/packages/db"
     },
     {
+      "name": "lab-dashboard",
+      "path": "lab-board/dashboard"
+    },
+    {
+      "name": "lab-identity",
+      "path": "lab-board/identity"
+    },
+    {
       "name": "slid-phi",
       "path": "."
     },

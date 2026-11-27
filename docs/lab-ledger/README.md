@@ -4,6 +4,9 @@ Built 2026-11-02. History pass same day back to repo birth (lab git
 2026-07-29, 750 commits; psi git 2026-10-16; observatory 10-17→10-28).
 One index + three areas. Each area holds one file per project.
 
+**Attack list:** [TOP100-ATTACK.md](./TOP100-ATTACK.md) (positioning + effectiveness + betterment).  
+**History:** [slidphilabs-history-timeline.ipynb](./slidphilabs-history-timeline.ipynb).
+
 ## Projects (full files in each area)
 
 | Project | What | Canonical source |
@@ -21,8 +24,8 @@ One index + three areas. Each area holds one file per project.
 | phi-rest | RAM-serve toy v0.1.0 | `packages/phi-rest` |
 | warrant | Receipted warrants, $290/yr | `docs/site/licensing.json` |
 | tnssrc | Closed grant $369/yr | `docs/site/licensing.json` |
-| tollkeeper | Metered protection tools | wiki + git log |
-| quikgater | Named face, no product yet | git log |
+| tollkeeper | Rider metered protection tools (posted prices on `/tollkeeper`) | [development/tollkeeper.md](./development/tollkeeper.md) |
+| quikgater | Named pay-per-fetch face · $0.02 after 100 free/mo (kept, not archived) | [development/quikgater.md](./development/quikgater.md) · `pricing.json` |
 | teachaid | School product, suspended | residual ledger |
 
 ## Lab timeline (money + rails)
@@ -61,11 +64,15 @@ One index + three areas. Each area holds one file per project.
 
 ## Known doc conflicts (recorded, not resolved)
 
-- Suite free edge: 6.9 GB / 3 h (canonical, NPM pricing) vs 2 GB/mo
-  (licensing caps) vs 100 GB (stale residual ledger + npm 1.1.8).
-- PCC year: $369 (funding/pcc page) vs $390 (licensing gc-year).
-  Quote $369, fix the file, never the customer.
-- CuNi exception: $390 SKU, description text says $369. Same rule.
+- Suite free edge: **resolved** — quote unpaid **1 GB free once per address (lifetime)**, then
+  **$0.05/GB** (bulk **$0.04/GB**), min **$0.05** (`licensing.json` caps.suite,
+  `pricing.json` suite, `/pps`, `spl-pay-per-suite`). Old 2 GB / 100 GB free
+  claims retired (TOP100 #8, 2026-11-26).
+- PCC year: **resolved** — quote **$250/yr** (`pcc-pro-year` in `licensing.json` /
+  `pricing.json` / funding). Old $369 vs $390 / gc-year conflict retired
+  (TOP100 #6, 2026-11-26).
+- CuNi exception: canonical **$490** (`licensing.json` / unified grant).
+  Fixed `api/cuni-plans.json` cents 36900→49000 on 2026-11-26 (TOP100 #7).
 
 ## Update rule (standing)
 

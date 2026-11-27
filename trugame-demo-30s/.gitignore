@@ -1,0 +1,4 @@
+# Rendered demo outputs (regenerable via python demo_30s.py).
+demo_frames/
+*.mp4
+__pycache__/

@@ -12,6 +12,18 @@ test("the dashboard page names agents and spend", () => {
   assert.match(html, /Spend/);
 });
 
+test("a corrupt warrant file is refused without breaking the page", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "lab-warrants-"));
+  try {
+    fs.mkdirSync(path.join(dir, "warrants"));
+    fs.writeFileSync(path.join(dir, "warrants", "broken.json"), "{not json");
+    const html = page(dir);
+    assert.match(html, /0 warrants/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("an empty warrant directory still returns the empty sentence and receipts link", () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "lab-warrants-"));
   try {

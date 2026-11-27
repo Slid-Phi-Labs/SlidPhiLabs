@@ -13,7 +13,7 @@
 | 1 | Anchor integer plane — fixed costs + incoming $ exact | **THIS DOC** |
 | 2 | Dual A∥B spend columns — min vs −33% | **THIS DOC §2** |
 | 3 | Time as structured-int — 90d · 66h sprint / 33h rest / 9h gate | Host calendar |
-| 4 | Public micro-product freemium edge — 100 GB free · 5¢/GB | **LIVE** `/pps` `/bench` |
+| 4 | Public micro-product freemium edge — 1 GB free once per address (lifetime) · 5¢/GB | **LIVE** `/pps` `/bench` |
 | 5 | Surplus via owned Stripe + x402 only | **PIPES LIVE** |
 | 6 | Compress personal burn like data | Host action |
 | 7 | Visible scoreboard | **LIVE** `/standings` `/bench` |
@@ -54,7 +54,7 @@
 
 | Product | Free edge | Paid edge | Source |
 |---------|-----------|-----------|--------|
-| **SPL Pay Per Suite** | **100 GB / job free** | **$0.05/GB** first 100 billable GiB · **$0.04/GB** after · min **$0.05** | `api/suite-pricing.js` |
+| **SPL Pay Per Suite** | **1 GB free once per address (lifetime)** | **$0.05/GB** first 100 billable GiB · **$0.04/GB** after · min **$0.05** | `api/suite-pricing.js` |
 | CDDG-split add | — | +$0.25 when billable | same |
 | ZRW Starting Gate / Pro / L33t | Stripe Payment Links | fixed SKUs | `ZRW_STRIPE_*` |
 | TEACHAiD Pro / tuition | pricing page | Stripe | teachaid |
@@ -115,7 +115,7 @@ Mirror law: cutting 33% on spend without cutting the **proof surface** (`/standi
 
 | Artifact | URL / pipe | Role |
 |----------|------------|------|
-| Freemium micro-product | `/pps` + `/api/*` suite | 100 GB free · 5¢/GB |
+| Freemium micro-product | `/pps` + `/api/*` suite | 1 GB free once per address (lifetime) · 5¢/GB |
 | Open proof | `/bench` · `/standings` | self-serve before pay |
 | Stripe | live restricted key on Fly | human $ |
 | x402 | pay addresses + suite x402 routes | agent $ |
@@ -139,7 +139,7 @@ Mirror law: cutting 33% on spend without cutting the **proof surface** (`/standi
 |-------|------------------|
 | `/standings` | ZRW 8 B · domain records |
 | `/bench` | SPL vs gzip vs brotli live |
-| `/pps` | live quote · free 100 GB |
+| `/pps` | live quote · first 1 GB free once per address (lifetime) |
 
 Transparency = marketing flywheel. Do not hide the free edge.
 

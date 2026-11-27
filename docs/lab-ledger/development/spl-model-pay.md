@@ -10,3 +10,7 @@ Updated 2026-11-02. Source: `packages/spl-model-pay` v0.1.0.
 ## History
 
 - No git history. Uncommitted v0.1.0 in tree; birth undated.
+
+- 2026-11-26 eve (GID close-out):
+  - spl-model-pay: 90 -> 100 (package-lock + CHANGELOG; suite green).
+

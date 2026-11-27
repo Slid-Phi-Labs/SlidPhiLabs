@@ -5,7 +5,7 @@
  * Body: { name, intent, seed }
  * - seed must be exactly 33 UTF-8 bytes (Creator seal)
  * - seed is NEVER stored or returned — only SHA-256 hash → identity token
- * - grants: public unpaid cap only (codec, first 1 GB free once per IP)
+ * - grants: public unpaid cap only (codec, 1 GB free once per address (lifetime))
  * - no Smart Box, no residual coeffs, no living shard names
  */
 import { createHash, randomUUID } from "node:crypto";
@@ -29,7 +29,8 @@ function json(res, status, body) {
 function grants() {
   return {
     layer: "public_freemium_only",
-    free_cap_gb_per_job: 2,
+    free_cap_gb_per_job: 1,
+    free_window: "lifetime-per-address",
     read: [
       {
         id: "spl_codec",

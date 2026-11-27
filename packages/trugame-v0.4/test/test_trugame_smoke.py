@@ -85,6 +85,12 @@ def test_physics_tick_clamps_at_ground():
     assert body.vel[1] == 0
 
 
+def test_query_mismatch_returns_no_entities():
+    ecs = ecs_mod.WorldECS()
+    ecs.create_entity(ecs_mod.Transform(pos=[1.0, 2.0, 3.0]))
+    assert list(ecs.query(ecs_mod.Transform, ecs_mod.RigidBody)) == []
+
+
 def test_physics_tick_skips_static_body():
     ecs = ecs_mod.WorldECS()
     ecs.create_entity(

@@ -1,0 +1,3 @@
+# spl-lab-calls has no third-party dependencies (stdlib only;
+# see requires-python in pyproject.toml). This empty requirements
+# file pins that: nothing to install.

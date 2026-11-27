@@ -107,6 +107,14 @@ a { color:#0f766e; }</style>
   </div>
   <div class="svc">
     <div class="svc-head">
+      <div><span class="svc-name">AgentHQ</span><br>
+      <span class="svc-endpoint">/hq · /api/hq</span></div>
+      <span class="badge none">Checking — live</span>
+    </div>
+    <div class="meta">Stripe-gated hosted agent dashboard · $29.99/mo · live probe hits status action</div>
+  </div>
+  <div class="svc">
+    <div class="svc-head">
       <div><span class="svc-name">Network</span><br>
       <span class="svc-endpoint">/api/health · stages</span></div>
       <span class="badge none">Checking — live</span>
@@ -138,6 +146,7 @@ a { color:#0f766e; }</style>
     { name: "TRUSTREAM", probe: "/api/health", same: true },
     { name: "Agent-Rider", probe: "https://agentrider.fly.dev/", same: false },
     { name: "CuNi Studio", probe: "https://spl-cuni-studio.fly.dev/api/health", same: false },
+    { name: "AgentHQ", probe: "/api/hq?action=status&name=status-probe", same: true, hq: true },
     { name: "Network", probe: "/api/health", same: true, stages: true }
   ];
   function paintStages(svc, stages) {
@@ -174,6 +183,19 @@ a { color:#0f766e; }</style>
     if (!svc) return;
     if (row.same) {
       fetch(row.probe, { cache: "no-store" }).then(function (r) {
+        if (row.hq) {
+          // unknown_hq 404 still proves the handler is live
+          if (r.status === 200 || r.status === 404) {
+            return r.json().then(function (j) {
+              var up = j && (j.ok === true || j.reason === "unknown_hq");
+              paint(svc, up ? "ok" : "warn",
+                up ? "Operational — live" : "Degraded — live", row.probe);
+            });
+          }
+          paint(svc, r.status >= 500 ? "down" : "warn",
+            (r.status >= 500 ? "Outage" : "Degraded") + " — live HTTP " + r.status, row.probe);
+          return;
+        }
         if (r.status === 200) return r.json().then(function (j) {
           paint(svc, j && j.ok ? "ok" : "down",
             j && j.ok ? "Operational — live" : "Outage — live", row.probe);

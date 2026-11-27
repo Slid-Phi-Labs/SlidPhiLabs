@@ -36,6 +36,26 @@ The PCC meter is $0.25 per GB of input after the first 1 GB, once per address. P
 
 **Y Combinator W27** ($500k standard) and/or a **$500–750k seed** for 18 months: founder salary, one infra/sales hire, compute for honest benches, legal. Details: `USE_OF_FUNDS.md`.
 
+## Break-even (ledger truths)
+
+| Mode | Monthly nut | Seat signal (ledger README) |
+|------|------------:|-----------------------------|
+| Lean (compute ~$500 + fees, no draw) | ~$800 | ~27 seats |
+| Funded (salary + compute + ops) | ~$15k | ~490 seats (historical $37 ladder note in `FUNDING_FIGURES.md`) |
+
+Incoming stays **$0** until Stripe last-30-days is filled. Arithmetic only — not a demand forecast. Source: `docs/lab-ledger/README.md` + `FUNDING_FIGURES.md`.
+
+## Milestones (18 mo)
+
+| Gate | Signal |
+|------|--------|
+| **M3** | Stripe + x402 numbers public, even if small |
+| **M6** | One seat category with repeat use |
+| **M12** | One named bulk/ops customer; priced seed or Demo Day |
+| **M18** | Default-alive on seats + suite, or clean shutdown |
+
+Same ladder as ledger README / `USE_OF_FUNDS.md`.
+
 ## What we will not say
 
 - That pulsar or PCC is the best compressor.  

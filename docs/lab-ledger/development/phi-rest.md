@@ -10,3 +10,7 @@ Updated 2026-11-02. Source: `packages/phi-rest` v0.1.0.
 
 - 2026-08-15: portable package + createRest (`f7a48b0`).
 - 2026-10-17: npm card + GPR mirror (`b5a139a`). Nothing since.
+
+- 2026-11-26 eve (GID close-out):
+  - phi-rest: 85 -> 100 (real Usage + CHANGELOG + package-lock; suite offline green).
+

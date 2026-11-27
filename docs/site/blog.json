@@ -113,10 +113,10 @@
       "id": "2026-08-07-freemium-retire-try-gate",
       "week_of": "2026-08-04",
       "published": "2026-08-07",
-      "title": "Try Gate retired: 6.9 GB / 3 h unpaid, then usage",
+      "title": "Try Gate retired: 1 GB free once per address (lifetime), then usage",
       "slug": "2026-08-07-freemium-suite-retires-try-gate",
       "url": "https://www.slidphilabs.com/blog/2026-08-07-freemium-suite-retires-try-gate",
-      "summary": "$9 Try Gate removed. Freemium suite is the eval path: 6.9 GB / 3 h unpaid, then ~5\u00a2/GB under cloud egress.",
+      "summary": "$9 Try Gate removed. Freemium suite is the eval path: 1 GB free once per address (lifetime), then ~5\u00a2/GB under cloud egress.",
       "tags": [
         "pricing",
         "freemium",

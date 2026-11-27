@@ -21,11 +21,11 @@ const text = (rel) => readFileSync(join(root, rel), "utf8");
 
 // ---- value level: code constants equal the JSON source ----
 
-test("meter constants match pricing.json", () => {
-  assert.equal(CENTS_PER_GB / 100, math.pcc_meter_gb);
-  assert.equal(FREE_GB, pricing.products.pcc.meter.free_gb);
-  assert.equal(FREE_WINDOW, pricing.products.pcc.meter.free_window);
-  assert.equal(DEFAULT_CAP_CENTS / 100, pricing.products.pcc.meter.cap_default_usd);
+test("suite meter constants match pricing.json suite", () => {
+  assert.equal(CENTS_PER_GB / 100, pricing.suite.usd_per_gb_after_free);
+  assert.equal(FREE_GB, pricing.suite.free_cap_gb);
+  assert.equal(FREE_WINDOW, pricing.suite.window);
+  assert.equal(DEFAULT_CAP_CENTS / 100, pricing.suite.cap_default_usd);
 });
 
 // ---- text level: published surfaces carry the same numbers ----
@@ -66,24 +66,23 @@ test("agent catalog amounts match pricing.json math", () => {
   assert.match(agent, new RegExp(`"chamber-month"[\\s\\S]{0,200}usd: "${math.chamber_month}"`));
 });
 
-test("spl-pay-per-suite copy matches pricing.json (LAB50 step 41)", () => {
+test("spl-pay-per-suite copy matches pricing.json suite (LAB50 step 41)", () => {
   const pkgRoot = join(root, "..", "..", "packages", "spl-pay-per-suite");
   const readme = readFileSync(join(pkgRoot, "README.md"), "utf8");
   const quote = readFileSync(join(pkgRoot, "src", "quote.mjs"), "utf8");
-  assert.match(readme, /First \*\*1 GB\*\*.*lifetime/, "README free tier");
-  assert.match(readme, /\$0\.25\/GB/, "README meter");
+  assert.match(readme, /\*\*1 GB free once per address \(lifetime\)\*\*/, "README unpaid free edge");
+  assert.match(readme, /\$0\.05\/GB/, "README meter");
   assert.match(quote, /export const FREE_GB = 1;/, "quote FREE_GB");
-  assert.match(quote, /export const FREE_WINDOW = "lifetime";/, "quote FREE_WINDOW");
-  assert.ok(!readme.includes("2 GB/month") && !readme.includes("8¢"),
-    "stale 2 GB / 8c copy must not return");
+  assert.match(quote, /export const FREE_WINDOW = "lifetime-per-address";/, "quote FREE_WINDOW");
+  assert.ok(!readme.includes("2 GB/month") && !readme.includes("8¢") && !readme.includes("100 GB free") && !readme.includes("6.9 GB"),
+    "stale 2 GB / 8c / 100 GB free / 6.9 GB copy must not return");
 });
 
 test("mcp-service page carries current prices", () => {
   const page = text("mcp-service.html");
-  assert.match(page, /first 1 GB free once per IP \(lifetime\), then \$0\.25\/GB/);
   assert.match(page, /Chamber \$20\/mo · \$200\/yr/);
   assert.match(page, /Lab Pass \$495\/yr/);
-  assert.ok(!page.includes("2 GB/month") && !page.includes("8¢"),
+  assert.ok(!page.includes("2 GB/month") && !page.includes("8¢") && !page.includes("100 GB free"),
     "stale meter copy must not return");
 });
 

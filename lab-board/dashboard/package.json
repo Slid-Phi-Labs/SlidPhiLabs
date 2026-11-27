@@ -1,0 +1,9 @@
+{
+  "description": "Lab dashboard: warrants and spend from disk, lab mode without Clerk.",
+  "name": "@slidphi/lab-dashboard",
+  "private": true,
+  "type": "module",
+  "main": "./server.mjs",
+  "exports": { ".": "./server.mjs" },
+  "scripts": { "test": "node --test server.test.mjs" }
+}

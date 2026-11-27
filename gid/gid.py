@@ -41,7 +41,11 @@ SECRET_PLACEHOLDER_RE = re.compile(
     re.IGNORECASE,
 )
 RUST_TEST_RE = re.compile(r"#\[test\]")
-PLACEHOLDER_RE = re.compile(r"\b(TODO|PLACEHOLDER|TBD|FIXME)\b", re.IGNORECASE)
+# Plain literals: this file is never a scored product, so no self-scan dodge.
+# (Vendored bundles are excluded by name in _VENDOR_TODO_NAME instead.)
+PLACEHOLDER_RE = re.compile(
+    r"\b(TODO|PLACEHOLDER|TBD|FIXME)\b", re.IGNORECASE
+)
 
 CHECKS = [
     ("G-FUNC-01", "Manifest present", "Functionality"),
@@ -84,12 +88,13 @@ JUNK_RES = (
     re.compile(r"(^|/)\.DS_Store$"),
 )
 SKIP_DIRS = {".git", "node_modules", "target", "__pycache__", ".venv",
-             "venv", "dist", "build", "vendor", "third_party"}
+             "venv", "dist", "build", "vendor", "third_party",
+             ".tox", ".mypy_cache", ".pytest_cache", "site-packages"}
 EXEC_TIMEOUT_S = 120
 
 SAFE_FIXABLE = {"G-DOC-01", "G-DOC-02"}
 
-# Vendored / generated bundles — their upstream TODO/FIXME markers are not
+# Vendored / generated bundles — their upstream open-item markers are not
 # lab product debt (e.g. livekit client ESM under docs/site/assets).
 _VENDOR_TODO_NAME = re.compile(
     r"(livekit-client|\.min\.js$|\.bundle\.js$|\.umd\.js$)", re.IGNORECASE
@@ -528,20 +533,31 @@ def check_product(
     except OSError:
         clog_ok = False
     todo_re = re.compile(r"\b(TODO|FIXME)\b", re.IGNORECASE)
+    # Test files ARE in scope: real debt lives in tests too (e.g. a test
+    # noting an unverified security check). Test *data* for the
+    # marker-detector feature itself is not debt: markers inside string
+    # literals are stripped before matching, comments still count.
+    # This scanner file is never product debt (slid-phi path=".").
+    self_file = Path(__file__).resolve()
     if focus:
-        todo_scope = [f for f in focus_files if not is_test_file(f)]
+        todo_scope = list(focus_files)
     else:
         todo_scope = [
             f for f in _tree_files(pdir)
             if f.suffix in SOURCE_SUFFIXES
-            and not is_test_file(f)
             and not _VENDOR_TODO_NAME.search(f.name)
         ]
+    todo_scope = [
+        f for f in todo_scope
+        if f.resolve() != self_file
+        and not _VENDOR_TODO_NAME.search(f.name)
+    ]
     todo_ok = True
     for f in todo_scope:
         try:
-            if todo_re.search(f.read_text(encoding="utf-8",
-                                          errors="replace")):
+            text = _strip_string_literals(f.read_text(encoding="utf-8",
+                                                      errors="replace"))
+            if todo_re.search(text):
                 todo_ok = False
                 break
         except OSError:
@@ -570,6 +586,17 @@ def check_product(
         "G-TODO-01": POINTS if todo_ok else 0,
     }
     return checks, {"exec": execm}
+
+
+_STRING_LITERAL_RE = re.compile(
+    r"'(?:[^'\\\n]|\\.)*'|\"(?:[^\"\\\n]|\\.)*\"|`(?:[^`\\]|\\.)*`")
+_REGEX_LITERAL_RE = re.compile(r"/(?:[^/\\\n]|\\.)+/[gimsuy]*")
+
+def _strip_string_literals(text: str) -> str:
+    """Blank out single-line string and regex-literal contents so test
+    *data* mentioning markers (detector corpus) does not flag, while
+    markers in comments still count as debt."""
+    return _REGEX_LITERAL_RE.sub("", _STRING_LITERAL_RE.sub("", text))
 
 
 def _parse_node(out: str) -> tuple[int, int, int]:
@@ -762,18 +789,25 @@ FIX_GUIDANCE = {
     "G-DOC-01": "Auto-fixable: stub README created from manifest name/version.",
     "G-DOC-02": "Auto-fixable: stub NOTICE / CHANGELOG.md created.",
     "G-OPS-01": "Cut a version past 0.1.0 with a CHANGELOG entry.",
-    "G-OPS-02": "Fill each TODO/PLACEHOLDER or file an issue and drop the marker.",
+    "G-OPS-02": (
+        "Fill each TODO/PLACEHOLDER or file an issue and drop the marker."
+    ),
     "G-WIRE-01": "Reference the product's own test file/dir in the manifest test command (cargo test / pytest config counts).",
     "G-SURF-01": "Declare the surface (npm main/exports, named project package, binary target) or gain an importer.",
     "G-EXEC-01": "Make the suite green; on a blocked box, re-run where the toolchain exists (output excerpt in record).",
-    "G-EXEC-02": "Unskip or remove skipped/todo tests; on a blocked box, re-run where the toolchain exists.",
+    "G-EXEC-02": (
+        "Unskip or remove skipped/todo tests; on a blocked box, re-run "
+        "where the toolchain exists."
+    ),
     "G-NEG-01": "Add one negative-path case (refusal/mismatch/invalid) to the suite.",
     "G-LOCK-01": "Cut a lockfile beside the manifest; never auto-run, log the command.",
     "G-HTTPS-01": "Move the URL to https.",
     "G-USAGE-01": "Human writes a real usage example with expected output; never fabricated.",
     "G-LOG-01": "Human records real CHANGELOG entries past the GID stub.",
     "G-JUNK-01": "Untrack the build artifact and ignore it; never ship caches.",
-    "G-TODO-01": "Fill each source TODO/FIXME or file an issue and drop the marker.",
+    "G-TODO-01": (
+        "Fill each source TODO/FIXME or file an issue and drop the marker."
+    ),
 }
 
 

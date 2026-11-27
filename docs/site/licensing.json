@@ -7,8 +7,8 @@
   "terms": "https://www.slidphilabs.com/COMMERCIAL-LICENSE.md",
   "machine": "https://www.slidphilabs.com/specialist",
   "api": "https://www.slidphilabs.com/api/specialist",
-  "plain": "Every product is dual-licensed and public: copyleft, or a paid grant to ship closed. Compression through your tools runs every pathway we own and keeps the smallest file that still restores. Signing keys, Chamber kernel secrets, and live customer data stay operator-only.",
-  "rule": "Public source under dual license. Copyleft or a paid grant. Compression through your tools uses every own pathway. Keys, kernel secrets, and AUTH_DIR stay operator-only.",
+  "plain": "Most public trees are dual-licensed: copyleft, or a paid grant to ship closed. PSI (Meter/Org/Embed) is commercial-only — not an AGPL offer. PERsiST is not on sale (rates unset). Compression through your tools runs every pathway we own and keeps the smallest file that still restores. Signing keys, Chamber kernel secrets, and live customer data stay operator-only.",
+  "rule": "Dual-license where listed in dual.copyleft_or_commercial. PSI is commercial-only. PERsiST rates unset — no PERsiST charge. Compression through your tools uses every own pathway. Keys, kernel secrets, and AUTH_DIR stay operator-only.",
   "dual": {
     "chooser": "You pick copyleft or the commercial grant. Both are written.",
     "copyleft_or_commercial": [
@@ -81,7 +81,7 @@
   },
   "caps": {
     "pcc": "first 1 GB free once per IP address (lifetime, no monthly reset), then $0.25/GB of input; Pro includes 100 GB/month, then $0.20/GB; customer-set cap (default $25), alert at 80%",
-    "suite": "first 1 GB free once per IP address (lifetime, no monthly reset), then $0.25/GB of input; customer-set cap (default $25), alert at 80%",
+    "suite": "first 1 GB free once per address (lifetime), then $0.05/GB of input (bulk $0.04/GB after 100 paid GB), min $0.05; customer-set cap (default $25), alert at 80%",
     "warrant": "3 warrants + 10 receipts/operator/day free, then the Warrant add-on to Rider Solo (included in Team and Fleet)",
     "chamber": "automated fair-use rate limits; bulk moves to metered/enterprise",
     "source_licenses": "no usage cap; one product, one term",

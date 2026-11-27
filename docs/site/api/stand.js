@@ -52,7 +52,8 @@ async function handler(req, res) {
       phi: 40,
     },
     domain: "zeros10k",
-    free_gb: 100,
+    free_gb: 1,
+    free_window: "lifetime-per-address",
     suite: "https://www.slidphilabs.com/pps",
     results: {
       n_ints: n,

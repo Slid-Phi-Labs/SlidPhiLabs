@@ -1,33 +1,36 @@
 /** Suite pricing tests. Dual license: AGPL-3.0-or-later OR Slid Phi Labs Commercial. See /LICENSE. */
 import assert from "node:assert/strict";
 import {
-  computeQuote, FREE_BYTES, CENTS_PER_GB, PRO_CENTS_PER_GB, MIN_PAID_CENTS,
+  computeQuote, FREE_BYTES, FREE_GB, CENTS_PER_GB, PRO_CENTS_PER_GB, MIN_PAID_CENTS,
   DEFAULT_CAP_CENTS, ALERT_FRACTION, capStatus, includedBytesForSku,
 } from "./suite-pricing.js";
 import { PRODUCT_CATALOG, SKU_ALIASES, resolveSku } from "./lib/payments-rails.js";
 
 const gib = 1024 * 1024 * 1024;
 
-// ---- PCC meter: $0.25/GB input, 1 GB free ----
-const under = computeQuote({ bytes: 1 * gib, used_bytes: 0 });
+// ---- Suite unpaid: 1 GB free once per address (lifetime), then 5¢/GB (4¢ bulk) ----
+const under = computeQuote({ bytes: FREE_BYTES, used_bytes: 0 });
 assert.equal(under.free, true);
 assert.equal(under.amount_cents, 0);
 
-const atCap = computeQuote({ bytes: 1 * gib, used_bytes: 0, sku: "" });
+const atCap = computeQuote({ bytes: FREE_BYTES, used_bytes: 0, sku: "" });
 assert.equal(atCap.free, true);
 
-const oneOver = computeQuote({ bytes: 1 * gib, used_bytes: 1 * gib });
+const oneOver = computeQuote({ bytes: 1 * gib, used_bytes: FREE_BYTES });
 assert.equal(oneOver.free, false);
-assert.equal(oneOver.amount_cents, MIN_PAID_CENTS, "1 GB over is 25¢, card floor $1");
-assert.equal(oneOver.breakdown.rates.applied_usd_per_gb, 0.25);
+assert.equal(oneOver.amount_cents, MIN_PAID_CENTS, "1 GB over is 5¢, min $0.05");
+assert.equal(oneOver.breakdown.rates.usd_per_gb, 0.05);
 
 const twenty = computeQuote({ bytes: 20 * gib, used_bytes: 0 });
 assert.equal(twenty.free, false);
-assert.equal(twenty.breakdown.usage_cents, 475, "19 GB × 25¢ = 475");
-assert.equal(twenty.amount_cents, 475);
+{
+  const expect = Math.round(((20 * gib - FREE_BYTES) / gib) * 5);
+  assert.equal(twenty.breakdown.usage_cents, expect, "over first 1 GB free at 5¢");
+  assert.equal(twenty.amount_cents, expect);
+}
 
-assert.equal(FREE_BYTES, 1 * gib);
-assert.equal(CENTS_PER_GB, 25);
+assert.equal(FREE_BYTES, Math.round(1 * gib));
+assert.equal(CENTS_PER_GB, 5);
 assert.equal(PRO_CENTS_PER_GB, 20);
 
 // Pro plan: 100 GB included, then 20¢/GB
@@ -41,14 +44,14 @@ assert.equal(proYear.free, true, "Pro annual includes 100 GB/month");
 
 // Lab Pass carries NO included GB (compression out of the bundle)
 const labPass = computeQuote({ bytes: 10 * gib, used_bytes: 0, sku: "lab-pass" });
-assert.equal(labPass.free, false, "Lab Pass unlocks no PCC allowance");
-assert.equal(labPass.breakdown.usage_cents, 225, "9 GB over the 1 GB free cap at 25¢");
-assert.equal(includedBytesForSku("lab-pass"), 1 * gib);
+assert.equal(labPass.free, false, "Lab Pass unlocks no Pro allowance");
+assert.equal(labPass.breakdown.usage_cents, Math.round(((10 * gib - FREE_BYTES) / gib) * 5), "over first 1 GB free at 5¢");
+assert.equal(includedBytesForSku("lab-pass"), FREE_BYTES);
 
-// Retired gc-* SKUs fall back to the free cap
+// Retired gc-* SKUs fall back to the unpaid free cap
 const gcYear = computeQuote({ bytes: 10 * gib, used_bytes: 0, sku: "gc-year" });
-assert.equal(gcYear.free, false, "Retired gc-year has no allowance");
-assert.equal(includedBytesForSku("gc-year"), 1 * gib);
+assert.equal(gcYear.free, false, "Retired gc-year has no Pro allowance");
+assert.equal(includedBytesForSku("gc-year"), FREE_BYTES);
 
 // Op does not change the price: single input rate
 const c40 = computeQuote({ bytes: 40 * gib, op: "compress" }).amount_cents;
@@ -56,7 +59,7 @@ const d40 = computeQuote({ bytes: 40 * gib, op: "decompress" }).amount_cents;
 const r40 = computeQuote({ bytes: 40 * gib, op: "roundtrip" }).amount_cents;
 assert.equal(c40, d40);
 assert.equal(d40, r40);
-assert.equal(c40, 975, "39 GB × 25¢");
+assert.equal(c40, Math.round(((40 * gib - FREE_BYTES) / gib) * 5), "over first 1 GB free at 5¢");
 
 // Cap / alert: default $25 cap, alert at 80% ($20)
 const cap = capStatus({ spent_cents: 2000, cap_cents: DEFAULT_CAP_CENTS });
@@ -152,11 +155,15 @@ assert.equal(price("sponsor"), 2900);
 assert.equal(price("donate"), 2999);
 assert.equal(price("gao-entry"), 100);
 
-// Meter fields: free allowance + cap default + 80% alert where the proposal states them
-assert.equal(PRODUCT_CATALOG.suite.meter.rate_cents, 25);
+// Meter fields: unpaid free edge + Pro overage + cap default + 80% alert
+assert.equal(PRODUCT_CATALOG.suite.meter.rate_cents, 5);
 assert.equal(PRODUCT_CATALOG.suite.meter.free_gb, 1);
+assert.equal(PRODUCT_CATALOG.suite.meter.free_window, "lifetime-per-address");
+assert.equal(PRODUCT_CATALOG.suite.meter.bulk_rate_cents, 4);
+assert.equal(PRODUCT_CATALOG.suite.meter.min_paid_cents, 5);
 assert.equal(PRODUCT_CATALOG.suite.meter.cap_default_cents, 2500);
 assert.equal(PRODUCT_CATALOG.suite.meter.alert_fraction, 0.8);
+assert.equal(FREE_GB, 1);
 assert.equal(PRODUCT_CATALOG.quikgater.meter.rate_cents, 2);
 assert.equal(PRODUCT_CATALOG.quikgater.meter.cap_default_cents, 1000);
 assert.equal(PRODUCT_CATALOG["lab-check"].meter.rate_cents, 5);

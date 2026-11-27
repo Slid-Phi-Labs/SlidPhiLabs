@@ -6,8 +6,8 @@ Quote, checkout, MCP, and hosted `compress()` / `decompress()` / `zip()` / `unzi
 
 | Tier | Rule |
 |------|------|
-| **Free** | First **1 GB**, once per IP (lifetime, no reset) — $0 |
-| **Then** | **$0.25/GB** of input, any op ($1 card minimum) |
+| **Unpaid** | **1 GB free once per address (lifetime)** — $0 |
+| **Then** | **$0.05/GB** of input · bulk **$0.04/GB** after 100 paid GB · min **$0.05** |
 | **Pro plan** | PCC Pro $25/mo includes 100 GB/mo, then $0.20/GB |
 
 Canonical catalog: [GET /api/x402-products](https://www.slidphilabs.com/api/x402-products)
@@ -23,7 +23,7 @@ npx -y @slidphi/spl-pay-per-suite mcp
 ```js
 import { compress, decompress, zip, unzip, computeQuote } from "spl-pay-per-suite";
 
-computeQuote({ bytes: 1 * 1024 ** 3 }); // free (the 1 GB lifetime allowance)
+computeQuote({ bytes: 1 * 1024 ** 3 }); // free (under first 1 GB free once per address (lifetime))
 const packed = await compress(Buffer.from("hello"));
 const { files } = await unzip(await zip([{ path: "a.txt", data: "hello" }]));
 ```
@@ -36,7 +36,7 @@ MCP tools include `spl_compress`, `spl_decompress`, `spl_zip`, `spl_unzip`. Host
 
 Two legal ways to use this. Pick one.
 
-1. **Free — AGPL-3.0-or-later.** Install and use. No key, no payment. Copyleft applies if you ship it. Hosted compression: first 1 GB free once per IP, then $0.25/GB of input, no key needed.
+1. **Free — AGPL-3.0-or-later.** Install and use. No key, no payment. Copyleft applies if you ship it. Hosted compression: first 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05, no key needed.
 2. **Paid grant — buy a PCC seat.** A live seat covers commercial use of this surface (see LICENSE.COMMERCIAL) and raises your included bytes: PCC Pro $25/mo (100 GB/mo included, then $0.20/GB) or PCC Pro $250/yr. Legacy gc-* seats are retired.
 
 Agents buy the seat machine-to-machine with x402 (USDC on Solana or Base — no human checkout):

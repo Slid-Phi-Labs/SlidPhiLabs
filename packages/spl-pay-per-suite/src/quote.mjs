@@ -1,23 +1,25 @@
 /**
  * SPL Pay Per Suite — local quote (matches site API suite-pricing.js).
- * First 1 GB of input free, once per IP address (lifetime, no monthly
- * reset). Then $0.25/GB of INPUT — single rate, no op-differentiated tiers:
- * the meter prices input bytes, not the operation. Pro plan SKUs
- * (pcc-pro, pcc-pro-year): 100 GB included each month, then $0.20/GB.
- * $1 card minimum. Customer-set monthly spend cap (default $25), 80% alert.
+ * Unpaid free edge: 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB after 100
+ * paid GB), min $0.05. Time window enforced on the host; this quote is
+ * bytes-only. Pro plan SKUs (pcc-pro, pcc-pro-year): 100 GB included each
+ * month, then $0.20/GB. Customer-set monthly spend cap (default $25), 80% alert.
  *
  * JS gold cases: test/cuni-meter.test.mjs (and `cuni prove` against
  * test/print-suite-meter.mjs when CUNI_BIN + CUNI_SUITE_METER_LAW are set).
  * Site gold: docs/site/api/suite-pricing.js + suite-pricing.test.mjs.
  */
 export const FREE_GB = 1;
-export const FREE_WINDOW = "lifetime";
-export const FREE_BYTES = 1 * 1024 * 1024 * 1024;
+export const FREE_WINDOW_HOURS = null;
+export const FREE_WINDOW = "lifetime-per-address";
+export const FREE_BYTES = Math.round(FREE_GB * 1024 * 1024 * 1024);
 export const MAX_BYTES = 1024 * 1024 * 1024 * 1024;
 export const MAX_CENTS = 1_000_000;
-export const MIN_PAID_CENTS = 100;
+export const MIN_PAID_CENTS = 5;
 export const MIN_CENTS = 0;
-export const CENTS_PER_GB = 25;
+export const CENTS_PER_GB = 5;
+export const BULK_CENTS_PER_GB = 4;
+export const BULK_AFTER_PAID_GB = 100;
 export const PRO_CENTS_PER_GB = 20;
 export const PRO_INCLUDED_GB = 100;
 export const DEFAULT_CAP_CENTS = 2500;
@@ -25,19 +27,20 @@ export const ALERT_FRACTION = 0.8;
 
 /** Canonical suite rates — MCP, package.json, site, API must match */
 export const SUITE_PRICING = {
-  model: "lifetime_1gb_25c",
+  model: "free_1gb_lifetime",
   free_cap_gb: FREE_GB,
-  free_window: "lifetime-per-ip",
+  free_window: FREE_WINDOW,
   free_cap_bytes: FREE_BYTES,
-  usd_per_gb_after_free: 0.25,
+  usd_per_gb_after_free: 0.05,
+  usd_per_gb_bulk: 0.04,
   pro_usd_per_gb: PRO_CENTS_PER_GB / 100,
   pro_included_gb: PRO_INCLUDED_GB,
-  min_paid_usd: 1,
+  min_paid_usd: 0.05,
   min_paid_cents: MIN_PAID_CENTS,
   window: FREE_WINDOW,
   try_gate: "retired",
   human_one_liner:
-    "First 1 GB free, once per IP · then $0.25/GB of input · Pro: 100 GB included, then $0.20/GB · $1 card minimum",
+    "First 1 GB free once per address (lifetime) · then $0.05/GB · bulk $0.04/GB · min $0.05 · Pro: 100 GB included, then $0.20/GB",
 };
 
 /** Included GB by plan SKU. Pro seats reset monthly; the free cap is lifetime-per-IP. */
@@ -82,9 +85,9 @@ export const DATA_MULT = {
 export const OP_MULT = {
   compress: 1.0, decompress: 1.0, roundtrip: 1.0,
 };
-/** Effective ¢/GB of input: flat 25.0 for every op (Pro SKUs: 20.0). */
+/** Effective ¢/GB of input: flat unpaid rate for every op (Pro SKUs: 20.0). */
 export const OP_CENTS_PER_GB = {
-  compress: 25.0, decompress: 25.0, roundtrip: 25.0,
+  compress: 5.0, decompress: 5.0, roundtrip: 5.0,
 };
 
 export const STRIPE_PAYMENT_LINK =
@@ -99,7 +102,14 @@ export function usageFeeCents(billableBytes, sku = "") {
   const b = Math.max(0, Number(billableBytes) || 0);
   if (b <= 0) return 0;
   const gb = b / (1024 * 1024 * 1024);
-  return Math.round(gb * rateCentsPerGbForSku(sku));
+  const k = String(sku || "").toLowerCase();
+  if (k === "pcc-pro" || k === "pcc-pro-year") {
+    return Math.round(gb * PRO_CENTS_PER_GB);
+  }
+  if (gb <= BULK_AFTER_PAID_GB) return Math.round(gb * CENTS_PER_GB);
+  return Math.round(
+    BULK_AFTER_PAID_GB * CENTS_PER_GB + (gb - BULK_AFTER_PAID_GB) * BULK_CENTS_PER_GB,
+  );
 }
 
 /** Cap/alert status for a metered spend. Alert fires at 80% of the cap. */
@@ -137,8 +147,10 @@ export function computeQuote({
   const free = billable <= 0;
   const rates = {
     free_cap_gb: FREE_GB,
+    free_window_hours: FREE_WINDOW_HOURS,
     included_gb: included / (1024 * 1024 * 1024),
     usd_per_gb: CENTS_PER_GB / 100,
+    usd_per_gb_bulk: BULK_CENTS_PER_GB / 100,
     pro_usd_per_gb: PRO_CENTS_PER_GB / 100,
     applied_usd_per_gb: rate / 100,
     min_paid_usd: MIN_PAID_CENTS / 100,
@@ -148,12 +160,12 @@ export function computeQuote({
     alert_at_cents: Math.round(DEFAULT_CAP_CENTS * ALERT_FRACTION),
     sku: sku || null,
   };
-  const plain_free = `First ${FREE_GB} GB of input is free, once per IP address. After that, $${(CENTS_PER_GB / 100).toFixed(2)}/GB (Pro plan: 100 GB included, then $${(PRO_CENTS_PER_GB / 100).toFixed(2)}/GB). Card charges start at $1. Monthly spend cap default $${(DEFAULT_CAP_CENTS / 100).toFixed(0)}, alert at 80%.`;
+  const plain_free = `Unpaid cap ${FREE_GB} GB / ${FREE_WINDOW_HOURS} h. Then $${(CENTS_PER_GB / 100).toFixed(2)}/GB (bulk $${(BULK_CENTS_PER_GB / 100).toFixed(2)}/GB after ${BULK_AFTER_PAID_GB} paid GB). Min $${(MIN_PAID_CENTS / 100).toFixed(2)}. Pro plan: 100 GB included, then $${(PRO_CENTS_PER_GB / 100).toFixed(2)}/GB.`;
 
   if (free) {
     return {
-      ok: true, service: "PCC meter", currency: "usd",
-      amount_cents: 0, amount_display: "0.00", free: true, tier: "free",
+      ok: true, service: "SPL Pay Per Suite", currency: "usd",
+      amount_cents: 0, amount_display: "0.00", free: true, tier: "unpaid_cap",
       plain: plain_free,
       message: plain_free,
       breakdown: {
@@ -172,11 +184,11 @@ export function computeQuote({
   const usage = usageFeeCents(billable, sku);
   const cents = Math.min(MAX_CENTS, Math.max(MIN_PAID_CENTS, usage));
   return {
-    ok: true, service: "PCC meter", currency: "usd",
+    ok: true, service: "SPL Pay Per Suite", currency: "usd",
     amount_cents: cents, amount_display: (cents / 100).toFixed(2),
     free: false, tier: "usage",
     plain: `${plain_free} This job: $${(cents / 100).toFixed(2)}.`,
-    message: `Over the free ${FREE_GB} GB — $${(rate / 100).toFixed(2)}/GB of input, $1 minimum on card.`,
+    message: `Over unpaid ${FREE_GB} GB / ${FREE_WINDOW_HOURS} h — $${(CENTS_PER_GB / 100).toFixed(2)}/GB (bulk $${(BULK_CENTS_PER_GB / 100).toFixed(2)}/GB), min $${(MIN_PAID_CENTS / 100).toFixed(2)}.`,
     breakdown: {
       product: prod, product_add_cents: 0, product_base_cents: 0,
       free_bytes: included, free_gb: FREE_GB, billable_bytes: billable, usage_cents: usage, size_cents: usage,

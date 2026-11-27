@@ -17,6 +17,7 @@ import jsonCompress from "./json-compress.js";
 import jsonDecompress from "./json-decompress.js";
 import webCodec from "./web-codec.js";
 import bench from "./bench.js";
+import { FREE_BYTES } from "./suite-pricing.js";
 
 const AUTH_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "spl-usage-gate-"));
 process.env.AUTH_DIR = AUTH_DIR;
@@ -49,9 +50,10 @@ async function call(handler, opts) {
   try { json = JSON.parse(res.body); } catch { json = null; }
   return { status: res.statusCode, json, ip: r._ip };
 }
+/** Past first-1-GB lifetime free edge. */
 const exhaustIp = (theIp) => {
   const r = { headers: { "x-forwarded-for": theIp } };
-  addUsage(identityFromReq(r).key, 2 ** 31);
+  addUsage(identityFromReq(r).key, FREE_BYTES + 1);
 };
 const usedOf = (theIp) => readUsage(identityFromReq({ headers: { "x-forwarded-for": theIp } }).key).bytes;
 

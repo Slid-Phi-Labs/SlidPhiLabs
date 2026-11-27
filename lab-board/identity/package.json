@@ -1,0 +1,9 @@
+{
+  "description": "Ed25519 agent identity issuer and verifier for the lab.",
+  "name": "@slidphi/lab-identity",
+  "private": true,
+  "type": "module",
+  "main": "./ed25519.mjs",
+  "exports": { ".": "./ed25519.mjs" },
+  "scripts": { "test": "node --test ed25519.test.mjs" }
+}

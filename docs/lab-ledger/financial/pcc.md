@@ -18,5 +18,6 @@ Updated 2026-11-02. Source: `licensing.json`, funding figures, STATUS.md.
   press, npm clients (`316674d`).
 - 2026-09-11: PCC confirmed as the product face, AWARE → alias (#15).
 - 2026-09-23: honest Silesia meter 51,498,645 published (not TNSSRC 43.7M).
-- 2026-10-28: price truth sweep — yearly 369, monthly 37, lab pass 890.
+- 2026-10-28: price truth sweep era (retired ladder $369/$37); Lab Pass path separate.
+- 2026-11-26: conflict purge — canonical Pro year **$250** (`pcc-pro-year`); TOP100 #6 DONE.
 - No paying customer yet. M12 milestone = one named bulk/ops customer.

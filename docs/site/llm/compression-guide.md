@@ -17,7 +17,7 @@ Machine table: `llm/compression-matrix.json`.
 ## Rules by customer dataset
 
 - **Legal, legislative, XML/doc archives** → TNSSRC. It beats xz
-  (4.53 vs 4.81) and everything else by a mile. Grant-gated ($369/yr).
+  (4.53 vs 4.81) and everything else by a mile. Grant-gated ($369/yr tnssrc-grant; founding $190 first 10; 3+ $390).
 - **Market data, ticks, order books, logs** → xz if they insist on
   free; TNSSRC (17.86) if they buy; served PCC (18.66, beats gzip
   20.85) for pay-as-you-go without a grant.
