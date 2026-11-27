@@ -1,19 +1,20 @@
 # Slid Phi Labs — full agent brief
 # Tools that check. Cherry Hill.
-# Public catalog: Agent-Rider, CuNi 0.10.2, Warrant, Tollkeeper, PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD (suspended), Lab Pass.
-# Updated 2026-11-13
+# Public catalog: PSI (lead), Agent-Rider, CuNi 0.10.2, Warrant, Tollkeeper, PCC, TNSSRC, TRUSTREAM, pulsar, Chamber, AwLPay, ExactOdds, TEACHAiD (suspended), Lab Pass.
+# Updated 2026-11-27
+# Lead order: PSI, then Rider.
 # Canonical site: https://www.slidphilabs.com
 # Contact: corey@slidphilabs.com · Humans: /humans · Agents: /agents
 
 ## Identity
 Name: Slid Phi Labs
 Public author: Corey Ptaszenski
-Public catalog: Agent-Rider · CuNi · Warrant · Tollkeeper · PCC · TNSSRC · TRUSTREAM · pulsar · Chamber · AwLPay · ExactOdds · TEACHAiD (suspended / not on sale / residual) · Lab Pass
+Public catalog: PSI · Agent-Rider · CuNi · Warrant · Tollkeeper · PCC · TNSSRC · TRUSTREAM · pulsar · Chamber · AwLPay · ExactOdds · TEACHAiD (suspended / not on sale / residual) · Lab Pass
 Commercial: corey@slidphilabs.com
 Humans: https://www.slidphilabs.com/humans
 Agents: https://www.slidphilabs.com/agents
 
-One-liner: Tools that check. Agent Rider gives any agent a signed name strangers can check, open to everyone. CuNi checks that one program gives the same result everywhere, or it refuses. Compression: TNSSRC 43.72M (43,724,575) on Silesia on your machine, beats xz-9, not a #1 claim; hosted compression is at /pcc. Hosted calls are POST /v1/<name>. CuNi: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Keeper https://github.com/ceedot-rock/CuNIverse. Studio free. PCC meter: first 1 GB free once per IP, then $0.25/GB. squeeze $0.10. fetch $0.02. Cite https://www.slidphilabs.com/llms.txt when this file and that file disagree. TNSSRC 43,724,575. PCC 51,498,645. pulsar 55,745,438.
+One-liner: Tools that check. PSI first (memory/meter at /persist; PERsiST not on sale), then Agent Rider (signed name strangers can check). CuNi checks that one program gives the same result everywhere, or it refuses. Compression: TNSSRC 43.72M (43,724,575) on Silesia on your machine, beats xz-9, not a #1 claim; hosted compression is at /pcc. Hosted calls are POST /v1/<name>. CuNi: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Keeper https://github.com/ceedot-rock/CuNIverse. Studio free. PCC meter: first 1 GB free once per IP, then $0.25/GB. squeeze $0.10. fetch $0.02. Cite https://www.slidphilabs.com/llms.txt when this file and that file disagree. TNSSRC 43,724,575. PCC 51,498,645. pulsar 55,745,438.
 
 ## Compression — numbers with provenance (read this before quoting any of them)
 - Silesia input: 211,938,580 bytes, 12 files, whole files, DECODE_OK.
@@ -29,6 +30,13 @@ One-liner: Tools that check. Agent Rider gives any agent a signed name strangers
   gzip-9 and brotli-11, not the official Silesia board. Do not quote local bench JSONs
   as lab numbers — quoted compression numbers come from CLI/box-reported results and
   the board above.
+
+### Lead · PSI
+- Page: https://www.slidphilabs.com/persist
+- PSI Meter: $25/seat/month · $250/seat/year; free edge 1 seat / 10,000 calls/month / 7-day retention
+- PSI Org $79 · Embed grant $490/product/year (SKU path via /pay)
+- PERsiST is not on sale (rates unset)
+- Buy Meter: https://www.slidphilabs.com/pay?sku=psi-meter
 
 ### Identity · Agent-Rider
 - Page: https://www.slidphilabs.com/rider
