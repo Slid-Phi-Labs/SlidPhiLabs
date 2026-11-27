@@ -31,8 +31,12 @@ const STANDING = [
   { sku: "cuni-exception", name: "CuNi · closed-app grant", usd: "490", kind: "exception", blurb: "Unified grant $490/app/year: ship CuNi inside one closed product for one year. Not the compressor." },
   { sku: "chamber-month", name: "Chamber · monthly cloak license", usd: "20", kind: "chamber", blurb: "License to seal new JSON for 30 days. 24-hour try. Open already-sealed blobs with both keys; opening is free forever." },
   { sku: "chamber-year", name: "Chamber · annual cloak license", usd: "200", kind: "chamber", blurb: "License to seal new JSON for a year. Stored secrets do not expire." },
-  { sku: "pcc-pro", name: "PCC Pro · monthly", usd: "25", kind: "pcc", blurb: "Compression through your tools. 100 GB included this month, then $0.20/GB. Meter: first 1 GB free once per IP, then $0.25/GB of input; customer-set cap (default $25), alert at 80%." },
-  { sku: "suite", name: "PCC usage", usd: "meter", kind: "pcc", blurb: "First 1 GB free once per IP, then $0.25/GB of input. Customer-set monthly spend cap (default $25), alert at 80%." },
+  { sku: "psi-meter", name: "PSI · Meter seat", usd: "25", kind: "psi", blurb: "Lead memory/meter seat. $25/seat/month or $250/year. 250,000 logged calls/month included, then $2 per additional 100,000. Free edge: 1 seat, 10,000 calls/month, 7-day retention. PERsiST is not on sale." },
+  { sku: "psi-meter-year", name: "PSI · Meter seat · annual", usd: "250", kind: "psi", blurb: "Year of PSI Meter. Same included calls as monthly. PERsiST is not on sale." },
+  { sku: "psi-org", name: "PSI · Org", usd: "79", kind: "psi", blurb: "PSI Org seat at $79/month. Spend log + org controls. PERsiST is not on sale." },
+  { sku: "psi-embed-grant", name: "PSI · Embed grant", usd: "490", kind: "psi", blurb: "PSI Embed unified grant $490/product/year for shipped code. Commercial-only." },
+  { sku: "pcc-pro", name: "PCC Pro · monthly", usd: "25", kind: "pcc", blurb: "Compression through your tools. 100 GB included this month, then $0.20/GB. Meter: first 1 GB free once per address, then $0.25/GB of input; customer-set cap (default $25), alert at 80%." },
+  { sku: "suite", name: "PCC usage", usd: "meter", kind: "pcc", blurb: "First 1 GB free once per address, then $0.25/GB of input. Customer-set monthly spend cap (default $25), alert at 80%." },
   { sku: "lab-check", name: "CuNi check", usd: "0.05", kind: "cuni", blurb: "One exactness check. First 100 checks/month free, then $0.05 per check." },
   { sku: "lab-translate", name: "CuNi translate", usd: "0.10", kind: "cuni", blurb: "One Bank paste. Same call as translate." },
   { sku: "lab-ingest", name: "CuNi ingest", usd: "0.10", kind: "cuni", blurb: "One ingest. Foreign source to .cuni, or refuse." },
@@ -74,10 +78,11 @@ export default async function handler(req, res) {
   const body = {
     ok: true,
     name: "Slid Phi Labs — Platform Discovery",
-    version: "1.25.0",
-    lead_product: "rider",
+    version: "1.26.0",
+    lead_product: "psi",
     cash_product: "pcc-pro",
-    storefront: ["Agent-Rider", "CuNi", "Warrant", "Tollkeeper", "PCC", "TNSSRC", "TRUSTREAM", "pulsar", "Chamber", "AwLPay", "ExactOdds", "TEACHAiD"],
+    lead_order: ["psi", "rider"],
+    storefront: ["PSI", "Agent-Rider", "CuNi", "Warrant", "Tollkeeper", "PCC", "TNSSRC", "TRUSTREAM", "pulsar", "Chamber", "AwLPay", "ExactOdds", "TEACHAiD"],
     well_known_agent: "https://www.slidphilabs.com/.well-known/agent.json",
     auth: AUTH,
     mcp: {
@@ -92,7 +97,7 @@ export default async function handler(req, res) {
       status: "/api/box",
       law: "Every product POST is 24h black box, then a paid seat.",
     },
-    updated: "2026-10-15",
+    updated: "2026-11-27",
     rails: {
       human: "POST /api/checkout { sku } or /pay?sku=",
       agent: "POST /api/x402-products { sku }",
@@ -146,10 +151,11 @@ export default async function handler(req, res) {
       return row;
     }),
     agent_roster: [
+      { id: "psi", name: "PSI", url: "https://www.slidphilabs.com/persist", note: "Lead memory/meter; PERsiST not on sale" },
+      { id: "rider", name: "Agent-Rider", url: "https://agentrider.fly.dev/", mcp: "https://agentrider.fly.dev/api/mcp" },
       { id: "pcc", name: "PCC", url: "https://www.slidphilabs.com/pcc" },
       { id: "trustream", name: "TRUSTREAM", url: "https://www.slidphilabs.com/trustream" },
       { id: "chamber", name: "Chamber", url: "https://www.slidphilabs.com/chamber" },
-      { id: "rider", name: "Agent-Rider", url: "https://agentrider.fly.dev/", mcp: "https://agentrider.fly.dev/api/mcp" },
       { id: "warrant", name: "Warrant", url: "https://www.slidphilabs.com/warrant" },
       { id: "cuni", name: "CuNi", url: "https://spl-cuni-studio.fly.dev/", protocol: "https://www.slidphilabs.com/cuni-protocol.json", public_install_tag: "v0.10.2" },
     ],
@@ -199,8 +205,8 @@ export default async function handler(req, res) {
       prove: "https://www.slidphilabs.com/standings.json",
     },
     one_liner:
-      "PCC metered $0.25/GB of input, first 1 GB free once per IP; Pro $25/month including 100 GB, then $0.20/GB. Chamber $20/mo · $200/yr. CuNi $0; closed-app grant $490/app/year. Rider Solo $12–Fleet $199/month. Lab Pass $495/year.",
-    starter_path: "https://www.slidphilabs.com/pcc",
+      "PSI first (Meter $25/seat/mo · Org $79 · Embed $490/product/yr; PERsiST not on sale), then Rider Solo $12–Fleet $199. PCC metered $0.25/GB of input, first 1 GB free once per address; Pro $25/month including 100 GB, then $0.20/GB. Chamber $20/mo · $200/yr. CuNi $0; closed-app grant $490/app/year. Lab Pass $495/year.",
+    starter_path: "https://www.slidphilabs.com/persist",
     suite_pricing: {
       free_cap_gb: 1,
       free_window: "lifetime-per-address",

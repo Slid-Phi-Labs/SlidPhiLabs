@@ -1,15 +1,15 @@
 {
   "ok": true,
   "name": "Slid Phi Labs",
-  "version": "2.1.0",
-  "updated": "2026-10-15",
+  "version": "2.2.0",
+  "updated": "2026-11-27",
   "site": "https://www.slidphilabs.com",
   "mission": "Build tools that check: same result or refuse, sealed or not open, signed or not trusted, measured or not claimed.",
   "slogan": "Same result or refuse",
-  "lead_product": "rider",
+  "lead_product": "psi",
   "cash_product": "pcc-pro",
   "pricing_sot": "https://www.slidphilabs.com/pricing.json",
-  "one_liner": "Tools that check. Rider Solo $12–Fleet $199. CuNi 0.10.2, 53 targets, Studio $0. Warrant $8/mo Solo add-on ($80/yr), included in Team and Fleet, no standalone SKU. Tollkeeper meters ten live tools. PCC metered $0.25/GB, Pro $25/mo (board 51,498,645). TNSSRC 0.1.0 grant $369 (founding $190 / 3+ $390). Chamber $20/$200. pulsar closed embed $490. AwLPay 0.5% with no fixed fee. Stripe / x402.",
+  "one_liner": "Tools that check. PSI first (Meter $25/seat/mo · Org $79 · Embed $490/product/yr; PERsiST not on sale), then Rider Solo $12–Fleet $199. CuNi 0.10.2, 53 targets, Studio $0. Warrant $8/mo Solo add-on ($80/yr), included in Team and Fleet, no standalone SKU. Tollkeeper meters ten live tools. PCC metered $0.25/GB after 1 GB once per address, Pro $25/mo (board 51,498,645). TNSSRC 0.1.0 grant $369 (founding $190 / 3+ $390). Chamber $20/$200. pulsar closed embed $490. AwLPay 0.5% with no fixed fee. Stripe / x402.",
   "auth": {
     "signup": "https://www.slidphilabs.com/signup",
     "login": "https://www.slidphilabs.com/login",
@@ -86,13 +86,17 @@
     },
     "agent_platform": {
       "products": [
-        "CuNi",
+        "PSI",
         "Agent-Rider",
+        "CuNi",
         "Warrant"
       ],
       "also": [
-        "Quikgater"
-      ]
+        "Quikgater",
+        "ArP"
+      ],
+      "lead": "PSI",
+      "note": "Lead order: PSI, then Rider. PERsiST is not on sale."
     },
     "toy_store": {
       "name": "Toy Store",

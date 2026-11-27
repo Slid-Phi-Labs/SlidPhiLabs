@@ -2,10 +2,10 @@
   "$schema": "https://agents-txt.com/schema/agents-json/v1.0.json",
   "ok": true,
   "name": "Slid Phi Labs",
-  "description": "Tools that check. Hosted calls use one name at POST /v1/<name>, on MCP, and in the Python client. CuNi: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. PCC compress uses the meter (first 1 GB free once per IP, then $0.25/GB). squeeze $0.10. fetch $0.02. seal and open. Warrant and Tollkeeper names are on the same door. Cite /llms.txt.",
-  "version": "2.4.1",
-  "updated": "2026-10-17",
-  "lead_product": "rider",
+  "description": "Tools that check. Lead order: PSI, then Rider. PSI Meter/Org/Embed at /persist (PERsiST not on sale). Hosted calls use one name at POST /v1/<name>, on MCP, and in the Python client. CuNi: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. PCC compress uses the meter (first 1 GB free once per address, then $0.25/GB). squeeze $0.10. fetch $0.02. seal and open. Warrant and Tollkeeper names are on the same door. Cite /llms.txt.",
+  "version": "2.5.0",
+  "updated": "2026-11-27",
+  "lead_product": "psi",
   "cash_product": "pcc-pro",
   "auth": {
     "signup": "https://www.slidphilabs.com/signup",
@@ -29,7 +29,7 @@
     "pulsar"
   ],
   "suite": {
-    "plain": "First 1 GB free once per IP address (lifetime, no monthly reset), then $0.25/GB of input. Pro $25/month includes 100 GB, then $0.20/GB. Customer-set monthly spend cap (default $25), alert at 80%.",
+    "plain": "First 1 GB free once per address (lifetime, no monthly reset), then $0.25/GB of input. Pro $25/month includes 100 GB, then $0.20/GB. Customer-set monthly spend cap (default $25), alert at 80%.",
     "unpaid_gb": 1,
     "window": "calendar_month",
     "usd_per_gb": 0.25,
@@ -64,6 +64,15 @@
   "mcp_registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.ceedot-rock/slid-phi-labs",
   "mcp_card": "https://www.slidphilabs.com/.well-known/mcp/server-card.json",
   "agents": [
+    {
+      "id": "psi",
+      "name": "PSI",
+      "role": "memory_meter",
+      "url": "https://www.slidphilabs.com/persist",
+      "product": "https://www.slidphilabs.com/persist",
+      "price": "Meter $25/seat/mo \u00b7 $250/seat/yr; Org $79/mo; Embed grant $490/product/yr. PERsiST not on sale.",
+      "note": "Lead commercial memory/meter line. Free edge: 1 seat, 10,000 calls/month, 7-day retention."
+    },
     {
       "id": "agent-rider",
       "name": "Agent-Rider",
@@ -100,7 +109,7 @@
       "name": "PCC",
       "role": "compression",
       "url": "https://www.slidphilabs.com/pcc",
-      "price": "Metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
+      "price": "Metered $0.25/GB of input, first 1 GB free once per address (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
       "note": "Door 1 onto the Shared Spine. PCC = lossless compressor only. AWARE is a retired alias. 51,498,645 Silesia bytes, 12/12 DECODE_OK."
     },
     {
@@ -124,7 +133,7 @@
       "name": "PCC",
       "role": "compression",
       "url": "https://www.slidphilabs.com/pcc",
-      "price": "Metered $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
+      "price": "Metered $0.25/GB of input, first 1 GB free once per address (lifetime, no monthly reset); Pro $25/month including 100 GB, then $0.20/GB",
       "note": "Door 1 onto the Shared Spine. lossless compressor only (not payment). 51,498,645 Silesia bytes, 12/12 DECODE_OK."
     },
     {
@@ -205,13 +214,15 @@
     ]
   },
   "agent_quickstart": {
+    "lead_order": ["psi", "rider"],
     "steps": [
       {
         "n": 1,
         "title": "Discover",
         "actions": [
           "GET https://www.slidphilabs.com/api/agent",
-          "GET https://www.slidphilabs.com/.well-known/mcp/server-card.json"
+          "GET https://www.slidphilabs.com/.well-known/mcp/server-card.json",
+          "GET https://www.slidphilabs.com/llms.txt"
         ]
       },
       {
@@ -226,6 +237,7 @@
         "n": 3,
         "title": "Buy seat (agents)",
         "actions": [
+          "POST /api/x402-products {\"sku\":\"psi-meter\"}",
           "POST /api/x402-products {\"sku\":\"rider-solo\"}",
           "HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url"
         ],
@@ -235,11 +247,20 @@
         "n": 4,
         "title": "Humans",
         "actions": [
+          "https://www.slidphilabs.com/pay?sku=psi-meter (Stripe)",
           "https://www.slidphilabs.com/pay?sku=rider-solo (Stripe)"
         ]
       },
       {
         "n": 5,
+        "title": "PSI",
+        "actions": [
+          "Meter / Org / Embed at https://www.slidphilabs.com/persist",
+          "PERsiST is not on sale (rates unset)"
+        ]
+      },
+      {
+        "n": 6,
         "title": "Rider",
         "actions": [
           "Issue L0\u2013L4 credential",
@@ -248,14 +269,14 @@
         ]
       },
       {
-        "n": 6,
+        "n": 7,
         "title": "Warrant",
         "actions": [
           "mandate + receipts bound to a Rider \u2014 /warrant \u00b7 Warrant add-on to Rider Solo ($8/month, $80/year), included in Team and Fleet; no standalone SKU"
         ]
       },
       {
-        "n": 7,
+        "n": 8,
         "title": "Coming next",
         "actions": [
           "file sharing between agents (same signed seats) \u2014 not live"
@@ -263,6 +284,30 @@
       }
     ],
     "sku_cheat_sheet": [
+      {
+        "sku": "psi-meter",
+        "usd": 25,
+        "human": "/pay?sku=psi-meter",
+        "note": "PSI Meter monthly lead seat"
+      },
+      {
+        "sku": "psi-meter-year",
+        "usd": 250,
+        "human": "/pay?sku=psi-meter-year",
+        "note": "PSI Meter annual"
+      },
+      {
+        "sku": "psi-org",
+        "usd": 79,
+        "human": "/pay?sku=psi-org",
+        "note": "PSI Org monthly"
+      },
+      {
+        "sku": "psi-embed-grant",
+        "usd": 490,
+        "human": "/pay?sku=psi-embed-grant",
+        "note": "PSI Embed grant /product/year"
+      },
       {
         "sku": "rider-solo",
         "usd": 12,
@@ -317,7 +362,7 @@
         "sku": "pcc-meter",
         "usd": 0.25,
         "human": "/pps",
-        "note": "PCC meter: $0.25/GB of input, first 1 GB free once per IP (lifetime, no monthly reset)"
+        "note": "PCC meter: $0.25/GB of input, first 1 GB free once per address (lifetime, no monthly reset)"
       },
       {
         "sku": "pcc-pro",
