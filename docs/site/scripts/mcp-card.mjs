@@ -40,5 +40,12 @@ if (next === html) {
   console.error("counts line not found in mcp-service.html");
   process.exit(1);
 }
-writeFileSync(page, next);
+const withLede = next.replace(
+  /<p class="lede">\d+ tools\./,
+  `<p class="lede">${TOOLS.length} tools.`);
+if (withLede === next && !next.includes(`<p class="lede">${TOOLS.length} tools.`)) {
+  console.error("lede tool count not found in mcp-service.html");
+  process.exit(1);
+}
+writeFileSync(page, withLede);
 console.log(`mcp card OK: ${TOOLS.length} tools, ${CATALOGS.length} catalogs, ${COMMERCE.length} commerce`);

@@ -2,7 +2,7 @@
   "name": "slid-phi-labs",
   "title": "Slid Phi Labs",
   "description": "Hosted Streamable HTTP MCP for Slid Phi Labs public catalog and commerce discovery. Lookup is public; engines and customer operations remain protected.",
-  "version": "1.22.0",
+  "version": "1.23.0",
   "websiteUrl": "https://www.slidphilabs.com",
   "documentationUrl": "https://www.slidphilabs.com/mcp-service",
   "registry": "io.github.ceedot-rock/slid-phi-labs",
@@ -2198,6 +2198,632 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_products",
+      "description": "List every Slid Phi Labs product that has an MCP call door, with tool name, ops, page, and note. Read-only. Use before spl_product_call or a per-product spl_* tool.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_product_call",
+      "description": "Call any lab product by id + op through one door. Args: product (required), op (required), plus op-specific fields. Fail-closed when the product or op is unknown or a live adapter is missing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": "string",
+            "description": "Product id from spl_products (e.g. gitdepot, psi, conductor)."
+          },
+          "op": {
+            "type": "string",
+            "description": "Operation for that product (e.g. card, receipt, draw)."
+          }
+        },
+        "required": [
+          "product",
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_acn",
+      "description": "ACN product door. op=card.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_acp",
+      "description": "ACP product door. op=layers|card.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: layers | card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_rider",
+      "description": "Rider product door. op=card. Issue/verify live on Agent-Rider; warrants use spl_warrant_*.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_warrant",
+      "description": "Warrant product door. op=card. Runtime: spl_warrant_issue/verify/reserve/release/receipt.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_chamber",
+      "description": "Chamber product door. op=seal|open|card. seal needs obj + key_hex; open needs envelope + key_hex.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: seal | open | card. Required."
+          },
+          "obj": {
+            "type": "object"
+          },
+          "envelope": {
+            "type": "object"
+          },
+          "key_hex": {
+            "type": "string"
+          },
+          "key_hex2": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_pcc",
+      "description": "PCC product door. op=quote|card|compress|decompress. compress/decompress alias to spl_compress/spl_decompress.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: quote | card | compress | decompress. Required."
+          },
+          "bytes": {
+            "type": "number"
+          },
+          "data_b64": {
+            "type": "string"
+          },
+          "packed_b64": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_trustream",
+      "description": "TRUSTREAM product door. op=pack|unpack|card. pack/unpack use data_b64 / packed_b64.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: pack | unpack | card. Required."
+          },
+          "data_b64": {
+            "type": "string"
+          },
+          "packed_b64": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_cuni",
+      "description": "CuNi product door. op=card. Runtime verbs: translate, check, audit, cuni_bank, …",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_psi",
+      "description": "PSI / Meter product door. op=card|seats. Source is commercial/private; seats via psi-meter SKUs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card | seats. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_persist",
+      "description": "PERsiST page door. op=card. Same seat story as spl_psi.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_gitdepot",
+      "description": "GitDepot product door. op=card|quote|receipt|publish|retrieve|list. Live publish/retrieve need GITDEPOT_URL + GITDEPOT_KEY (or endpoint/key args).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card | quote | receipt | publish | retrieve | list. Required."
+          },
+          "bytes": {
+            "type": "number"
+          },
+          "team": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "blob_b64": {
+            "type": "string"
+          },
+          "data_b64": {
+            "type": "string"
+          },
+          "receipt_op": {
+            "type": "string",
+            "description": "publish | evict | join for receipt op"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_conductor",
+      "description": "Conductor product door. op=intent|list|get|push|review|approve|reject|diff_stat|card. Offline in-memory by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: intent | list | get | push | review | approve | reject | diff_stat | card. Required."
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "diff": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_quikgater",
+      "description": "Quikgater product door. op=fetch|card. fetch needs url.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: fetch | card. Required."
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_exactodds",
+      "description": "ExactOdds product door. op=draw|resolve|card. Local deterministic lib (no Rider required).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: draw | resolve | card. Required."
+          },
+          "seed": {
+            "type": "string"
+          },
+          "outcomes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "drawn": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_awlpay",
+      "description": "AwLPay product door. op=quote|card. quote needs amount_usd.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: quote | card. Required."
+          },
+          "amount_usd": {
+            "type": "number"
+          },
+          "rail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_pulsar",
+      "description": "Pulsar product door. op=encode|decode|card. Needs local pulsar binary.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: encode | decode | card. Required."
+          },
+          "data_b64": {
+            "type": "string"
+          },
+          "packed_b64": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_agenthq",
+      "description": "AgentHQ product door. op=validate_slug|card.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: validate_slug | card. Required."
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_teachaid",
+      "description": "TeachAid product door. op=card.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_labpass",
+      "description": "Lab Pass product door. op=card.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_trugame",
+      "description": "TRUgame product door. op=card.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spl_tollkeeper",
+      "description": "Tollkeeper product door. op=list|card. Lists Rider toll tool names and published flat USD where set.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: list | card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
         "openWorldHint": true
       }
     },
