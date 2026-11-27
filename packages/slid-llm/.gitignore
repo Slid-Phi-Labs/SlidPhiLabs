@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+adapters/**
+!adapters/.gitkeep
+data/corpus.jsonl
+*.safetensors
+*.bin
+*.gguf
+
+src/slid_llm.egg-info/
+*.egg-info/
+

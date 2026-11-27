@@ -1,0 +1,40 @@
+[project]
+name = "slid-llm"
+version = "0.2.0"
+description = "Slid Phi Labs own LLM: QLoRA fine-tune + local Ollama/host door for lab-grounded chat."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later OR LicenseRef-SlidPhiLabs-Commercial" }
+authors = [{ name = "Slid Phi Labs, Inc." }]
+dependencies = [
+  "requests>=2.31",
+]
+
+[project.optional-dependencies]
+train = [
+  "torch>=2.2",
+  "transformers>=4.44",
+  "peft>=0.12",
+  "trl>=0.9",
+  "datasets>=2.20",
+  "bitsandbytes>=0.43",
+  "accelerate>=0.33",
+  "sentencepiece>=0.2",
+]
+
+[project.scripts]
+slid-llm-host = "slid_llm.host:main"
+slid-llm-corpus = "slid_llm.corpus:main"
+slid-llm-train = "slid_llm.train_qlora:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
