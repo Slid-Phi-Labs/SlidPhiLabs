@@ -21,7 +21,7 @@ Status: `OPEN` | `DOING` | `BLOCKED` | `DONE`
 | 5 | Publish AgentHQ case blurb on `/hq` after first activate | Positioning: “hosted agent desk” | Grok | OPEN |
 | 6 | Price-conflict purge: PCC $369 vs $390 | Never quote wrong number | Muse | DONE |
 | 7 | Price-conflict purge: CuNi $390 vs $369 text | Same | Muse | DONE |
-| 8 | Suite free-edge single source (6.9GB/3h) | Kill 2GB/100GB contradictions | Muse | DONE |
+| 8 | Suite free-edge single source (1GB lifetime) | Align with PCC meter story; was 6.9/3h | Muse | DONE |
 | 9 | Site homepage lead with PSI then Rider | Matches Corey’s priority | Grok | OPEN |
 | 10 | `llms.txt` / discovery: PSI+Rider first | Agent/crawler positioning | Grok | OPEN |
 | 11 | Stripe Dashboard: AgentHQ product description polish | Buyer trust | Muse | OPEN |

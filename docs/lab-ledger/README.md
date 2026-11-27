@@ -64,7 +64,7 @@ One index + three areas. Each area holds one file per project.
 
 ## Known doc conflicts (recorded, not resolved)
 
-- Suite free edge: **resolved** — quote unpaid **6.9 GB / 3 h**, then
+- Suite free edge: **resolved** — quote unpaid **1 GB free once per address (lifetime)**, then
   **$0.05/GB** (bulk **$0.04/GB**), min **$0.05** (`licensing.json` caps.suite,
   `pricing.json` suite, `/pps`, `spl-pay-per-suite`). Old 2 GB / 100 GB free
   claims retired (TOP100 #8, 2026-11-26).

@@ -2,7 +2,7 @@
 
 Updated 2026-11-02. Source: `packages/spl-pay-per-suite`, NPM pricing.
 
-- Local v1.2.3 (6.9 GB / 3 h); npm live 1.1.8 still says 100 GB — stale.
+- Local v1.2.3 (1 GB free once per address (lifetime)); npm live 1.1.8 still says 100 GB — stale.
 - Client: quotes, checkout, MCP. Suite pricing tests in site api dir.
 - Blocked: `npm login` on this machine, then publish local versions.
 - Never-lose-money rule written into COMMERCIAL-LICENSE.md.

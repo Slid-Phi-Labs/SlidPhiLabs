@@ -6,6 +6,7 @@ import path from "node:path";
 import { runHostedEncode } from "./hosted-job.mjs";
 import { MAX_RAW } from "./specialist.mjs";
 import { addUsage, readUsage, identityFromReq, quotaCheck, ANON_KEY, ANON_JOB_CAP } from "./usage-meter.mjs";
+import { FREE_BYTES } from "../suite-pricing.js";
 
 // Deterministic offline: isolated meter store + missing engine binaries so
 // encodeHosted always takes the pure-JS store path (no pulsar/lb on PATH).
@@ -57,7 +58,7 @@ test("error: over MAX_RAW fails closed with 413", async () => {
 
 test("error: exhausted lifetime allowance returns the 402 paywall, never encodes", async () => {
   const ip = "10.7.0.5";
-  addUsage(identityFromReq(req(ip)).key, 2 ** 31); // 2 GiB > free cap, number-only write
+  addUsage(identityFromReq(req(ip)).key, FREE_BYTES + 1); // past unpaid 6.9 GiB edge
   const r = await runHostedEncode(req(ip), Buffer.from("paywall probe payload 0123456789"));
   assert.equal(r.status, 402);
   assert.equal(r.body.ok, false);

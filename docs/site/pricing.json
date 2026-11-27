@@ -456,10 +456,10 @@
     }
   },
   "suite": {
-    "plain": "Unpaid 6.9 GB / 3 h, then $0.05 per GB of input (bulk $0.04/GB after 100 paid GB), min $0.05. Customer-set monthly spend cap (default $25), alert at 80% of cap/allowance. Pro $25/month including 100 GB, then $0.20/GB. x402 per-call for agents; Stripe monthly for humans.",
-    "free_cap_gb": 6.9,
-    "window": "3h",
-    "free_window_hours": 3,
+    "plain": "First 1 GB free once per address (lifetime), then $0.05 per GB of input (bulk $0.04/GB after 100 paid GB), min $0.05. Customer-set monthly spend cap (default $25), alert at 80% of cap/allowance. Pro $25/month including 100 GB, then $0.20/GB. x402 per-call for agents; Stripe monthly for humans.",
+    "free_cap_gb": 1,
+    "window": "lifetime-per-address",
+    "free_window": "lifetime-per-address",
     "free_scope": "job",
     "usd_per_gb_after_free": 0.05,
     "usd_per_gb_bulk": 0.04,
@@ -467,7 +467,7 @@
     "cap_default_usd": 25,
     "alert_at_pct": 80,
     "included_gb": {
-      "unpaid": 6.9,
+      "unpaid": 1,
       "pcc-pro": 100
     },
     "page": "https://www.slidphilabs.com/pps"

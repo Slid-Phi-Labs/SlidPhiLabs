@@ -6,7 +6,7 @@
  * engines: SPL OmniWave · ZRW · gzip-9 · brotli-11
  * metrics: packed_bytes, ratio, encode_ms, decode_ms (where applicable)
  *
- * Suite: unpaid 6.9 GB / 3 h, then 5¢/GB — this page proves method
+ * Suite: first 1 GB free once per address (lifetime), then 5¢/GB — this page proves method
  * on public synthetic slices so visitors verify before they pay.
  */
 import { withProductBox } from "./lib/spl-box-gate.js";
@@ -504,7 +504,7 @@ async function handler(req, res) {
       })),
       cta: {
         suite: "https://www.slidphilabs.com/pps",
-        note: "Unpaid 6.9 GB / 3 h, then 5¢/GB — proof is above.",
+        note: "First 1 GB free once per address (lifetime), then 5¢/GB — proof is above.",
       },
     });
     recordMeteredBytes(req, benchBytes);

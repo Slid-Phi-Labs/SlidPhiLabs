@@ -6,6 +6,7 @@ import os from "node:os";
 import path from "node:path";
 import evalCard from "./eval-card.js";
 import { readUsage, identityFromReq } from "./lib/usage-meter.mjs";
+import { FREE_BYTES } from "./suite-pricing.js";
 
 const AUTH_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "spl-eval-card-"));
 process.env.AUTH_DIR = AUTH_DIR;
@@ -60,7 +61,7 @@ test("bad spec fails closed", async () => {
 test("over-quota refuses 402 without running suites", async () => {
   const { addUsage } = await import("./lib/usage-meter.mjs");
   const theIp = "10.11.0.9";
-  addUsage(identityFromReq({ headers: { "x-forwarded-for": theIp } }).key, 2 ** 31);
+  addUsage(identityFromReq({ headers: { "x-forwarded-for": theIp } }).key, FREE_BYTES + 1);
   const t = await call({ body: {}, ip: theIp });
   assert.equal(t.status, 402);
   assert.equal(t.json.error, "paywall");

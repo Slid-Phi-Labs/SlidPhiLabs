@@ -20,7 +20,7 @@ import {
 } from "../src/quote.mjs";
 const GiB = 1024 ** 3;
 
-test("6.9 GB unpaid cap is free", () => {
+test("1 GB lifetime free edge is free", () => {
   const q = computeQuote({ bytes: FREE_BYTES, product: "auto" });
   assert.equal(q.amount_cents, 0);
   assert.equal(q.free, true);
@@ -34,10 +34,10 @@ test("just over unpaid cap bills at 5¢/GB with $0.05 min", () => {
   assert.equal(q.breakdown.rates.usd_per_gb, 0.05);
 });
 
-test("FREE_BYTES is the 6.9 GB unpaid cap", () => {
-  assert.equal(FREE_GB, 6.9);
-  assert.equal(FREE_WINDOW_HOURS, 3);
-  assert.equal(FREE_BYTES, Math.round(6.9 * GiB));
+test("FREE_BYTES is the 1 GB lifetime free edge", () => {
+  assert.equal(FREE_GB, 1);
+  assert.equal(FREE_WINDOW_HOURS, null);
+  assert.equal(FREE_BYTES, Math.round(1 * GiB));
   assert.equal(computeQuote({ bytes: FREE_BYTES }).amount_cents, 0);
 });
 
@@ -102,12 +102,12 @@ test("min paid is $0.05 with $25 default cap and 80% alert", () => {
   assert.equal(cap.remaining_cents, 500);
 });
 
-test("SUITE_PRICING is the 6.9 GB / 3 h unpaid model", () => {
-  assert.equal(SUITE_PRICING.model, "unpaid_cap_6_9_3h");
-  assert.equal(SUITE_PRICING.free_cap_gb, 6.9);
+test("SUITE_PRICING is the 1 GB free once per address (lifetime) model", () => {
+  assert.equal(SUITE_PRICING.model, "free_1gb_lifetime");
+  assert.equal(SUITE_PRICING.free_cap_gb, 1);
   assert.equal(SUITE_PRICING.usd_per_gb_after_free, 0.05);
   assert.equal(SUITE_PRICING.usd_per_gb_bulk, 0.04);
-  assert.equal(SUITE_PRICING.window, "3h");
+  assert.equal(SUITE_PRICING.window, "lifetime-per-address");
 });
 
 test("used_bytes consumes the unpaid allowance", () => {

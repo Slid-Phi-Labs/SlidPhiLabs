@@ -1,6 +1,6 @@
 /**
  * SPL Pay Per Suite — local quote (matches site API suite-pricing.js).
- * Unpaid free edge: 6.9 GB / 3 h, then $0.05/GB (bulk $0.04/GB after 100
+ * Unpaid free edge: 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB after 100
  * paid GB), min $0.05. Time window enforced on the host; this quote is
  * bytes-only. Pro plan SKUs (pcc-pro, pcc-pro-year): 100 GB included each
  * month, then $0.20/GB. Customer-set monthly spend cap (default $25), 80% alert.
@@ -9,9 +9,9 @@
  * test/print-suite-meter.mjs when CUNI_BIN + CUNI_SUITE_METER_LAW are set).
  * Site gold: docs/site/api/suite-pricing.js + suite-pricing.test.mjs.
  */
-export const FREE_GB = 6.9;
-export const FREE_WINDOW_HOURS = 3;
-export const FREE_WINDOW = "3h";
+export const FREE_GB = 1;
+export const FREE_WINDOW_HOURS = null;
+export const FREE_WINDOW = "lifetime-per-address";
 export const FREE_BYTES = Math.round(FREE_GB * 1024 * 1024 * 1024);
 export const MAX_BYTES = 1024 * 1024 * 1024 * 1024;
 export const MAX_CENTS = 1_000_000;
@@ -27,10 +27,9 @@ export const ALERT_FRACTION = 0.8;
 
 /** Canonical suite rates — MCP, package.json, site, API must match */
 export const SUITE_PRICING = {
-  model: "unpaid_cap_6_9_3h",
+  model: "free_1gb_lifetime",
   free_cap_gb: FREE_GB,
-  free_window_hours: FREE_WINDOW_HOURS,
-  free_window: "3h-per-job",
+  free_window: FREE_WINDOW,
   free_cap_bytes: FREE_BYTES,
   usd_per_gb_after_free: 0.05,
   usd_per_gb_bulk: 0.04,
@@ -41,7 +40,7 @@ export const SUITE_PRICING = {
   window: FREE_WINDOW,
   try_gate: "retired",
   human_one_liner:
-    "Unpaid 6.9 GB / 3 h · then $0.05/GB · bulk $0.04/GB · min $0.05 · Pro: 100 GB included, then $0.20/GB",
+    "First 1 GB free once per address (lifetime) · then $0.05/GB · bulk $0.04/GB · min $0.05 · Pro: 100 GB included, then $0.20/GB",
 };
 
 /** Included GB by plan SKU. Pro seats reset monthly; the free cap is lifetime-per-IP. */

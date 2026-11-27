@@ -1,8 +1,8 @@
 /**
  * Dual license: AGPL-3.0-or-later OR Slid Phi Labs Commercial. See /LICENSE.
- * Suite free edge (canonical): unpaid 6.9 GB / 3 h, then $0.05/GB,
- * bulk $0.04/GB after 100 paid GB, min $0.05. Time window enforced on
- * the host; this quote is bytes-only.
+ * Suite free edge (canonical, 2026-11-27): first 1 GB free once per
+ * address (lifetime, no monthly reset) — same story as the PCC meter —
+ * then $0.05/GB, bulk $0.04/GB after 100 paid GB, min $0.05.
  * Pro plan $25/month includes 100 GB, then $0.20/GB.
  * Customer-set monthly spend cap (default $25 pay-as-you-go), alert at
  * 80% of the cap and of the included allowance.
@@ -10,10 +10,10 @@
  * operation. Lab Pass carries NO included GB (compression is out of the
  * bundle); retired gc-* SKUs fall back to the unpaid free cap.
  */
-export const FREE_GB = 6.9;
-export const FREE_WINDOW_HOURS = 3;
+export const FREE_GB = 1;
+export const FREE_WINDOW_HOURS = null;
 export const FREE_BYTES = Math.round(FREE_GB * 1024 * 1024 * 1024);
-export const FREE_WINDOW = "3h";
+export const FREE_WINDOW = "lifetime-per-address";
 export const CENTS_PER_GB = 5;
 export const BULK_CENTS_PER_GB = 4;
 export const BULK_AFTER_PAID_GB = 100;
@@ -93,7 +93,7 @@ export function computeQuote({
   const free = billable <= 0;
   const rates = {
     free_cap_gb: FREE_GB,
-    free_window_hours: FREE_WINDOW_HOURS,
+    free_window: FREE_WINDOW,
     included_gb: included / (1024 * 1024 * 1024),
     usd_per_gb: CENTS_PER_GB / 100,
     usd_per_gb_bulk: BULK_CENTS_PER_GB / 100,
@@ -105,7 +105,7 @@ export function computeQuote({
     alert_fraction: ALERT_FRACTION,
     alert_at_cents: Math.round(DEFAULT_CAP_CENTS * ALERT_FRACTION),
   };
-  const plain_free = `Unpaid cap ${FREE_GB} GB / ${FREE_WINDOW_HOURS} h. Then $${(CENTS_PER_GB / 100).toFixed(2)}/GB (bulk $${(BULK_CENTS_PER_GB / 100).toFixed(2)}/GB after ${BULK_AFTER_PAID_GB} paid GB). Min $${(MIN_PAID_CENTS / 100).toFixed(2)}. Pro plan: 100 GB included, then $${(PRO_CENTS_PER_GB / 100).toFixed(2)}/GB.`;
+  const plain_free = `First ${FREE_GB} GB free once per address (lifetime, no monthly reset). Then $${(CENTS_PER_GB / 100).toFixed(2)}/GB (bulk $${(BULK_CENTS_PER_GB / 100).toFixed(2)}/GB after ${BULK_AFTER_PAID_GB} paid GB). Min $${(MIN_PAID_CENTS / 100).toFixed(2)}. Pro plan: 100 GB included, then $${(PRO_CENTS_PER_GB / 100).toFixed(2)}/GB.`;
   if (free) {
     return {
       ok: true,
@@ -142,7 +142,7 @@ export function computeQuote({
     amount_display: (cents / 100).toFixed(2),
     free: false,
     tier: "usage",
-    message: `Over unpaid ${FREE_GB} GB / ${FREE_WINDOW_HOURS} h — $${(CENTS_PER_GB / 100).toFixed(2)}/GB (bulk $${(BULK_CENTS_PER_GB / 100).toFixed(2)}/GB), min $${(MIN_PAID_CENTS / 100).toFixed(2)}.`,
+    message: `Over first ${FREE_GB} GB free (lifetime per address) — $${(CENTS_PER_GB / 100).toFixed(2)}/GB (bulk $${(BULK_CENTS_PER_GB / 100).toFixed(2)}/GB), min $${(MIN_PAID_CENTS / 100).toFixed(2)}.`,
     breakdown: {
       product,
       op: operation,
@@ -159,8 +159,8 @@ export function computeQuote({
 }
 
 export const PRICING_EXAMPLES = [
-  { gb: 6.9, label: "6.9 GB", approx: "$0 (under unpaid 6.9 GB / 3 h)" },
-  { gb: 10, label: "10 GB", approx: "$0.16 (3.1 GB over × 5¢; min $0.05)" },
+  { gb: 1, label: "1 GB", approx: "$0 (under first 1 GB free, lifetime)" },
+  { gb: 10, label: "10 GB", approx: "$0.45 (9 GB over × 5¢)" },
   { gb: 20, label: "20 GB on Pro", approx: "$0 (under 100 GB included)" },
   { gb: 120, label: "120 GB on Pro", approx: "$4.00 (20 GB over at 20¢)" },
 ];

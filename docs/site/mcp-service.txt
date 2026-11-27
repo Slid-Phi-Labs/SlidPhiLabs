@@ -20,7 +20,7 @@ SKU succession works the same way year-over-year questions work on a coding cata
 what changed, and which SKU succeeded it.
 
 Catalogs are public law. Engines stay behind a seat.
-Suite free edge (canonical): unpaid 6.9 GB / 3 h, then $0.05/GB (bulk $0.04/GB), min $0.05.
+Suite free edge (canonical): first 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05.
 Do not advertise 100 GB free or 2 GB free.
 
 Config:

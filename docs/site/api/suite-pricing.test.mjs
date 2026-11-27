@@ -8,7 +8,7 @@ import { PRODUCT_CATALOG, SKU_ALIASES, resolveSku } from "./lib/payments-rails.j
 
 const gib = 1024 * 1024 * 1024;
 
-// ---- Suite unpaid: 6.9 GB / 3 h, then 5¢/GB (4¢ bulk) ----
+// ---- Suite unpaid: 1 GB free once per address (lifetime), then 5¢/GB (4¢ bulk) ----
 const under = computeQuote({ bytes: FREE_BYTES, used_bytes: 0 });
 assert.equal(under.free, true);
 assert.equal(under.amount_cents, 0);
@@ -25,11 +25,11 @@ const twenty = computeQuote({ bytes: 20 * gib, used_bytes: 0 });
 assert.equal(twenty.free, false);
 {
   const expect = Math.round(((20 * gib - FREE_BYTES) / gib) * 5);
-  assert.equal(twenty.breakdown.usage_cents, expect, "over unpaid 6.9 at 5¢");
+  assert.equal(twenty.breakdown.usage_cents, expect, "over first 1 GB free at 5¢");
   assert.equal(twenty.amount_cents, expect);
 }
 
-assert.equal(FREE_BYTES, Math.round(6.9 * gib));
+assert.equal(FREE_BYTES, Math.round(1 * gib));
 assert.equal(CENTS_PER_GB, 5);
 assert.equal(PRO_CENTS_PER_GB, 20);
 
@@ -45,7 +45,7 @@ assert.equal(proYear.free, true, "Pro annual includes 100 GB/month");
 // Lab Pass carries NO included GB (compression out of the bundle)
 const labPass = computeQuote({ bytes: 10 * gib, used_bytes: 0, sku: "lab-pass" });
 assert.equal(labPass.free, false, "Lab Pass unlocks no Pro allowance");
-assert.equal(labPass.breakdown.usage_cents, Math.round(((10 * gib - FREE_BYTES) / gib) * 5), "over unpaid 6.9 at 5¢");
+assert.equal(labPass.breakdown.usage_cents, Math.round(((10 * gib - FREE_BYTES) / gib) * 5), "over first 1 GB free at 5¢");
 assert.equal(includedBytesForSku("lab-pass"), FREE_BYTES);
 
 // Retired gc-* SKUs fall back to the unpaid free cap
@@ -59,7 +59,7 @@ const d40 = computeQuote({ bytes: 40 * gib, op: "decompress" }).amount_cents;
 const r40 = computeQuote({ bytes: 40 * gib, op: "roundtrip" }).amount_cents;
 assert.equal(c40, d40);
 assert.equal(d40, r40);
-assert.equal(c40, Math.round(((40 * gib - FREE_BYTES) / gib) * 5), "over unpaid 6.9 at 5¢");
+assert.equal(c40, Math.round(((40 * gib - FREE_BYTES) / gib) * 5), "over first 1 GB free at 5¢");
 
 // Cap / alert: default $25 cap, alert at 80% ($20)
 const cap = capStatus({ spent_cents: 2000, cap_cents: DEFAULT_CAP_CENTS });
@@ -157,13 +157,13 @@ assert.equal(price("gao-entry"), 100);
 
 // Meter fields: unpaid free edge + Pro overage + cap default + 80% alert
 assert.equal(PRODUCT_CATALOG.suite.meter.rate_cents, 5);
-assert.equal(PRODUCT_CATALOG.suite.meter.free_gb, 6.9);
-assert.equal(PRODUCT_CATALOG.suite.meter.free_window_hours, 3);
+assert.equal(PRODUCT_CATALOG.suite.meter.free_gb, 1);
+assert.equal(PRODUCT_CATALOG.suite.meter.free_window, "lifetime-per-address");
 assert.equal(PRODUCT_CATALOG.suite.meter.bulk_rate_cents, 4);
 assert.equal(PRODUCT_CATALOG.suite.meter.min_paid_cents, 5);
 assert.equal(PRODUCT_CATALOG.suite.meter.cap_default_cents, 2500);
 assert.equal(PRODUCT_CATALOG.suite.meter.alert_fraction, 0.8);
-assert.equal(FREE_GB, 6.9);
+assert.equal(FREE_GB, 1);
 assert.equal(PRODUCT_CATALOG.quikgater.meter.rate_cents, 2);
 assert.equal(PRODUCT_CATALOG.quikgater.meter.cap_default_cents, 1000);
 assert.equal(PRODUCT_CATALOG["lab-check"].meter.rate_cents, 5);

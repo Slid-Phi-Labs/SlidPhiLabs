@@ -1,7 +1,7 @@
 /**
  * Dual license: AGPL-3.0-or-later OR Slid Phi Labs Commercial. See /LICENSE.
  * Quote a compress job against the lifetime-per-IP meter.
- * Unpaid 6.9 GB / 3 h, then $0.05/GB (bulk $0.04/GB), min $0.05. Pro plan: 100 GB included, then $0.20/GB.
+ * First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05. Pro plan: 100 GB included, then $0.20/GB.
  */
 import { computeQuote, FREE_BYTES, PRICING_EXAMPLES } from "./suite-pricing.js";
 import { meterSnapshot, identityFromReq, readUsage } from "./lib/usage-meter.mjs";

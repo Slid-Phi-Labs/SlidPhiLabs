@@ -5,7 +5,7 @@ import { computeQuote, FREE_BYTES, usageFeeCents } from "../src/quote.mjs";
 
 const GiB = 1024 ** 3;
 
-/** Unpaid 6.9 GB / 3 h gold — then 5¢/GB, min $0.05. */
+/** First 1 GB free once per address (lifetime) gold — then 5¢/GB, min $0.05. */
 const CASES = [
   { bytes: 0, expect: 0 },
   { bytes: FREE_BYTES, expect: 0 },
@@ -13,7 +13,7 @@ const CASES = [
   { bytes: 20 * GiB, expect: usageFeeCents(20 * GiB - FREE_BYTES) },
 ];
 
-test("JS quote matches unpaid 6.9 GB / 3 h meter gold", () => {
+test("JS quote matches first 1 GB free once per address (lifetime) meter gold", () => {
   const got = CASES.map((c) => computeQuote({ bytes: c.bytes }).amount_cents);
   assert.deepEqual(got, CASES.map((c) => c.expect));
 });

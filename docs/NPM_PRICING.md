@@ -33,7 +33,7 @@ Access after pay is an entitlement claim, not a private-engine dump. x402 auto-c
 
 | | |
 |--|--|
-| Unpaid | **6.9 GB / 3 h** |
+| Unpaid | **1 GB free once per address (lifetime)** |
 | Then | **$0.05 / GB** |
 | Bulk | **$0.04 / GB** after 100 paid GB · min **$0.05** |
 | Pro | PCC Pro: 100 GB included, then **$0.20 / GB** |
@@ -67,7 +67,7 @@ Each commercial package should expose:
   "agentic": {
     "discovery": "https://www.slidphilabs.com/api/agent",
     "catalog": "https://www.slidphilabs.com/api/x402-products",
-    "suite_pricing": { "free_cap_gb": 6.9, "free_window_hours": 3, "usd_per_gb_after_free": 0.05, "usd_per_gb_bulk": 0.04, "min_paid_usd": 0.05 }
+    "suite_pricing": { "free_cap_gb": 1, "free_window": "lifetime-per-address", "usd_per_gb_after_free": 0.05, "usd_per_gb_bulk": 0.04, "min_paid_usd": 0.05 }
   },
   "x402": {
     "discovery": "https://www.slidphilabs.com/api/agent",
@@ -83,7 +83,7 @@ Each commercial package should expose:
 | Package | Local | npm (live until Host `npm login`) |
 |---------|-------|-----------------------------------|
 | slid-phi | **2.2.11** | **2.2.10** |
-| spl-pay-per-suite | **1.1.9** (6.9 GB / 3 h) | **1.1.8** (still says 100 GB) |
+| spl-pay-per-suite | **1.1.9** (1 GB free once per address (lifetime)) | **1.1.8** (still says 100 GB) |
 | blackjack-compression | **deprecated** | **1.5.2** |
 | @cptasz13/tru8 | **deprecated** | **0.1.0** (broken: missing `stroke-ls.mjs`) |
 | shard-zip | historical | **0.4.1** |
@@ -91,7 +91,7 @@ Each commercial package should expose:
 | pulsar | cargo/git, not npm | — |
 | zero-range-wave-compression | pending local tree | **Other Grok / Host** |
 
-**Canonical suite (must match API + MCP + npm):** unpaid **6.9 GB / 3 h** · then **$0.05/GB** · bulk **$0.04/GB** · min **$0.05**.
+**Canonical suite (must match API + MCP + npm):** unpaid **1 GB free once per address (lifetime)** · then **$0.05/GB** · bulk **$0.04/GB** · min **$0.05**.
 
 ## Handoff · This Grok ↔ Other Grok
 

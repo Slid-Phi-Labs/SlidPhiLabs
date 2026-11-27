@@ -70,12 +70,12 @@ test("spl-pay-per-suite copy matches pricing.json suite (LAB50 step 41)", () => 
   const pkgRoot = join(root, "..", "..", "packages", "spl-pay-per-suite");
   const readme = readFileSync(join(pkgRoot, "README.md"), "utf8");
   const quote = readFileSync(join(pkgRoot, "src", "quote.mjs"), "utf8");
-  assert.match(readme, /\*\*6\.9 GB \/ 3 h\*\*/, "README unpaid free edge");
+  assert.match(readme, /\*\*1 GB free once per address \(lifetime\)\*\*/, "README unpaid free edge");
   assert.match(readme, /\$0\.05\/GB/, "README meter");
-  assert.match(quote, /export const FREE_GB = 6\.9;/, "quote FREE_GB");
-  assert.match(quote, /export const FREE_WINDOW = "3h";/, "quote FREE_WINDOW");
-  assert.ok(!readme.includes("2 GB/month") && !readme.includes("8¢") && !readme.includes("100 GB free"),
-    "stale 2 GB / 8c / 100 GB free copy must not return");
+  assert.match(quote, /export const FREE_GB = 1;/, "quote FREE_GB");
+  assert.match(quote, /export const FREE_WINDOW = "lifetime-per-address";/, "quote FREE_WINDOW");
+  assert.ok(!readme.includes("2 GB/month") && !readme.includes("8¢") && !readme.includes("100 GB free") && !readme.includes("6.9 GB"),
+    "stale 2 GB / 8c / 100 GB free / 6.9 GB copy must not return");
 });
 
 test("mcp-service page carries current prices", () => {

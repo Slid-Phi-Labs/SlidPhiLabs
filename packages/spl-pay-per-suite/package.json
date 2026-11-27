@@ -2,7 +2,7 @@
   "name": "@slidphi/spl-pay-per-suite",
   "version": "1.2.5",
   "mcpName": "io.github.ceedot-rock/spl-pay-per-suite",
-  "description": "Dual-licensed hosted compression client, quotes, checkout, and MCP. Open license or a paid grant. Unpaid 6.9 GB / 3 h, then 5\u00a2/GB (4\u00a2 bulk), min $0.05.",
+  "description": "Dual-licensed hosted compression client, quotes, checkout, and MCP. Open license or a paid grant. First 1 GB free once per address (lifetime), then 5\u00a2/GB (4\u00a2 bulk), min $0.05.",
   "type": "module",
   "main": "src/index.mjs",
   "exports": {
@@ -90,7 +90,7 @@
     "site": "https://www.slidphilabs.com",
     "llms_txt": "https://www.slidphilabs.com/llms.txt",
     "agents_json": "https://www.slidphilabs.com/agents.json",
-    "one_liner": "Unpaid 6.9 GB / 3 h, then 5\u00a2/GB (4\u00a2 bulk), min $0.05. zip() builds a .pcc. Pay: https://www.slidphilabs.com/pay \u00b7 GET https://www.slidphilabs.com/api/agent",
+    "one_liner": "First 1 GB free once per address (lifetime), then 5\u00a2/GB (4\u00a2 bulk), min $0.05. zip() builds a .pcc. Pay: https://www.slidphilabs.com/pay \u00b7 GET https://www.slidphilabs.com/api/agent",
     "agent_platform": {
       "cuni": "https://spl-cuni-studio.fly.dev/",
       "agent_rider": "https://agentrider.fly.dev/",
@@ -98,13 +98,13 @@
     },
     "suite": "https://www.slidphilabs.com/pps",
     "suite_pricing": {
-      "free_cap_gb": 6.9,
-      "free_window_hours": 3,
+      "free_cap_gb": 1,
+      "free_window": "lifetime-per-address",
       "free_window": "3h-per-job",
       "min_paid_usd": 0.05,
       "usd_per_gb_after_free": 0.05,
       "usd_per_gb_bulk": 0.04,
-      "window": "3h",
+      "window": "lifetime-per-address",
       "try_gate": "retired",
       "model": "unpaid_cap_6_9_3h"
     },
@@ -136,8 +136,8 @@
     "pay_ui": "https://www.slidphilabs.com/pay",
     "doc": "https://www.slidphilabs.com/pps",
     "suite_pricing": {
-      "free_cap_gb": 6.9,
-      "free_window_hours": 3,
+      "free_cap_gb": 1,
+      "free_window": "lifetime-per-address",
       "usd_per_gb_after_free": 0.05,
       "usd_per_gb_bulk": 0.04,
       "min_paid_usd": 0.05

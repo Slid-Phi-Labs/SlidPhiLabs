@@ -1,20 +1,23 @@
 # @slidphi/phi-rest
 
-> GID starter README (0.1.0). Flesh out each section below with the product's real behavior before calling this doc done.
+**Toy / pattern library — not a priced product.** No SKU, no meter, no
+checkout. “After fire, rest”: open once, serve from RAM.
 
-## What @slidphi/phi-rest does
+## What it does
 
-Short paragraph: who it serves, what it computes or serves, and where it sits in the lab stack.
+Small offline helpers: seal bytes with `cloak`, open with `open`, and
+serve a warm file tree from RAM via `createRest` / the Vite plugin.
+Useful as a lab pattern; do not sell or quote as a commercial surface.
 
 ## Install
 
-Commands to install, required runtimes, and environment variables. Keep secrets in the vault, never here.
+Private package in this monorepo (`packages/phi-rest`). Node 18+. No
+env secrets required for the unit suite.
 
 ## Usage
 
 Entry point: `src/phi_rest.mjs` (also `src/phi_rest.cjs`,
-`src/vite-plugin.mjs`). Seal bytes with `cloak`, open with `open`,
-serve warm files from RAM with `createRest`.
+`src/vite-plugin.mjs`).
 
 ```js
 import { cloak, open } from "./src/phi_rest.mjs";
@@ -27,7 +30,8 @@ Run the suite: `npm test` (`node --test test/`, offline, no network).
 
 ## Testing
 
-How to run the suite and what it covers.
+`npm test` covers cloak/open round-trip and RAM serve paths without
+network.
 
 ## License
 
