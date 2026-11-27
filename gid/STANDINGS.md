@@ -1,17 +1,17 @@
 # GID Standings
 
-Last run: 2026-11-27 09:30 UTC (run-start / record time). Scores 1–100 per `rubric.md`. Best first.
+Last run: 2026-11-27 09:58 UTC (run-start / record time). Scores 1–100 per `rubric.md`. Best first.
 
 Lab as a whole: 49 products, mean 99.2, median 100 (upper-median), 49/49 shippable (>=90), 20 open gaps.
 Dimension means: Docs 20.0/20, Functionality 20.0/20, Ops 20.0/20, Reliability 19.2/20, Security 20.0/20.
 
 | Rank | Product | Score | Band | Δ vs last | Open gaps | Fixes applied |
 |-----:|---------|------:|------|----------:|-----------|---------------|
-| 1 | acp | 100 | shippable | 0 | none | — |
-| 2 | agent-rider | 100 | shippable | 0 | none | — |
-| 3 | agent-rider-quickstart | 100 | shippable | 0 | none | — |
-| 4 | agenthq | 100 | shippable | 0 | none | — |
-| 5 | arn | 100 | shippable | 0 | none | — |
+| 1 | agent-rider | 100 | shippable | 0 | none | — |
+| 2 | agent-rider-quickstart | 100 | shippable | 0 | none | — |
+| 3 | agenthq | 100 | shippable | 0 | none | — |
+| 4 | arn | 100 | shippable | 0 | none | — |
+| 5 | arp | 100 | shippable | — | none | — |
 | 6 | awlpay | 100 | shippable | 0 | none | — |
 | 7 | chamber | 100 | shippable | 0 | none | — |
 | 8 | conductor | 100 | shippable | 0 | none | — |
