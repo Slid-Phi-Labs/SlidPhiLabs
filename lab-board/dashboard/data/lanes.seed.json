@@ -1,0 +1,74 @@
+{
+  "L": {
+    "holder": null,
+    "items": []
+  },
+  "R": {
+    "holder": null,
+    "items": []
+  },
+  "open": [
+    {
+      "id": "issue-137",
+      "title": "Legal review: waiver text (WAIVER_V1) needs licensed attorney sign-off",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/137"
+    },
+    {
+      "id": "issue-138",
+      "title": "Passkeys: verify rpIdHash, flags, and counter in verifyAssertion",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/138"
+    },
+    {
+      "id": "issue-139",
+      "title": "GID accepted corpus: seo.test.mjs FALLBACK list intentionally matches TODO text",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/139"
+    },
+    {
+      "id": "issue-1",
+      "title": "Owner clicks: org, pins, Vercel git link, archive host-* dumps",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/1"
+    },
+    {
+      "id": "issue-20",
+      "title": "Seat the one vertical: exact hop, cheap wire, payable hop",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/20"
+    },
+    {
+      "id": "issue-63",
+      "title": "Accept Nano (XNO) for the paid compression capability",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/63"
+    },
+    {
+      "id": "issue-90",
+      "title": "MarketNow certification: slidphilabs (certified-L1.5, trust 48/100)",
+      "source": "issue",
+      "url": "https://github.com/Slid-Phi-Labs/SlidPhiLabs/issues/90"
+    },
+    {
+      "id": "lab-stashes",
+      "title": "Land or drop the 3 tandem WIP stashes in the shared checkout",
+      "source": "lab-task"
+    },
+    {
+      "id": "lab-linker",
+      "title": "Rust linker toolchain so 9 CuNi arms + cuni-parse EXEC suites run here",
+      "source": "lab-task"
+    },
+    {
+      "id": "lab-go",
+      "title": "Go toolchain so the cuni prove suite runs here (spl-pay-per-suite EXEC)",
+      "source": "lab-task"
+    },
+    {
+      "id": "lab-lanes-ops",
+      "title": "Run Muse↔Grok tandem through co-op lanes board",
+      "source": "lab-task"
+    }
+  ]
+}

@@ -5,5 +5,5 @@
   "type": "module",
   "main": "./server.mjs",
   "exports": { ".": "./server.mjs" },
-  "scripts": { "test": "node --test server.test.mjs" }
+  "scripts": { "test": "node --test server.test.mjs lanes.test.mjs" }
 }
