@@ -12,7 +12,7 @@
   "glossary": {
     "CuNi": "language \u2014 write once, print 53 targets. Same stdout or refuse. Native seats: Python, Go, JS, TS, C, C++, Rust. Bank arm: paste N get X. Studio $0. Closed-app grant $490/yr. Per-check API: first 100 checks/month free, then $0.05 per check. v0.10.2.",
     "Chamber": "two-key protocol for storing a JSON secret. Cloak license $20/mo \u00b7 $200/yr. 24-hour try. Open existing seals with both keys; opening already-sealed blobs free forever.",
-    "Agent-Rider": "signed agent identity L0\u2013L4. Solo $12 \u00b7 Team $49 \u00b7 Fleet $199 per month. Overage $0.02 per verification, customer-set cap, alert at 80%. Rider Solo included in Lab Pass.",
+    "Agent-Rider": "signed agent identity L0\u2013L4. Solo $12 \u00b7 Team $49 \u00b7 Fleet $199 per month. Overage $0.025 per verification, customer-set cap, alert at 80%. Rider Solo included in Lab Pass.",
     "PCC": "lossless compressor through your tools. Metered $0.25/GB of input, first 1 GB/month free; Pro $25/mo (100 GB included, then $0.20/GB). Dual-licensed public source, or a paid grant to ship closed.",
     "TRUSTREAM": "live logs on the PCC plan.",
     "Suite": "PCC meter \u2014 first 1 GB/month free, then $0.25/GB of input. Customer-set cap (default $25), alert at 80%. Not a product card.",

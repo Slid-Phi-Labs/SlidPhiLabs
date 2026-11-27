@@ -193,7 +193,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=rider-solo",
     kind: "rider",
     list: true,
-    blurb: "Signed agent identity L0–L4. 1 identity, 500 verifications/month. Overage $0.02 per verification; monthly cap default 2× plan price; 80% alert. Free identities carry no L3/L4 attestation.",
+    blurb: "Signed agent identity L0–L4. 1 identity, 500 verifications/month. Overage $0.025 per verification; monthly cap default 2× plan price; 80% alert. Free identities carry no L3/L4 attestation.",
     meter: { unit: "verification", included: 500, overage_cents: 2, cap_default_cents: 2400, alert_fraction: 0.8 },
   },
   "rider-bundle": retired("rider-team", "Rider · Bundle seat (legacy → Rider Team)"),
@@ -205,7 +205,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=rider-team",
     kind: "rider",
     list: true,
-    blurb: "Signed agent identities L0–L4. 10 identities, 5,000 verifications/month, Warrant included. Overage $0.02 per verification; monthly cap default 2× plan price; 80% alert.",
+    blurb: "Signed agent identities L0–L4. 10 identities, 5,000 verifications/month, Warrant included. Overage $0.025 per verification; monthly cap default 2× plan price; 80% alert.",
     meter: { unit: "verification", included: 5000, overage_cents: 2, cap_default_cents: 9800, alert_fraction: 0.8 },
   },
   "rider-fleet": {
@@ -214,7 +214,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=rider-fleet",
     kind: "rider",
     list: true,
-    blurb: "Signed agent identities L0–L4. 100 identities, 50,000 verifications/month, Warrant + fleet watch included. Overage $0.02 per verification; monthly cap default 2× plan price; 80% alert.",
+    blurb: "Signed agent identities L0–L4. 100 identities, 50,000 verifications/month, Warrant + fleet watch included. Overage $0.025 per verification; monthly cap default 2× plan price; 80% alert.",
     meter: { unit: "verification", included: 50000, overage_cents: 2, cap_default_cents: 39800, alert_fraction: 0.8 },
   },
   "rider-solo-year": {
@@ -223,7 +223,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=rider-solo-year",
     kind: "rider",
     list: true,
-    blurb: "Signed agent identity L0–L4 for 12 months. 1 identity, 500 verifications/month. Overage $0.02 per verification; monthly cap default 2× plan price; 80% alert.",
+    blurb: "Signed agent identity L0–L4 for 12 months. 1 identity, 500 verifications/month. Overage $0.025 per verification; monthly cap default 2× plan price; 80% alert.",
     meter: { unit: "verification", included: 500, overage_cents: 2, cap_default_cents: 2400, alert_fraction: 0.8 },
   },
   "rider-team-year": {
@@ -232,7 +232,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=rider-team-year",
     kind: "rider",
     list: true,
-    blurb: "Signed agent identities L0–L4 for 12 months. 10 identities, 5,000 verifications/month, Warrant included. Overage $0.02 per verification; monthly cap default 2× plan price; 80% alert.",
+    blurb: "Signed agent identities L0–L4 for 12 months. 10 identities, 5,000 verifications/month, Warrant included. Overage $0.025 per verification; monthly cap default 2× plan price; 80% alert.",
     meter: { unit: "verification", included: 5000, overage_cents: 2, cap_default_cents: 9800, alert_fraction: 0.8 },
   },
   "rider-fleet-year": {
@@ -241,7 +241,7 @@ export const PRODUCT_CATALOG = {
     stripe: "https://www.slidphilabs.com/pay?sku=rider-fleet-year",
     kind: "rider",
     list: true,
-    blurb: "Signed agent identities L0–L4 for 12 months. 100 identities, 50,000 verifications/month, Warrant + fleet watch included. Overage $0.02 per verification; monthly cap default 2× plan price; 80% alert.",
+    blurb: "Signed agent identities L0–L4 for 12 months. 100 identities, 50,000 verifications/month, Warrant + fleet watch included. Overage $0.025 per verification; monthly cap default 2× plan price; 80% alert.",
     meter: { unit: "verification", included: 50000, overage_cents: 2, cap_default_cents: 39800, alert_fraction: 0.8 },
   },
   "rider-ops-month": {

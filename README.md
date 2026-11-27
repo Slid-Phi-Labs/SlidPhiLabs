@@ -3,13 +3,13 @@
 [![Audited checks](https://github.com/ceedot-rock/SlidPhiLabs/actions/workflows/audited-checks.yml/badge.svg)](https://github.com/ceedot-rock/SlidPhiLabs/actions/workflows/audited-checks.yml)
 [![License: AGPL-3.0-or-later / Commercial](https://img.shields.io/badge/license-AGPL--3.0--or--later%20%2F%20Commercial-blue)](LICENSE)
 
-AWARE is a retired alias for PCC (the hosted lossless compressor). TRU8 is not the current product lead.
+AWARE is a retired alias for PCC (lossless compression served through your tools). TRU8 is not the current product lead.
 
-Hosted lossless compression, a two-key JSON seal, signed agent identity, and a small language that refuses to lie.
+Lossless compression served through your tools, a two-key JSON seal, signed agent identity, and a small language that refuses to lie.
 
-This repository is the public website, API, and npm clients. Dual-licensed: AGPL-3.0-or-later or a paid commercial grant. Hosted compression runs every pathway we own.
+This repository is the public website, API, and npm clients. Dual-licensed: AGPL-3.0-or-later or a paid commercial grant. Compression is served through your tools on every pathway we own.
 
-SoT for money: https://www.slidphilabs.com/pricing.json (updated 2026-09-24).
+SoT for money: https://www.slidphilabs.com/pricing.json (updated 2026-11-19).
 Door line: Smaller or same size. Every byte back. Receipt.
 
 | Surface | URL |
@@ -24,14 +24,14 @@ Door line: Smaller or same size. Every byte back. Receipt.
 
 | Product | What it is | Price |
 |---------|------------|-------|
-| **PCC** | Hosted lossless compression. Dual-licensed. Send a file, get a smaller file back, restore every byte. | $0.25/GB · first 1 GB free once per IP · Pro $25/mo (100 GB, then $0.20/GB) |
+| **PCC** | Lossless compression served through your tools. Dual-licensed. Send a file, get a smaller file back, restore every byte. | $0.25/GB · first 1 GB free once per IP · Pro $25/mo (100 GB, then $0.20/GB) |
 | **TRUSTREAM** | The same plan, for live logs. | Included with PCC |
-| **Chamber** | Two-key JSON seal. One share is useless. You store the blob. | $9/mo · $99/yr |
-| **Agent-Rider** | Signed identity so you know which agent acted. | Solo $13.31 · Bundle $19.31 · Crew $49 · Shop $199 · Fleet $631 |
-| **Warrant** | Signed mandate and receipts bound to a Rider (hosts, actions, spend cap). | Included in Rider Bundle and Team seats |
-| **CuNi** | Write one program. Print many languages. Python, Go, and JS must match, or it refuses. | Studio $0 · closed-app exception $390/yr |
+| **Chamber** | Two-key JSON seal. One share is useless. You store the blob. | $20/mo · $200/yr |
+| **Agent-Rider** | Signed identity so you know which agent acted. | Solo $12/mo ($120/yr) · Team $49/mo ($490/yr) · Fleet $199/mo ($1,990/yr) |
+| **Warrant** | Signed attenuating spend mandate (integer cents; enforcement flag-gated). | $8/mo add-on to Solo ($80/yr); included in Team and Fleet |
+| **CuNi** | Write one program. Print many languages. Python, Go, and JS must match, or it refuses. | Studio $0 · closed-app exception $490/yr |
 | **pulsar** | Free GPLv3 compressor you run on your own machine (binary + source). | Free · $390/yr to embed in a closed product |
-| **Lab Pass** | Chamber year + PCC Year. | $490/yr |
+| **Lab Pass** | Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year (parts sum $650). | $495/yr |
 
 First 1 GB free once per IP (lifetime, no reset) with no plan. Compare: https://www.slidphilabs.com/compare
 

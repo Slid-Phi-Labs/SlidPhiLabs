@@ -35,7 +35,7 @@
       <a class="spl-btn spl-btn-line" href="https://cuni-studio.fly.dev/">Open CuNi — free</a>
       <a class="spl-btn spl-btn-line" href="/agents">Agent surface</a>
     </p>
-    <p><strong>32 tools</strong> · <strong>13 catalogs</strong> · <strong>6 commerce tools</strong> · <strong>0 steps to start</strong></p>
+    <p><strong>81 tools</strong> · <strong>13 catalogs</strong> · <strong>55 commerce tools</strong> · <strong>0 steps to start</strong></p>
     <p>No signup is required for public lookup. Fair use applies to the public endpoint. An agent key raises the cap; humans use Stripe and agents can use x402 where offered.</p>
     <h2>Server</h2>
     <p><code>https://www.slidphilabs.com/mcp</code></p>
@@ -63,7 +63,7 @@
     <h2>Catalogs</h2>
     <p class="lede">Each catalog exposes two tools — <code>xxx_search</code> (free text or code) and <code>xxx_get</code> (one entry with notes, children, and cross-links). SKU succession works the same way year-over-year questions work on a coding catalog: what changed, and which SKU succeeded it.</p>
     <div class="spl-grid">
-      <article class="spl-card"><p class="spl-kicker">sku · 2</p><h3>SKU / price</h3><p>Standing products and plans. CuNi $0. Chamber $20/$200. PCC metered $0.25/GB, Pro $25/mo. Rider Solo $12–Fleet $199. Suite first 1 GB free once per IP then $0.25/GB. Lab Pass $495.</p></article>
+      <article class="spl-card"><p class="spl-kicker">sku · 2</p><h3>SKU / price</h3><p>Standing products and plans. CuNi $0.05/check (first 100/month free). Chamber $20/$200. PCC metered $0.25/GB, Pro $25/mo. Rider Solo $12–Fleet $199. Suite first 1 GB free once per IP then $0.25/GB. Lab Pass $495.</p></article>
       <article class="spl-card"><p class="spl-kicker">license · 2</p><h3>License</h3><p>GPLv3 public trees vs proprietary seats. Closed-app exception $490/yr.</p></article>
       <article class="spl-card"><p class="spl-kicker">surface · 2</p><h3>Surface</h3><p>Live hosts: Studio, Rider, lab site, TeachAid, box, suite.</p></article>
       <article class="spl-card"><p class="spl-kicker">cuni · 2</p><h3>CuNi</h3><p>Exactness law. Write once — 53 targets, same stdout or refuse.</p></article>
@@ -77,11 +77,10 @@
       <article class="spl-card"><p class="spl-kicker">docs · 2</p><h3>Docs</h3><p>Public pages, SKILL.md, llms.txt, server card, OpenAPI.</p></article>
       <article class="spl-card"><p class="spl-kicker">npm · 2</p><h3>npm</h3><p>Public packages: slid-phi, spl-pay-per-suite, blackjack, tru8, shard-zip, shard-tsdb. pulsar is cargo/git, not npm.</p></article>
     </div>
-    <p>26 catalog tools across 13 catalogs, plus the commerce tools on the same endpoint: <code>spl_discover</code>, <code>spl_lab_auth</code>, <code>spl_signup</code>, <code>spl_agent_key</code>, <code>spl_catalog</code>, <code>spl_quote</code>.</p>
+    <p>26 catalog tools across 13 catalogs, plus 55 commerce tools on the same endpoint, including <code>spl_discover</code>, <code>spl_lab_auth</code>, <code>spl_signup</code>, <code>spl_agent_key</code>, <code>spl_catalog</code>, <code>spl_quote</code>.</p>
     <h2>Registry</h2>
     <p>Official MCP Registry: <code>io.github.ceedot-rock/slid-phi-labs</code><br/>
-    Card: <a href="https://www.slidphilabs.com/.well-known/mcp/server-card.json">/.well-known/mcp/server-card.json</a><br/>
-    Smithery: <a href="https://smithery.ai/servers/slidphi/lab">smithery.ai/servers/slidphi/lab</a></p>
+    Card: <a href="https://www.slidphilabs.com/.well-known/mcp/server-card.json">/.well-known/mcp/server-card.json</a></p>
     <p>There is no public engine repository for the seats. The endpoint above is the whole integration for agents. Public cousin source lives at <a href="https://github.com/ceedot-rock/pulsar-best">ceedot-rock/pulsar-best</a> and <a href="https://github.com/ceedot-rock/cuni">ceedot-rock/cuni</a> (GPLv3).</p>
     <h2>FAQ</h2>
     <p><strong>Can I use it without an account?</strong> Yes. Lookup tools on <code>https://www.slidphilabs.com/mcp</code> need no token. Fair use is 60 requests/hour and 500/day per IP. An agent key raises that to 200/hour and 2 000/day and counts against the account, not the shared office IP.</p>

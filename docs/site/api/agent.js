@@ -37,7 +37,7 @@ const STANDING = [
   { sku: "lab-squeeze", name: "PCCX squeeze", usd: "0.10", kind: "pccx", blurb: "One squeeze." },
   { sku: "rider-solo", name: "Rider · Solo seat", usd: "12", kind: "rider", blurb: "Signed agent identity L0–L4. 1 identity, 500 verifications/month. $120/year." },
   { sku: "rider-team", name: "Rider · Team seat", usd: "49", kind: "rider", blurb: "Signed agent identity L0–L4. 10 identities, 5,000 verifications/month, Warrant included. $490/year." },
-  { sku: "rider-fleet", name: "Rider · Fleet seat", usd: "199", kind: "rider", blurb: "Signed agent identity L0–L4. 100 identities, 50,000 verifications/month, Warrant + fleet watch included. $1,990/year. Overage $0.02 per verification, customer-set cap (default 2x plan price), alert at 80%." },
+  { sku: "rider-fleet", name: "Rider · Fleet seat", usd: "199", kind: "rider", blurb: "Signed agent identity L0–L4. 100 identities, 50,000 verifications/month, Warrant + fleet watch included. $1,990/year. Overage $0.025 per verification, customer-set cap (default 2x plan price), alert at 80%." },
   { sku: "rider-ops-month", name: "Rider Ops · monthly fleet watch", usd: "37", kind: "rider-ops", blurb: "Heartbeat + alert when a signed agent goes quiet. Needs a Rider seat." },
   { sku: "rider-ops-year", name: "Rider Ops · annual fleet watch", usd: "369", kind: "rider-ops", blurb: "Year of fleet watch. Needs a Rider seat." },
   { sku: "warrant-addon", name: "Warrant · add-on to Rider Solo · monthly", usd: "8", kind: "warrant", blurb: "Signed mandate + receipts for a Rider. Add-on to Solo; included in Team and Fleet. Not identity. Pair X-Agent-Rider with X-Agent-Warrant." },

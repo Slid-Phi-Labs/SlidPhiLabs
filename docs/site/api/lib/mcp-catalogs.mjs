@@ -180,7 +180,7 @@ const CATALOG_COPY = {
   cuni: { about: "CuNi exactness — the law, the check gate, the spend-control example, and CuNi Bank", examples: "bank, law, check" },
   chamber: { about: "Chamber two-key JSON seals and the 24-hour try box", examples: "seal, try24" },
   rider: { about: "Agent-Rider signed identity — issuing and verifying agent credentials", examples: "issue, verify" },
-  pcc: { about: "PCC hosted compression — the engine, the 4 KiB stream pipe, and the meter", examples: "engine, stream, meter" },
+  pcc: { about: "PCC compression served through your tools — the engine, the 4 KiB stream pipe, and the meter", examples: "engine, stream, meter" },
   pulsar: { about: "pulsar, the free GPLv3 compressor, its closed-embed exception, and the Silesia measurement", examples: "cousin, exception, silesia" },
   measure: { about: "how pulsar compares on Silesia — gzip -9, pulsar 2.5.0, and xz -6 sizes", examples: "silesia-pulsar, silesia-gzip9, silesia-xz6" },
   rail: { about: "how to pay — Stripe for humans, x402 USDC for agents", examples: "stripe, x402" },
