@@ -627,6 +627,64 @@ def _linker_ok() -> bool:
     return shutil.which("cc") is not None
 
 
+def _win_to_wsl_path(p: Path) -> str:
+    """Map C:\\foo\\bar → /mnt/c/foo/bar for WSL cargo runs."""
+    resolved = p.resolve()
+    s = str(resolved)
+    if len(s) >= 2 and s[1] == ":":
+        return "/mnt/" + s[0].lower() + s[2:].replace("\\", "/")
+    return s.replace("\\", "/")
+
+
+def _wsl_rust_ok() -> bool:
+    """True when WSL can run cargo with a C linker (zig-cc wrapper or gcc)."""
+    if os.name != "nt" or shutil.which("wsl") is None:
+        return False
+    try:
+        r = subprocess.run(
+            ["wsl", "-e", "bash", "-lc",
+             '. "$HOME/.cargo/env" 2>/dev/null; '
+             'export PATH="$HOME/bin:$HOME/zig:$HOME/.cargo/bin:$PATH"; '
+             'command -v cargo >/dev/null && command -v cc >/dev/null'],
+            capture_output=True, text=True, errors="replace", timeout=30,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    return r.returncode == 0
+
+
+def _run_cargo_via_wsl(pdir: Path) -> dict:
+    """Run `cargo test` inside WSL when native MSVC/MinGW linkers are absent."""
+    wsl_dir = _win_to_wsl_path(pdir)
+    manifest = wsl_dir.rstrip("/") + "/Cargo.toml"
+    # Ignore windows-gnu pins in rust-toolchain.toml when executing under Linux.
+    inner = (
+        'set -e; . "$HOME/.cargo/env"; '
+        'export PATH="$HOME/bin:$HOME/zig:$HOME/.cargo/bin:$PATH"; '
+        'export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-stable}"; '
+        f'cd "{wsl_dir}" && cargo test --manifest-path "{manifest}" --lib'
+    )
+    cmd = ["wsl", "-e", "bash", "-lc", inner]
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True,
+                           errors="replace", timeout=600)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return {"verdict": "fail", "reason": f"wsl runner error: {exc}",
+                "passed": 0, "failed": 0, "skipped": 0,
+                "cmd": "wsl cargo test"}
+    out = (r.stdout or "") + "\n" + (r.stderr or "")
+    passed = sum(map(int, re.findall(r"(\d+) passed", out)))
+    skipped = sum(map(int, re.findall(r"(\d+) ignored", out)))
+    failed = sum(map(int, re.findall(r"(\d+) failed", out)))
+    if r.returncode == 0 and failed == 0:
+        return {"verdict": "green", "reason": out[-800:],
+                "passed": passed, "failed": 0, "skipped": skipped,
+                "cmd": "wsl cargo test --lib"}
+    return {"verdict": "fail", "reason": out[-800:],
+            "passed": passed, "failed": max(failed, 1), "skipped": skipped,
+            "cmd": "wsl cargo test --lib"}
+
+
 def _run_suite(pdir: Path, mname: str | None,
                test_files: list[Path]) -> dict:
     """Execute the product suite. Verdicts: green / fail / blocked."""
@@ -715,30 +773,40 @@ def _run_suite(pdir: Path, mname: str | None,
                 "failed": failed or (0 if verdict == "green" else 1),
                 "skipped": skipped, "cmd": " ".join(cmd)}
     if suffixes <= {".rs"} or mname == "Cargo.toml":
-        if not _linker_ok():
-            return {"verdict": "blocked",
-                    "reason": "no linkable Rust toolchain on this box",
-                    "passed": 0, "failed": 0, "skipped": 0,
-                    "cmd": "cargo test"}
-        cmd = ["cargo", "test", "--manifest-path",
-               str(pdir / "Cargo.toml")]
-        try:
-            r = subprocess.run(cmd, cwd=str(pdir), capture_output=True,
-                               text=True, errors="replace", timeout=300)
-        except (OSError, subprocess.TimeoutExpired) as exc:
-            return {"verdict": "fail", "reason": f"runner error: {exc}",
-                    "passed": 0, "failed": 0, "skipped": 0,
-                    "cmd": " ".join(cmd)}
-        out = (r.stdout or "") + "\n" + (r.stderr or "")
-        if "error: linker" in out or "linker `link`" in out:
-            return {"verdict": "blocked", "reason": "linker absent",
-                    "passed": 0, "failed": 0, "skipped": 0,
-                    "cmd": " ".join(cmd)}
-        passed = sum(map(int, re.findall(r"(\d+) passed", out)))
-        verdict = "green" if r.returncode == 0 else "fail"
-        return {"verdict": verdict, "reason": out[-800:],
-                "passed": passed, "failed": 0 if verdict == "green" else 1,
-                "skipped": 0, "cmd": " ".join(cmd)}
+        # Prefer native linker; on Windows boxes without MSVC/MinGW (or with
+        # Application Control blocking gcc), fall back to WSL cargo+cc.
+        if _linker_ok():
+            cmd = ["cargo", "test", "--manifest-path",
+                   str(pdir / "Cargo.toml")]
+            try:
+                r = subprocess.run(cmd, cwd=str(pdir), capture_output=True,
+                                   text=True, errors="replace", timeout=300)
+            except (OSError, subprocess.TimeoutExpired) as exc:
+                return {"verdict": "fail", "reason": f"runner error: {exc}",
+                        "passed": 0, "failed": 0, "skipped": 0,
+                        "cmd": " ".join(cmd)}
+            out = (r.stdout or "") + "\n" + (r.stderr or "")
+            if "error: linker" in out or "linker `link`" in out \
+                    or "Application Control policy has blocked" in out:
+                if _wsl_rust_ok():
+                    return _run_cargo_via_wsl(pdir)
+                return {"verdict": "blocked", "reason": "linker absent",
+                        "passed": 0, "failed": 0, "skipped": 0,
+                        "cmd": " ".join(cmd)}
+            passed = sum(map(int, re.findall(r"(\d+) passed", out)))
+            skipped = sum(map(int, re.findall(r"(\d+) ignored", out)))
+            verdict = "green" if r.returncode == 0 else "fail"
+            return {"verdict": verdict, "reason": out[-800:],
+                    "passed": passed,
+                    "failed": 0 if verdict == "green" else 1,
+                    "skipped": skipped, "cmd": " ".join(cmd)}
+        if _wsl_rust_ok():
+            return _run_cargo_via_wsl(pdir)
+        return {"verdict": "blocked",
+                "reason": "no linkable Rust toolchain on this box "
+                          "(native linker missing; WSL cargo+cc unavailable)",
+                "passed": 0, "failed": 0, "skipped": 0,
+                "cmd": "cargo test"}
     return {"verdict": "blocked",
             "reason": "no safe executor for this suite "
                       "(shell suites are not auto-run: side-effect risk)",

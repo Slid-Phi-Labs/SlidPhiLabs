@@ -1,9 +1,9 @@
 # GID Standings
 
-Last run: 2026-11-27 09:58 UTC (run-start / record time). Scores 1–100 per `rubric.md`. Best first.
+Last run: 2026-11-27 11:17 UTC (run-start / record time). Scores 1–100 per `rubric.md`. Best first.
 
-Lab as a whole: 49 products, mean 99.2, median 100 (upper-median), 49/49 shippable (>=90), 20 open gaps.
-Dimension means: Docs 20.0/20, Functionality 20.0/20, Ops 20.0/20, Reliability 19.2/20, Security 20.0/20.
+Lab as a whole: 49 products, mean 99.8, median 100 (upper-median), 49/49 shippable (>=90), 2 open gaps.
+Dimension means: Docs 20.0/20, Functionality 20.0/20, Ops 20.0/20, Reliability 19.8/20, Security 20.0/20.
 
 | Rank | Product | Score | Band | Δ vs last | Open gaps | Fixes applied |
 |-----:|---------|------:|------|----------:|-----------|---------------|
@@ -11,50 +11,50 @@ Dimension means: Docs 20.0/20, Functionality 20.0/20, Ops 20.0/20, Reliability 1
 | 2 | agent-rider-quickstart | 100 | shippable | 0 | none | — |
 | 3 | agenthq | 100 | shippable | 0 | none | — |
 | 4 | arn | 100 | shippable | 0 | none | — |
-| 5 | arp | 100 | shippable | — | none | — |
+| 5 | arp | 100 | shippable | 0 | none | — |
 | 6 | awlpay | 100 | shippable | 0 | none | — |
 | 7 | chamber | 100 | shippable | 0 | none | — |
 | 8 | conductor | 100 | shippable | 0 | none | — |
 | 9 | cuni | 100 | shippable | 0 | none | — |
 | 10 | cuni-api | 100 | shippable | 0 | none | — |
-| 11 | cuni-calls | 100 | shippable | 0 | none | — |
-| 12 | exact-odds | 100 | shippable | 0 | none | — |
-| 13 | gitdepot | 100 | shippable | 0 | none | — |
-| 14 | gitdepot-hub | 100 | shippable | 0 | none | — |
-| 15 | lab-dashboard | 100 | shippable | 0 | none | — |
-| 16 | lab-db | 100 | shippable | 0 | none | — |
-| 17 | lab-identity | 100 | shippable | 0 | none | — |
-| 18 | lab-pass | 100 | shippable | 0 | none | — |
-| 19 | lab-sdk | 100 | shippable | 0 | none | — |
-| 20 | mcp-host | 100 | shippable | 0 | none | — |
-| 21 | pcc | 100 | shippable | 0 | none | — |
-| 22 | persisted-registry | 100 | shippable | 0 | none | — |
-| 23 | phi-rest | 100 | shippable | 0 | none | — |
-| 24 | psi-interlink | 100 | shippable | 0 | none | — |
-| 25 | psi-persist | 100 | shippable | 0 | none | — |
-| 26 | pulsar | 100 | shippable | 0 | none | — |
-| 27 | quikgater | 100 | shippable | 0 | none | — |
-| 28 | rider-api | 100 | shippable | 0 | none | — |
-| 29 | site | 100 | shippable | 0 | none | — |
-| 30 | slid-phi | 100 | shippable | 0 | none | — |
-| 31 | spl-lab-calls | 100 | shippable | 0 | none | — |
-| 32 | spl-model-pay | 100 | shippable | 0 | none | — |
-| 33 | spl-pay-per-suite | 100 | shippable | 0 | none | — |
-| 34 | teachaid | 100 | shippable | 0 | none | — |
-| 35 | tollkeeper | 100 | shippable | 0 | none | — |
-| 36 | trugame-v0.4 | 100 | shippable | 0 | none | — |
-| 37 | trustream | 100 | shippable | 0 | none | — |
-| 38 | usage-meter | 100 | shippable | 0 | none | — |
-| 39 | warrant | 100 | shippable | 0 | none | — |
-| 40 | cuni-audit | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 41 | cuni-chain | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 42 | cuni-check | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 43 | cuni-ingest | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 44 | cuni-money | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 45 | cuni-parity | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 46 | cuni-parse | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 47 | cuni-ship | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 48 | cuni-time | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
-| 49 | cuni-translate | 96 | shippable | 0 | G-EXEC-01, G-EXEC-02 | — |
+| 11 | cuni-audit | 100 | shippable | +4 | none | — |
+| 12 | cuni-calls | 100 | shippable | 0 | none | — |
+| 13 | cuni-chain | 100 | shippable | +4 | none | — |
+| 14 | cuni-check | 100 | shippable | +4 | none | — |
+| 15 | cuni-ingest | 100 | shippable | +4 | none | — |
+| 16 | cuni-money | 100 | shippable | +4 | none | — |
+| 17 | cuni-parity | 100 | shippable | +4 | none | — |
+| 18 | cuni-ship | 100 | shippable | +4 | none | — |
+| 19 | cuni-time | 100 | shippable | +4 | none | — |
+| 20 | cuni-translate | 100 | shippable | +4 | none | — |
+| 21 | exact-odds | 100 | shippable | 0 | none | — |
+| 22 | gitdepot | 100 | shippable | 0 | none | — |
+| 23 | gitdepot-hub | 100 | shippable | 0 | none | — |
+| 24 | lab-dashboard | 100 | shippable | 0 | none | — |
+| 25 | lab-db | 100 | shippable | 0 | none | — |
+| 26 | lab-identity | 100 | shippable | 0 | none | — |
+| 27 | lab-pass | 100 | shippable | 0 | none | — |
+| 28 | lab-sdk | 100 | shippable | 0 | none | — |
+| 29 | mcp-host | 100 | shippable | 0 | none | — |
+| 30 | pcc | 100 | shippable | 0 | none | — |
+| 31 | persisted-registry | 100 | shippable | 0 | none | — |
+| 32 | phi-rest | 100 | shippable | 0 | none | — |
+| 33 | psi-interlink | 100 | shippable | 0 | none | — |
+| 34 | psi-persist | 100 | shippable | 0 | none | — |
+| 35 | pulsar | 100 | shippable | 0 | none | — |
+| 36 | quikgater | 100 | shippable | 0 | none | — |
+| 37 | rider-api | 100 | shippable | 0 | none | — |
+| 38 | site | 100 | shippable | 0 | none | — |
+| 39 | slid-phi | 100 | shippable | 0 | none | — |
+| 40 | spl-lab-calls | 100 | shippable | 0 | none | — |
+| 41 | spl-model-pay | 100 | shippable | 0 | none | — |
+| 42 | spl-pay-per-suite | 100 | shippable | 0 | none | — |
+| 43 | teachaid | 100 | shippable | 0 | none | — |
+| 44 | tollkeeper | 100 | shippable | 0 | none | — |
+| 45 | trugame-v0.4 | 100 | shippable | 0 | none | — |
+| 46 | trustream | 100 | shippable | 0 | none | — |
+| 47 | usage-meter | 100 | shippable | 0 | none | — |
+| 48 | warrant | 100 | shippable | 0 | none | — |
+| 49 | cuni-parse | 90 | shippable | -6 | G-EXEC-01, G-EXEC-02 | — |
 
 _Generated by `gid.py`. Do not hand-edit; re-run GID._
