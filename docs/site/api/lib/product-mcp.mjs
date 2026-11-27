@@ -69,11 +69,11 @@ export const LAB_PRODUCTS = Object.freeze([
     note: "ArN — Agent Commerce Network — hosted MCP at /mcp (branding ArN, not ACN)",
   },
   {
-    id: "acp",
-    tool: "spl_acp",
+    id: "arp",
+    tool: "spl_arp",
     ops: ["layers", "card"],
     page: SITE + "/acp",
-    note: "AcP — Agent Commerce Protocol layers (branding AcP, not ACP)",
+    note: "ArP — Agent Commerce Protocol layers (branding ArP, not ACP/AcP)",
   },
   {
     id: "rider",
@@ -483,7 +483,8 @@ export const PRODUCT_TOOLS = Object.freeze([
   ),
   tool("spl_arn", "ArN product door (Agent Commerce Network). op=card. Alias: spl_acn.", { op: opProp(["card"]) }, ["op"]),
   tool("spl_acn", "Alias for spl_arn (ArN). Prefer spl_arn.", { op: opProp(["card"]) }, ["op"]),
-  tool("spl_acp", "AcP product door (Agent Commerce Protocol). op=layers|card.", { op: opProp(["layers", "card"]) }, ["op"]),
+  tool("spl_arp", "ArP product door (Agent Commerce Protocol). op=layers|card. Alias: spl_acp.", { op: opProp(["layers", "card"]) }, ["op"]),
+  tool("spl_acp", "Alias for spl_arp (ArP). Prefer spl_arp.", { op: opProp(["layers", "card"]) }, ["op"]),
   tool("spl_rider", "Rider product door. op=card. Issue/verify live on Agent-Rider; warrants use spl_warrant_*.", { op: opProp(["card"]) }, ["op"]),
   tool("spl_warrant", "Warrant product door. op=card. Runtime: spl_warrant_issue/verify/reserve/release/receipt.", { op: opProp(["card"]) }, ["op"]),
   tool(
@@ -647,6 +648,7 @@ export async function dispatchProductTool(name, args = {}, req = null, deps = {}
   if (product === "tru_game") product = "trugame";
   if (product === "arn_mcp" || product === "acn_mcp") product = "arn";
   if (product === "acn") product = "arn";
+  if (product === "acp") product = "arp";
 
   switch (product) {
     case "products":
@@ -661,19 +663,19 @@ export async function dispatchProductTool(name, args = {}, req = null, deps = {}
         });
       }
       break;
-    case "acp":
+    case "arp":
       if (op === "card") {
-        return cardFor("acp", {
-          brand: "AcP",
+        return cardFor("arp", {
+          brand: "ArP",
           layers: ACP_LAYERS.length,
           missing: missingAcpLayers(),
-          note: "AcP (not ACP)",
+          note: "ArP (not ACP/AcP)",
         });
       }
       if (op === "layers") {
         return {
           ok: true,
-          brand: "AcP",
+          brand: "ArP",
           layers: ACP_LAYERS.map(([id, path]) => ({ id, path })),
           missing: missingAcpLayers(),
         };

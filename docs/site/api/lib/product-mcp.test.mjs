@@ -94,10 +94,14 @@ test("agenthq slug validate", async () => {
   assert.equal(good.slug, "acme-lab");
 });
 
-test("acp layers and psi seats cards", async () => {
-  const layers = await dispatchProductTool("spl_acp", { op: "layers" });
+test("ArP layers and psi seats cards", async () => {
+  const layers = await dispatchProductTool("spl_arp", { op: "layers" });
   assert.equal(layers.ok, true);
+  assert.equal(layers.brand, "ArP");
   assert.ok(layers.layers.length >= 13);
+  const alias = await dispatchProductTool("spl_acp", { op: "card" });
+  assert.equal(alias.ok, true);
+  assert.equal(alias.brand, "ArP");
   const psi = await dispatchProductTool("spl_psi", { op: "seats" });
   assert.equal(psi.ok, true);
   assert.equal(psi.seats["psi-meter"].usd, 25);

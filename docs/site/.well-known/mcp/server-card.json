@@ -2291,8 +2291,31 @@
       }
     },
     {
+      "name": "spl_arp",
+      "description": "ArP product door (Agent Commerce Protocol). op=layers|card. Alias: spl_acp.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Operation: layers | card. Required."
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "additionalProperties": true
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
       "name": "spl_acp",
-      "description": "AcP product door (Agent Commerce Protocol). op=layers|card.",
+      "description": "Alias for spl_arp (ArP). Prefer spl_arp.",
       "inputSchema": {
         "type": "object",
         "properties": {

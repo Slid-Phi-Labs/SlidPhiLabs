@@ -217,12 +217,12 @@
       ]
     },
     {
-      "name": "acp",
+      "name": "arp",
       "path": "docs/site/api/lib",
       "focus": [
         "acp-layers"
       ],
-      "note": "AcP \u2014 Agent Commerce Protocol (branding AcP, not ACP)"
+      "note": "ArP \u2014 Agent Commerce Protocol (branding ArP, not ACP/AcP)"
     },
     {
       "name": "arn",
