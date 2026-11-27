@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+adapters/**
+!adapters/.gitkeep
+data/corpus.jsonl
+*.safetensors
+*.bin
+*.gguf

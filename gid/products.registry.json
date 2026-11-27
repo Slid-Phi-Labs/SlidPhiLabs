@@ -295,6 +295,10 @@
     {
       "name": "gitdepot-hub",
       "path": "../gitdepot-hub"
+    },
+    {
+      "name": "slid-llm",
+      "path": "packages/slid-llm"
     }
   ]
 }

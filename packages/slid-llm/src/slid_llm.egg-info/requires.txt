@@ -1,0 +1,11 @@
+requests>=2.31
+
+[train]
+torch>=2.2
+transformers>=4.44
+peft>=0.12
+trl>=0.9
+datasets>=2.20
+bitsandbytes>=0.43
+accelerate>=0.33
+sentencepiece>=0.2
