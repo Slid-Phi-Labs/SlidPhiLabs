@@ -349,9 +349,11 @@ async function callTool(name, args = {}, req) {
   if (name === "spl_discover") {
     const products = await dispatchProductTool("spl_products", {});
     return {
-      lead_product: "rider",
-      cash_product: "chamber",
+      lead_product: "psi",
+      cash_product: "pcc-pro",
+      lead_order: ["psi", "rider"],
       studio: "https://spl-cuni-studio.fly.dev/",
+      psi: SITE + "/persist",
       rider: "https://agentrider.fly.dev/",
       chamber: SITE + "/chamber",
       signup: SITE + "/signup",

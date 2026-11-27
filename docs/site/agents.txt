@@ -1,24 +1,29 @@
 # agents.txt — Slid Phi Labs
-# Updated 2026-11-14
-# Tools that check. Agent Rider gives any agent a signed name, open to all. CuNi has nine hosted calls at /v1. Warrant files the receipt. Tollkeeper meters ten live tools, also at /v1/<name>.
+# Updated 2026-11-27
+# Lead order: PSI, then Rider.
+# Tools that check. PSI is the lead memory/meter line (/persist). Rider gives any agent a signed name. CuNi has nine hosted calls at /v1. Warrant files the receipt. Tollkeeper meters ten live tools, also at /v1/<name>.
 # Compression: TNSSRC on your machine (Silesia 43.72M, 43,724,575), PCC hosted at /pcc (51,498,645), TRUSTREAM for live streams, pulsar free demo (55,745,438). Never makes a file bigger. Every byte comes back.
-# AwLPay free tier 0.5% per payment, no fixed fee. TEACHAiD campus is suspended / not on sale / residual.
+# AwLPay free tier 0.5% per payment, no fixed fee. TEACHAiD campus is suspended / not on sale / residual. PERsiST is not on sale (rates unset).
 # 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 # Coming next: file sharing between agents — same signed seats (not live). A signed credential is not KYC.
 
 ## Agent Quickstart
-1. Discover: GET https://www.slidphilabs.com/api/agent · GET https://www.slidphilabs.com/.well-known/mcp/server-card.json
+1. Discover: GET https://www.slidphilabs.com/api/agent · GET https://www.slidphilabs.com/.well-known/mcp/server-card.json · GET https://www.slidphilabs.com/llms.txt
 2. MCP: npx -y @slidphi/spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
-3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
-4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
-5. Rider: issue L0–L4; JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider.
-6. Warrant: /warrant · $8/mo add-on to Rider Solo ($80/yr), SKU warrant-addon or warrant-addon-year. Included in Team and Fleet.
-7. Tollkeeper: GET https://www.slidphilabs.com/tollkeeper · GET https://agentrider.fly.dev/api/toll/schema
-8. Calls: POST https://www.slidphilabs.com/v1/<name>. CuNi check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. PCC compress, decompress, zip, unzip, quote. squeeze $0.10. fetch $0.02. seal and open. List: https://www.slidphilabs.com/llms.txt
-9. Coming next: file sharing between agents (same signed seats) — not live.
+3. Buy seat (agents): POST /api/x402-products {"sku":"psi-meter"} or {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
+4. Humans: https://www.slidphilabs.com/pay?sku=psi-meter (Stripe) · Rider https://www.slidphilabs.com/pay?sku=rider-solo
+5. PSI: Meter / Org / Embed at /persist · PERsiST not on sale.
+6. Rider: issue L0–L4; JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider.
+7. Warrant: /warrant · $8/mo add-on to Rider Solo ($80/yr), SKU warrant-addon or warrant-addon-year. Included in Team and Fleet.
+8. Tollkeeper: GET https://www.slidphilabs.com/tollkeeper · GET https://agentrider.fly.dev/api/toll/schema
+9. Calls: POST https://www.slidphilabs.com/v1/<name>. CuNi check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. PCC compress, decompress, zip, unzip, quote. squeeze $0.10. fetch $0.02. seal and open. List: https://www.slidphilabs.com/llms.txt
+10. Coming next: file sharing between agents (same signed seats) — not live.
 
 ### SKU cheat sheet
 | sku | usd | human |
+| psi-meter | 25/250 | /pay?sku=psi-meter · year /pay?sku=psi-meter-year |
+| psi-org | 79 | /pay?sku=psi-org |
+| psi-embed-grant | 490 | /pay?sku=psi-embed-grant |
 | rider-solo | 12 | /pay?sku=rider-solo |
 | rider-team | 49 | /pay?sku=rider-team |
 | rider-fleet | 199 | /pay?sku=rider-fleet |
@@ -31,9 +36,13 @@
 | lab-pass | 495 | Chamber year + Rider Solo year + PSI Meter + Warrant |
 x402 resource = same sku via POST /api/x402-products.
 
-# --- Agent-Rider (centerpiece) ---
-GET https://www.slidphilabs.com/rider
+# --- PSI (lead) ---
+GET https://www.slidphilabs.com/persist
+GET https://www.slidphilabs.com/pay?sku=psi-meter
 GET https://www.slidphilabs.com/llms.txt
+
+# --- Agent-Rider ---
+GET https://www.slidphilabs.com/rider
 GET https://agentrider.fly.dev/llms.txt
 GET https://agentrider.fly.dev/agents.txt
 GET https://agentrider.fly.dev/agents.json

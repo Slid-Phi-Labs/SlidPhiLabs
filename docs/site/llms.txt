@@ -38,7 +38,7 @@ There are four public compression doors on one shared method: PCC hosted on our 
 | ship | 0.50 | SKU lab-ship |
 | audit | 1.00 | SKU lab-audit |
 | squeeze | 0.10 | SKU lab-squeeze. pccx_encode is this call |
-| compress, decompress, zip, unzip | meter | first 1 GB free once per IP, then $0.25/GB. quote is free |
+| compress, decompress, zip, unzip | meter | first 1 GB free once per address, then $0.25/GB. quote is free |
 | fetch | 0.02 | first 100/month free. The Quikgater worker returns 402 |
 | seal | seat | chamber-month $20, chamber-year $200. No per-seal price. Anonymous HTTP returns 402 |
 | open | 0 | free once both keys meet |
@@ -101,7 +101,7 @@ Locality: Cherry Hill, New Jersey. No street address published.
 
 ## Catalog
 Four doors onto one Shared Spine. What it is, then what you pay.
-- Door 1 · PCC — file job through your tools. POST /v1/compress, /v1/decompress, /v1/zip, /v1/unzip, and free /v1/quote. The same paths answer at /api/compress, /api/decompress, /api/archive, /api/unarchive. Metered $0.25/GB of input, first 1 GB free once per IP address (lifetime, no monthly reset); Pro $25/mo (100 GB included, then $0.20/GB, checkout sku `pcc-pro`; Pro annual $250, sku `pcc-pro-year`). squeeze is POST /v1/squeeze at $0.10. Customer-set monthly spend cap (default $25), alert at 80%. Product: https://www.slidphilabs.com/pcc · prices: https://www.slidphilabs.com/pricing
+- Door 1 · PCC — file job through your tools. POST /v1/compress, /v1/decompress, /v1/zip, /v1/unzip, and free /v1/quote. The same paths answer at /api/compress, /api/decompress, /api/archive, /api/unarchive. Metered $0.25/GB of input, first 1 GB free once per address (lifetime, no monthly reset); Pro $25/mo (100 GB included, then $0.20/GB, checkout sku `pcc-pro`; Pro annual $250, sku `pcc-pro-year`). squeeze is POST /v1/squeeze at $0.10. Customer-set monthly spend cap (default $25), alert at 80%. Product: https://www.slidphilabs.com/pcc · prices: https://www.slidphilabs.com/pricing
 - Door 2 · TNSSRC — TriNeural Shared Spine Row Compression. Local `npcc` + closed grant. AGPL $0 · closed grant $369/yr (SKU tnssrc-grant; TNSSRC 0.1.0 only; founding $190 for the first 10 grants; 3+ products $390 each). Board: https://www.slidphilabs.com/silesia
 - Door 3 · TRUSTREAM — live pipe, same spine, 4 KiB tiles: ZERO → MATH → PHRASE → STORE. Quiet tiles shrink; busy tiles stay put so the stream never inflates. Included with PCC, not a second bill. https://www.slidphilabs.com/trustream
 - Door 4 · pulsar — free GPLv3 binary demo you run on your own machine (Linux binary + source). $0 · closed embed $490/product/year via the unified grant (SKU pulsar-exception). https://www.slidphilabs.com/pulsar
@@ -141,7 +141,7 @@ Q: What is Slid Phi Labs?
 A: A computation lab in Cherry Hill, New Jersey, built by Corey Ptaszenski. The public tools check a claim before they praise it: a signed agent name, an exact program, a restore-safe file, a payment quote, a receipt. Site https://www.slidphilabs.com . Inbox corey@slidphilabs.com.
 
 Q: What is PCC?
-A: Door 1 onto the Shared Spine: lossless compression through your tools. Send a file, restore every byte. Metered $0.25/GB of input, first 1 GB free once per IP address (lifetime, no monthly reset); Pro $25/mo (100 GB included, then $0.20/GB). Customer-set monthly spend cap (default $25), alert at 80%. Official Silesia board stamp: 51,498,645 bytes, 12/12 DECODE_OK, tag pcc-0.12.1, in silesia.json. PCC is the compressor.
+A: Door 1 onto the Shared Spine: lossless compression through your tools. Send a file, restore every byte. Metered $0.25/GB of input, first 1 GB free once per address (lifetime, no monthly reset); Pro $25/mo (100 GB included, then $0.20/GB). Customer-set monthly spend cap (default $25), alert at 80%. Official Silesia board stamp: 51,498,645 bytes, 12/12 DECODE_OK, tag pcc-0.12.1, in silesia.json. PCC is the compressor.
 
 Q: What is TNSSRC?
 A: The local engine. AGPL, or closed grant $369/yr (SKU tnssrc-grant; TNSSRC 0.1.0 only; founding $190 for the first 10 grants; 3+ products $390 each).
@@ -153,7 +153,7 @@ Q: How do agents pay?
 A: POST /api/x402-products {sku} → HTTP 402 with Base USDC. Pay, retry with X-PAYMENT → claim_token. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight. Humans use Stripe POST /api/checkout or /pay?sku=.
 
 Q: How does an agent use its claim_token with the npm packages?
-A: The claim_token IS the API key. Pass it as apiKey: compress(buf, { apiKey: "<claim_token>" }) sends Authorization: Bearer spl1.… — /api/compress and /api/decompress verify the claim and meter against the seat's included bytes (Pro 100 GB/month included, then $0.20/GB; meter: first 1 GB free once per IP, lifetime, then $0.25/GB of input). No key: first 1 GB free once per IP address (lifetime, no monthly reset) on the anonymous tier. Expired/forged claim: HTTP 401 invalid_claim, never a silent downgrade.
+A: The claim_token IS the API key. Pass it as apiKey: compress(buf, { apiKey: "<claim_token>" }) sends Authorization: Bearer spl1.… — /api/compress and /api/decompress verify the claim and meter against the seat's included bytes (Pro 100 GB/month included, then $0.20/GB; meter: first 1 GB free once per address, lifetime, then $0.25/GB of input). No key: first 1 GB free once per address (lifetime, no monthly reset) on the anonymous tier. Expired/forged claim: HTTP 401 invalid_claim, never a silent downgrade.
 
 Q: Where is the lab?
 A: Cherry Hill, New Jersey. Corey Ptaszenski. corey@slidphilabs.com.
