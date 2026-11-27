@@ -8,3 +8,7 @@ data/corpus.jsonl
 *.safetensors
 *.bin
 *.gguf
+
+src/slid_llm.egg-info/
+*.egg-info/
+

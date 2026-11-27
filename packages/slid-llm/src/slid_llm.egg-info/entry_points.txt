@@ -1,4 +1,0 @@
-[console_scripts]
-slid-llm-corpus = slid_llm.corpus:main
-slid-llm-host = slid_llm.host:main
-slid-llm-train = slid_llm.train_qlora:main
