@@ -34,7 +34,7 @@ const PRODUCTS = {
   "chamber.html": ["20", "200"],
   "rider.html": ["12", "49", "199"],
   "lab-pass.html": ["495"],
-  "pps.html": ["0.25", "25"],
+  "pps.html": ["0.05", "25"],
   "warrant.html": ["8", "80"],
   "cuni.html": ["0.05"],
 };
