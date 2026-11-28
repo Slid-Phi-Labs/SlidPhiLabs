@@ -2,6 +2,7 @@
 # Updated 2026-11-27
 # Tools that check. Cherry Hill, New Jersey. Corey Ptaszenski. corey@slidphilabs.com
 # Lead order: PSI, then Rider.
+# Humans: /signup may 403 non-browser clients (bot challenge). Agents use POST /api/auth + x402.
 Platform booklets: https://www.slidphilabs.com/wiki
 Homepage ledger: https://www.slidphilabs.com/
 Product homes: https://www.slidphilabs.com/persist (PSI) · https://www.slidphilabs.com/rider (Rider) · https://www.slidphilabs.com/hq (AgentHQ) · https://www.slidphilabs.com/cuni (CuNi) · https://www.slidphilabs.com/pcc (PCC) · https://www.slidphilabs.com/acp (ArP) · https://www.slidphilabs.com/gitdepot (GitDepot)
