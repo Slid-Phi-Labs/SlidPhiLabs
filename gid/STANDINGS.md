@@ -1,6 +1,6 @@
 # GID Standings
 
-Last run: 2026-11-28 03:22 UTC (run-start / record time). Scores 1–100 per `rubric.md`. Best first.
+Last run: 2026-11-28 18:38 UTC (run-start / record time). Scores 1–100 per `rubric.md`. Best first.
 
 Lab as a whole: 50 products, mean 99.8, median 100 (upper-median), 50/50 shippable (>=90), 2 open gaps.
 Dimension means: Docs 20.0/20, Functionality 20.0/20, Ops 20.0/20, Reliability 19.8/20, Security 20.0/20.

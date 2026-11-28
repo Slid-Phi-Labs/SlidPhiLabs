@@ -78,7 +78,7 @@
         "usd_per_gb_input": 0.25,
         "free_gb": 1,
         "free_window": "lifetime",
-        "free_scope": "ip",
+        "free_scope": "address",
         "cap_default_usd": 25,
         "alert_at_pct": 80,
         "settlement": "x402 per-call for agents; Stripe monthly for humans"
@@ -89,9 +89,9 @@
           "usd_per_gb": 0.25,
           "free_gb": 1,
           "free_window": "lifetime",
-          "free_scope": "ip",
+          "free_scope": "address",
           "stripe": "https://www.slidphilabs.com/pps",
-          "plain": "Metered $0.25/GB of input, first 1 GB free once per IP address (lifetime, no monthly reset). Customer-set monthly spend cap (default $25), alert at 80%."
+          "plain": "Metered $0.25/GB of input, first 1 GB free once per address (lifetime, no monthly reset). Customer-set monthly spend cap (default $25), alert at 80%."
         },
         "pro_month": {
           "sku": "pcc-pro",
