@@ -1,5 +1,5 @@
 # Slid Phi Labs
-# Updated 2026-11-27
+# Updated 2026-11-28
 # Tools that check. Cherry Hill, New Jersey. Corey Ptaszenski. corey@slidphilabs.com
 # Lead order: PSI, then Rider.
 # Humans: /signup may 403 non-browser clients (bot challenge). Agents use POST /api/auth + x402.
@@ -18,14 +18,16 @@ There are four public compression doors on one shared method: PCC hosted on our 
 ## Agent Quickstart
 1. Discover: GET https://www.slidphilabs.com/api/agent · GET /.well-known/mcp/server-card.json · GET /llms.txt
 2. MCP: npx -y @slidphi/spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
-3. Buy seat (agents): POST /api/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
-4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
-4b. After Stripe pays, the buyer lands on /rider/claim?session_id=... — the page mints the signed name via POST /api/rider/claim {"session_id"} → {"ok","jwt","expires_in"}. The SKU comes from Stripe metadata on the session. Credential renders on slidphilabs.com.
-5. Rider: issue L0–L4 credential (about 15 minutes, ES256); peers verify via JWKS at https://agentrider.fly.dev/.well-known/jwks.json; revocation at /.well-known/rider-revocation.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider. Renewal tokens use the rrt_ prefix, rotate, and a reuse revokes the chain.
-6. Warrant: mandate + receipts bound to a Rider — /warrant · $8/month add-on to Rider Solo ($80/year), included in Team and Fleet; no standalone SKU.
-7. Tollkeeper tools: POST https://www.slidphilabs.com/v1/<name> (same body as https://agentrider.fly.dev/api/toll/tools/<name>). Schema: GET https://agentrider.fly.dev/api/toll/schema
-8. Hosted calls, one name on POST /v1/<name>, MCP, and the Python client: check, translate, ingest, audit, money, time, chain, ship, parity, squeeze, compress, decompress, zip, unzip, quote, fetch, seal, open, research, and the Warrant and Tollkeeper names below. Studio and a local AGPL binary stay unmetered. Seats and grants stay purchases.
-9. Coming next: file sharing between agents (same signed seats) — not live.
+3. Buy seat (agents): POST /api/x402-products {"sku":"psi-meter"} or {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
+4. Humans: https://www.slidphilabs.com/pay?sku=psi-meter (Stripe) · Rider https://www.slidphilabs.com/pay?sku=rider-solo
+4b. Signup: /signup is browser/human (may return 403 to non-browser clients / bot challenges). Agents use POST /api/auth and x402 — do not treat signup 403 as a downed shop.
+4c. After Stripe pays for Rider, the buyer lands on /rider/claim?session_id=... — the page mints the signed name via POST /api/rider/claim {"session_id"} → {"ok","jwt","expires_in"}. The SKU comes from Stripe metadata on the session. Credential renders on slidphilabs.com.
+5. PSI: Meter / Org / Embed at /persist · PERsiST not on sale (rates unset). Starter https://www.slidphilabs.com/persist
+6. Rider: issue L0–L4 credential (about 15 minutes, ES256); peers verify via JWKS at https://agentrider.fly.dev/.well-known/jwks.json; revocation at /.well-known/rider-revocation.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider. Renewal tokens use the rrt_ prefix, rotate, and a reuse revokes the chain.
+7. Warrant: mandate + receipts bound to a Rider — /warrant · $8/month add-on to Rider Solo ($80/year), included in Team and Fleet; no standalone SKU.
+8. Tollkeeper tools: POST https://www.slidphilabs.com/v1/<name> (same body as https://agentrider.fly.dev/api/toll/tools/<name>). Schema: GET https://agentrider.fly.dev/api/toll/schema
+9. Hosted calls, one name on POST /v1/<name>, MCP, and the Python client: check, translate, ingest, audit, money, time, chain, ship, parity, squeeze, compress, decompress, zip, unzip, quote, fetch, seal, open, research, and the Warrant and Tollkeeper names below. Studio and a local AGPL binary stay unmetered. Seats and grants stay purchases.
+10. Coming next: file sharing between agents (same signed seats) — not live.
 
 ### Hosted calls (POST https://www.slidphilabs.com/v1/<name>)
 | call | usd | note |
@@ -58,17 +60,17 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 
 ### SKU cheat sheet (live pricing.json)
 | sku | usd | human |
-| hq-month | 29.99 | /hq · Stripe Checkout via POST /api/hq?action=create (price_1UfxcLLehTFD59CGBhLOr1Cl / spl_hq_month) |
+| psi-meter | 25/250 | /pay?sku=psi-meter · year /pay?sku=psi-meter-year · 250,000 calls/month included, then $2 per additional 100,000; free 1 seat, 10,000 calls/month, 7-day retention |
+| psi-org | 79 | /pay?sku=psi-org |
+| psi-embed-grant | 490 | /pay?sku=psi-embed-grant |
 | rider-solo | 12 | /pay?sku=rider-solo |
 | rider-team | 49 | /pay?sku=rider-team |
 | rider-fleet | 199 | /pay?sku=rider-fleet |
 | warrant-addon | 8/80 | /pay?sku=warrant-addon |
 | chamber-month/year | 20/200 | /pay?sku=chamber-month · /pay?sku=chamber-year |
-| pcc-meter | 0.25/GB | /pps · first 1 GB free once per IP (lifetime, no monthly reset), cap default $25, alert at 80% |
+| pcc-meter | 0.25/GB | /pps · first 1 GB free once per address (lifetime, no monthly reset), cap default $25, alert at 80% |
 | pcc-pro/pro-year | 25/250 | /pay?sku=pcc-pro · /pay?sku=pcc-pro-year |
-| psi-meter | 25/250 | /pay?sku=psi-meter · 250,000 calls/month included, then $2 per additional 100,000; free 1 seat, 10,000 calls/month, 7-day retention |
-| psi-org | 79 | /pay?sku=psi-org |
-| psi-embed-grant | 490 | /pay?sku=psi-embed-grant |
+| hq-month | 29.99 | /hq · Stripe Checkout via POST /api/hq?action=create (price_1UfxcLLehTFD59CGBhLOr1Cl / spl_hq_month) |
 | tnssrc-grant | 369 | /pay?sku=tnssrc-grant · TNSSRC 0.1.0 only |
 | pulsar-exception | 490 | /pay?sku=pulsar-exception |
 | cuni-exception | 490 | /pay?sku=cuni-exception |

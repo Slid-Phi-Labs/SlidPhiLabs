@@ -78,10 +78,11 @@ export default async function handler(req, res) {
   const body = {
     ok: true,
     name: "Slid Phi Labs — Platform Discovery",
-    version: "1.26.0",
+    version: "1.27.0",
     lead_product: "psi",
     cash_product: "pcc-pro",
     lead_order: ["psi", "rider"],
+    starter: "https://www.slidphilabs.com/persist",
     storefront: ["PSI", "Agent-Rider", "CuNi", "Warrant", "Tollkeeper", "PCC", "TNSSRC", "TRUSTREAM", "pulsar", "Chamber", "AwLPay", "ExactOdds", "TEACHAiD"],
     well_known_agent: "https://www.slidphilabs.com/.well-known/agent.json",
     auth: AUTH,
@@ -97,7 +98,7 @@ export default async function handler(req, res) {
       status: "/api/box",
       law: "Every product POST is 24h black box, then a paid seat.",
     },
-    updated: "2026-11-27",
+    updated: "2026-11-28",
     rails: {
       human: "POST /api/checkout { sku } or /pay?sku=",
       agent: "POST /api/x402-products { sku }",
