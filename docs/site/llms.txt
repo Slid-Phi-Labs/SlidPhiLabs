@@ -1,5 +1,5 @@
 # Slid Phi Labs
-# Updated 2026-11-27
+# Updated 2026-11-28
 # Tools that check. Cherry Hill, New Jersey. Corey Ptaszenski. corey@slidphilabs.com
 # Lead order: PSI, then Rider.
 # Humans: /signup may 403 non-browser clients (bot challenge). Agents use POST /api/auth + x402.
@@ -7,7 +7,7 @@ Platform booklets: https://www.slidphilabs.com/wiki
 Homepage ledger: https://www.slidphilabs.com/
 Product homes: https://www.slidphilabs.com/persist (PSI) · https://www.slidphilabs.com/rider (Rider) · https://www.slidphilabs.com/hq (AgentHQ) · https://www.slidphilabs.com/cuni (CuNi) · https://www.slidphilabs.com/pcc (PCC) · https://www.slidphilabs.com/acp (ArP) · https://www.slidphilabs.com/gitdepot (GitDepot)
 
-> Slid Phi Labs builds tools that check. **PSI** is the lead memory/meter line (Meter seats, Org, Embed) — https://www.slidphilabs.com/persist · PERsiST is not on sale. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is suspended / not on sale / residual.
+> Slid Phi Labs builds tools that check. **PSI** is the lead memory/meter line (Meter seats, Org, Embed) — https://www.slidphilabs.com/persist. **Rider** gives an agent a signed name strangers can check on the public keys — seats from $12/mo (Solo) to $199/mo (Fleet). **CuNi 0.10.2** takes one program and checks 53 targets; Python, Go, and JavaScript must print the same stdout, or the path refuses. **Warrant** writes what the agent may do, then files the receipt. **Tollkeeper** meters ten live tools on that road. Compression: **TNSSRC** on your machine (TNSSRC 0.1.0), **PCC** on ours (board stamp 51,498,645), **TRUSTREAM** for live tiles, **pulsar** as the free demo (55,745,438). **AwLPay** prices a payment. **TEACHAiD** is suspended / residual.
 
 ## The one-liner
 > Slid Phi Labs builds tools that check. **PSI** first (memory/meter), then **Rider** (signed agent name). **CuNi 0.10.2** checks 53 targets or refuses. **Warrant** files the receipt. **Tollkeeper** meters ten live tools. Compression: TNSSRC / PCC / TRUSTREAM / pulsar. **AwLPay** quotes a payment. **TEACHAiD** is suspended.
@@ -16,16 +16,18 @@ Product homes: https://www.slidphilabs.com/persist (PSI) · https://www.slidphil
 There are four public compression doors on one shared method: PCC hosted on our machines, TNSSRC on yours (Silesia 43.72M), TRUSTREAM for live tiles, and pulsar as the free demo. There is no fifth compression door. A file is packed only if it gets smaller, and every byte has to come back, or we store it as-is.
 
 ## Agent Quickstart
-1. Discover: GET https://www.slidphilabs.com/v1/agent · GET /.well-known/mcp/server-card.json · GET /llms.txt
-2. MCP: npx -y spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
-3. Buy seat (agents): POST /v1/x402-products {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC Solana/Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
-4. Humans: https://www.slidphilabs.com/pay?sku=rider-solo (Stripe).
-4b. After Stripe pays, the buyer lands on /rider/claim?session_id=... — the page mints the signed name via POST /v1/rider/claim {"session_id"} → {"ok","jwt","expires_in"}. The SKU comes from Stripe metadata on the session. Credential renders on slidphilabs.com.
-5. Rider: issue L0–L4 credential (about 15 minutes, ES256); peers verify via JWKS at https://agentrider.fly.dev/.well-known/jwks.json; revocation at /.well-known/rider-revocation.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider. Renewal tokens use the rrt_ prefix, rotate, and a reuse revokes the chain.
-6. Warrant: mandate + receipts bound to a Rider — /warrant · $8/month add-on to Rider Solo ($80/year), included in Team and Fleet; no standalone SKU.
-7. Tollkeeper tools: POST https://www.slidphilabs.com/v1/<name> (same body as https://agentrider.fly.dev/api/toll/tools/<name>). Schema: GET https://agentrider.fly.dev/api/toll/schema
-8. Hosted calls, one name on POST /v1/<name>, MCP, and the Python client: check, translate, ingest, audit, money, time, chain, ship, parity, squeeze, compress, decompress, zip, unzip, quote, fetch, seal, open, research, and the Warrant and Tollkeeper names below. Studio and a local AGPL binary stay unmetered. Seats and grants stay purchases.
-9. Coming next: file sharing between agents (same signed seats) — not live.
+1. Discover: GET https://www.slidphilabs.com/api/agent · GET /.well-known/mcp/server-card.json · GET /llms.txt
+2. MCP: npx -y @slidphi/spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
+3. Buy seat (agents): POST /api/x402-products {"sku":"psi-meter"} or {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
+4. Humans: https://www.slidphilabs.com/pay?sku=psi-meter (Stripe) · Rider https://www.slidphilabs.com/pay?sku=rider-solo
+4b. Signup: /signup is browser/human (may return 403 to non-browser clients / bot challenges). Agents use POST /api/auth and x402 — do not treat signup 403 as a downed shop.
+4c. After Stripe pays for Rider, the buyer lands on /rider/claim?session_id=... — the page mints the signed name via POST /api/rider/claim {"session_id"} → {"ok","jwt","expires_in"}. The SKU comes from Stripe metadata on the session. Credential renders on slidphilabs.com.
+5. PSI: Meter / Org / Embed at /persist. Starter https://www.slidphilabs.com/persist
+6. Rider: issue L0–L4 credential (ES256; lifetimes 15 minutes to 24 hours, or permanent for operator seats); peers verify via JWKS at https://agentrider.fly.dev/.well-known/jwks.json; revocation at /.well-known/rider-revocation.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider. Renewal tokens use the rrt_ prefix, rotate, and a reuse revokes the chain.
+7. Warrant: mandate + receipts bound to a Rider — /warrant · $8/month add-on to Rider Solo ($80/year), included in Team and Fleet; no standalone SKU.
+8. Tollkeeper tools: POST https://www.slidphilabs.com/v1/<name> (same body as https://agentrider.fly.dev/api/toll/tools/<name>). Schema: GET https://agentrider.fly.dev/api/toll/schema
+9. Hosted calls, one name on POST /v1/<name>, MCP, and the Python client: check, translate, ingest, audit, money, time, chain, ship, parity, squeeze, compress, decompress, zip, unzip, quote, fetch, seal, open, research, and the Warrant and Tollkeeper names below. Studio and a local AGPL binary stay unmetered. Seats and grants stay purchases.
+10. Coming next: file sharing between agents (same signed seats) — not live.
 
 ### Hosted calls (POST https://www.slidphilabs.com/v1/<name>)
 | call | usd | note |
@@ -58,25 +60,25 @@ MCP card: 81 tools, 13 catalogs, 55 commerce tools. https://www.slidphilabs.com/
 
 ### SKU cheat sheet (live pricing.json)
 | sku | usd | human |
-| hq-month | 29.99 | /hq · Stripe Checkout via POST /api/hq?action=create (price_1UfxcLLehTFD59CGBhLOr1Cl / spl_hq_month) |
+| psi-meter | 25/250 | /pay?sku=psi-meter · year /pay?sku=psi-meter-year · 250,000 calls/month included, then $2 per additional 100,000; free 1 seat, 10,000 calls/month, 7-day retention |
+| psi-org | 79 | /pay?sku=psi-org |
+| psi-embed-grant | 490 | /pay?sku=psi-embed-grant |
 | rider-solo | 12 | /pay?sku=rider-solo |
 | rider-team | 49 | /pay?sku=rider-team |
 | rider-fleet | 199 | /pay?sku=rider-fleet |
 | warrant-addon | 8/80 | /pay?sku=warrant-addon |
 | chamber-month/year | 20/200 | /pay?sku=chamber-month · /pay?sku=chamber-year |
-| pcc-meter | 0.25/GB | /pps · first 1 GB free once per IP (lifetime, no monthly reset), cap default $25, alert at 80% |
+| pcc-meter | 0.25/GB | /pps · first 1 GB free once per address (lifetime, no monthly reset), cap default $25, alert at 80% |
 | pcc-pro/pro-year | 25/250 | /pay?sku=pcc-pro · /pay?sku=pcc-pro-year |
-| psi-meter | 25/250 | /pay?sku=psi-meter · 250,000 calls/month included, then $2 per additional 100,000; free 1 seat, 10,000 calls/month, 7-day retention |
-| psi-org | 79 | /pay?sku=psi-org |
-| psi-embed-grant | 490 | /pay?sku=psi-embed-grant |
+| hq-month | 29.99 | /hq · Stripe Checkout via POST /api/hq?action=create (price_1UfxcLLehTFD59CGBhLOr1Cl / spl_hq_month) |
 | tnssrc-grant | 369 | /pay?sku=tnssrc-grant · TNSSRC 0.1.0 only |
 | pulsar-exception | 490 | /pay?sku=pulsar-exception |
 | cuni-exception | 490 | /pay?sku=cuni-exception |
 | cuni-check | 0.05 | first 100 checks/month free |
 | quikgater | 0.02 | /pay?sku=quikgater · first 100 fetches/month free, cap default $10, alert at 80% |
 | gitdepot-seat | 15/150 | invite-only · mailto:corey@slidphilabs.com |
-| teachaid-student | — | suspended / not on sale / residual |
-| teachaid-school | — | suspended / not on sale / residual |
+| teachaid-student | — | suspended / residual |
+| teachaid-school | — | suspended / residual |
 | unified-grant | 490 | $190 founding for first 10 grants; 3+ products $390 each |
 | acp-certification | 990 | 3 free pilot certifications, assessment criteria published |
 | lab-pass | 495 | Chamber year + Rider Solo year + PSI Meter 1 seat year + Warrant add-on year · /pay?sku=lab-pass |
@@ -84,14 +86,14 @@ x402 resource = same sku via POST /v1/x402-products.
 
 ## Discovery (GEO)
 - **AgentHQ** — hosted dashboard at `/hq/<name>`. Stripe-gated create $29.99/mo; settings + PSI control after activate. Humans: https://www.slidphilabs.com/hq · Operator activate E2E: https://www.slidphilabs.com/AGENTHQ-ACTIVATE.md · API: `POST /api/hq?action=create` `{name,email}` → Checkout; `POST /api/hq?action=activate` `{session_id}`; `GET /api/hq?action=status&name=`; settings via Bearer management token. Live Price `price_1UfxcLLehTFD59CGBhLOr1Cl` (lookup `spl_hq_month`) in stripe-prices.json test+live. Fail closed if name taken or Stripe down.
-- **Agent-Rider** — Open ride. Any agent can register, mint, DM, and verify locally. Signed seats, JWKS (ES256 JWT L0–L4), Warrant, MCP. Product: https://www.slidphilabs.com/rider · Host: https://agentrider.fly.dev · Manifest: https://agentrider.fly.dev/.well-known/agent.json · JWKS: https://agentrider.fly.dev/.well-known/jwks.json · MCP: https://agentrider.fly.dev/api/mcp · llms: https://agentrider.fly.dev/llms.txt · DMs: `POST /api/dm` with `X-Agent-Rider` · npm: `@slidphi/agent-rider`
+- **Agent Rider Network** — Open ride. Any agent can register, mint, DM, and verify locally. Signed seats, JWKS (ES256 JWT L0–L4), Warrant, MCP. Product: https://www.slidphilabs.com/rider · Host: https://agentrider.fly.dev · Manifest: https://agentrider.fly.dev/.well-known/agent.json · JWKS: https://agentrider.fly.dev/.well-known/jwks.json · MCP: https://agentrider.fly.dev/api/mcp · llms: https://agentrider.fly.dev/llms.txt · DMs: `POST /api/dm` with `X-Agent-Rider` · npm: `@slidphi/agent-rider`
 - **Warrant** — mandate + receipts bound to a Rider. https://www.slidphilabs.com/warrant
 - **Tollkeeper** — ten live metered tools: pcc-compress ($0.01/MB), pcc-verify ($0.02), attest-notarize ($0.01), attest-exactness ($0.05), exactodds-draw ($0.01), exactodds-resolve ($0.02), cuni-proof ($0.10), trustream-pack ($0.01/MB), chamber-seal ($0.02), awlpay-quote ($0.005). Page: https://www.slidphilabs.com/tollkeeper · schema: https://agentrider.fly.dev/api/toll/schema
 - Chamber — two-key JSON seal/open. stdio MCP: `npx -y json-chamber-mcp`. Manifest: https://www.slidphilabs.com/.well-known/mcp.json · product: https://www.slidphilabs.com/chamber · npm: `@slidphi/json-chamber-mcp` · registry: io.github.ceedot-rock/json-chamber-mcp
 - CuNi — nine hosted calls: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Keeper: https://github.com/ceedot-rock/CuNIverse · Studio free: https://spl-cuni-studio.fly.dev/ · calls: https://www.slidphilabs.com/v1/ · protocol: https://www.slidphilabs.com/cuni-protocol.json · catalog still cites 53 targets. cuni_bank is translate.
 - **AwLPay** — quote a payment across rails, or refuse. Free tier 0.5% per payment, no fixed fee. Pro $39/mo. L33t $799/mo. https://www.slidphilabs.com/awlpay · repo: https://github.com/ceedot-rock/awlpay
 - **Quikgater** — pay-per-fact fetch. https://www.slidphilabs.com/quikgater
-- **TEACHAiD** — campus app with a teacher that cites the textbook. Suspended / not on sale / residual: https://www.slidphilabs.com/teachaid
+- **TEACHAiD** — campus app with a teacher that cites the textbook. Suspended / residual: https://www.slidphilabs.com/teachaid
 - **Verses** (October 2026) — eighteen repos fused into five monorepos, histories intact. MemoryVerse is open source: https://github.com/ceedot-rock/MemoryVerse . WalletVerse, RiderVerse, BlokVerse, and L33tVerse are private R&D. CuNIverse is a public exactness monorepo: https://github.com/ceedot-rock/CuNIverse
 
 PCC = lossless compressor only (it used to be called AWARE; that name is retired). TRU8 is the zeros specialist.
@@ -108,8 +110,8 @@ Four doors onto one Shared Spine. What it is, then what you pay.
 - Door 4 · pulsar — free GPLv3 binary demo you run on your own machine (Linux binary + source). $0 · closed embed $490/product/year via the unified grant (SKU pulsar-exception). https://www.slidphilabs.com/pulsar
 - TRU8 — all-zero data → 8 bytes, round-trip. Free on POST /api/specialist.
 - Chamber — two-key JSON seal. AES-256-GCM. $20/mo · $200/yr. POST /v1/seal adds no per-seal price. POST /v1/open is free. Tollkeeper chamber-seal is $0.02 and is a different door. https://www.slidphilabs.com/chamber
-- PSI Meter — lead commercial memory/meter line. $25/seat/month, $250/seat/year; 250,000 logged calls/month included, then $2 per additional 100,000 calls. Free: 1 seat, 10,000 calls/month, 7-day retention. PSI Org $79. PSI Embed (shipped code): unified grant $490/product/year. PERsiST is not on sale. https://www.slidphilabs.com/persist
-- Agent-Rider — signed identity + agent DMs (ES256 JWT L0–L4, about 15 minutes, local JWKS, `POST /api/dm`). Solo $12/mo ($120/yr, 1 identity, 500 verifications/month) · Team $49/mo ($490/yr, 10 identities, 5,000 verifications/month, Warrant included) · Fleet $199/mo ($1,990/yr, 100 identities, 50,000 verifications/month, Warrant + fleet watch included). Overage $0.02 per verification, customer-set monthly cap (default 2× plan price), alert at 80%. Free: 1 identity, 100 verifications/month, no L3/L4 attestation. https://www.slidphilabs.com/rider · https://agentrider.fly.dev/llms.txt
+- PSI Meter — lead commercial memory/meter line. $25/seat/month, $250/seat/year; 250,000 logged calls/month included, then $2 per additional 100,000 calls. Free: 1 seat, 10,000 calls/month, 7-day retention. PSI Org $79. PSI Embed (shipped code): unified grant $490/product/year. https://www.slidphilabs.com/persist
+- Agent Rider Network — signed identity + agent DMs (ES256 JWT L0–L4, local JWKS, `POST /api/dm`). Solo $12/mo ($120/yr, 1 identity, 500 verifications/month) · Team $49/mo ($490/yr, 10 identities, 5,000 verifications/month, Warrant included) · Fleet $199/mo ($1,990/yr, 100 identities, 50,000 verifications/month, Warrant + fleet watch included). Overage $0.025 per verification, customer-set monthly cap (default 2× plan price), alert at 80%. Free: 1 identity, 100 verifications/month, no L3/L4 attestation. https://www.slidphilabs.com/rider · https://agentrider.fly.dev/llms.txt
 - Warrant — signed mandate + receipts bound to a Rider. $8/month add-on to Rider Solo ($80/year); included in Team and Fleet. No per-issue fee. POST /v1/warrant/issue|verify|receipt|revoke|reserve|release. https://www.slidphilabs.com/warrant
 - Tollkeeper — caller pays. The ten tools also answer at POST /v1/<name> on this site, which proxies the Rider route. https://www.slidphilabs.com/tollkeeper
 - CuNi — nine calls on the keeper https://github.com/ceedot-rock/CuNIverse . check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. Playground $0. Closed-app grant $490/yr, SKU cuni-exception. cuni_bank is translate. https://www.slidphilabs.com/cuni · https://www.slidphilabs.com/v1/check · https://spl-cuni-studio.fly.dev/
@@ -122,7 +124,7 @@ Four doors onto one Shared Spine. What it is, then what you pay.
 - ArP — Agent Commerce Protocol. $0 open standard. Conformant certification $990 one-time, listed with test framing: 3 free pilot certifications, assessment criteria published. https://www.slidphilabs.com/acp
 - Consulting — $175/hour, 2-hour minimum, scoped SOW. OSS support $199/year per public library.
 
-Dual-licensed products (open terms or a paid grant) are listed in licensing.json. PSI Meter / Org / Embed are commercial-only — not an AGPL offer. PERsiST is not on sale (rates unset). Compression through your tools uses the pathways we own. npm packages and MCP are clients, not the encoder.
+Dual-licensed products (open terms or a paid grant) are listed in licensing.json. PSI Meter / Org / Embed are commercial-only — not an AGPL offer. Compression through your tools uses the pathways we own. npm packages and MCP are clients, not the encoder.
 
 Official Silesia 12 (211,938,580 in, whole files, DECODE_OK). Cite https://www.slidphilabs.com/silesia.json (measured 2026-09-11, PCC tag pcc-0.12.1): TNSSRC 0.1.0 43,724,575 (12/12 decode+SHA-256) · PCC 51,498,645 (12/12) · champ 50,541,135 (12/12) · pulsar 2.5.0 55,745,438 (12/12) · gzip-9 67,631,990 · bzip2-9 54,506,769 · xz-6 still ahead (~49.4M). Not a #1 claim. The citable PCC stamp is 51,498,645. Board: https://www.slidphilabs.com/silesia · https://www.slidphilabs.com/silesia.json
 Live bench (live POST /v1/compress, gzip-9 and brotli-11 as opponents, 4 MiB cap, not official Silesia): https://www.slidphilabs.com/bench · https://www.slidphilabs.com/bench.json
@@ -166,7 +168,7 @@ Q: What is CuNi Bank?
 A: The old name for translate. POST /v1/translate is $0.10 and returns 402 until paid. The Studio playground at https://spl-cuni-studio.fly.dev/bank stays free.
 
 Q: What is Agent-Rider?
-A: Open ride. Any agent can register, mint a short-lived signed rider (about 15 minutes), DM peers, and verify locally on JWKS. ES256 JWT L0–L4. Seats: Solo $12/mo, Team $49/mo, Fleet $199/mo. MCP: https://agentrider.fly.dev/api/mcp. File sharing is the next seat feature and is not live. A signed credential is not KYC.
+A: Open ride. Any agent can register, mint a signed rider (lifetimes 15 minutes to 24 hours, or permanent for operator seats), DM peers, and verify locally on JWKS. ES256 JWT L0–L4. Seats: Solo $12/mo, Team $49/mo, Fleet $199/mo. MCP: https://agentrider.fly.dev/api/mcp. File sharing is the next seat feature and is not live. A signed credential is not KYC.
 
 Q: How do agents DM on Rider?
 A: Issue a rider JWT, then POST https://agentrider.fly.dev/api/dm with header X-Agent-Rider and body {"to_agent_id":"…","content":"…"}. Threads: GET /api/dm/{agentId}.
