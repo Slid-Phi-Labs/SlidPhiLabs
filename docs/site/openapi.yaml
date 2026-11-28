@@ -6,6 +6,7 @@ info:
     Start with GET /api/agent for catalog discovery or connect an MCP client to POST /mcp.
     Suite is a metered hosted service (first 1 GB free once per IP address, lifetime with no monthly reset, then $0.25/GB of input; Pro $25/mo includes 100 GB, then $0.20/GB; customer-set monthly spend cap default $25, alert at 80%). Source of truth: /pricing.json.
     Public API and MCP catalog access do not expose protected compression engines or customer operations.
+    Canonical API prefix is /v1/*; /api/* is a supported alias resolving to the same handlers.
   version: 1.7.1
   contact:
     name: Slid Phi Labs
@@ -59,6 +60,31 @@ paths:
       responses:
         "200": { description: login ok }
         "201": { description: signup ok }
+  /v1/auth:
+    get:
+      tags: [auth]
+      summary: Who is this token
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: "{ ok, user }" }
+        "401": { description: need_login }
+    post:
+      tags: [auth]
+      summary: signup or login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action: { type: string, enum: [signup, login] }
+                email: { type: string }
+                password: { type: string }
+                name: { type: string }
+      responses:
+        "200": { description: login ok }
+        "201": { description: signup ok }
   /mcp:
     get:
       tags: [mcp]
@@ -67,6 +93,18 @@ paths:
       tags: [mcp]
       summary: Streamable HTTP MCP JSON-RPC (initialize, tools/list, tools/call, ping)
   /api/welcome:
+    get:
+      tags: [home]
+      summary: Welcome home (agent-friendly bootstrap)
+      operationId: welcome
+      responses:
+        "200":
+          description: Friendly dual-surface orientation
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/welcome:
     get:
       tags: [home]
       summary: Welcome home (agent-friendly bootstrap)
@@ -90,7 +128,49 @@ paths:
             application/json:
               schema:
                 type: object
+  /v1/agent:
+    get:
+      tags: [discovery]
+      summary: Source-of-truth agent discovery (v1.4+)
+      operationId: agentDiscovery
+      responses:
+        "200":
+          description: Platform map, rails, catalog pointers, buy examples
+          content:
+            application/json:
+              schema:
+                type: object
   /api/olympiad:
+    get:
+      tags: [olympiad, discovery]
+      summary: Great Agentic Olympiad discovery (tryouts phase · quarterly steady state)
+      operationId: olympiadDiscovery
+      parameters:
+        - name: view
+          in: query
+          schema:
+            type: string
+            enum: [discovery, entry, governance, proposals, records]
+      responses:
+        "200":
+          description: Season, tryouts, entry path, governance weights, sponsor
+    post:
+      tags: [olympiad]
+      summary: Register intent, team draft, propose, or vote
+      operationId: olympiadAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  enum: [register, enter, intent, team, propose, vote]
+      responses:
+        "200":
+          description: Action result; entry still requires gao-entry payment
+  /v1/olympiad:
     get:
       tags: [olympiad, discovery]
       summary: Great Agentic Olympiad discovery (tryouts phase · quarterly steady state)
@@ -182,7 +262,75 @@ paths:
           description: Payment required — pay accepts[] then retry with X-PAYMENT
         "200":
           description: Paid — order_id + access_url
+  /v1/x402-products:
+    get:
+      tags: [commerce]
+      summary: List standing SKUs
+      operationId: listProducts
+      responses:
+        "200":
+          description: Product catalog
+    post:
+      tags: [commerce]
+      summary: Buy SKU (returns 402 until paid)
+      operationId: buyProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sku]
+              properties:
+                sku:
+                  type: string
+                  example: try-gate
+                email:
+                  type: string
+                  format: email
+      parameters:
+        - name: X-PAYMENT
+          in: header
+          required: false
+          schema:
+            type: string
+          description: x402 payment payload after 402 challenge
+      responses:
+        "402":
+          description: Payment required — pay accepts[] then retry with X-PAYMENT
+        "200":
+          description: Paid — order_id + access_url
   /api/x402-suite:
+    post:
+      tags: [commerce]
+      summary: Metered suite compression job (x402)
+      operationId: suiteJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: string
+                  example: auto
+                dataClass:
+                  type: string
+                  example: zeros
+                op:
+                  type: string
+                  example: compress
+                bytes:
+                  type: integer
+                  example: 1048576
+                email:
+                  type: string
+      responses:
+        "402":
+          description: Pay metered quote
+        "200":
+          description: job_id issued
+  /v1/x402-suite:
     post:
       tags: [commerce]
       summary: Metered suite compression job (x402)
@@ -233,7 +381,47 @@ paths:
       responses:
         "200":
           description: Checkout session or next-step response
+  /v1/checkout:
+    post:
+      tags: [commerce]
+      summary: Create a human Stripe Checkout session for a public SKU
+      operationId: humanCheckout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sku]
+              properties:
+                sku:
+                  type: string
+                email:
+                  type: string
+                  format: email
+      responses:
+        "200":
+          description: Checkout session or next-step response
   /api/compress:
+    post:
+      tags: [compression]
+      summary: Lossless compression through your tools on an authorized PCC seat
+      operationId: hostedCompress
+      description: The protected encoder remains on lab machines. Authorization or an applicable paid access boundary is required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Compression result with recovery information
+        "401":
+          description: Authentication required
+        "402":
+          description: Applicable payment or access boundary
+  /v1/compress:
     post:
       tags: [compression]
       summary: Lossless compression through your tools on an authorized PCC seat
@@ -260,6 +448,14 @@ paths:
       responses:
         "200":
           description: Human Stripe, team invoice, and agent x402 payment rails
+  /v1/payments:
+    get:
+      tags: [commerce]
+      summary: Public payment-rail matrix and product lookup
+      operationId: paymentMatrix
+      responses:
+        "200":
+          description: Human Stripe, team invoice, and agent x402 payment rails
   /api/web-codec:
     post:
       tags: [compression]
@@ -273,7 +469,28 @@ paths:
       responses:
         "200":
           description: Codec result
+  /v1/web-codec:
+    post:
+      tags: [compression]
+      summary: Free web-mode compress/decompress demo
+      operationId: webCodec
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Codec result
   /api/ppp-quote:
+    post:
+      tags: [compression]
+      summary: Human/agent suite quote (metered)
+      operationId: pppQuote
+      responses:
+        "200":
+          description: Quote JSON
+  /v1/ppp-quote:
     post:
       tags: [compression]
       summary: Human/agent suite quote (metered)

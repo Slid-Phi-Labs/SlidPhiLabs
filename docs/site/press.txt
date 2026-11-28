@@ -38,9 +38,9 @@ POST /api/unarchive → the files
 npm zip() / unzip() · lb zip out.pcc folder/
 
 PRICE
-  First 1 GB free once per address (lifetime)
+  First 1 GB free once per IP
   Then: $0.25 per GB, $1 card minimum
-  Meter $0.25/GB after 1 GB once per address. Pro $25/mo (100 GB, then $0.20/GB) · $250/yr
+  PCC metered $0.25/GB · Pro $25/mo (100 GB) · Pro year $250
   TRUSTREAM live logs sit on the same plan
 
 PULSAR
@@ -78,7 +78,7 @@ FOR IMMEDIATE RELEASE
 October 28, 2026
 Cherry Hill, New Jersey
 
-SLID PHI LABS PRICES LLM SPEND AT A FIFTH: PSI METER, FIRST AUDIT FREE
+SLID PHI LABS PRICES LLM SPEND AT A FIFTH: PSI METER $25/MO, FIRST AUDIT FREE
 
 Slid Phi Labs today published measured LLM spend figures from five of its own agentic sessions (787.7M input / 6.35M output tokens, metered October 2026): a 124:1 input-to-output ratio with 94% of input cache-served. At live October rates across Anthropic, OpenAI, Google, xAI, and DeepSeek, that profile pays roughly one-fifth of unprofiled cost. A 304M-token marathon session costs about $116 profiled versus about $631 uncached at Sonnet-class rates.
 

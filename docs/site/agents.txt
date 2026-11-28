@@ -57,11 +57,11 @@ POST https://agentrider.fly.dev/api/mcp
 
 # --- Lab ---
 GET https://www.slidphilabs.com/.well-known/mcp.json
-GET https://www.slidphilabs.com/api/agent
+GET https://www.slidphilabs.com/v1/agent
 GET https://www.slidphilabs.com/mcp
 POST https://www.slidphilabs.com/mcp
-POST https://www.slidphilabs.com/api/auth
-POST https://www.slidphilabs.com/api/x402-products
+POST https://www.slidphilabs.com/v1/auth
+POST https://www.slidphilabs.com/v1/x402-products
 GET https://www.slidphilabs.com/SKILL.md
 GET https://www.slidphilabs.com/.well-known/mcp/server-card.json
 GET https://www.slidphilabs.com/.well-known/ai-catalog.json

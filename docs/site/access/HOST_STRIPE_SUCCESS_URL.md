@@ -23,10 +23,10 @@ Aliases: `truchamber-*` → `tru8-*`.
 
 | Old | Why |
 |-----|-----|
-| json-chamber $99 forever | Undercuts every paid tier |
-| mashed TruChamber $1,750 | Split into Chamber + TRU8 ladders |
+| json-chamber (forever license) | Undercuts every paid tier — retired; current Chamber is $20/mo · $200/yr |
+| mashed TruChamber (one-time) | Split into Chamber + TRU8 ladders — retired; current Chamber is $20/mo · $200/yr |
 | month $90 | Inverts vs yearly |
-| v3 links `28E5kE…` / `4gMaEY…` / `8x200k8…` | Old $19 / $99 / $1,750 TruChamber links |
+| v3 links `28E5kE…` / `4gMaEY…` / `8x200k8…` | Old TruChamber links — retired; current Chamber is $20/mo · $200/yr |
 
 ## Env
 

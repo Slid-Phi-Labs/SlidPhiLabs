@@ -53,6 +53,15 @@
   <h2 id="what-tollkeeper-h">What Tollkeeper is</h2>
   <p>Tollkeeper is the register of crossings on an open road. Agent Rider gives the agent a signed name. The ten tools are what a caller pays to cross: identity, discovery, money, authority, proof, recourse, and memory show up there under the posted names.</p>
   <p>The seven names below are the map of crossings. The prices a caller pays today are the ten tools: verify $0.02, notarize $0.01, exactness $0.05, draw $0.01, resolve $0.02, CuNi proof $0.10, Chamber seal $0.02, AwLPay quote $0.005, and $0.01 per MB (minimum $0.001) for compress and TRUSTREAM pack.</p>
+        <ul class="spl-tolls" aria-label="Toll prices">
+          <li>Toll 1 · identity: $0.005 <span class="spl-note">per check · 100/mo free</span></li>
+          <li>Toll 2 · lookup: $0.02 <span class="spl-note">per lookup · listing free</span></li>
+          <li>Toll 3 · escrow: 1% <span class="spl-note">escrow routing</span></li>
+          <li>Toll 4 · grant: $0.01 <span class="spl-note">issue · $0.005 check</span></li>
+          <li>Toll 6 · bond: 1% <span class="spl-note">at stake</span></li>
+          <li>Toll 7 · memory transfer: $0.02 <span class="spl-note">hosted transfer · format free</span></li>
+          <li>Tools pcc-compress / trustream-pack: $0.01 <span class="spl-note">per MB in</span></li>
+        </ul>
   <p>Every toll works the same way. The caller pays — never the agent being checked. Usage is metered, so you see every charge before it bills. And every payment comes back with a signed receipt: what, when, how much, for whom. If a toll can't be processed cleanly — bad input, stale permission, missing payment — it refuses instead of guessing, and the refusal says why.</p>
   <p>Picture a highway with seven booths. You slow down, pay the small toll, get a stamped ticket, and drive on. Nobody shakes you down at midnight. That is the whole idea.</p>
   <p>Payment uses the x402 accepts[] shape. The posted figure on each of the ten tools is the amount.</p>
@@ -87,7 +96,7 @@
       <article class="spl-card">
         <p class="spl-kicker">Toll 5 · exactness proof</p>
         <h3>Prove it ran right</h3>
-        <p class="spl-price">Map <span class="spl-note">live proof is cuni-proof at $0.10</span></p>
+        <p class="spl-price">$0.05 <span class="spl-note">per check</span></p>
         <p>An independent check that a computation produced exactly the right bytes — the CuNi exactness gate, sold as a toll. Same output on every machine or it doesn't pass.</p>
       </article>
       <article class="spl-card">

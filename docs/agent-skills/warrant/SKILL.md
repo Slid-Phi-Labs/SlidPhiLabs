@@ -19,4 +19,4 @@ Needs a Rider for non-demo issue. 3 issues + 10 receipts/day free; verify free.
 
 ## Pay
 
-$29/mo · $290/yr. Dual license AGPL-3.0-or-later or commercial grant.
+$8/mo · $80/yr add-on to Rider Solo; included in Team and Fleet. No standalone SKU. Dual license AGPL-3.0-or-later or commercial grant.

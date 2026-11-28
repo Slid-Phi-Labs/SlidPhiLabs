@@ -19,10 +19,11 @@ TRUSTREAM is the same plan for live logs: https://www.slidphilabs.com/trustream
 
 ## Pay
 
-- **Meter:** first 1 GB free once per address, then $0.25/GB. Card charges start at $1.
-- **Pro:** $25/mo, 100 GB included, then $0.20/GB. Checkout `pcc-pro`. Year is $250, sku `pcc-pro-year`.
+- **Usage:** first 1 GB free once per IP (lifetime, no monthly reset), then $0.25/GB. SKU `suite` (meter; `pcc-meter` in pricing.json). $1 card minimum.
+- **Pro:** $25/mo, 100 GB included, then $0.20/GB. Checkout sku `pcc-pro`; Pro annual $250, sku `pcc-pro-year`.
+- Day / year seats retired: `gc-day` → PCC meter, `gc-month` → `pcc-pro`, `gc-year` → `pcc-pro-year`.
 
-Agents: POST `/api/x402-products` `{"sku":"pcc-pro"}`. Humans: `/pay?sku=pcc-pro`.
+Agents: POST `/api/x402-products` `{"sku":"suite"}` or `{"sku":"pcc-pro"}`. Humans: `/pay?sku=pcc-pro`.
 
 ## Official Silesia (12 whole files, 211,938,580, DECODE_OK)
 

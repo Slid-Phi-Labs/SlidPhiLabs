@@ -20,6 +20,6 @@ Pair: write policy in CuNi Studio → `cuni check` → register. Warrant binds a
 
 ## Pay
 
-$79/mo SKU `rider-month` · $790/yr SKU `rider-year`. Not in Lab Pass. Dual license AGPL-3.0-or-later or commercial grant.
+Solo $12/mo ($120/yr) · Team $49/mo ($490/yr) · Fleet $199/mo ($1,990/yr). SKUs `rider-solo` / `rider-team` / `rider-fleet`. Overage $0.02 per verification. Rider Solo year is in Lab Pass ($495/yr). Dual license AGPL-3.0-or-later or commercial grant.
 
 Also listed on Smithery as `slidphi/agent-rider` (same Fly surface). Older `ceedotrock/agentmagnet` is the AGC utility listing.

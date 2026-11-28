@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/sp-icon-32.png"/>
 <link rel="apple-touch-icon" href="/assets/brand/sp-icon-180.png"/>
   <title>Chamber — two keys seal JSON · $20/mo · $200/yr · Slid Phi Labs</title>
-  <meta name="description" content="Chamber is the lab's attested signing and attestation service. Keys live in 600-permission files, every envelope is stamped with its custody level. 33/33 tests green."/>
+  <meta name="description" content="Chamber is a two-key vault: two-of-two AES-256-GCM secret sealing and custody-stamped envelopes, with opening sealed blobs free forever. Keys live in 600-permission files; every envelope is stamped with its custody level. 33/33 tests green."/>
   <link rel="canonical" href="https://www.slidphilabs.com/chamber"/>
   <meta property="og:title" content="Chamber — attested signing"/>
   <meta property="og:url" content="https://www.slidphilabs.com/chamber"/>
@@ -34,14 +34,14 @@
     <p class="spl-note">Chamber is $20/month, $200/year (<a href="/pay?sku=chamber-month">$20</a> · <a href="/pay?sku=chamber-year">$200</a>). 24-hour try. Opening already-sealed blobs is free forever. Sealing is not metered.</p>
 <section class="spl-prose spl-full" id="what-chamber" aria-labelledby="what-chamber-h">
   <div data-spl-buy="chamber"></div>
-<h2 id="what-chamber-h">What Chamber is</h2>
-  <p>Chamber is the attested signing and attestation service behind the lab's products. When AwLPay or Agent Rider needs to prove a message came from the lab and hasn't been tampered with, Chamber signs it — and stamps the envelope with the custody level of the key that signed it, so the verifier knows exactly how much trust to place in it.</p>
+  <h2 id="what-chamber-h">What Chamber is</h2>
+  <p>Attested signing is one mode of Chamber's two-key vault. When AwLPay or Agent Rider needs to prove a message came from the lab and hasn't been tampered with, Chamber signs it — and stamps the envelope with the custody level of the key that signed it, so the verifier knows exactly how much trust to place in it. The other mode seals JSON secrets with AES-256-GCM and a two-of-two split: opening takes both shares, and the ciphertext stays with you.</p>
   <p>Here is why that matters. A signature without provenance is a claim without a witness: you can verify the math, but you can't tell whether the key lived in a hardened file or a pasted env var. Chamber closes that gap. Signing keys live in 600-permission files on the operator's own machine — the Rider bearer-key pattern, created with <code>python3 -m server.chamber keygen</code>. The old env-var key path is gone. Ephemeral keys exist only for tests, behind <code>CHAMBER_ALLOW_EPHEMERAL=1</code>. Rotation is a file move: the previous key rests at <code>signing.key.prev</code>.</p>
   <p>Every envelope carries its custody level, so a verifier can distinguish a production-signed message from a test-signed one without taking anyone's word for it. The suite is 33/33 green.</p>
 </section>
     <div class="spl-prose spl-full">
       <h2>What it is</h2>
-      <p>A signing and attestation service for the lab's own products: envelopes are signed, custody-stamped, and verifiable. Key rotation is <code>signing.key</code> → <code>signing.key.prev</code>. 33/33 tests green.</p>
+      <p>One two-key vault, two modes: seal a JSON secret with AES-256-GCM and a two-of-two split, or sign an envelope with a custody-stamped key. Envelopes are signed, custody-stamped, and verifiable. Key rotation is <code>signing.key</code> → <code>signing.key.prev</code>. 33/33 tests green.</p>
       <h2>Where it runs</h2>
       <ul>
         <li>AwLPay's attested relayer: Chamber-signed envelopes on the pragmatic path toward trust-minimized light-client proofs.</li>

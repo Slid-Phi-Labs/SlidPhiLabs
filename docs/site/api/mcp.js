@@ -73,7 +73,7 @@ export const COMMERCE = [
     },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
   },
-  { name: "spl_catalog", description: "List the standing SKUs agents can buy via x402 (live product list from /api/x402-products). Read-only; returns current prices and payment rails. Takes no arguments. Use for live purchase options; use sku_search and sku_get for the catalog's price notes and links.", annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true } },
+  { name: "spl_catalog", description: "List the standing SKUs agents can buy via x402 (live product list from /v1/x402-products; pay Solana or Base USDC, retry with X-PAYMENT). Read-only; returns current prices and payment rails. Takes no arguments. Use for live purchase options; use sku_search and sku_get for the catalog's price notes and links.", annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true } },
   {
     name: "spl_compress",
     description: "Compress bytes with the hosted lossless engine (PCC and sibling codecs). Accepts base64 input; returns base64 packed bytes, sizes, and the method used. Read-only computation — nothing is stored. Metered: first 1 GB free once per IP, then $0.25/GB; a paid seat or x402 payment may be required (402). Use to shrink data; use spl_decompress to restore it, spl_zip to pack files.",

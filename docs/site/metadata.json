@@ -12,7 +12,7 @@
   "glossary": {
     "CuNi": "Nine hosted calls at /v1: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. cuni_bank is translate. Studio $0. Closed-app grant $490/yr. Keeper: CuNIverse.",
     "Chamber": "POST /v1/seal and POST /v1/open. Seats $20/mo and $200/yr. Open is free. seal adds no per-seal price. Tollkeeper chamber-seal is $0.02 and is a different door.",
-    "Agent-Rider": "signed agent identity L0\u2013L4. Solo $12 \u00b7 Team $49 \u00b7 Fleet $199 per month. Overage $0.02 per verification, customer-set cap, alert at 80%. Rider Solo included in Lab Pass.",
+    "Agent-Rider": "signed agent identity L0\u2013L4. Solo $12 \u00b7 Team $49 \u00b7 Fleet $199 per month. Overage $0.025 per verification, customer-set cap, alert at 80%. Rider Solo included in Lab Pass.",
     "PCC": "lossless compressor through your tools. POST /v1/compress. Metered $0.25/GB of input, first 1 GB free once per IP (lifetime); Pro $25/mo (100 GB included, then $0.20/GB). squeeze is $0.10.",
     "TRUSTREAM": "live logs on the PCC plan.",
     "Suite": "First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05. Customer-set cap (default $25), alert at 80%.",

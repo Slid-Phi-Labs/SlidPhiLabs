@@ -92,7 +92,7 @@ curl -sL -X POST https://teachaid.fly.dev/api/chat \
 ## Related lab surfaces
 
 - Slid Phi Labs catalog: https://www.slidphilabs.com/api/agent
-- PCC meter: first 1 GB free once per address, then $0.25/GB — https://www.slidphilabs.com/pcc
+- PCC usage: first 1 GB free once per IP (lifetime, no monthly reset), then $0.25/GB — https://www.slidphilabs.com/pps
 - Silesia board: https://www.slidphilabs.com/silesia
 
 Host: `host_spu_ceedot` · Engine version: TEACHAiD 1.4.0-school-bursar · Org: Slid Phi Labs

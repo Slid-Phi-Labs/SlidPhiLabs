@@ -72,8 +72,8 @@
     <p class="pf-lede">Three steps. No pre-loaded memory, no lab content, no promised number.</p>
     <div class="pf-prose">
       <p><strong>1. Start at BASE.</strong> Empty. Nothing pre-loaded, nothing of ours inside it.</p>
-      <p><strong>2. Scan your work.</strong> Repos, tasks, decisions. PERsiST builds its folded memory from what it finds, and keeps building as the work accumulates.</p>
-      <p><strong>3. Load the slice.</strong> Each task inflates only what it needs, from a <code>heart.cae</code> archive folded by <code>spl-heart</code>. Every read is verified before the model sees it.</p>
+      <p><strong>2. Scan your work.</strong> Repos, tasks, decisions. PERsiST builds its memory from what it finds, and keeps building as the work accumulates.</p>
+      <p><strong>3. Load the slice.</strong> Each task inflates only what it needs, from a <code>heart.cae</code> archive written by <code>spl-heart</code>. Every read is verified before the model sees it.</p>
     </div>
     <p class="pf-note">PERsiST reports the tokens it loads on your work. No result is promised here, because no two codebases load the same context.</p>
   </section>
@@ -88,7 +88,7 @@
     <p class="lb-secnum" aria-hidden="true">03</p>
     <h2 class="lb-h2" id="evidence">The mechanism, stated plainly.</h2>
     <div class="pf-prose">
-      <p><strong>Folded memory.</strong> At rest, memory sits folded in one compressed archive (<code>heart.cae</code>) on disk. <code>spl-heart</code> inflates only the slice the current task needs.</p>
+      <p><strong>Memory at rest.</strong> At rest, memory sits in one compressed archive (<code>heart.cae</code>) on disk. <code>spl-heart</code> inflates only the slice the current task needs.</p>
       <p><strong>Verified reads.</strong> Every read is verified cryptographically before the model sees it.</p>
       <p><strong>Learning from your work.</strong> At first run, PERsiST scans your environment and your work and tailors itself to what it finds. It keeps building as the work accumulates. Nothing of ours ships inside it.</p>
       <p><strong>Gates and receipts.</strong> Spend and push gates are checked against a human mandate before they execute. Every gate decision and task completion gets a tamper-evident receipt.</p>
@@ -99,7 +99,7 @@
   <section class="lb-sec" aria-labelledby="pricing">
     <p class="lb-secnum" aria-hidden="true">04</p>
     <h2 class="lb-h2" id="pricing">Pricing.</h2>
-    <p class="pf-lede">Buy the PSI seats that are on sale. PERsiST stays off checkout until both rates are in the price book.</p>
+    <p class="pf-lede">Buy the PSI seats that are on sale.</p>
     <table>
       <caption>PSI seats on sale</caption>
       <thead><tr><th scope="col">Seat</th><th scope="col">Price</th><th scope="col">Buy</th></tr></thead>
@@ -121,37 +121,16 @@
         </tr>
       </tbody>
     </table>
-    <table>
-      <caption>PERsiST charges (not on sale)</caption>
-      <thead><tr><th scope="col">Charge</th><th scope="col">Rate</th><th scope="col">What it counts</th></tr></thead>
-      <tbody>
-        <tr>
-          <th scope="row">Session</th>
-          <td>Not set</td>
-          <td>One fee each time a task runs against that user's folded memory.</td>
-        </tr>
-        <tr>
-          <th scope="row">Token saved</th>
-          <td>Not set</td>
-          <td>One fee for each token the naive load would have sent, minus the tokens in the slice that was loaded.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="pf-note">First 5,000 tokens a day folded via <code>spl-heart</code> stay free. Checkout does not collect a PERsiST charge until both rates are in the price book. Full catalog: <a href="/pricing">/pricing</a>.</p>
-    <p class="pf-actions">
-      <a class="pf-btn pf-btn-solid" href="/pay?sku=psi-meter">Buy PSI Meter →</a>
-      <a class="pf-btn pf-btn-line" href="/pay?sku=psi-org">Buy PSI Org</a>
-      <a class="pf-btn pf-btn-line" href="/pay?sku=psi-embed-grant">Embed grant</a>
-    </p>
+    <p class="pf-note">First 5,000 tokens/day written to memory via <code>spl-heart</code> are free with no plan. PSI Meter, the spend log, is a separate seat: $25/seat/mo, $250/seat/yr, 250,000 logged calls/mo included, then $2 per 100,000 calls; free 1 seat, 10,000 calls/mo, 7-day retention. Full catalog: <a href="https://www.slidphilabs.com/pricing">/pricing</a>.</p>
   </section>
 
   <section class="lb-sec" aria-labelledby="how">
     <p class="lb-secnum" aria-hidden="true">05</p>
     <h2 class="lb-h2" id="how">How it works.</h2>
     <div class="pf-prose">
-      <p><strong>At rest:</strong> the memory sits folded in one compressed archive (<code>heart.cae</code>) on disk.</p>
+      <p><strong>At rest:</strong> the memory sits in one compressed archive (<code>heart.cae</code>) on disk.</p>
       <p><strong>Active:</strong> <code>spl-heart</code> inflates only the task's slice, verified before the model sees it.</p>
-      <p><strong>After the task:</strong> notes are logged, the archive re-folds, and the receipts are re-audited.</p>
+      <p><strong>After the task:</strong> notes are logged, the archive is rewritten, and the receipts are re-audited.</p>
       <p><strong>Always:</strong> spend and push gates are checked against a human mandate before they execute.</p>
     </div>
   </section>
