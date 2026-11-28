@@ -505,3 +505,198 @@ body.spl-chrome .wl-mission .spl-btn-line:hover { background: #ffffff; color: va
   .hc-ticket-name { padding-top: 22px; }
   .wl-hero-mark { display: none; }
 }
+
+/* ---- 8. Project carousel (homepage hero) ---- */
+/* Pattern: W3C APG grouped carousel; accessibility.build carousel guidance.
+   Instant switch, no sliding track: non-visible slides are hidden, which
+   removes them from the accessibility tree and tab order. No auto-advance.
+   Arrows reveal on hover only for fine pointers; keyboard (focus-within)
+   and touch/coarse pointers always see them. */
+.spl-carousel {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 20px 36px;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  touch-action: pan-y;
+}
+.spl-carousel-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 10px;
+}
+.spl-carousel h1 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.5vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin: 0 0 12px;
+}
+.spl-carousel-tag {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 0 0 16px;
+}
+.spl-carousel-tag a { color: var(--teal); }
+.spl-carousel-hint {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+.spl-carousel-track { position: relative; }
+.spl-carousel-viewport { position: relative; }
+.spl-slide {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  padding: 24px 24px 20px;
+}
+.spl-slide[hidden] { display: none; }
+.spl-slide-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 6px;
+}
+.spl-slide h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+.spl-slide-lede { font-size: 16px; line-height: 1.5; margin: 0 0 4px; }
+.spl-slide-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 18px;
+}
+.spl-slide h3 {
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+.spl-faq { display: grid; gap: 8px; }
+.spl-faq details {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  padding: 10px 14px;
+}
+.spl-faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.spl-faq summary::marker { color: var(--teal); }
+.spl-faq summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.spl-faq details[open ] summary { color: var(--navy); }
+.spl-faq details p {
+  margin: 8px 0 2px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.spl-slide-link { margin: 18px 0 0; font-size: 15px; }
+.spl-slide-link a { color: var(--teal); font-weight: 700; }
+.spl-carousel-prev,
+.spl-carousel-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--navy);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transform: translateY(-50%);
+}
+.spl-carousel-prev { left: 8px; }
+.spl-carousel-next { right: 8px; }
+.spl-carousel-prev:hover,
+.spl-carousel-next:hover { background: var(--card); }
+.spl-carousel-prev:focus-visible,
+.spl-carousel-next:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spl-carousel-prev,
+  .spl-carousel-next { opacity: 0; }
+  .spl-carousel:hover .spl-carousel-prev,
+  .spl-carousel:hover .spl-carousel-next,
+  .spl-carousel:focus-within .spl-carousel-prev,
+  .spl-carousel:focus-within .spl-carousel-next { opacity: 1; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .spl-carousel-prev,
+  .spl-carousel-next { transition: opacity 150ms ease; }
+}
+.spl-carousel-dots {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.spl-carousel-dots button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.spl-carousel-dots button::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 17px auto;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  opacity: .45;
+}
+.spl-carousel-dots button:hover::after { opacity: .8; }
+.spl-carousel-dots button[aria-disabled="true"]::after {
+  background: var(--navy);
+  opacity: 1;
+}
+.spl-carousel-dots button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+@media (min-width: 720px) {
+  .spl-slide { padding: 24px 64px 20px; }
+}
+@media (max-width: 640px) {
+  .spl-carousel { padding: 24px 16px 28px; }
+  .spl-slide { padding: 20px 16px 16px; }
+  .spl-slide h2 { font-size: 23px; }
+  .spl-carousel-prev { left: 4px; }
+  .spl-carousel-next { right: 4px; }
+}

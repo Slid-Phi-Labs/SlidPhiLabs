@@ -8,7 +8,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Pay Per Suite — metered encode/decode · Slid Phi Labs</title>
-<meta name="description" content="Suite meters encode/decode jobs. First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05."/>
+<meta name="description" content="Suite meters encode/decode jobs. First 1 GB free once per IP, then $0.25/GB."/>
 <link rel="canonical" href="https://www.slidphilabs.com/pps"/>
 
 <!-- Agentic commerce discovery (machine-readable) -->
@@ -23,9 +23,9 @@
 <meta name="agent-networks" content="solana-mainnet-beta,eip155:8453"/>
 <meta name="agent-discovery" content="https://www.slidphilabs.com/api/agent"/>
 <meta name="agent-catalog" content="https://www.slidphilabs.com/api/x402-products"/>
-<meta name="agent-one-liner" content="CuNi Studio $0 · Chamber $20/$200 · PCC meter $0.25/GB after 1 GB once per address, Pro $25/$250 · Rider Solo $12–Fleet $199 · GET /api/agent"/>
+<meta name="agent-one-liner" content="CuNi Studio $0 · Chamber $20/$200 · PCC meter $0.25/GB after 1 GB once per IP address, Pro $25/$250 · Rider Solo $12–Fleet $199 · GET /api/agent"/>
 <meta property="og:title" content="Pay Per Suite — metered encode/decode"/>
-<meta property="og:description" content="Suite meters encode/decode jobs. First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05."/>
+<meta property="og:description" content="Suite meters encode/decode jobs. First 1 GB free once per IP address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05."/>
 <meta property="og:url" content="https://www.slidphilabs.com/pps"/>
 <meta property="og:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta property="og:type" content="website"/>
@@ -34,7 +34,7 @@
 <meta name="twitter:site" content="@slidphilabs"/>
 <meta name="twitter:creator" content="@slidphilabs"/>
 <meta name="twitter:title" content="Pay Per Suite — metered encode/decode"/>
-<meta name="twitter:description" content="Suite meters encode/decode jobs. First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05."/>
+<meta name="twitter:description" content="Suite meters encode/decode jobs. First 1 GB free once per IP address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05."/>
 <meta name="twitter:image" content="https://www.slidphilabs.com/assets/brand/sp-og.png"/>
 <meta name="theme-color" content="#f7f6f2"/>
 <meta name="robots" content="index,follow"/>
@@ -400,11 +400,11 @@ footer.suite-foot a{color:var(--teal-bright);font-weight:600}
     "@type": "Service",
     "name": "SPL Pay Per Suite",
     "provider": { "@type": "Organization", "name": "Slid Phi Labs", "url": "https://www.slidphilabs.com/" },
-    "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "0", "description": "First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05 · encode/decode folder on site" }
+    "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "0", "description": "First 1 GB free once per IP, then $0.25/GB · encode/decode folder on site" }
   }
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"PCC Suite","description":"Hosted pay-per-suite compression. First 1 GB free once per address (lifetime), then $0.05/GB.","url":"https://www.slidphilabs.com/pps","brand":{"@type":"Brand","name":"Slid Phi Labs"},"offers":[{"@type":"Offer","name":"Suite usage","price":"0.05","priceCurrency":"USD","description":"Per GB of input after first 1 GB free once per address (lifetime)"},{"@type":"Offer","name":"PCC Pro monthly","price":"25","priceCurrency":"USD"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"PCC Suite","description":"Hosted pay-per-suite compression. First 1 GB free once per IP address (lifetime), then $0.05/GB.","url":"https://www.slidphilabs.com/pps","brand":{"@type":"Brand","name":"Slid Phi Labs"},"offers":[{"@type":"Offer","name":"Suite usage","price":"0.05","priceCurrency":"USD","description":"Per GB of input after first 1 GB free once per IP address (lifetime)"},{"@type":"Offer","name":"PCC Pro monthly","price":"25","priceCurrency":"USD"}]}</script>
 <link rel="stylesheet" href="/assets/site-header.css?v=50"/>
 <link rel="stylesheet" href="/assets/chrome.css?v=50"/>
 </head>
@@ -439,7 +439,7 @@ footer.suite-foot a{color:var(--teal-bright);font-weight:600}
         <p class="ribbon">Need a product seat? Chamber Year $200 → <a href="/chamber" style="color:inherit">/chamber</a>. PCC Pro year $250 → <a href="/pcc" style="color:inherit">/pcc</a>.</p>
         <h1>Suite meters encode / decode jobs</h1>
         <p class="lede">
-          Suite meters jobs — first <strong>1 GB free once per address (lifetime)</strong>, then $0.05/GB.
+          Suite meters jobs — first <strong>1 GB free once per IP</strong>, then $0.25/GB.
           Not a user seat. Not a Chamber unlock. Not a TRU8 production license.
           Browse the <strong>suite data folder</strong>, download samples, encode, decode, recompress.
         </p>
@@ -540,8 +540,8 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
     <aside class="quote-rail">
       <div class="panel">
         <div class="quote-label">Live quote</div>
-        <div class="quote-amt" id="quoteAmtEl">$<span id="amt">0.00</span><span class="cur">USD</span></div>
-        <p class="quote-sub" id="amtSub">First 1 GB free once per address (lifetime), then $0.05/GB (bulk $0.04/GB), min $0.05 (bulk $0.04/GB), min $0.05.</p>
+        <div class="quote-amt" id="quoteAmtEl">$<span id="amt">9.00</span><span class="cur">USD</span></div>
+        <p class="quote-sub" id="amtSub">First 1 GB free once per IP, then $0.25/GB. Card charges start at $1.</p>
         <div class="breakdown" id="breakdown"></div>
         <div class="cta-stack">
           <button type="button" class="btn btn-gold btn-lg btn-block" id="payBtn">Pay with Stripe →</button>
@@ -624,7 +624,7 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
 (function () {
   const PPP_LINK = 'https://www.slidphilabs.com/pps';
   /* Freemium usage — match api/suite-pricing.js */
-  const FREE_BYTES = 1 * 1024 * 1024 * 1024; // first 1 GB once per address
+  const FREE_BYTES = 1 * 1024 * 1024 * 1024; // first 1 GB once per IP (lifetime) — matches api/suite-pricing.js
   const PRODUCT_ADD = {
     auto: 0, zrw: 0, "cddg-split": 25, blackjack: 0,
     "shard-zip": 0, "shard-tsdb": 0, "slid-phi": 0,
@@ -634,7 +634,7 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
     timeseries: 1.05, json_series: 1.0, binary: 1.1, unknown: 1.0,
   };
   const OP_MULT = { compress: 1.0, decompress: 0.75, roundtrip: 1.15 };
-  const MIN_PAID = 100, MAX = 1000000; // $1 card minimum
+  const MIN_PAID = 100, MAX = 1000000; // $1 min — matches api/suite-pricing.js
   const TOOLS = [
     { id: 'auto', label: 'Auto', logo: null },
     { id: 'zrw', label: 'ZRW', logo: '/assets/logos/logo-zero-range-wave.jpg?v=13' },
@@ -673,7 +673,7 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
   function usageFee(billableBytes) {
     const gb = Math.max(0, Number(billableBytes) || 0) / (1024 * 1024 * 1024);
     if (gb <= 0) return 0;
-    return Math.round(gb * 25);
+    return Math.round(gb * 25); // $0.25/GB — matches api/suite-pricing.js
   }
 
   function computeQuote() {
@@ -746,17 +746,17 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
     if (q.free) {
       $('breakdown').innerHTML =
         '<div><span>Free showcase</span><strong>$0.00</strong></div>' +
-        '<div><span>Free cap</span><strong>1 GB once per address</strong></div>' +
+        '<div><span>Free cap</span><strong>1 GB once per IP</strong></div>' +
         '<div><span>Size · ' + fmtBytes(q.bytes) + '</span><strong>included</strong></div>' +
-        '<div><span>Then</span><strong>$0.05/GB. min $0.05.</strong></div>';
-      if ($('amtSub')) $('amtSub').textContent = 'FREE under 1 GB once per address · no Stripe';
+        '<div><span>Then</span><strong>$0.25/GB. Card charges start at $1.</strong></div>';
+      if ($('amtSub')) $('amtSub').textContent = 'FREE under 1 GB once per IP · no Stripe';
     } else {
       $('breakdown').innerHTML =
-        '<div><span>First 1 GB once per address</span><strong>$0.00</strong></div>' +
+        '<div><span>First 1 GB (once per IP)</span><strong>$0.00</strong></div>' +
         '<div><span>Usage · ' + fmtBytes(q.billable) + '</span><strong>$' + (q.size / 100).toFixed(2) + '</strong></div>' +
         '<div><span>Product add</span><strong>$' + (q.base / 100).toFixed(2) + '</strong></div>' +
         '<div><span>Data × op</span><strong>×' + q.mult.toFixed(2) + '</strong></div>';
-      if ($('amtSub')) $('amtSub').textContent = 'Usage · $0.05/GB after the free 1 GB · min $0.05';
+      if ($('amtSub')) $('amtSub').textContent = 'Usage · $0.25/GB after the free 1 GB · card charges start at $1';
     }
     const toolLabel = productEl.value === 'auto' && recommendedTool !== 'auto'
       ? 'auto → ' + recommendedTool
@@ -896,7 +896,7 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
     const btn = $('payBtn');
     if (!btn) return;
     if (q.free) {
-      btn.textContent = 'Continue free (under 1 GB once per address) →';
+      btn.textContent = 'Continue free (under 1 GB once per IP) →';
       btn.classList.remove('btn-gold');
       btn.classList.add('btn-teal');
     } else {
@@ -934,8 +934,8 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
       if (data.mode === 'free_showcase' || data.free || q.free) {
         paid = true;
         show(payMsg, 'ok',
-          '<strong>Free showcase</strong> — under the 1 GB free cap. No payment. Enter email and <strong>Submit project</strong>.');
-        showBanner('ok', 'Free tier active — first 1 GB once per address is $0. Submit your job below.');
+          '<strong>Free showcase</strong> — under the 1 GB once-per-IP free cap. No payment. Enter email and <strong>Submit project</strong>.');
+        showBanner('ok', 'Free tier active — first 1 GB once per IP is $0. Submit your job below.');
         setSteps();
         return;
       }
@@ -954,7 +954,7 @@ npx spl-pps x402-req --bytes 1e6 --class zeros</pre>
     } catch (e) {
       if (q.free) {
         paid = true;
-        show(payMsg, 'ok', 'Free under 1 GB once per address — submit project below.');
+        show(payMsg, 'ok', 'Free under 1 GB once per IP — submit project below.');
         setSteps();
       } else {
         show(payMsg, 'err', 'Checkout hiccup — opening Stripe…');

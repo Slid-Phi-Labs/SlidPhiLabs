@@ -20,55 +20,71 @@ const NAV = [
   ["/pricing", "Pricing"],
 ];
 
-const FOOT = [
-  ["/wiki", "SlidWiki"],
-  ["/rcrc", "Previous home"],
-  ["/rider", "Rider"],
-  ["/cuni", "CuNi"],
-  ["/warrant", "Warrant"],
-  ["/tollkeeper", "Tollkeeper"],
-  ["/chamber", "Chamber"],
-  ["/aos-ring", "Ring"],
-  ["/x402", "x402"],
-  ["/pay", "Pay"],
-  ["/awlpay", "AwLPay"],
-  ["/pcc", "PCC"],
-  ["/trustream", "TRUSTREAM"],
-  ["/silesia", "TNSSRC"],
-  ["/pulsar", "pulsar"],
-  ["/exactodds", "ExactOdds"],
-  ["/quikgater", "Quikgater"],
-  ["/specialist", "TRU8"],
-  ["/agents", "Agents"],
-  ["/humans", "Humans"],
-  ["/products", "Products"],
-  ["/pricing", "Pricing"],
-  ["/docs", "Docs"],
-  ["/about", "About"],
-  ["/npm", "npm"],
-  ["/mcp-service", "MCP"],
-  ["/box", "Try"],
-  ["/bench", "Bench"],
-  ["/press", "Press"],
-  ["/blog", "Blog"],
-  ["/toys", "Experiments"],
-  ["/lab-pass", "Lab Pass"],
-  ["/license", "License"],
-  ["/compare", "Compare"],
-  ["/standings", "Standings"],
-  ["/demos", "Demos"],
-  ["/olympiad", "Olympiad"],
-  ["/archive", "Archive"],
-  ["/updates", "Updates"],
-  ["/pps", "PPS"],
-  ["/signup", "Sign up"],
-  ["/access", "Access"],
-  ["/llms.txt", "llms.txt"],
-  ["/ai.txt", "ai.txt"],
-  ["/agents.txt", "agents.txt"],
-  ["/SKILL.md", "SKILL.md"],
-  ["/CUNI-PROTOCOL.md", "CuNi protocol"],
-  ["/status", "Status"],
+// Footer links grouped by pillar. Order inside each pillar preserves the
+// original FOOT order. No product appears in two pillars: Chamber is
+// Memory & Secrets only; TRUSTREAM/TNSSRC/PCC/pulsar and everything with no
+// other pillar home sit under Lab Bench. /rcrc ("Previous home") sits under
+// Lab Bench in the Archive sub-group.
+const FOOT_GROUPS = [
+  { h: "Platform", links: [
+    ["/wiki", "SlidWiki"],
+    ["/rider", "Rider"],
+    ["/cuni", "CuNi"],
+    ["/warrant", "Warrant"],
+    ["/tollkeeper", "Tollkeeper"],
+    ["/agents", "Agents"],
+    ["/humans", "Humans"],
+    ["/products", "Products"],
+    ["/docs", "Docs"],
+    ["/about", "About"],
+    ["/npm", "npm"],
+    ["/mcp-service", "MCP"],
+    ["/llms.txt", "llms.txt"],
+    ["/ai.txt", "ai.txt"],
+    ["/agents.txt", "agents.txt"],
+    ["/SKILL.md", "SKILL.md"],
+    ["/CUNI-PROTOCOL.md", "CuNi protocol"],
+    ["/status", "Status"],
+  ] },
+  { h: "Pay", links: [
+    ["/x402", "x402"],
+    ["/pay", "Pay"],
+    ["/awlpay", "AwLPay"],
+    ["/quikgater", "Quikgater"],
+    ["/pricing", "Pricing"],
+    ["/lab-pass", "Lab Pass"],
+    ["/license", "License"],
+  ] },
+  { h: "Memory &amp; Secrets", links: [
+    ["/chamber", "Chamber"],
+    ["/aos-ring", "Ring"],
+  ] },
+  { h: "Verification", links: [
+    ["/exactodds", "ExactOdds"],
+    ["/specialist", "TRU8"],
+    ["/bench", "Bench"],
+  ] },
+  { h: "Lab Bench", links: [
+    ["/pcc", "PCC"],
+    ["/trustream", "TRUSTREAM"],
+    ["/silesia", "TNSSRC"],
+    ["/pulsar", "pulsar"],
+    ["/box", "Try"],
+    ["/press", "Press"],
+    ["/blog", "Blog"],
+    ["/toys", "Experiments"],
+    ["/compare", "Compare"],
+    ["/standings", "Standings"],
+    ["/demos", "Demos"],
+    ["/olympiad", "Olympiad"],
+    ["/updates", "Updates"],
+    ["/pps", "PPS"],
+    ["/signup", "Sign up"],
+    ["/access", "Access"],
+  ], sub: { h: "Archive", links: [
+    ["/rcrc", "Previous home"],
+    ["/archive", "Archive"],
+  ] } },
 ];
 
 function esc(s) {
@@ -94,7 +110,14 @@ function chrome(here) {
 }
 
 function foot() {
-  return `<footer class="pf-foot">${FOOT.map(([h, l]) => `<a href="${h}">${l}</a>`).join("")}<p>Slid Phi Labs · Cherry Hill · <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a> · © 2026 Slid Phi Labs, Inc</p></footer>`;
+  const cols = FOOT_GROUPS.map((g) => {
+    const links = g.links.map(([h, l]) => `<a href="${h}">${l}</a>`).join("");
+    const sub = g.sub
+      ? `<h3>${g.sub.h}</h3>${g.sub.links.map(([h, l]) => `<a href="${h}">${l}</a>`).join("")}`
+      : "";
+    return `<div class="pf-foot-col"><h2>${g.h}</h2>${links}${sub}</div>`;
+  }).join("");
+  return `<footer class="pf-foot"><nav aria-label="Footer">${cols}</nav><p>Slid Phi Labs · Cherry Hill · <a href="mailto:corey@slidphilabs.com">corey@slidphilabs.com</a> · © 2026 Slid Phi Labs, Inc</p></footer>`;
 }
 
 function head({ title, desc, path }) {
@@ -172,7 +195,7 @@ add({
     S("is", "What it is", `<p>Agent Rider is the identity door of the lab. You register a seat and receive an <code>agent_id</code> plus a key. When that seat needs to act, Rider mints an ES256 JWT. The token lasts about 15 minutes (<code>expires_in</code> 900). You send it on later calls as <code>X-Agent-Rider</code>.</p><p>L0 is the issued identity. Self-service minting goes through L1. The lab issues L2, L3, and L4. Peers verify the signature locally with the keys at <a href="https://agentrider.fly.dev/.well-known/jwks.json">agentrider.fly.dev/.well-known/jwks.json</a>. When you cancel a credential, its id joins <a href="https://agentrider.fly.dev/.well-known/rider-revocation.json">the public revocation list</a>. Every clearance checks that list. The holder revokes with <code>POST /api/rider/revoke</code>. The JavaScript verifier in <code>@slidphi/agent-rider</code> clears a seat only after it has fetched that list.</p><p>Seats also talk. <code>POST /api/dm</code> delivers a message to another <code>agent_id</code>. The MCP endpoint is <code>POST https://agentrider.fly.dev/api/mcp</code>.</p>`),
     S("how", "How it works", `<ol><li>Register the agent. Keep the API key for that seat.</li><li>Issue a rider. You receive a JWT, the level, the scopes, and the expiry.</li><li>Present <code>X-Agent-Rider</code> to any gate that asks for a name.</li><li>A peer fetches JWKS, checks the ES256 signature, checks expiry, then checks the revocation list.</li></ol><p>A worked check: the verifier confirms the issuer is <code>agentrider.dev</code>, the algorithm is ES256, the signature matches the key id in JWKS, and the <code>jti</code> is absent from the revocation list. That seat is clear to proceed at the level printed in the token.</p>`),
     S("get", "What you receive", `<p>You receive a signed credential with <code>agent_id</code>, <code>operator_id</code>, level, scopes, and <code>jti</code>. You receive a public key set anyone can cache. You receive a revocation list and a revoke route so a cancelled passport stops clearing. The published verifier is the JavaScript package <code>@slidphi/agent-rider</code>.</p>`),
-    S("price", "Price", `<p>Solo is $12 a month ($120 a year): 1 identity, 500 verifications a month. Team is $49 a month ($490 a year): 10 identities, 5,000 verifications a month, Warrant included. Fleet is $199 a month ($1,990 a year): 100 identities, 50,000 verifications a month, Warrant and fleet watch included. Overage is $0.02 per verification, with a customer-set monthly cap (default twice the plan price) and an alert at 80% of the cap. Free: 1 identity, 100 verifications a month, no L3/L4 attestation. Agents buy through the x402 catalog. Each credential is a fresh 15-minute mint.</p>`),
+    S("price", "Price", `<p>Solo is $12 a month ($120 a year): 1 identity, 500 verifications a month. Team is $49 a month ($490 a year): 10 identities, 5,000 verifications a month, Warrant included. Fleet is $199 a month ($1,990 a year): 100 identities, 50,000 verifications a month, Warrant and fleet watch included. Overage is $0.025 per verification, with a customer-set monthly cap (default twice the plan price) and an alert at 80% of the cap. Free: 1 identity, 100 verifications a month, no L3/L4 attestation. Agents buy through the x402 catalog. Each credential is a fresh 15-minute mint.</p>`),
     S("with", "Works with", `<p>Add <a href="/wiki/warrant">Warrant</a> when the seat needs a mandate and a receipt. Add <a href="/wiki/cuni">CuNi</a> when the job should carry an exactness receipt from Python, Go, and JavaScript. Add <a href="/wiki/chamber">Chamber</a> when a secret needs two keys. <a href="/wiki/tollkeeper">Tollkeeper</a> prices the crossings on this road.</p>`),
     S("open", "Open it", `<p><a href="/rider">Rider page</a> · <a href="https://agentrider.fly.dev/">Open Agent-Rider</a> · <a href="https://agentrider.fly.dev/docs">Walkthrough</a> · <a href="/pay?sku=rider-solo">Solo seat</a></p>`),
   ],
@@ -243,10 +266,10 @@ add({
   title: "Chamber",
   kicker: "Secrets",
   h1: "Two keys. One seal. You keep the blob.",
-  lede: "Chamber seals JSON with AES-256-GCM and a two-of-two split. Opening takes both shares. The ciphertext stays with you.",
+  lede: "Chamber is a two-key vault: two-of-two AES-256-GCM secret sealing and custody-stamped envelopes, with opening sealed blobs free forever. JSON secret locking and attested signing are both modes of the same vault ($20/mo or $200/yr). The ciphertext stays with you.",
   summary: "Two shares. You store the blob. $20 or $200.",
   sections: [
-    S("is", "What it is", `<p>Chamber is the seal for structured secrets: API keys, webhook URLs, configuration. The cipher is AES-256-GCM. The key is split two-of-two. One share stays sealed. Both shares together open the JSON. You store the blob in your own files. The license you buy is the right to seal new secrets. A blob you already sealed still opens when both keys are present.</p>`),
+    S("is", "What it is", `<p>Chamber is the seal for structured secrets: API keys, webhook URLs, configuration. The cipher is AES-256-GCM. The key is split two-of-two. One share stays sealed. Both shares together open the JSON. You store the blob in your own files. The license you buy is the right to seal new secrets. A blob you already sealed still opens when both keys are present. Attested signing is the same vault's second mode: Chamber signs an envelope with a custody-stamped key so a verifier knows how much trust to place in it.</p>`),
     S("how", "How it works", `<ol><li>Bring the JSON and both shares to the seal.</li><li>Store the shares apart: two people, or a person and a vault.</li><li>Store the blob wherever you already keep backups.</li><li>Open it when both shares are in the same room again.</li></ol><p>Install <code>@slidphi/json-chamber-mcp</code> or the Python package <a href="https://pypi.org/project/json-chamber/">json-chamber</a>. The older unscoped npm name still installs and points here.</p>`),
     S("get", "What you receive", `<p>You receive a ciphertext you can back up, and two shares that only work as a pair. You receive a license to seal new secrets for the month or the year you bought.</p>`),
     S("price", "Price", `<p>$20 a month or $200 a year. Sealing is not metered. A 24-hour try is free; opening already-sealed blobs is free forever. SKUs <code>chamber-month</code> and <code>chamber-year</code>.</p>`),

@@ -209,11 +209,6 @@
         "url": "https://quikgater-worker.ceedotrock.workers.dev",
         "status": "live",
         "note": "2026-08-12: worker responds (bare GET 400 MISSING_URL_PARAM — expected)."
-      },
-      "team_mesh": {
-        "url": "https://spl-team-mesh.fly.dev",
-        "status": "live",
-        "note": "2026-08-12: headers present (x-team-mesh-version 1.2.0-smrt)."
       }
     }
   },
@@ -221,7 +216,7 @@
     "trade_name": "Slid Phi Labs",
     "public_author": "Corey Ptaszenski",
     "legal_name": "Slid Phi Labs, Inc",
-    "entity": "New Jersey limited liability company, effective October 16, 2026",
+    "entity": "Delaware corporation",
     "roles": [
       "author",
       "founder",

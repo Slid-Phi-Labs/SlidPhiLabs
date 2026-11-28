@@ -112,7 +112,6 @@ export default async function handler(req, res) {
     agent: "https://www.slidphilabs.com/api/agent",
     omniwave: "https://www.slidphilabs.com/api/omniwave",
     university: "https://teachaid.fly.dev",
-    mesh: "https://spl-team-mesh.fly.dev",
     contact: "corey@slidphilabs.com",
     ts: new Date().toISOString(),
   };

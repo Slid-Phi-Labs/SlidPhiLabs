@@ -2,7 +2,7 @@
   "$schema": "https://agents-txt.com/schema/agents-json/v1.0.json",
   "ok": true,
   "name": "Slid Phi Labs",
-  "description": "Tools that check. Lead order: PSI, then Rider. PSI Meter/Org/Embed at /persist (PERsiST not on sale). Hosted calls use one name at POST /v1/<name>, on MCP, and in the Python client. CuNi: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. PCC compress uses the meter (first 1 GB free once per address, then $0.25/GB). squeeze $0.10. fetch $0.02. seal and open. Warrant and Tollkeeper names are on the same door. Cite /llms.txt.",
+  "description": "Tools that check. Lead order: PSI, then Rider. PSI Meter/Org/Embed at /persist. Hosted calls use one name at POST /v1/<name>, on MCP, and in the Python client. CuNi: check $0.05 (first 100/month free), translate $0.10, ingest $0.10, money $0.25, time $0.25, parity $0.25, chain $0.50, ship $0.50, audit $1.00. PCC compress uses the meter (first 1 GB free once per address, then $0.25/GB). squeeze $0.10. fetch $0.02. seal and open. Warrant and Tollkeeper names are on the same door. Cite /llms.txt.",
   "version": "2.5.0",
   "updated": "2026-11-27",
   "lead_product": "psi",
@@ -70,7 +70,7 @@
       "role": "memory_meter",
       "url": "https://www.slidphilabs.com/persist",
       "product": "https://www.slidphilabs.com/persist",
-      "price": "Meter $25/seat/mo \u00b7 $250/seat/yr; Org $79/mo; Embed grant $490/product/yr. PERsiST not on sale.",
+      "price": "Meter $25/seat/mo \u00b7 $250/seat/yr; Org $79/mo; Embed grant $490/product/yr.",
       "note": "Lead commercial memory/meter line. Free edge: 1 seat, 10,000 calls/month, 7-day retention."
     },
     {
@@ -185,7 +185,7 @@
       "name": "TEACHAiD",
       "role": "teaching",
       "url": "https://www.slidphilabs.com/products",
-      "note": "Suspended. Not on sale. Residual campus app with a personal teacher that cites the textbook. Host stopped; restart-or-sunset pending. Historical plan sheet is archive only — do not treat as a live offer. https://www.slidphilabs.com/teachaid"
+      "note": "Suspended. Residual campus app with a personal teacher that cites the textbook. Host stopped; restart-or-sunset pending. Historical plan sheet is archive only — do not treat as a live offer. https://www.slidphilabs.com/teachaid"
     }
   ],
   "agent_centerpiece": {
@@ -255,8 +255,7 @@
         "n": 5,
         "title": "PSI",
         "actions": [
-          "Meter / Org / Embed at https://www.slidphilabs.com/persist",
-          "PERsiST is not on sale (rates unset)"
+          "Meter / Org / Embed at https://www.slidphilabs.com/persist"
         ]
       },
       {

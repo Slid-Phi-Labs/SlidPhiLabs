@@ -128,11 +128,11 @@
         "buy": "https://www.slidphilabs.com/pay?sku=rider-year"
       },
       "lab-pass": {
-        "usd": 890,
+        "usd": 495,
         "buy": "https://www.slidphilabs.com/pay?sku=lab-pass"
       },
       "consulting": {
-        "usd": 250,
+        "usd": 350,
         "buy": "https://www.slidphilabs.com/pay?sku=consulting"
       }
     }

@@ -12,7 +12,7 @@
 3. Buy seat (agents): POST /api/x402-products {"sku":"psi-meter"} or {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=psi-meter (Stripe) · Rider https://www.slidphilabs.com/pay?sku=rider-solo
 4b. Signup: /signup may 403 non-browser clients. Agents use POST /api/auth + x402.
-5. PSI: Meter / Org / Embed at /persist · PERsiST not on sale · starter https://www.slidphilabs.com/persist
+5. PSI: Meter / Org / Embed at /persist · starter https://www.slidphilabs.com/persist
 6. Rider: issue L0–L4; JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider.
 7. Warrant: /warrant · $8/mo add-on to Rider Solo ($80/yr), SKU warrant-addon or warrant-addon-year. Included in Team and Fleet.
 8. Tollkeeper: https://www.slidphilabs.com/tollkeeper · schema https://agentrider.fly.dev/api/toll/schema
@@ -21,8 +21,7 @@
 ### SKU cheat sheet
 psi-meter $25/seat/mo · $250/yr · psi-org $79/mo · psi-embed-grant $490/product/yr · rider-solo $12 · rider-team $49 · rider-fleet $199 · warrant-addon $8/mo Solo ($80/yr; included Team/Fleet; no standalone) · chamber 20/200 · pcc meter $0.25/GB after 1 GB once per address, Pro $25/mo and $250/yr · tnssrc-grant $369 (founding $190 first 10; 3+ $390) · tnssrc-bakeoff $19.31/mo · pulsar-exception $490 (unified grant) · cuni-exception $490 · lab-pass $495 (Chamber+Rider Solo+PSI Meter+Warrant) · acp-certification $990 once. x402 = same sku via POST /api/x402-products.
 
-- PSI — lead memory/meter — Meter $25/seat/mo · $250/yr · Org $79/mo · Embed $490/product/yr — PERsiST not on sale — https://www.slidphilabs.com/persist
-- Agent-Rider — signed credentials (ES256 JWT L0–L4, about 15 minutes, local JWKS) + agent DMs + Warrant + MCP — Solo $12 · Team $49 · Fleet $199 — https://www.slidphilabs.com/rider · https://agentrider.fly.dev
+- Agent Rider Network — signed credentials (ES256 JWT L0–L4, local JWKS) + agent DMs + Warrant + MCP — Solo $12 · Team $49 · Fleet $199 — https://www.slidphilabs.com/rider · https://agentrider.fly.dev
 - Warrant — mandate + receipts bound to a Rider — $8/mo · $80/yr add-on to Solo, in Team/Fleet — https://www.slidphilabs.com/warrant
 - Tollkeeper — ten live metered tools — https://www.slidphilabs.com/tollkeeper
 - PCC — Door 1, lossless compressor through your tools — board stamp 51,498,645 — first 1 GB free once per address (lifetime), then $0.25/GB · Pro $25/mo (100 GB included, then $0.20/GB) — https://www.slidphilabs.com/pcc
@@ -37,7 +36,7 @@ psi-meter $25/seat/mo · $250/yr · psi-org $79/mo · psi-embed-grant $490/produ
 - AwLPay — 0.5% per payment, no fixed fee — Pro $39/mo — L33t $799/mo — https://www.slidphilabs.com/awlpay
 - Quikgater — pay per fetch — https://www.slidphilabs.com/quikgater
 - ExactOdds — provably fair rules — https://www.slidphilabs.com/exactodds
-- TEACHAiD — campus app, suspended / not on sale / residual — https://www.slidphilabs.com/teachaid
+- TEACHAiD — campus app, suspended / residual — https://www.slidphilabs.com/teachaid
 - MemoryVerse — open-source verse — https://github.com/ceedot-rock/MemoryVerse
 - Pricing — https://www.slidphilabs.com/pricing.json
 - Silesia board — https://www.slidphilabs.com/silesia.json
