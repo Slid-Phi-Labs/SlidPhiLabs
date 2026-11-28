@@ -4,9 +4,9 @@
 // What it checks:
 //   1. Every canonical figure string appears in its expected live page(s).
 //      teachaid.html is EXCLUDED for price (disputed TeachAid tier question).
-//      tollkeeper.html assertions EXCLUDE Toll 5 (disputed $0.10 vs $0.05).
+//      Toll 5 is asserted at $0.05 (ruled by the owner Nov 28, 2026).
 //   2. pricing.json math keys hold the canonical values, and the disputed
-//      object lists exactly the three blocked items.
+//      object lists exactly the two blocked items.
 //   3. assets/pricing-data.mjs still deep-equals pricing.json (hand-sync).
 //   4. NEW 2026-11-22 (diligence): Rider annual prices on /pricing, the
 //      Merchant Gate pointer, the homepage card periods, the Lab Pass parts
@@ -18,9 +18,9 @@
 //      - docs/site/blog/ (dated archive posts; the $369 Chamber-year anchor
 //        was still fixed there, but post bodies keep their history), and
 //      - docs/site/assets/web-samples/ (sample fixtures, not live pages).
-//      The three disputed items are not stale patterns and are never asserted.
+//      The two disputed items are not stale patterns and are never asserted.
 // If this fails, fix the PAGES (or pricing.json), not the script — unless the
-// failure is one of the three disputed items, which this script already excludes.
+// failure is one of the two disputed items, which this script already excludes.
 
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, relative, sep } from "node:path";
@@ -88,11 +88,12 @@ const EXPECT = [
   // lab-pass.html — composition verbatim from the live page
   ["lab-pass.html", "Lab Pass $495/year: Chamber (1 year) + Rider Solo (1 year) + PSI Meter 1 seat (1 year) + Warrant add-on (1 year)", "Lab Pass composition"],
   ["lab-pass.html", "Parts sum $650; the bundle is $495 (24% off)", "Lab Pass parts sum"],
-  // tollkeeper.html — Toll 5 EXCLUDED (disputed $0.10 vs $0.05); attest-exactness tool excluded too
+  // tollkeeper.html — Toll 5 at the ruled $0.05; attest-exactness tool excluded too
   ["tollkeeper.html", "$0.005 <span class=\"spl-note\">per check · 100/mo free</span>", "Toll 1 identity"],
   ["tollkeeper.html", "$0.02 <span class=\"spl-note\">per lookup · listing free</span>", "Toll 2 lookup"],
   ["tollkeeper.html", "1% <span class=\"spl-note\">escrow routing</span>", "Toll 3 escrow"],
   ["tollkeeper.html", "$0.01 <span class=\"spl-note\">issue · $0.005 check</span>", "Toll 4 grant"],
+  ["tollkeeper.html", "$0.05 <span class=\"spl-note\">per check</span>", "Toll 5 exactness"],
   ["tollkeeper.html", "1% <span class=\"spl-note\">at stake</span>", "Toll 6 bond"],
   ["tollkeeper.html", "$0.02 <span class=\"spl-note\">hosted transfer · format free</span>", "Toll 7 memory transfer"],
   ["tollkeeper.html", "$0.01 <span class=\"spl-note\">per MB in</span>", "tool pcc-compress / trustream-pack"],
@@ -139,6 +140,7 @@ const MATH_EXPECT = {
   teachaid_student: 6, teachaid_student_year: 60, teachaid_pilot: 2500,
   tollkeeper_identity: 0.005, tollkeeper_lookup: 0.02, tollkeeper_promote: 9,
   tollkeeper_escrow_pct: 1, tollkeeper_grant_issue: 0.01, tollkeeper_grant_check: 0.005,
+  tollkeeper_toll_5_exactness: 0.05,
   tollkeeper_bond_pct: 1, tollkeeper_memory_transfer: 0.02,
   tollkeeper_pcc_compress: 0.01, tollkeeper_pcc_verify: 0.02,
   tollkeeper_attest_notarize: 0.01, tollkeeper_exactodds_draw: 0.01,
@@ -156,16 +158,14 @@ for (const [key, value] of Object.entries(MATH_EXPECT)) {
 if (pricing.products?.acp?.certification?.usd !== 990) {
   failures.push(`pricing.json products.acp.certification.usd: expected 990, got ${pricing.products?.acp?.certification?.usd}`);
 }
-if (pricing.products?.tollkeeper?.tolls?.toll_5_identity
-    || pricing.products?.tollkeeper?.tolls?.toll_5_exactness
-    || JSON.stringify(pricing.products?.tollkeeper ?? {}).includes("toll_5")) {
-  failures.push("pricing.json products.tollkeeper must not contain Toll 5 (disputed)");
+if (pricing.products?.tollkeeper?.tolls?.toll_5_exactness?.usd_per_check !== 0.05) {
+  failures.push("pricing.json products.tollkeeper.tolls.toll_5_exactness.usd_per_check: expected 0.05");
 }
 if (pricing.products?.teachaid?.disputed !== true) {
   failures.push("pricing.json products.teachaid must be marked disputed:true");
 }
 const disputedKeys = Object.keys(pricing.disputed ?? {}).filter((k) => k !== "note").sort();
-const wantDisputed = ["pcc_free_window", "teachaid", "tollkeeper_toll_5_exactness"].sort();
+const wantDisputed = ["pcc_free_window", "teachaid"].sort();
 if (JSON.stringify(disputedKeys) !== JSON.stringify(wantDisputed)) {
   failures.push(`pricing.json disputed keys: expected ${wantDisputed.join(",")}, got ${disputedKeys.join(",")}`);
 }

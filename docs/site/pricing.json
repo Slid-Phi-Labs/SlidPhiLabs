@@ -3,7 +3,7 @@
   "inbox": "corey@slidphilabs.com",
   "site": "https://www.slidphilabs.com",
   "methods": "https://www.slidphilabs.com/METHODS.md",
-  "rule": "One Shared Spine, three heads, four doors. Never expand. DECODE_OK. Door 1 PCC: metered $0.25/GB of input, first 1 GB free once per IP address (lifetime, no monthly reset); Pro $25/mo including 100 GB, then $0.20/GB; customer-set monthly spend cap (default $25), alert at 80% of cap/allowance; x402 per-call for agents, Stripe monthly for humans. TRUSTREAM rides the PCC plan. Door 2 TNSSRC: AGPL $0 · closed grant $369/product/year via the tnssrc-grant SKU (TNSSRC 0.1.0 only) · founding $190 for the first 10 grants · 3+ products $390 each. Silesia total withdrawn 2026-11-26 pending re-proof; no verified total is stated. Door 3 TRUSTREAM: included with PCC. Door 4 pulsar: $0 GPLv3 · closed embed $490/product/year via the unified grant. Door 5 PERsiST (Persistent Super Intelligence; memory that starts at BASE): Solo $13.31 · Crew $39 · Team $49 · psi Lab Pass $490/yr. First 5,000 tokens/day folded free. Rider: Solo $12/mo ($120/yr, 1 identity, 500 verifications/month) · Team $49/mo ($490/yr, 10 identities, 5,000 verifications/month, Warrant included) · Fleet $199/mo ($1,990/yr, 100 identities, 50,000 verifications/month, Warrant + fleet watch included); overage $0.025 per verification, customer-set monthly cap (default 2× plan price), alert at 80%; free: 1 identity, 100 verifications/month, no L3/L4 attestation. Warrant: $8/month add-on to Solo ($80/year), included in Team and Fleet, no standalone SKU. Chamber $20/mo · $200/yr; 24-hour try; opening already-sealed blobs free forever; sealing not metered. CuNi Studio $0 · closed-app grant $490/app/year · per-check API: first 100 checks/month free, then $0.05 per check. Lab Pass $495/yr (Chamber 1 year + Rider Solo 1 year + PSI Meter 1 seat 1 year + Warrant add-on 1 year; parts sum $650; PCC/compression out; no monthly version; Foundry+ retired). Quikgater $0.02 per fetch; first 100 fetches/month free; customer-set monthly cap (default $10), alert at 80%. TRU8 is the zeros specialist. AWARE is a retired alias for PCC. PSI Meter $25/seat/mo, $250/seat/yr: 250,000 logged calls/month included, then $2 per additional 100,000 calls; free: 1 seat, 10,000 calls/month, 7-day retention. PSI Embed: unified grant $490/product/year; psi-month/psi-year retired. PSI Org $79/mo. GitDepot live and functional: $15/seat/mo, $150/seat/yr; 100 GB pooled storage included, then $0.10/GB/month overage; free: 1 team, 3 seats, 10 GB, 30-day audit retention; invite-only, contact corey@slidphilabs.com. ACP $0, open standard; ACP Conformant certification $990 one-time (3 free pilot certifications, assessment criteria published). TeachAid student $6/mo, $60/yr; free: 1 course, text-only cited answers, no voice; institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. Consulting $175/hour, 2-hour minimum, scoped SOW. OSS support $199/year per public library. Unified grant $490/product/year; founding $190 for the first 10 grants; 3+ products $390 each; written grant, human-fulfilled, one product + one year per grant, renewal at then-current schedule price. Tollkeeper: identity $0.005/check, first 100/mo free · lookup $0.02, listing free, Promote $9/mo · escrow 1% · grant $0.01 issue, $0.005 check · bond 1% at stake · memory transfer $0.02 hosted, format free. (Exactness Toll 5 is disputed — see \"disputed\"; no Tollkeeper figure is stated here as canonical beyond the undisputed tolls.) AwLPay: free 0.5%/payment, no fixed fee · Pro $39/mo · L33t $799/mo · $1 minimum send. CuNi hosted calls: check $0.05 (first 100/mo free) · translate $0.10 · ingest $0.10 · money $0.25 · time $0.25 · parity $0.25 · chain $0.50 · ship $0.50 · audit $1.00 · squeeze $0.10 · Studio $0 · closed-app grant $490/yr. Every meter states its free allowance, a customer-set cap, and an 80% alert. Cap defaults are stated per meter where they apply (PCC $25, Rider 2x plan price, Quikgater $10).",
+  "rule": "One Shared Spine, three heads, four doors. Never expand. DECODE_OK. Door 1 PCC: metered $0.25/GB of input, first 1 GB free once per IP address (lifetime, no monthly reset); Pro $25/mo including 100 GB, then $0.20/GB; customer-set monthly spend cap (default $25), alert at 80% of cap/allowance; x402 per-call for agents, Stripe monthly for humans. TRUSTREAM rides the PCC plan. Door 2 TNSSRC: AGPL $0 · closed grant $369/product/year via the tnssrc-grant SKU (TNSSRC 0.1.0 only) · founding $190 for the first 10 grants · 3+ products $390 each. Silesia total withdrawn 2026-11-26 pending re-proof; no verified total is stated. Door 3 TRUSTREAM: included with PCC. Door 4 pulsar: $0 GPLv3 · closed embed $490/product/year via the unified grant. Door 5 PERsiST (Persistent Super Intelligence; memory that starts at BASE): Solo $13.31 · Crew $39 · Team $49 · psi Lab Pass $490/yr. First 5,000 tokens/day folded free. Rider: Solo $12/mo ($120/yr, 1 identity, 500 verifications/month) · Team $49/mo ($490/yr, 10 identities, 5,000 verifications/month, Warrant included) · Fleet $199/mo ($1,990/yr, 100 identities, 50,000 verifications/month, Warrant + fleet watch included); overage $0.025 per verification, customer-set monthly cap (default 2× plan price), alert at 80%; free: 1 identity, 100 verifications/month, no L3/L4 attestation. Warrant: $8/month add-on to Solo ($80/year), included in Team and Fleet, no standalone SKU. Chamber $20/mo · $200/yr; 24-hour try; opening already-sealed blobs free forever; sealing not metered. CuNi Studio $0 · closed-app grant $490/app/year · per-check API: first 100 checks/month free, then $0.05 per check. Lab Pass $495/yr (Chamber 1 year + Rider Solo 1 year + PSI Meter 1 seat 1 year + Warrant add-on 1 year; parts sum $650; PCC/compression out; no monthly version; Foundry+ retired). Quikgater $0.02 per fetch; first 100 fetches/month free; customer-set monthly cap (default $10), alert at 80%. TRU8 is the zeros specialist. AWARE is a retired alias for PCC. PSI Meter $25/seat/mo, $250/seat/yr: 250,000 logged calls/month included, then $2 per additional 100,000 calls; free: 1 seat, 10,000 calls/month, 7-day retention. PSI Embed: unified grant $490/product/year; psi-month/psi-year retired. PSI Org $79/mo. GitDepot live and functional: $15/seat/mo, $150/seat/yr; 100 GB pooled storage included, then $0.10/GB/month overage; free: 1 team, 3 seats, 10 GB, 30-day audit retention; invite-only, contact corey@slidphilabs.com. ACP $0, open standard; ACP Conformant certification $990 one-time (3 free pilot certifications, assessment criteria published). TeachAid student $6/mo, $60/yr; free: 1 course, text-only cited answers, no voice; institutional pilot $2,500 per campus per semester, up to 500 students, onboarding included. Consulting $175/hour, 2-hour minimum, scoped SOW. OSS support $199/year per public library. Unified grant $490/product/year; founding $190 for the first 10 grants; 3+ products $390 each; written grant, human-fulfilled, one product + one year per grant, renewal at then-current schedule price. Tollkeeper: identity $0.005/check, first 100/mo free · lookup $0.02, listing free, Promote $9/mo · escrow 1% · grant $0.01 issue, $0.005 check · exactness $0.05/check · bond 1% at stake · memory transfer $0.02 hosted, format free. AwLPay: free 0.5%/payment, no fixed fee · Pro $39/mo · L33t $799/mo · $1 minimum send. CuNi hosted calls: check $0.05 (first 100/mo free) · translate $0.10 · ingest $0.10 · money $0.25 · time $0.25 · parity $0.25 · chain $0.50 · ship $0.50 · audit $1.00 · squeeze $0.10 · Studio $0 · closed-app grant $490/yr. Every meter states its free allowance, a customer-set cap, and an 80% alert. Cap defaults are stated per meter where they apply (PCC $25, Rider 2x plan price, Quikgater $10).",
   "measured": {
     "silesia_raw": 211938580,
     "zpaq_m5": 39112870,
@@ -64,6 +64,7 @@
     "tollkeeper_escrow_pct": 1,
     "tollkeeper_grant_issue": 0.01,
     "tollkeeper_grant_check": 0.005,
+    "tollkeeper_toll_5_exactness": 0.05,
     "tollkeeper_bond_pct": 1,
     "tollkeeper_memory_transfer": 0.02,
     "tollkeeper_pcc_compress": 0.01,
@@ -303,6 +304,7 @@
         "toll_2_lookup": { "usd_per_lookup": 0.02, "listing": "free", "promote_usd_per_month": 9, "plain": "Lookup $0.02, listing free, Promote $9/mo." },
         "toll_3_escrow": { "pct": 1, "plain": "Escrow routing 1%." },
         "toll_4_grant": { "usd_per_issue": 0.01, "usd_per_check": 0.005, "plain": "Grant $0.01 issue, $0.005 check." },
+        "toll_5_exactness": { "usd_per_check": 0.05, "plain": "Exactness check $0.05/check." },
         "toll_6_bond": { "pct_at_stake": 1, "plain": "Bond 1% at stake." },
         "toll_7_memory_transfer": { "usd_per_hosted_transfer": 0.02, "format": "free", "plain": "Memory transfer $0.02 hosted, format free." }
       },
@@ -317,7 +319,7 @@
         "chamber_seal": { "usd": 0.02 },
         "awlpay_quote": { "usd": 0.005 }
       },
-      "plain": "Tollkeeper protection tolls 1-4, 6, 7 and nine metered tools as listed. Toll 5 (exactness check) is DISPUTED and deliberately absent here — see top-level \"disputed\"."
+      "plain": "Tollkeeper protection tolls 1-7 and nine metered tools as listed."
     },
     "awlpay": {
       "name": "AwLPay",
@@ -655,25 +657,14 @@
         ]
       },
       "action": "Free-window wording was not harmonized anywhere."
-    },
+    }
+  },
+  "resolved": {
     "tollkeeper_toll_5_exactness": {
       "question": "Toll 5 exactness check: $0.10 or $0.05 per check?",
-      "values": {
-        "usd_0_10": 0.1,
-        "usd_0_05": 0.05
-      },
-      "holding_files": {
-        "usd_0_10": [
-          "docs/site/tollkeeper.html:88"
-        ],
-        "usd_0_05": [
-          "docs/site/wiki/tollkeeper.html:53",
-          "docs/site/llms.txt:56",
-          "docs/site/index.html:166",
-          "docs/site/tollkeeper.html:129 (ten-tool list: attest-exactness)"
-        ]
-      },
-      "action": "No Tollkeeper figure was changed. Toll 5 is excluded from products.tollkeeper and from check-prices.mjs assertions."
+      "ruling": "$0.05 per check, ruled by the owner Nov 28, 2026.",
+      "action": "Toll 5 added to products.tollkeeper at $0.05 per check; the figure is now canonical."
     }
   }
 }
+

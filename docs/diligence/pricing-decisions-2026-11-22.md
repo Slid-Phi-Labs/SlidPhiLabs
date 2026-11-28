@@ -165,6 +165,21 @@ it.
 products.html's $0.10 line was left as-is; harmonizing it before the owner
 rules would present a disputed figure as fact.
 
+### Resolution (Nov 28, 2026 — owner ruled $0.05)
+
+Corey ruled $0.05 per check ("`.05 plz`", Nov 28, 2026). Applied the same
+day, all local/unpushed: Toll 5 added to pricing.json
+`products.tollkeeper` at $0.05 with `math.tollkeeper_toll_5_exactness`,
+the `disputed` entry moved to a new top-level `resolved` record,
+pricing-data.mjs hand-synced, check-prices.mjs assertions updated to
+assert Toll 5 at $0.05 (guard passes), tollkeeper.html:88 and
+products.html corrected to $0.05, EXACTNESS_SUBSTRATE.md corrected to
+$0.05/check, and both Nov 22 decks re-rendered with the $0.05 figure
+(cuni-deck-nov22 audit slide, slid-phi-labs-deck-nov22 CuNi slide).
+The cuni-proof tool at $0.10 is a distinct metered tool and was NOT
+changed. The two remaining disputed items (TeachAid tier, PCC
+free-window) are untouched by this ruling.
+
 ## Other findings (recorded, not all decided)
 
 1. PERsiST Solo annual is a deeper discount than the Rider rule:
@@ -242,7 +257,7 @@ What the band check concluded:
 ## Open items for the owner (no price decision needed from Corey)
 
 - [OWNER TO CONFIRM: does a TeachAid Pro tier exist?] (Decision 6)
-- [OWNER TO CONFIRM: Toll 5 exactness $0.10 or $0.05?] (Decision 8)
+- [RESOLVED Nov 28, 2026: $0.05 per check] Toll 5 exactness (Decision 8)
 - Open items for Claude: PERsiST catalog SKUs (§ Other findings 2),
   catalog quirks (§ Other findings 4), remaining ARN rename sweep
   (§ Other findings 7), monthly-wording PCC pages (Decision 7).
