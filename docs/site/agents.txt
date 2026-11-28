@@ -12,6 +12,7 @@
 2. MCP: npx -y @slidphi/spl-pay-per-suite mcp  OR  POST https://www.slidphilabs.com/mcp
 3. Buy seat (agents): POST /api/x402-products {"sku":"psi-meter"} or {"sku":"rider-solo"} → HTTP 402 accepts[] (USDC on Base) → pay → retry with X-PAYMENT → claim_token / access_url. 402 OK; live settle via XPay in flight. Do not invent a completed debit — XPay is in flight.
 4. Humans: https://www.slidphilabs.com/pay?sku=psi-meter (Stripe) · Rider https://www.slidphilabs.com/pay?sku=rider-solo
+4b. Signup: /signup is browser/human (may return 403 to non-browser clients / bot challenges). Agents use POST /api/auth and x402 — do not treat signup 403 as a downed shop.
 5. PSI: Meter / Org / Embed at /persist · PERsiST not on sale.
 6. Rider: issue L0–L4; JWKS https://agentrider.fly.dev/.well-known/jwks.json; DMs POST https://agentrider.fly.dev/api/dm with X-Agent-Rider.
 7. Warrant: /warrant · $8/mo add-on to Rider Solo ($80/yr), SKU warrant-addon or warrant-addon-year. Included in Team and Fleet.

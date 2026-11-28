@@ -52,13 +52,14 @@
       ],
     },
     persist: {
-      name: "PSI Meter",
+      name: "PSI",
       plans: [
         { sku: "psi-meter", cycle: "m", label: "PSI Meter", sub: "The call log, per seat" },
         { sku: "psi-org", cycle: "m", label: "PSI Org", sub: "Monthly audits plus enforcement" },
         { sku: "psi-meter-year", cycle: "y", label: "PSI Meter", sub: "The call log, per seat" },
+        { sku: "psi-embed-grant", label: "PSI Embed grant", sub: "Shipped code, one product / year" },
       ],
-      note: "PERsiST session rates are not set yet, so PERsiST itself does not check out. PSI Meter is its own seat.",
+      note: "PERsiST session rates are unset, so PERsiST itself does not check out. Buy PSI Meter / Org / Embed here.",
     },
     cuni: {
       name: "CuNi",
@@ -90,8 +91,9 @@
       plans: [{ sku: "consulting", label: "Lab consulting", sub: "2-hour minimum" }],
     },
     acp: {
-      name: "ACP certification",
-      plans: [{ sku: "acp-certification", label: "ACP Conformant assessment", sub: "One-time" }],
+      name: "ArP",
+      plans: [{ sku: "acp-certification", label: "ArP Conformant assessment", sub: "One-time $990" }],
+      note: "ArP is $0 open standard. Conformant certification is $990 once. /acp is the page alias.",
     },
     "rider-ops": {
       name: "Rider Ops",
